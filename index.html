@@ -1,2 +1,259 @@
-SITE IS ON VERCEL NOW
-Czarnecki.ai
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tomasz Czarnecki — AI Product Engineer</title>
+<meta name="description" content="Tomasz Czarnecki shapes AI systems from intent to delivery. Owned product direction for three production AI systems at Heineken influencing €3.2B in spend.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:#F4F1E8; }
+  ::selection{ background:#2D2A1E; color:#F4F1E8; }
+  @keyframes riseIn{ from{ opacity:0; transform:translateY(14px);} to{ opacity:1; transform:translateY(0);} }
+
+  /* Responsive — the source design is desktop-first; these reflow it for tablet/mobile.
+     !important is required to override the design's inline styles. */
+  @media (max-width:1000px){
+    .cards{ grid-template-columns:repeat(2,1fr) !important; }
+    .about-grid{ grid-template-columns:1fr !important; gap:44px !important; }
+    .journey-grid{ grid-template-columns:repeat(2,1fr) !important; }
+    .hero{ padding:120px 0 88px !important; }
+  }
+  @media (max-width:640px){
+    .wrap{ padding-left:24px !important; padding-right:24px !important; }
+    .bar{ padding-left:24px !important; padding-right:24px !important; }
+    .cards, .journey-grid{ grid-template-columns:1fr !important; }
+    .hero{ padding:96px 0 72px !important; }
+    .nav-links{ gap:18px !important; }
+    .resume-top{ display:none !important; }
+    .banner{ height:300px !important; }
+    .hero-title{ padding:8px 0 !important; }
+  }
+</style>
+</head>
+<body>
+<div style="--accent:#B36656; --contact-bg:#2D2A1E; --contact-fg:#F4F1E8; --contact-sub:rgba(244,241,232,0.62); --contact-line:rgba(244,241,232,0.16); background:#F4F1E8; color:#2D2A1E; font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden;">
+
+  <header style="position:sticky; top:0; z-index:50; background:rgba(244,241,232,0.82); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid rgba(45,42,30,0.08);">
+    <div class="bar" style="max-width:1360px; margin:0 auto; padding:20px 48px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
+      <a href="#top" style="font-family:'Playfair Display',serif; font-style:italic; font-size:23px; color:#2D2A1E; text-decoration:none; letter-spacing:0.01em;"><span style="font-weight:500; font-style:normal;">Tomasz Czarnecki</span></a>
+      <nav class="nav-links" style="display:flex; gap:38px; align-items:center;">
+        <a href="#work" style="font-size:14px; font-weight:500; color:#2D2A1E; text-decoration:none; opacity:0.78;">Work</a>
+        <a href="#about" style="font-size:14px; font-weight:500; color:#2D2A1E; text-decoration:none; opacity:0.78;">About</a>
+        <a href="#contact" style="font-size:14px; font-weight:500; color:#2D2A1E; text-decoration:none; opacity:0.78;">Contact</a>
+      </nav>
+      <a class="resume-top" href="assets/Tomasz-Czarnecki-CV.pdf" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; padding:11px 22px; border-radius:999px; background:#2D2A1E; color:#F4F1E8; font-size:14px; font-weight:500; text-decoration:none;">Download Resume</a>
+    </div>
+  </header>
+
+  <main id="top" style="width:100%;">
+
+    <!-- HERO -->
+    <section class="hero" style="padding:164px 0; padding-left:0;">
+      <div class="wrap" style="width:100%; max-width:1360px; margin:0 auto; padding:0 48px; display:flex; flex-wrap:wrap; gap:56px; align-items:center; justify-content:space-between;">
+        <div style="flex:1 1 480px; min-width:0; display:flex; flex-direction:column;">
+          <h1 style="font-family:'Playfair Display',serif; font-weight:400; line-height:1.04; letter-spacing:-0.015em; margin:0; color:#2D2A1E;"><span class="hero-title" style="display:block; margin:0; font-size:clamp(2.7rem,6.6vw,88px); line-height:1; padding:24px 0;">Building AI products with ownership.</span></h1>
+          <p style="font-size:clamp(1.05rem,1.4vw,1.3rem); line-height:1.62; color:#6F6A5C; max-width:46ch; margin:30px 0 0 0;">I shape AI systems from intent to delivery. At Heineken I owned the product direction for three production AI systems influencing €3.2B in spend. Now building independently with a focus on agentic workflows.</p>
+          <div style="display:flex; flex-wrap:wrap; gap:16px; margin-top:40px;">
+            <a href="assets/Tomasz-Czarnecki-CV.pdf" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; padding:16px 30px; border-radius:999px; background:#2D2A1E; color:#F4F1E8; font-size:15px; font-weight:500; text-decoration:none;">Download Resume</a>
+            <a href="#contact" style="display:inline-flex; align-items:center; gap:8px; padding:16px 30px; border-radius:999px; border:1px solid rgba(45,42,30,0.32); color:#2D2A1E; font-size:15px; font-weight:500; text-decoration:none;">Get in touch <span style="color:var(--accent,#B36656);">→</span></a>
+          </div>
+        </div>
+        <div style="flex:0 1 400px; display:flex; justify-content:center;">
+          <div style="width:min(400px,82vw); aspect-ratio:1/1; border-radius:999px; overflow:hidden; background:#BBC7D6; box-shadow:inset 0 0 0 1px rgba(45,42,30,0.10);">
+            <img src="assets/portrait.jpg" alt="Tomasz Czarnecki" style="width:100%; height:100%; object-fit:cover; object-position:center 22%;">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SELECTED WORK -->
+    <section id="work" style="padding:88px 0; scroll-margin-top:90px; color:#F4F1E8; background-color:#2D2A1E;">
+      <div class="wrap" style="max-width:1360px; margin:0 auto; padding:0 48px;">
+        <div style="display:flex; flex-direction:column; align-items:flex-start; gap:14px; margin-bottom:48px;">
+          <h2 style="font-family:'Playfair Display',serif; font-weight:400; font-size:clamp(2rem,3.8vw,3.1rem); letter-spacing:-0.01em; margin:0; color:#F4F1E8;">AI Case Studies</h2>
+          <span style="font-size:14px; color:rgba(244,241,232,0.6);">Heineken · Global Analytics &amp; AI Hub</span>
+        </div>
+        <div class="cards" style="display:grid; grid-template-columns:repeat(3,1fr); gap:28px;">
+          <!-- Card 1 -->
+          <div class="card" style="display:flex; flex-direction:column; background:#F4F1E8; border-radius:2px; overflow:hidden; color:inherit; box-shadow:0 2px 12px rgba(0,0,0,0.18);">
+            <div style="padding:28px 28px 0 28px;">
+              <div style="font-family:ui-monospace,'SFMono-Regular',Menlo,monospace; font-size:11px; letter-spacing:0.14em; color:#B36656;">MERCURY · 01</div>
+              <h3 style="font-family:'Playfair Display',serif; font-weight:400; font-size:clamp(1.7rem,2.2vw,2.1rem); line-height:1.1; margin:12px 0 0 0; color:#2D2A1E;">Allocation AI</h3>
+            </div>
+            <div style="margin:22px 28px 0 28px; position:relative; border-radius:2px; overflow:hidden; aspect-ratio:4/3;">
+              <img src="assets/case-allocation-ai.jpg" alt="Allocation AI" style="width:100%; height:100%; object-fit:cover; object-position:center top;">
+            </div>
+            <div style="display:flex; flex-direction:column; flex:1; padding:22px 28px 24px 28px;">
+              <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:12px;">
+                <span style="font-family:'Playfair Display',serif; font-size:1.9rem; line-height:1; color:#813F32;">€600M</span>
+                <span style="font-size:12.5px; color:#9E5E4A;">targeted yearly uplift by 2029</span>
+              </div>
+              <p style="font-size:15px; line-height:1.55; color:#6F6A5C; margin:0;">Led the product direction for a Bayesian allocation system that set annual promo budgets across markets, brands, and channels. Shaped how non-technical stakeholders could interact with complex optimization models — turning €3.2B in spend decisions from intuition-driven to data-driven. Targeted €600M yearly revenue uplift at scale.</p>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="card" style="display:flex; flex-direction:column; background:#F4F1E8; border-radius:2px; overflow:hidden; color:inherit; box-shadow:0 2px 12px rgba(0,0,0,0.18);">
+            <div style="padding:28px 28px 0 28px;">
+              <div style="font-family:ui-monospace,'SFMono-Regular',Menlo,monospace; font-size:11px; letter-spacing:0.14em; color:#728EA5;">REVENUE MANAGEMENT · 02</div>
+              <h3 style="font-family:'Playfair Display',serif; font-weight:400; font-size:clamp(1.7rem,2.2vw,2.1rem); line-height:1.1; margin:12px 0 0 0; color:#2D2A1E;">Promo Advisor</h3>
+            </div>
+            <div style="margin:22px 28px 0 28px; position:relative; border-radius:2px; overflow:hidden; aspect-ratio:4/3;">
+              <img src="assets/case-promo-advisor.jpg" alt="Promo Advisor" style="width:100%; height:100%; object-fit:cover; object-position:center top;">
+            </div>
+            <div style="display:flex; flex-direction:column; flex:1; padding:22px 28px 24px 28px;">
+              <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:12px;">
+                <span style="font-family:'Playfair Display',serif; font-size:1.9rem; line-height:1; color:#223959;">17</span>
+                <span style="font-size:12.5px; color:#728EA5;">markets live · 30–40% less planning time</span>
+              </div>
+              <p style="font-size:15px; line-height:1.55; color:#6F6A5C; margin:0;">Owned the product strategy and user experience for an AI-driven promo management platform deployed across 17 markets. Defined and shipped three core modules (Diagnostics, Scenario Simulator, and Calendar Optimizer) that helped commercial teams move from manual planning to structured, data-informed decision making — cutting planning time by 30–40%.</p>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="card" style="display:flex; flex-direction:column; background:#F4F1E8; border-radius:2px; overflow:hidden; color:inherit; box-shadow:0 2px 12px rgba(0,0,0,0.18);">
+            <div style="padding:28px 28px 0 28px;">
+              <div style="font-family:ui-monospace,'SFMono-Regular',Menlo,monospace; font-size:11px; letter-spacing:0.14em; color:#94A891;">MEDIA EXECUTION · 03</div>
+              <h3 style="font-family:'Playfair Display',serif; font-weight:400; font-size:clamp(1.7rem,2.2vw,2.1rem); line-height:1.1; margin:12px 0 0 0; color:#2D2A1E;">Smart Flighting</h3>
+            </div>
+            <div style="margin:22px 28px 0 28px; position:relative; border-radius:2px; overflow:hidden; aspect-ratio:4/3;">
+              <img src="assets/case-smart-flighting.jpg" alt="Smart Flighting" style="width:100%; height:100%; object-fit:cover; object-position:center top;">
+            </div>
+            <div style="display:flex; flex-direction:column; flex:1; padding:22px 28px 24px 28px;">
+              <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:12px;">
+                <span style="font-family:'Playfair Display',serif; font-size:1.9rem; line-height:1; color:#516A54;">+1.5%</span>
+                <span style="font-size:12.5px; color:#516A54;">net revenue from timing alone</span>
+              </div>
+              <p style="font-size:15px; line-height:1.55; color:#6F6A5C; margin:0;">Led product discovery and interface design for a media flighting simulator that allowed teams to test and optimize campaign timing using AI response models. Shaped the tool from Excel-based workflows into an interactive platform that helped media teams improve revenue through better execution timing, delivering an estimated +1.5% net revenue lift.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIAL -->
+    <section style="padding:104px 0;">
+      <div class="wrap" style="max-width:1360px; margin:0 auto; padding:0 48px;">
+        <figure style="margin:0; max-width:none;">
+          <div style="font-size:12px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent,#B36656); margin-bottom:34px;">Testimonial</div>
+          <blockquote style="margin:0; font-family:'Playfair Display',serif; font-weight:400; font-size:clamp(1.9rem,3.4vw,2.8rem); line-height:1.24; letter-spacing:-0.01em; color:#2D2A1E; width:100%; font-style:italic;">“Always highly motivated to improve his process.<div>Such a rare quality.”</div></blockquote>
+          <figcaption style="display:flex; align-items:center; gap:22px; margin-top:48px;">
+            <img src="assets/ma-yansong-signature.svg" alt="Ma Yansong signature" style="height:62px; width:auto; flex:none;">
+            <div style="width:1px; height:48px; background:rgba(45,42,30,0.22); flex:none;"></div>
+            <div>
+              <div style="font-size:16px; font-weight:600; color:#2D2A1E;">Ma Yansong</div>
+              <div style="font-size:14px; color:#8a8472; margin-top:3px;">Founder &amp; Principal, MAD Architects</div>
+            </div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ABOUT / PHILOSOPHY -->
+    <section id="about" style="padding:104px 0; scroll-margin-top:90px; background-color:#2D2A1E;">
+      <div class="wrap about-grid" style="max-width:1360px; margin:0 auto; padding:0 48px; display:grid; grid-template-columns:0.82fr 1.18fr; gap:64px; align-items:start;">
+        <div style="display:flex; flex-direction:column; gap:20px;">
+          <div style="border-radius:6px; overflow:hidden; background:#BBC7D6; aspect-ratio:1/1; box-shadow:inset 0 0 0 1px rgba(45,42,30,0.08);">
+            <img src="assets/about-portrait.jpg" alt="Tomasz Czarnecki" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <div>
+            <div style="font-family:'Playfair Display',serif; font-style:italic; font-size:18px; color:#F4F1E8;">Tomasz Czarnecki</div>
+            <div style="font-size:13px; color:#F4F1E899; margin-top:4px;">Polish · English C2 · Mandarin B2</div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent,#B36656); margin-bottom:28px;">Philosophy</div>
+          <p style="font-family:'Playfair Display',serif; font-weight:400; font-size:clamp(1.7rem,3vw,2.6rem); line-height:1.18; letter-spacing:-0.01em; margin:0; color:#F4F1E8;">Non-deterministic systems have been my material for ten years.</p>
+          <div style="display:flex; flex-direction:column; gap:20px; max-width:58ch; margin-top:34px;">
+            <p style="font-size:17px; line-height:1.66; color:#F4F1E899; margin:0;">I spent a decade building generative and optimization systems — genetic algorithms, evolutionary solvers, and large-scale parametric work at MAD Architects and AREP. The same mental model of handling uncertainty, constraints, and trade-offs now applies directly to LLM agents and agentic workflows.</p>
+            <p style="font-size:17px; line-height:1.66; color:#F4F1E899; margin:0;">At Heineken, I applied this thinking at scale: shaping the product layer for AI systems that influenced €3.2B in commercial spend. I approach AI products as a builder who owns outcomes — from discovery to shipped systems — not just as a designer of interfaces.</p>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:40px; margin-top:40px; padding-top:32px; border-top:1px solid rgba(244,241,232,0.16);">
+            <div>
+              <div style="font-family:'Playfair Display',serif; font-size:30px; color:#F4F1E8;">10+ yrs</div>
+              <div style="font-size:13px; color:#F4F1E899; margin-top:4px;">in Asia</div>
+            </div>
+            <div>
+              <div style="font-family:'Playfair Display',serif; font-size:30px; color:#F4F1E8;">€3.2B</div>
+              <div style="font-size:13px; color:#F4F1E899; margin-top:4px;">spend steered by shipped AI</div>
+            </div>
+            <div>
+              <div style="font-family:'Playfair Display',serif; font-size:30px; color:#F4F1E8;">3 products</div>
+              <div style="font-size:13px; color:#F4F1E899; margin-top:4px;">in production, 17 markets</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOURNEY -->
+    <section id="journey" style="padding:96px 0; scroll-margin-top:90px;">
+      <div class="wrap" style="max-width:1360px; margin:0 auto; padding:0 48px;">
+        <div style="display:flex; flex-direction:column; align-items:flex-start; gap:14px; margin-bottom:48px;">
+          <h2 style="font-family:'Playfair Display',serif; font-weight:400; font-size:clamp(2rem,3.8vw,3.1rem); letter-spacing:-0.01em; margin:0; color:#2D2A1E;">The Long Way Here</h2>
+          <span style="font-size:14px; color:#6F6A5C; max-width:42ch;">Computer science, architecture and adventure — converging on AI.</span>
+        </div>
+        <div class="journey-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:48px 40px;">
+          <div>
+            <div style="font-family:ui-monospace,Menlo,monospace; font-size:13px; color:var(--accent,#B36656); margin-bottom:14px;">01 · 2007</div>
+            <h3 style="font-family:'Playfair Display',serif; font-weight:400; font-size:21px; margin:0 0 10px 0; color:#2D2A1E;">Computer Science</h3>
+            <p style="font-size:15px; line-height:1.6; color:#6F6A5C; margin:0;">Started in IT and picked up the skill that underwrites everything since — algorithmic thinking — before a drawing exam pulled me toward architecture.</p>
+          </div>
+          <div>
+            <div style="font-family:ui-monospace,Menlo,monospace; font-size:13px; color:var(--accent,#B36656); margin-bottom:14px;">02 · 2011</div>
+            <h3 style="font-family:'Playfair Display',serif; font-weight:400; font-size:21px; margin:0 0 10px 0; color:#2D2A1E;">Istanbul &amp; Parametric Design</h3>
+            <p style="font-size:15px; line-height:1.6; color:#6F6A5C; margin:0;">An exchange year under prof. Ozan Önder Özener. Buildings as programs — geometry described mathematically in C#. It became my thesis and my edge.</p>
+          </div>
+          <div>
+            <div style="font-family:ui-monospace,Menlo,monospace; font-size:13px; color:var(--accent,#B36656); margin-bottom:14px;">03 · 2015</div>
+            <h3 style="font-family:'Playfair Display',serif; font-weight:400; font-size:21px; margin:0 0 10px 0; color:#2D2A1E;">A One-Way Ticket to Beijing</h3>
+            <p style="font-size:15px; line-height:1.6; color:#6F6A5C; margin:0;">Borrowed money for a one-way ticket and joined MAD Architects, on the team behind the Harbin Opera House. Perfection as countless iterations.</p>
+          </div>
+          <div>
+            <div style="font-family:ui-monospace,Menlo,monospace; font-size:13px; color:var(--accent,#B36656); margin-bottom:14px;">04 · 2017</div>
+            <h3 style="font-family:'Playfair Display',serif; font-weight:400; font-size:21px; margin:0 0 10px 0; color:#2D2A1E;">Leading in Guizhou</h3>
+            <p style="font-size:15px; line-height:1.6; color:#6F6A5C; margin:0;">Project leader at a local institute, running a team of ten Mandarin-only designers. Finally close to real users — and asking why so few decisions were data-based.</p>
+          </div>
+          <div>
+            <div style="font-family:ui-monospace,Menlo,monospace; font-size:13px; color:var(--accent,#B36656); margin-bottom:14px;">05 · 2020</div>
+            <h3 style="font-family:'Playfair Display',serif; font-weight:400; font-size:21px; margin:0 0 10px 0; color:#2D2A1E;">Back to the Roots — UX</h3>
+            <p style="font-size:15px; line-height:1.6; color:#6F6A5C; margin:0;">Twelve years after first meeting the word <em>usability</em>, it clicked. The field that joined all three threads: computer science, design, and making lives simpler.</p>
+          </div>
+          <div>
+            <div style="font-family:ui-monospace,Menlo,monospace; font-size:13px; color:var(--accent,#B36656); margin-bottom:14px;">06 · Now</div>
+            <h3 style="font-family:'Playfair Display',serif; font-weight:400; font-size:21px; margin:0 0 10px 0; color:#2D2A1E;">AI Product Engineering</h3>
+            <p style="font-size:15px; line-height:1.6; color:#6F6A5C; margin:0;">Five years shipping production ML at Heineken, now building independently. Non-deterministic, rule-based systems were always the material — LLM agents are the new medium.</p>
+          </div>
+        </div>
+        <div class="banner" style="width:100%; margin-top:64px; background:#BBC7D6; height:clamp(320px,40vw,460px); border-radius:6px; overflow:hidden;">
+          <img src="assets/about-portrait.jpg" alt="Tomasz Czarnecki" style="width:100%; height:100%; object-fit:cover; object-position:center 22%;">
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CONTACT -->
+  <section id="contact" style="scroll-margin-top:90px; background:var(--contact-bg,#2D2A1E); color:var(--contact-fg,#F4F1E8);">
+    <div class="wrap" style="max-width:1360px; margin:0 auto; padding:112px 48px;">
+      <div style="font-size:12px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent,#B36656); margin-bottom:28px;">Get in touch</div>
+      <h2 style="font-family:'Playfair Display',serif; font-weight:400; font-size:clamp(2.4rem,5.4vw,5rem); line-height:1.05; letter-spacing:-0.015em; margin:0; max-width:18ch;">If this resonates, let's chat.</h2>
+      <p style="font-size:18px; line-height:1.6; color:var(--contact-sub,rgba(244,241,232,0.62)); max-width:48ch; margin:28px 0 0 0;">I’m interested in conversations about building AI products with real ownership. If you’re working on something meaningful, feel free to reach out.</p>
+      <div style="display:flex; flex-wrap:wrap; gap:16px; margin-top:40px;">
+        <a href="mailto:tomasz_czarnecki@outlook.com" style="display:inline-flex; align-items:center; padding:16px 30px; border-radius:999px; background:var(--accent,#B36656); color:#F4F1E8; font-size:15px; font-weight:500; text-decoration:none;">Email me</a>
+        <a href="https://www.linkedin.com/in/czarnecki-ai" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; padding:16px 30px; border-radius:999px; border:1px solid var(--contact-line,rgba(244,241,232,0.16)); color:var(--contact-fg,#F4F1E8); font-size:15px; font-weight:500; text-decoration:none;">LinkedIn</a>
+      </div>
+    </div>
+    <div style="border-top:1px solid var(--contact-line,rgba(244,241,232,0.16));">
+      <div class="wrap" style="max-width:1360px; margin:0 auto; padding:36px 48px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;">
+        <span style="font-family:'Playfair Display',serif; font-style:italic; font-size:16px; color:var(--contact-fg,#F4F1E8);">Tomasz Czarnecki</span>
+        <span style="font-size:13px; color:var(--contact-sub,rgba(244,241,232,0.62));">© 2026 · Designed &amp; built by Tomasz Czarnecki · czarnecki.ai</span>
+      </div>
+    </div>
+  </section>
+</div>
+</body>
+</html>
