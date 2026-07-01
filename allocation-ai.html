@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Allocation AI — Case Study | Tomasz Czarnecki</title>
+<!-- SEO -->
+<meta name="author" content="Tomasz Czarnecki">
+<meta name="robots" content="index, follow">
+<meta name="description" content="Allocation AI — a Bayesian budget-allocation engine that steered €3.2B of Heineken marketing spend from intuition to evidence, targeting €600M yearly uplift by 2029.">
+<link rel="canonical" href="https://czarnecki.ai/allocation-ai.html">
+<meta name="theme-color" content="#F4F3EF">
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tomasz Czarnecki">
+<meta property="og:title" content="Allocation AI — Case Study">
+<meta property="og:description" content="A Bayesian budget-allocation engine that decides where Heineken's marketing money earns the most — steering €3.2B in annual spend from intuition to evidence.">
+<meta property="og:url" content="https://czarnecki.ai/allocation-ai.html">
+<meta property="og:image" content="https://czarnecki.ai/assets/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Allocation AI — Case Study">
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Allocation AI — Case Study">
+<meta name="twitter:description" content="A Bayesian budget-allocation engine steering €3.2B of Heineken marketing spend from intuition to evidence.">
+<meta name="twitter:image" content="https://czarnecki.ai/assets/og-card.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:#F4F3EF; }
+  ::selection{ background:#252E3A; color:#F4F3EF; }
+
+  /* Responsive — desktop-first source, reflowed for tablet/mobile.
+     !important overrides the design's inline grid styles. */
+  @media (max-width:1000px){
+    .meta-4, .metrics-4, .how-4{ grid-template-columns:repeat(2,1fr) !important; }
+    .split-2{ grid-template-columns:1fr !important; gap:36px !important; }
+    .three-col{ grid-template-columns:1fr !important; }
+  }
+  @media (max-width:680px){
+    .cs-wrap{ padding-left:24px !important; padding-right:24px !important; }
+    .cs-bar{ padding-left:24px !important; padding-right:24px !important; }
+    .logo-tag{ display:none !important; }
+    .meta-4, .metrics-4, .how-4{ grid-template-columns:1fr !important; }
+    .metrics-4{ gap:28px !important; }
+    .cs-section{ padding-top:56px !important; padding-bottom:56px !important; }
+  }
+</style>
+</head>
+<body>
+<div style="--accent:#445261; --accent-deep:#252E3A; --blue-100:#C9DAE6; --blue-200:#B7C5D3; background:#F4F3EF; color:#1C1A15; font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden;">
+
+  <!-- HEADER -->
+  <header style="position:sticky; top:0; z-index:50; background:rgba(244,243,239,0.85); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid #E4E1D9;">
+    <div class="cs-bar" style="max-width:1160px; margin:0 auto; padding:16px 48px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
+      <a href="index.html" style="display:flex; align-items:center; gap:11px; text-decoration:none; color:#1C1A15;">
+        <span style="width:18px; height:18px; background:#1C1A15; border-radius:4px; display:inline-block; flex:none;"></span>
+        <span style="font-size:15px; font-weight:600; letter-spacing:-0.01em;">Tomasz Czarnecki</span>
+        <span class="logo-tag" style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; color:#9C978B; border-left:1px solid #E4E1D9; padding-left:11px;">CZARNECKI.AI</span>
+      </a>
+      <a href="index.html#work" style="display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase; font-weight:500; color:#6E6A60; text-decoration:none;"><span style="color:var(--accent);">←</span> All case studies</a>
+    </div>
+  </header>
+
+  <main style="width:100%;">
+
+    <!-- HERO -->
+    <section style="border-bottom:1px solid #E4E1D9;">
+      <div class="cs-wrap" style="max-width:1160px; margin:0 auto; padding:72px 48px 0 48px;">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:26px; flex-wrap:wrap;">
+          <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#FFFFFF; background:var(--accent-deep); padding:5px 11px; border-radius:5px;">Case Study · 01</span>
+          <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#9C978B;">Heineken · Global Analytics &amp; AI Hub</span>
+        </div>
+        <h1 style="font-weight:700; font-size:clamp(2.6rem,6vw,5rem); line-height:1.02; letter-spacing:-0.03em; margin:0; max-width:16ch; color:#1C1A15;">Allocation AI</h1>
+        <p style="font-size:clamp(1.15rem,1.7vw,1.5rem); line-height:1.5; color:#445262; max-width:58ch; margin:26px 0 0 0; font-weight:500;">A Bayesian budget-allocation engine that decides where Heineken's marketing money earns the most — steering €3.2B in annual spend from intuition to evidence.</p>
+      </div>
+
+      <!-- Meta strip -->
+      <div class="cs-wrap" style="max-width:1160px; margin:48px auto 0 auto; padding:0 48px;">
+        <div class="meta-4" style="display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:1px solid #E4E1D9; border-radius:10px; overflow:hidden; background:#FFFFFF;">
+          <div style="padding:20px 24px; border-right:1px solid #EFECE4;">
+            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9C978B;">Role</div>
+            <div style="font-size:15px; font-weight:600; margin-top:8px; color:#1C1A15;">Product owner / designer</div>
+          </div>
+          <div style="padding:20px 24px; border-right:1px solid #EFECE4;">
+            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9C978B;">Timeline</div>
+            <div style="font-size:15px; font-weight:600; margin-top:8px; color:#1C1A15;">2022 – 2024</div>
+          </div>
+          <div style="padding:20px 24px; border-right:1px solid #EFECE4;">
+            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9C978B;">Domain</div>
+            <div style="font-size:15px; font-weight:600; margin-top:8px; color:#1C1A15;">Marketing mix &amp; RM</div>
+          </div>
+          <div style="padding:20px 24px;">
+            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9C978B;">Stack</div>
+            <div style="font-size:15px; font-weight:600; margin-top:8px; color:#1C1A15;">Bayesian ML · Azure</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero image on tinted block -->
+      <div class="cs-wrap" style="max-width:1160px; margin:24px auto 72px auto; padding:0 48px;">
+        <div style="border:1px solid #E4E1D9; border-radius:12px; overflow:hidden; background:#D09D82; aspect-ratio:16/7; display:flex; align-items:center; justify-content:center;">
+          <img src="assets/case-allocation-ai.jpg" alt="Allocation AI — one source, many optimally-filled vessels" style="width:100%; height:100%; object-fit:cover; object-position:center 40%;">
+        </div>
+        <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.06em; color:#9C978B; margin-top:14px;">One source, many vessels — the allocation problem in a single image: how much pressure does each channel deserve?</div>
+      </div>
+    </section>
+
+    <!-- METRICS BAND -->
+    <section style="background:var(--accent-deep); color:#F4F3EF;">
+      <div class="cs-wrap metrics-4" style="max-width:1160px; margin:0 auto; padding:64px 48px; display:grid; grid-template-columns:repeat(4,1fr); gap:40px;">
+        <div>
+          <div style="font-weight:700; font-size:clamp(2rem,3.4vw,3rem); line-height:1; letter-spacing:-0.02em;">€600M</div>
+          <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:#B7C5D3; margin-top:12px; line-height:1.5;">Targeted yearly revenue uplift by 2029</div>
+        </div>
+        <div>
+          <div style="font-weight:700; font-size:clamp(2rem,3.4vw,3rem); line-height:1; letter-spacing:-0.02em;">€305M</div>
+          <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:#B7C5D3; margin-top:12px; line-height:1.5;">Gross-profit uplift by 2027 (~€16M cost-to-achieve)</div>
+        </div>
+        <div>
+          <div style="font-weight:700; font-size:clamp(2rem,3.4vw,3rem); line-height:1; letter-spacing:-0.02em;">2–4%</div>
+          <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:#B7C5D3; margin-top:12px; line-height:1.5;">Net-revenue uplift in Mexico &amp; Brazil pilots</div>
+        </div>
+        <div>
+          <div style="font-weight:700; font-size:clamp(2rem,3.4vw,3rem); line-height:1; letter-spacing:-0.02em;">250+</div>
+          <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:#B7C5D3; margin-top:12px; line-height:1.5;">ROI projections evaluated per optimization run</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section style="border-bottom:1px solid #E4E1D9;">
+      <div class="cs-wrap cs-section split-2" style="max-width:1160px; margin:0 auto; padding:88px 48px; display:grid; grid-template-columns:0.4fr 0.6fr; gap:64px; align-items:start;">
+        <div>
+          <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#9C978B; margin-bottom:16px;">01 — Overview</div>
+          <h2 style="font-weight:700; font-size:clamp(1.7rem,3vw,2.4rem); line-height:1.1; letter-spacing:-0.025em; margin:0; color:#1C1A15;">What Allocation AI does</h2>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:20px; max-width:60ch;">
+          <p style="font-size:17px; line-height:1.66; color:#4C4A42; margin:0;">Every year Heineken's operating companies face the same question: <em>where should the next marketing dollar go?</em> Five million on TV, or on trade promotions? More weight behind Heineken, or a local power brand? Historically these calls leaned on experience and last year's plan.</p>
+          <p style="font-size:17px; line-height:1.66; color:#4C4A42; margin:0;">Allocation AI answers it with evidence. It builds a Bayesian response model for each OpCo, brand and channel, learning how sales actually react to investment. The core output is a set of <strong style="color:#1C1A15;">response curves</strong> — spend on one axis, expected volume or ROI on the other — that let teams test budget scenarios before committing a cent.</p>
+          <p style="font-size:17px; line-height:1.66; color:#4C4A42; margin:0;">An optimizer then reads those curves and proposes the allocation that maximizes return within real strategic constraints: brand-role rules, long-term brand-building floors, and short-term sales limits.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHALLENGE -->
+    <section style="border-bottom:1px solid #E4E1D9; background:var(--blue-100);">
+      <div class="cs-wrap cs-section" style="max-width:1160px; margin:0 auto; padding:88px 48px;">
+        <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#445262; margin-bottom:16px;">02 — The Challenge</div>
+        <h2 style="font-weight:700; font-size:clamp(1.7rem,3.4vw,2.7rem); line-height:1.1; letter-spacing:-0.025em; margin:0; max-width:22ch; color:#1C1A15;">A powerful model no one outside data science could use.</h2>
+        <div class="three-col" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:48px;">
+          <div style="background:#FFFFFF; border:1px solid #B7C5D3; border-radius:10px; padding:28px 26px;">
+            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; letter-spacing:0.08em; color:#445262; margin-bottom:14px;">Opacity</div>
+            <p style="font-size:15px; line-height:1.6; color:#4C4A42; margin:0;">Response curves and Bayesian priors are trustworthy to statisticians and invisible to the commercial leaders who actually sign off budgets.</p>
+          </div>
+          <div style="background:#FFFFFF; border:1px solid #B7C5D3; border-radius:10px; padding:28px 26px;">
+            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; letter-spacing:0.08em; color:#445262; margin-bottom:14px;">Trust</div>
+            <p style="font-size:15px; line-height:1.6; color:#4C4A42; margin:0;">Asking a market director to hand budget authority to a black box is a hard sell. The output has to be legible, arguable, and overridable.</p>
+          </div>
+          <div style="background:#FFFFFF; border:1px solid #B7C5D3; border-radius:10px; padding:28px 26px;">
+            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; letter-spacing:0.08em; color:#445262; margin-bottom:14px;">Scale</div>
+            <p style="font-size:15px; line-height:1.6; color:#4C4A42; margin:0;">Whatever we built for one pilot market had to hold up across dozens of OpCos, each with its own brands, channels and data quality.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MY ROLE -->
+    <section style="border-bottom:1px solid #E4E1D9;">
+      <div class="cs-wrap cs-section split-2" style="max-width:1160px; margin:0 auto; padding:88px 48px; display:grid; grid-template-columns:0.4fr 0.6fr; gap:64px; align-items:start;">
+        <div>
+          <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#9C978B; margin-bottom:16px;">03 — My Role</div>
+          <h2 style="font-weight:700; font-size:clamp(1.7rem,3vw,2.4rem); line-height:1.1; letter-spacing:-0.025em; margin:0; color:#1C1A15;">Owning the layer between the model and the decision.</h2>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0; border:1px solid #E4E1D9; border-radius:10px; overflow:hidden; background:#FFFFFF;">
+          <div style="padding:26px 28px; border-bottom:1px solid #EFECE4; display:flex; gap:20px; align-items:flex-start;">
+            <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; color:var(--accent); flex:none; margin-top:2px;">01</span>
+            <div>
+              <div style="font-size:16px; font-weight:600; color:#1C1A15;">Translated the model into a decision tool</div>
+              <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:8px 0 0 0;">Framed response curves and ROI projections as scenarios a commercial team could read, compare and defend — not as statistical artefacts.</p>
+            </div>
+          </div>
+          <div style="padding:26px 28px; border-bottom:1px solid #EFECE4; display:flex; gap:20px; align-items:flex-start;">
+            <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; color:var(--accent); flex:none; margin-top:2px;">02</span>
+            <div>
+              <div style="font-size:16px; font-weight:600; color:#1C1A15;">Designed the scenario &amp; constraint workflow</div>
+              <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:8px 0 0 0;">Built the flow where planners set constraints (brand roles, spend floors and caps) and watch the optimizer respond — keeping humans in control of the machine.</p>
+            </div>
+          </div>
+          <div style="padding:26px 28px; border-bottom:1px solid #EFECE4; display:flex; gap:20px; align-items:flex-start;">
+            <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; color:var(--accent); flex:none; margin-top:2px;">03</span>
+            <div>
+              <div style="font-size:16px; font-weight:600; color:#1C1A15;">Bridged data science and commercial teams</div>
+              <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:8px 0 0 0;">Ran discovery with both sides, turning statistical outputs and business intuition into a shared product language and a single roadmap.</p>
+            </div>
+          </div>
+          <div style="padding:26px 28px; display:flex; gap:20px; align-items:flex-start;">
+            <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; color:var(--accent); flex:none; margin-top:2px;">04</span>
+            <div>
+              <div style="font-size:16px; font-weight:600; color:#1C1A15;">Drove the multi-market rollout</div>
+              <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:8px 0 0 0;">Standardized the experience so a tool proven in Brazil, Mexico and the UK could scale across OpCos with varying data maturity.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section style="border-bottom:1px solid #E4E1D9;">
+      <div class="cs-wrap cs-section" style="max-width:1160px; margin:0 auto; padding:88px 48px;">
+        <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#9C978B; margin-bottom:16px;">04 — How It Works</div>
+        <h2 style="font-weight:700; font-size:clamp(1.7rem,3.4vw,2.7rem); line-height:1.1; letter-spacing:-0.025em; margin:0 0 48px 0; max-width:20ch; color:#1C1A15;">From three years of data to one allocation.</h2>
+        <div class="how-4" style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px;">
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.1em; color:var(--accent); border-top:2px solid var(--accent); padding-top:14px;">Step 01</div>
+            <div style="font-size:16px; font-weight:600; color:#1C1A15;">Decompose history</div>
+            <p style="font-size:14px; line-height:1.6; color:#6E6A60; margin:0;">Regression models trained on 3+ years of data separate sales growth into ATL, BTL, commercial levers and control factors.</p>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.1em; color:var(--accent); border-top:2px solid var(--accent); padding-top:14px;">Step 02</div>
+            <div style="font-size:16px; font-weight:600; color:#1C1A15;">Build priors</div>
+            <p style="font-size:14px; line-height:1.6; color:#6E6A60; margin:0;">Bayesian priors are built and updated per touchpoint, then models are trained and aggregated for each distinct channel.</p>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.1em; color:var(--accent); border-top:2px solid var(--accent); padding-top:14px;">Step 03</div>
+            <div style="font-size:16px; font-weight:600; color:#1C1A15;">Plot response curves</div>
+            <p style="font-size:14px; line-height:1.6; color:#6E6A60; margin:0;">Each curve maps spend to expected volume and incremental ROI, simulating impact at every spend level.</p>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.1em; color:var(--accent); border-top:2px solid var(--accent); padding-top:14px;">Step 04</div>
+            <div style="font-size:16px; font-weight:600; color:#1C1A15;">Optimize under constraints</div>
+            <p style="font-size:14px; line-height:1.6; color:#6E6A60; margin:0;">The optimizer weighs 250+ ROI projections at once, allocating to the best touchpoints within the Brand Role Framework.</p>
+          </div>
+        </div>
+        <div style="margin-top:40px; display:flex; flex-wrap:wrap; gap:10px;">
+          <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.06em; color:#4C4A42; background:#FFFFFF; border:1px solid #E4E1D9; border-radius:999px; padding:8px 15px;">Bayesian regression</span>
+          <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.06em; color:#4C4A42; background:#FFFFFF; border:1px solid #E4E1D9; border-radius:999px; padding:8px 15px;">Response curves</span>
+          <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.06em; color:#4C4A42; background:#FFFFFF; border:1px solid #E4E1D9; border-radius:999px; padding:8px 15px;">Industry-standard optimizer</span>
+          <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.06em; color:#4C4A42; background:#FFFFFF; border:1px solid #E4E1D9; border-radius:999px; padding:8px 15px;">Heineken Azure Platform</span>
+          <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.06em; color:#4C4A42; background:#FFFFFF; border:1px solid #E4E1D9; border-radius:999px; padding:8px 15px;">Automated training &amp; validation</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPACT TIMELINE -->
+    <section style="border-bottom:1px solid #E4E1D9; background:#FFFFFF;">
+      <div class="cs-wrap cs-section split-2" style="max-width:1160px; margin:0 auto; padding:88px 48px; display:grid; grid-template-columns:0.4fr 0.6fr; gap:64px; align-items:start;">
+        <div>
+          <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#9C978B; margin-bottom:16px;">05 — Impact</div>
+          <h2 style="font-weight:700; font-size:clamp(1.7rem,3vw,2.4rem); line-height:1.1; letter-spacing:-0.025em; margin:0; color:#1C1A15;">A structural shift, staged over years.</h2>
+          <p style="font-size:15px; line-height:1.6; color:#6E6A60; margin:20px 0 0 0;">Replacing intuition-based budgeting with precision modelling compounds — pilots prove the lift, global rollout scales it.</p>
+        </div>
+        <div style="display:flex; flex-direction:column;">
+          <div style="display:flex; gap:24px; padding:0 0 28px 0; border-left:2px solid #E4E1D9; padding-left:28px; position:relative;">
+            <span style="position:absolute; left:-7px; top:2px; width:12px; height:12px; border-radius:999px; background:var(--accent); border:2px solid #FFFFFF;"></span>
+            <div>
+              <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.08em; color:var(--accent);">Pilot</div>
+              <div style="font-size:16px; font-weight:600; margin:6px 0 4px 0; color:#1C1A15;">Mexico &amp; Brazil — 2–4% net-revenue uplift</div>
+              <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:0;">First deployments established the baseline: measurable revenue gains from smarter allocation alone.</p>
+            </div>
+          </div>
+          <div style="display:flex; gap:24px; padding:0 0 28px 0; border-left:2px solid #E4E1D9; padding-left:28px; position:relative;">
+            <span style="position:absolute; left:-7px; top:2px; width:12px; height:12px; border-radius:999px; background:var(--accent); border:2px solid #FFFFFF;"></span>
+            <div>
+              <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.08em; color:var(--accent);">2027</div>
+              <div style="font-size:16px; font-weight:600; margin:6px 0 4px 0; color:#1C1A15;">€305M gross-profit uplift</div>
+              <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:0;">Optimizing ABTL allocation across top OpCos, at a cost-to-achieve of roughly €16M — a ~19× return.</p>
+            </div>
+          </div>
+          <div style="display:flex; gap:24px; border-left:2px solid transparent; padding-left:28px; position:relative;">
+            <span style="position:absolute; left:-7px; top:2px; width:12px; height:12px; border-radius:999px; background:var(--accent-deep); border:2px solid #FFFFFF;"></span>
+            <div>
+              <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.08em; color:var(--accent-deep);">2029</div>
+              <div style="font-size:16px; font-weight:600; margin:6px 0 4px 0; color:#1C1A15;">~€600M yearly revenue uplift</div>
+              <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:0;">The enterprise-scale target as the capability rolls out across every applied market under the EverGreen strategy.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KPIs -->
+    <section style="border-bottom:1px solid #E4E1D9;">
+      <div class="cs-wrap cs-section" style="max-width:1160px; margin:0 auto; padding:88px 48px;">
+        <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#9C978B; margin-bottom:16px;">06 — What We Measured</div>
+        <h2 style="font-weight:700; font-size:clamp(1.7rem,3vw,2.4rem); line-height:1.1; letter-spacing:-0.025em; margin:0 0 44px 0; color:#1C1A15;">The KPIs behind every allocation.</h2>
+        <div class="three-col" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;">
+          <div style="border:1px solid #E4E1D9; border-radius:10px; padding:30px 28px; background:#FFFFFF;">
+            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:18px;">Financial</div>
+            <ul style="margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:12px;">
+              <li style="font-size:15px; line-height:1.5; color:#4C4A42; padding-left:18px; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">›</span>Return on Investment (ROI)</li>
+              <li style="font-size:15px; line-height:1.5; color:#4C4A42; padding-left:18px; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">›</span>Gross Profit (GP) impact</li>
+            </ul>
+          </div>
+          <div style="border:1px solid #E4E1D9; border-radius:10px; padding:30px 28px; background:#FFFFFF;">
+            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:18px;">Volume</div>
+            <ul style="margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:12px;">
+              <li style="font-size:15px; line-height:1.5; color:#4C4A42; padding-left:18px; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">›</span>Gained volume</li>
+              <li style="font-size:15px; line-height:1.5; color:#4C4A42; padding-left:18px; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">›</span>Sell-out volume per channel</li>
+            </ul>
+          </div>
+          <div style="border:1px solid #E4E1D9; border-radius:10px; padding:30px 28px; background:#FFFFFF;">
+            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:18px;">Investment</div>
+            <ul style="margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:12px;">
+              <li style="font-size:15px; line-height:1.5; color:#4C4A42; padding-left:18px; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">›</span>ATL touchpoint spend</li>
+              <li style="font-size:15px; line-height:1.5; color:#4C4A42; padding-left:18px; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">›</span>BTL budget contributions</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ECOSYSTEM -->
+    <section style="border-bottom:1px solid #E4E1D9; background:var(--blue-100);">
+      <div class="cs-wrap cs-section" style="max-width:1160px; margin:0 auto; padding:88px 48px;">
+        <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#445262; margin-bottom:16px;">07 — In Context</div>
+        <h2 style="font-weight:700; font-size:clamp(1.7rem,3vw,2.4rem); line-height:1.1; letter-spacing:-0.025em; margin:0 0 16px 0; max-width:24ch; color:#1C1A15;">The macro engine of a three-part system.</h2>
+        <p style="font-size:16px; line-height:1.6; color:#4C4A42; max-width:60ch; margin:0 0 44px 0;">Allocation AI sets the sandbox — how much each channel and brand gets — that Smart Flighting and Promo Advisor then execute against. <strong style="color:#1C1A15;">Allocation secures the funding; Smart Flighting schedules the impact; Promo Advisor executes the offer.</strong></p>
+        <div class="three-col" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+          <div style="background:#FFFFFF; border:2px solid var(--accent); border-radius:10px; padding:26px;">
+            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:10px;">Where &amp; how much · You are here</div>
+            <div style="font-size:18px; font-weight:700; color:#1C1A15;">Allocation AI</div>
+            <p style="font-size:14px; line-height:1.55; color:#6E6A60; margin:10px 0 0 0;">Sets the annual budget across OpCos, brands and channels.</p>
+          </div>
+          <div style="background:#FFFFFF; border:1px solid #B7C5D3; border-radius:10px; padding:26px; opacity:0.85;">
+            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:#9C978B; margin-bottom:10px;">When · Coming soon</div>
+            <div style="font-size:18px; font-weight:700; color:#1C1A15;">Smart Flighting</div>
+            <p style="font-size:14px; line-height:1.55; color:#6E6A60; margin:10px 0 0 0;">Stretches each budget across the calendar for maximum pressure.</p>
+          </div>
+          <div style="background:#FFFFFF; border:1px solid #B7C5D3; border-radius:10px; padding:26px; opacity:0.85;">
+            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:#9C978B; margin-bottom:10px;">What &amp; why · Coming soon</div>
+            <div style="font-size:18px; font-weight:700; color:#1C1A15;">Promo Advisor</div>
+            <p style="font-size:14px; line-height:1.55; color:#6E6A60; margin:10px 0 0 0;">Fills the calendar with the specific winning promo mechanics.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER / NEXT -->
+  <section style="background:var(--accent-deep); color:#F4F3EF;">
+    <div class="cs-wrap" style="max-width:1160px; margin:0 auto; padding:96px 48px;">
+      <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#B7C5D3; margin-bottom:22px;">Keep exploring</div>
+      <h2 style="font-weight:700; font-size:clamp(2rem,4vw,3.4rem); line-height:1.05; letter-spacing:-0.03em; margin:0; max-width:18ch;">Two more case studies on the way.</h2>
+      <p style="font-size:16px; line-height:1.6; color:#B7C5D3; max-width:52ch; margin:22px 0 0 0;">Smart Flighting and Promo Advisor complete the picture. In the meantime, head back to the work or get in touch.</p>
+      <div style="display:flex; flex-wrap:wrap; gap:14px; margin-top:38px;">
+        <a href="index.html#work" style="display:inline-flex; align-items:center; gap:9px; padding:15px 28px; border-radius:8px; background:#F4F3EF; color:#1C1A15; font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none;"><span style="color:var(--accent);">←</span> Back to all work</a>
+        <a href="index.html#contact" style="display:inline-flex; align-items:center; padding:15px 28px; border-radius:8px; background:transparent; border:1px solid #445261; color:#F4F3EF; font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none;">Get in touch</a>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(183,197,211,0.25);">
+      <div class="cs-bar" style="max-width:1160px; margin:0 auto; padding:30px 48px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;">
+        <span style="display:flex; align-items:center; gap:10px; font-size:14px; font-weight:600; color:#F4F3EF;"><span style="width:14px; height:14px; background:#F4F3EF; border-radius:3px; display:inline-block;"></span>Tomasz Czarnecki</span>
+        <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.06em; color:#B7C5D3;">© 2026 · czarnecki.ai</span>
+      </div>
+    </div>
+  </section>
+</div>
+</body>
+</html>
