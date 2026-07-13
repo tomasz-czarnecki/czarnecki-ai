@@ -4,365 +4,653 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Allocation AI — Case Study | Tomasz Czarnecki</title>
-<!-- SEO -->
+<meta name="description" content="Bayesian budget allocation across markets, brands, and channels at Heineken: moving marketing-mix decisions from intuition-driven to data-driven, with a 36% ROI improvement.">
 <meta name="author" content="Tomasz Czarnecki">
-<meta name="robots" content="index, follow">
-<meta name="description" content="Allocation AI — a Bayesian budget-allocation engine that steered €3.2B of Heineken marketing spend from intuition to evidence, targeting €600M yearly uplift by 2029.">
 <link rel="canonical" href="https://czarnecki.ai/allocation-ai.html">
-<meta name="theme-color" content="#F4F3EF">
-<!-- Open Graph -->
-<meta property="og:type" content="article">
+<meta property="og:type" content="website">
 <meta property="og:site_name" content="Tomasz Czarnecki">
-<meta property="og:title" content="Allocation AI — Case Study">
-<meta property="og:description" content="A Bayesian budget-allocation engine that decides where Heineken's marketing money earns the most — steering €3.2B in annual spend from intuition to evidence.">
+<meta property="og:title" content="Allocation AI — Case Study | Tomasz Czarnecki">
+<meta property="og:description" content="Bayesian budget allocation across markets, brands, and channels at Heineken: moving marketing-mix decisions from intuition-driven to data-driven, with a 36% ROI improvement.">
 <meta property="og:url" content="https://czarnecki.ai/allocation-ai.html">
 <meta property="og:image" content="https://czarnecki.ai/assets/og-card.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Allocation AI — Case Study">
-<!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Allocation AI — Case Study">
-<meta name="twitter:description" content="A Bayesian budget-allocation engine steering €3.2B of Heineken marketing spend from intuition to evidence.">
+<meta name="twitter:title" content="Allocation AI — Case Study | Tomasz Czarnecki">
+<meta name="twitter:description" content="Bayesian budget allocation across markets, brands, and channels at Heineken: moving marketing-mix decisions from intuition-driven to data-driven, with a 36% ROI improvement.">
 <meta name="twitter:image" content="https://czarnecki.ai/assets/og-card.jpg">
+<meta name="theme-color" content="#FCFBF8">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
-  *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-  body{ margin:0; background:#F4F3EF; }
-  ::selection{ background:#252E3A; color:#F4F3EF; }
-
-  /* Responsive — desktop-first source, reflowed for tablet/mobile.
-     !important overrides the design's inline grid styles. */
-  @media (max-width:1000px){
-    .meta-4, .metrics-4, .how-4{ grid-template-columns:repeat(2,1fr) !important; }
-    .split-2{ grid-template-columns:1fr !important; gap:36px !important; }
-    .three-col{ grid-template-columns:1fr !important; }
-  }
-  @media (max-width:680px){
-    .cs-wrap{ padding-left:24px !important; padding-right:24px !important; }
-    .cs-bar{ padding-left:24px !important; padding-right:24px !important; }
-    .logo-tag{ display:none !important; }
-    .meta-4, .metrics-4, .how-4{ grid-template-columns:1fr !important; }
-    .metrics-4{ gap:28px !important; }
-    .cs-section{ padding-top:56px !important; padding-bottom:56px !important; }
-  }
+.sc-placeholder { background: color-mix(in srgb, currentcolor 8%, transparent); border: 1px solid color-mix(in srgb, currentcolor, transparent); border-radius: 2px; box-sizing: border-box; overflow: hidden; }
+@keyframes sc-shine { 
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+html.sc-dc-streaming .sc-placeholder, html.sc-dc-streaming .sc-interp.sc-missing { position: relative; background: color-mix(in srgb, currentcolor 5%, transparent); border-color: transparent; }
+html.sc-dc-streaming .sc-placeholder::before, html.sc-dc-streaming .sc-interp.sc-missing::before { content: ""; position: absolute; inset: 0px; pointer-events: none; background: linear-gradient(90deg, rgba(217, 119, 87, 0) 25%, rgba(247, 225, 211, 0.95) 37%, rgba(217, 119, 87, 0) 63%) 0% 0% / 400% 100%; animation: 1.4s ease 0s infinite normal none running sc-shine; }
+html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before, html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before { animation: auto ease 0s 1 normal none running none; background: color-mix(in srgb, currentcolor 8%, transparent); }
+.sc-placeholder-error { padding: 4px 8px; font: 11px / 1.4 ui-monospace, monospace; color: color-mix(in srgb, currentcolor 70%, transparent); word-break: break-word; }
+.sc-interp.sc-missing { display: inline-block; width: 2em; height: 1em; overflow: hidden; vertical-align: text-bottom; background: rgba(255, 255, 255, 0.3); border: 1px solid rgba(0, 0, 0, 0.5); border-radius: 2px; box-sizing: border-box; color: transparent; user-select: none; }
+.sc-interp.sc-unresolved { font-family: ui-monospace, monospace; font-size: 0.85em; color: color-mix(in srgb, currentcolor, transparent); background: color-mix(in srgb, currentcolor 10%, transparent); border-radius: 3px; padding: 0px 3px; }
+.sc-host.sc-has-error { position: relative; }
+.sc-logic-error { position: absolute; top: 8px; left: 8px; z-index: 2147483647; max-width: 60ch; padding: 6px 10px; background: rgb(176, 0, 32); color: rgb(255, 255, 255); font: 12px / 1.4 ui-monospace, monospace; border-radius: 4px; white-space: pre-wrap; pointer-events: none; }
+@media print {
+  @page { margin: 0.5cm; }
+  figure, table { break-inside: avoid; }
+  #dc-root, #dc-root > .sc-host { height: auto; }
+  *, ::before, ::after { print-color-adjust: exact; backdrop-filter: none !important; animation-delay: -99s !important; animation-duration: 0.001s !important; animation-iteration-count: 1 !important; animation-fill-mode: both !important; animation-play-state: running !important; transition-duration: 0s !important; }
+}
+x-dc { display: none !important; }
+.scp0:hover { box-shadow: rgba(26, 24, 20, 0.08) 0px 12px 36px; transition: box-shadow 0.25s; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0px; background: rgb(252, 251, 248); }
+::selection { background: rgb(26, 24, 20); color: rgb(244, 241, 232); }
+a { color: rgb(26, 24, 20); }
+a:hover { opacity: 0.82; }
+@media (max-width: 920px) {
+  #cs-overview-grid { grid-template-columns: 1fr !important; }
+  #cs-role-grid { grid-template-columns: 1fr !important; }
+  #cs-shipped-grid { grid-template-columns: 1fr !important; }
+  #cs-problem-grid { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 780px) {
+  #cs-decisions > div { grid-template-columns: 1fr !important; gap: 8px !important; }
+  #cs-decisions > div > div:last-child { text-align: left !important; }
+  #cs-impact-head { flex-direction: column !important; align-items: flex-start !important; }
+}
 </style>
 </head>
 <body>
-<div style="--accent:#445261; --accent-deep:#252E3A; --blue-100:#C9DAE6; --blue-200:#B7C5D3; background:#F4F3EF; color:#1C1A15; font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden;">
+<div id="dc-root"><div class="sc-host"><div style="background: rgb(252, 251, 248); color: rgb(26, 24, 20); font-family: Inter, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: clip;">
 
-  <!-- HEADER -->
-  <header style="position:sticky; top:0; z-index:50; background:rgba(244,243,239,0.85); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid #E4E1D9;">
-    <div class="cs-bar" style="max-width:1160px; margin:0 auto; padding:16px 48px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
-      <a href="index.html" style="display:flex; align-items:center; gap:11px; text-decoration:none; color:#1C1A15;">
-        <span style="width:18px; height:18px; background:#1C1A15; border-radius:4px; display:inline-block; flex:none;"></span>
-        <span style="font-size:15px; font-weight:600; letter-spacing:-0.01em;">Tomasz Czarnecki</span>
-        <span class="logo-tag" style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; color:#9C978B; border-left:1px solid #E4E1D9; padding-left:11px;">CZARNECKI.AI</span>
-      </a>
-      <a href="index.html#work" style="display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase; font-weight:500; color:#6E6A60; text-decoration:none;"><span style="color:var(--accent);">←</span> All case studies</a>
+  
+  <header style="position: sticky; top: 0px; z-index: 50; background: rgba(252, 251, 248, 0.88); backdrop-filter: blur(14px); border-bottom: 1px solid rgb(236, 232, 222);">
+    <div style="max-width: 1320px; margin: 0px auto; padding: 18px clamp(20px, 4.5vw, 48px); display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <a href="index.html" style="display: flex; align-items: center; gap: 7px; text-decoration: none; color: rgb(26, 24, 20);">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" style="display: block; flex: 0 0 auto;"><rect x="1" y="1" width="16" height="16" rx="5" fill="#2D2A1E"></rect></svg>
+          <span style="font-size: 15.5px; font-weight: 600; letter-spacing: -0.01em;">Tomasz Czarnecki</span>
+        </a>
+        <span style="width: 1px; height: 18px; background: rgb(224, 220, 208); flex: 0 0 auto;"></span>
+        <a href="index.html#case-studies" style="font-size: 13.5px; font-weight: 500; color: rgb(107, 102, 92); text-decoration: none;">← All case studies</a>
+      </div>
+      <a href="smart-flighting.html" style="display: inline-flex; align-items: center; padding: 10px 20px; border-radius: 999px; background: rgb(26, 24, 20); color: rgb(244, 241, 232); font-size: 13px; font-weight: 500; letter-spacing: 0.01em; text-decoration: none;">Next case →</a>
     </div>
   </header>
 
-  <main style="width:100%;">
+  <main style="width: 100%;">
 
-    <!-- HERO -->
-    <section style="border-bottom:1px solid #E4E1D9;">
-      <div class="cs-wrap" style="max-width:1160px; margin:0 auto; padding:72px 48px 0 48px;">
-        <div style="display:flex; align-items:center; gap:12px; margin-bottom:26px; flex-wrap:wrap;">
-          <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#FFFFFF; background:var(--accent-deep); padding:5px 11px; border-radius:5px;">Case Study · 01</span>
-          <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#9C978B;">Heineken · Global Analytics &amp; AI Hub</span>
+    
+    <section style="position: relative; overflow: hidden; background: rgb(230, 207, 188);">
+      <div class="sc-host-x" style="position: absolute; inset: 0px;"><grad-plate colors="#F0E3D6,#E3CABA,#D09D82,#C57E63" bg="#E6CFBC" ink="#FDFBF6" art="rings" artx="0.78" arty="0.5" artr="0.4" grain="0.5" seed="alloc" style="display: block; width: 100%; height: 100%;"></grad-plate></div>
+      <div style="position: relative; z-index: 2; max-width: 1320px; margin: 0px auto; padding: clamp(56px, 8vh, 96px) clamp(20px, 4.5vw, 48px) 40px; display: flex; flex-direction: column; min-height: 520px;">
+        <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+          <span style="display: inline-flex; align-items: center; padding: 7px 14px; border-radius: 999px; background: rgb(45, 42, 30); color: rgb(244, 241, 232); font-size: 10.5px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;">Case study · 01</span>
         </div>
-        <h1 style="font-weight:700; font-size:clamp(2.6rem,6vw,5rem); line-height:1.02; letter-spacing:-0.03em; margin:0; max-width:16ch; color:#1C1A15;">Allocation AI</h1>
-        <p style="font-size:clamp(1.15rem,1.7vw,1.5rem); line-height:1.5; color:#445262; max-width:58ch; margin:26px 0 0 0; font-weight:500;">A Bayesian budget-allocation engine that decides where Heineken's marketing money earns the most — steering €3.2B in annual spend from intuition to evidence.</p>
-      </div>
-
-      <!-- Meta strip -->
-      <div class="cs-wrap" style="max-width:1160px; margin:48px auto 0 auto; padding:0 48px;">
-        <div class="meta-4" style="display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:1px solid #E4E1D9; border-radius:10px; overflow:hidden; background:#FFFFFF;">
-          <div style="padding:20px 24px; border-right:1px solid #EFECE4;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9C978B;">Role</div>
-            <div style="font-size:15px; font-weight:600; margin-top:8px; color:#1C1A15;">Product owner / designer</div>
+        <h1 style="font-weight: 500; font-size: clamp(2.7rem, 5.8vw, 5.2rem); line-height: 1.04; letter-spacing: -0.035em; margin: 26px 0px 0px; color: rgb(45, 42, 30);">Allocation AI</h1>
+        <p style="font-size: clamp(1.02rem, 1.35vw, 1.2rem); line-height: 1.65; color: rgba(45, 42, 30, 0.8); max-width: 56ch; margin: 24px 0px 0px;">Getting commercial leaders to move marketing money where a model, not instinct, said it should go. A Bayesian budget-allocation system Heineken publicly credits with a <strong style="color: rgb(45, 42, 30); font-weight: 600;">36% ROI improvement</strong>.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 64px); margin: clamp(36px, 5vh, 56px) 0px 36px;">
+          <div>
+            <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(45, 42, 30, 0.55);">Role</div>
+            <div style="font-size: 14.5px; font-weight: 600; color: rgb(45, 42, 30); margin-top: 7px;">Founding product lead</div>
           </div>
-          <div style="padding:20px 24px; border-right:1px solid #EFECE4;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9C978B;">Timeline</div>
-            <div style="font-size:15px; font-weight:600; margin-top:8px; color:#1C1A15;">2022 – 2024</div>
+          <div>
+            <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(45, 42, 30, 0.55);">Context</div>
+            <div style="font-size: 14.5px; font-weight: 600; color: rgb(45, 42, 30); margin-top: 7px;">Heineken · 2021 – 2026</div>
           </div>
-          <div style="padding:20px 24px; border-right:1px solid #EFECE4;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9C978B;">Domain</div>
-            <div style="font-size:15px; font-weight:600; margin-top:8px; color:#1C1A15;">Marketing mix &amp; RM</div>
+          <div>
+            <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(45, 42, 30, 0.55);">Domain</div>
+            <div style="font-size: 14.5px; font-weight: 600; color: rgb(45, 42, 30); margin-top: 7px;">Marketing effectiveness</div>
           </div>
-          <div style="padding:20px 24px;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9C978B;">Stack</div>
-            <div style="font-size:15px; font-weight:600; margin-top:8px; color:#1C1A15;">Bayesian ML · Azure</div>
+          <div>
+            <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(45, 42, 30, 0.55);">Approach</div>
+            <div style="font-size: 14.5px; font-weight: 600; color: rgb(45, 42, 30); margin-top: 7px;">Bayesian ML · Azure</div>
           </div>
         </div>
-      </div>
 
-      <!-- Hero image on tinted block -->
-      <div class="cs-wrap" style="max-width:1160px; margin:24px auto 72px auto; padding:0 48px;">
-        <div style="border:1px solid #E4E1D9; border-radius:12px; overflow:hidden; background:#D09D82; aspect-ratio:16/7; display:flex; align-items:center; justify-content:center;">
-          <img src="assets/case-allocation-ai.jpg" alt="Allocation AI — one source, many optimally-filled vessels" style="width:100%; height:100%; object-fit:cover; object-position:center 40%;">
-        </div>
-        <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.06em; color:#9C978B; margin-top:14px;">One source, many vessels — the allocation problem in a single image: how much pressure does each channel deserve?</div>
       </div>
     </section>
 
-    <!-- METRICS BAND -->
-    <section style="background:var(--accent-deep); color:#F4F3EF;">
-      <div class="cs-wrap metrics-4" style="max-width:1160px; margin:0 auto; padding:64px 48px; display:grid; grid-template-columns:repeat(4,1fr); gap:40px;">
-        <div>
-          <div style="font-weight:700; font-size:clamp(2rem,3.4vw,3rem); line-height:1; letter-spacing:-0.02em;">€600M</div>
-          <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:#B7C5D3; margin-top:12px; line-height:1.5;">Targeted yearly revenue uplift by 2029</div>
+    
+    <section style="padding: clamp(48px, 6vw, 72px) 0px 0px;">
+      <div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="background: rgb(255, 255, 255); border: 1px solid rgb(233, 229, 219); border-radius: 14px; box-shadow: rgba(26, 24, 20, 0.04) 0px 1px 2px, rgba(26, 24, 20, 0.05) 0px 12px 32px; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch;">
+      <div style="padding: 22px 26px 18px;">
+        <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(139, 133, 120);">Annual plan · % change vs current</span>
+        <h2 style="margin: 6px 0px 4px; font-size: 21px; font-weight: 600; letter-spacing: -0.01em;">Where the model wants to move next year's budget</h2>
+        <div style="color: rgb(139, 133, 120); font-size: 13px;">Colored by direction. Cells the model isn't sure about are flagged for a human call.</div>
+      </div>
+      <div style="border-bottom: 1px solid rgb(233, 229, 219); min-width: 620px;"></div>
+      <div style="padding: 20px 26px 22px; min-width: 620px;">
+        <div style="display: grid; grid-template-columns: 150px repeat(4, 1fr); gap: 5px;">
+          <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; letter-spacing: 0.02em; color: rgb(139, 133, 120); text-align: left; padding: 2px 0px 8px;">Channel</div>
+          <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; color: rgb(139, 133, 120); text-align: center; padding: 2px 0px 8px;">Nordlys</div>
+          <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; color: rgb(139, 133, 120); text-align: center; padding: 2px 0px 8px;">Verano</div>
+          <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; color: rgb(139, 133, 120); text-align: center; padding: 2px 0px 8px;">Kestrel</div>
+          <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; color: rgb(139, 133, 120); text-align: center; padding: 2px 0px 8px;">Aurora</div>
+
+          <div style="grid-column: 1 / -1; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: rgb(179, 102, 86); padding: 12px 0px 4px;">Brand building</div>
+          <div style="display: flex; align-items: center; font-size: 13px; padding-right: 8px;">Paid social</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(81, 106, 84, 0.52);">+25%</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(81, 106, 84, 0.2);">+10%</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(81, 106, 84, 0.52);">+25%</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(81, 106, 84, 0.2);">+10%</div>
+
+          <div style="display: flex; align-items: center; font-size: 13px; padding-right: 8px;">Online video</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(81, 106, 84, 0.2);">+10%</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(81, 106, 84, 0.52);">+25%</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(81, 106, 84, 0.2);">+10%</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(179, 102, 86, 0.15);">−10%<span style="position: absolute; top: 5px; right: 6px; width: 7px; height: 7px; border: 1.5px solid rgba(26, 24, 20, 0.55); border-radius: 50%;"></span></div>
+
+          <div style="display: flex; align-items: center; font-size: 13px; padding-right: 8px;">TV</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(179, 102, 86, 0.4);">−25%</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(179, 102, 86, 0.15);">−10%</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(179, 102, 86, 0.4);">−25%</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgb(240, 237, 229); color: rgb(139, 133, 120);">0%</div>
+
+          <div style="display: flex; align-items: center; font-size: 13px; padding-right: 8px;">Sponsorship</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgb(240, 237, 229); color: rgb(139, 133, 120);">0%</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(81, 106, 84, 0.2);">+10%</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(179, 102, 86, 0.15);">−10%<span style="position: absolute; top: 5px; right: 6px; width: 7px; height: 7px; border: 1.5px solid rgba(26, 24, 20, 0.55); border-radius: 50%;"></span></div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(81, 106, 84, 0.2);">+10%</div>
+
+          <div style="grid-column: 1 / -1; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: rgb(179, 102, 86); padding: 12px 0px 4px;">Activation</div>
+          <div style="display: flex; align-items: center; font-size: 13px; padding-right: 8px;">Out-of-home</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(179, 102, 86, 0.15);">−10%</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(179, 102, 86, 0.4);">−25%</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(81, 106, 84, 0.2);">+10%<span style="position: absolute; top: 5px; right: 6px; width: 7px; height: 7px; border: 1.5px solid rgba(26, 24, 20, 0.55); border-radius: 50%;"></span></div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(81, 106, 84, 0.52);">+25%</div>
+
+          <div style="display: flex; align-items: center; font-size: 13px; padding-right: 8px;">Trade / retail</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(81, 106, 84, 0.2);">+10%</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(81, 106, 84, 0.52);">+25%</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(81, 106, 84, 0.52);">+25%</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; background: rgba(81, 106, 84, 0.2);">+10%</div>
+
+          <div style="grid-column: 1 / -1; height: 10px;"></div>
+          <div style="display: flex; align-items: center; font-size: 13px; padding-right: 8px; font-weight: 600;">Net move</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; border: 1px solid rgb(233, 229, 219); font-weight: 600;">+6%</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; border: 1px solid rgb(233, 229, 219); font-weight: 600;">+9%</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; border: 1px solid rgb(233, 229, 219); font-weight: 600;">+8%</div>
+          <div style="position: relative; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; border: 1px solid rgb(233, 229, 219); font-weight: 600;">+7%</div>
         </div>
-        <div>
-          <div style="font-weight:700; font-size:clamp(2rem,3.4vw,3rem); line-height:1; letter-spacing:-0.02em;">€305M</div>
-          <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:#B7C5D3; margin-top:12px; line-height:1.5;">Gross-profit uplift by 2027 (~€16M cost-to-achieve)</div>
+
+        <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin: 20px 2px 0px; font-size: 12px;">
+          <span style="display: inline-flex; align-items: center; gap: 0px;">
+            <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; color: rgb(139, 133, 120); margin: 0px 7px;">cut</span>
+            <i style="width: 22px; height: 12px; display: inline-block; background: rgba(179, 102, 86, 0.4);"></i><i style="width: 22px; height: 12px; display: inline-block; background: rgba(179, 102, 86, 0.15);"></i><i style="width: 22px; height: 12px; display: inline-block; background: rgb(240, 237, 229);"></i><i style="width: 22px; height: 12px; display: inline-block; background: rgba(81, 106, 84, 0.2);"></i><i style="width: 22px; height: 12px; display: inline-block; background: rgba(81, 106, 84, 0.52);"></i>
+            <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; color: rgb(139, 133, 120); margin: 0px 7px;">grow</span>
+          </span>
+          <span style="display: inline-flex; align-items: center; gap: 7px;"><span style="width: 9px; height: 9px; border: 1.5px solid rgba(26, 24, 20, 0.55); border-radius: 50%; display: inline-block;"></span>low confidence · needs a human call</span>
         </div>
-        <div>
-          <div style="font-weight:700; font-size:clamp(2rem,3.4vw,3rem); line-height:1; letter-spacing:-0.02em;">2–4%</div>
-          <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:#B7C5D3; margin-top:12px; line-height:1.5;">Net-revenue uplift in Mexico &amp; Brazil pilots</div>
-        </div>
-        <div>
-          <div style="font-weight:700; font-size:clamp(2rem,3.4vw,3rem); line-height:1; letter-spacing:-0.02em;">250+</div>
-          <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:#B7C5D3; margin-top:12px; line-height:1.5;">ROI projections evaluated per optimization run</div>
-        </div>
+
+        <div style="margin-top: 18px; border-top: 1px solid rgb(233, 229, 219); padding-top: 16px; font-size: 13px; line-height: 1.5;"><b style="font-weight: 600;">The model proposes the moves; it also flags where it isn't sure.</b> On the low-confidence cells a person makes the call instead of trusting a number blindly. That legibility, not the accuracy, is what got commercial teams to actually reallocate.</div>
+      </div>
+      <div style="padding: 14px 26px; border-top: 1px solid rgb(233, 229, 219); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; letter-spacing: 0.04em; color: rgb(139, 133, 120); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; min-width: 620px;">
+        <span>Illustrative concept, not the actual product.</span><span>Fictional brands and data.</span>
+      </div>
+    </div>
+        <p style="font-size: 13.5px; line-height: 1.65; color: rgb(139, 133, 120); margin: 16px 0px 0px; max-width: 82ch;">Where the model wants to move next year's money, and, just as important, where it won't commit: the cells it's unsure about are flagged for a person to decide. I built it to propose <em>and</em> to admit doubt, because a system that silently reallocates millions gets ignored, while one that shows its confidence gets executed. <span style="color: rgb(181, 175, 159);">Illustrative concept · fictional brands and data.</span></p>
       </div>
     </section>
 
-    <!-- OVERVIEW -->
-    <section style="border-bottom:1px solid #E4E1D9;">
-      <div class="cs-wrap cs-section split-2" style="max-width:1160px; margin:0 auto; padding:88px 48px; display:grid; grid-template-columns:0.4fr 0.6fr; gap:64px; align-items:start;">
-        <div>
-          <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#9C978B; margin-bottom:16px;">01 — Overview</div>
-          <h2 style="font-weight:700; font-size:clamp(1.7rem,3vw,2.4rem); line-height:1.1; letter-spacing:-0.025em; margin:0; color:#1C1A15;">What Allocation AI does</h2>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:20px; max-width:60ch;">
-          <p style="font-size:17px; line-height:1.66; color:#4C4A42; margin:0;">Every year Heineken's operating companies face the same question: <em>where should the next marketing dollar go?</em> Five million on TV, or on trade promotions? More weight behind Heineken, or a local power brand? Historically these calls leaned on experience and last year's plan.</p>
-          <p style="font-size:17px; line-height:1.66; color:#4C4A42; margin:0;">Allocation AI answers it with evidence. It builds a Bayesian response model for each OpCo, brand and channel, learning how sales actually react to investment. The core output is a set of <strong style="color:#1C1A15;">response curves</strong> — spend on one axis, expected volume or ROI on the other — that let teams test budget scenarios before committing a cent.</p>
-          <p style="font-size:17px; line-height:1.66; color:#4C4A42; margin:0;">An optimizer then reads those curves and proposes the allocation that maximizes return within real strategic constraints: brand-role rules, long-term brand-building floors, and short-term sales limits.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- CHALLENGE -->
-    <section style="border-bottom:1px solid #E4E1D9; background:var(--blue-100);">
-      <div class="cs-wrap cs-section" style="max-width:1160px; margin:0 auto; padding:88px 48px;">
-        <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#445262; margin-bottom:16px;">02 — The Challenge</div>
-        <h2 style="font-weight:700; font-size:clamp(1.7rem,3.4vw,2.7rem); line-height:1.1; letter-spacing:-0.025em; margin:0; max-width:22ch; color:#1C1A15;">A powerful model no one outside data science could use.</h2>
-        <div class="three-col" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:48px;">
-          <div style="background:#FFFFFF; border:1px solid #B7C5D3; border-radius:10px; padding:28px 26px;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; letter-spacing:0.08em; color:#445262; margin-bottom:14px;">Opacity</div>
-            <p style="font-size:15px; line-height:1.6; color:#4C4A42; margin:0;">Response curves and Bayesian priors are trustworthy to statisticians and invisible to the commercial leaders who actually sign off budgets.</p>
-          </div>
-          <div style="background:#FFFFFF; border:1px solid #B7C5D3; border-radius:10px; padding:28px 26px;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; letter-spacing:0.08em; color:#445262; margin-bottom:14px;">Trust</div>
-            <p style="font-size:15px; line-height:1.6; color:#4C4A42; margin:0;">Asking a market director to hand budget authority to a black box is a hard sell. The output has to be legible, arguable, and overridable.</p>
-          </div>
-          <div style="background:#FFFFFF; border:1px solid #B7C5D3; border-radius:10px; padding:28px 26px;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; letter-spacing:0.08em; color:#445262; margin-bottom:14px;">Scale</div>
-            <p style="font-size:15px; line-height:1.6; color:#4C4A42; margin:0;">Whatever we built for one pilot market had to hold up across dozens of OpCos, each with its own brands, channels and data quality.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- MY ROLE -->
-    <section style="border-bottom:1px solid #E4E1D9;">
-      <div class="cs-wrap cs-section split-2" style="max-width:1160px; margin:0 auto; padding:88px 48px; display:grid; grid-template-columns:0.4fr 0.6fr; gap:64px; align-items:start;">
-        <div>
-          <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#9C978B; margin-bottom:16px;">03 — My Role</div>
-          <h2 style="font-weight:700; font-size:clamp(1.7rem,3vw,2.4rem); line-height:1.1; letter-spacing:-0.025em; margin:0; color:#1C1A15;">Owning the layer between the model and the decision.</h2>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:0; border:1px solid #E4E1D9; border-radius:10px; overflow:hidden; background:#FFFFFF;">
-          <div style="padding:26px 28px; border-bottom:1px solid #EFECE4; display:flex; gap:20px; align-items:flex-start;">
-            <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; color:var(--accent); flex:none; margin-top:2px;">01</span>
-            <div>
-              <div style="font-size:16px; font-weight:600; color:#1C1A15;">Translated the model into a decision tool</div>
-              <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:8px 0 0 0;">Framed response curves and ROI projections as scenarios a commercial team could read, compare and defend — not as statistical artefacts.</p>
+    
+    <section style="padding: clamp(48px, 6vw, 72px) 0px 0px;">
+      <div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="border: 1px solid rgb(233, 229, 219); border-radius: 20px; background: rgb(255, 255, 255); padding: clamp(28px, 4vw, 48px);">
+          <div id="cs-impact-head" style="display: flex; align-items: flex-end; justify-content: space-between; gap: clamp(20px, 3vw, 40px); flex-wrap: wrap;">
+            <div style="display: flex; align-items: flex-end; gap: clamp(18px, 2.5vw, 32px); flex-wrap: wrap;">
+              <div style="font-weight: 500; font-size: clamp(56px, 7.5vw, 110px); line-height: 0.84; letter-spacing: -0.05em; color: rgb(26, 24, 20);">36%</div>
+              <div style="font-size: 12.5px; letter-spacing: 0.02em; color: rgb(139, 133, 120); max-width: 26ch; line-height: 1.6; margin-bottom: 4px;">ROI improvement across brands and touchpoints, publicly credited by Heineken.</div>
             </div>
+            <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(161, 155, 141); margin-bottom: 4px;">Public · Heineken newsroom</div>
           </div>
-          <div style="padding:26px 28px; border-bottom:1px solid #EFECE4; display:flex; gap:20px; align-items:flex-start;">
-            <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; color:var(--accent); flex:none; margin-top:2px;">02</span>
-            <div>
-              <div style="font-size:16px; font-weight:600; color:#1C1A15;">Designed the scenario &amp; constraint workflow</div>
-              <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:8px 0 0 0;">Built the flow where planners set constraints (brand roles, spend floors and caps) and watch the optimizer respond — keeping humans in control of the machine.</p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(20px, 2.5vw, 32px); margin-top: clamp(28px, 3.5vw, 40px);">
+            <div style="border-top: 1px solid rgb(233, 229, 219); padding-top: 18px;">
+              <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(129, 63, 50);">Behaviour change</div>
+              <div style="font-size: 16px; font-weight: 600; letter-spacing: -0.01em; margin-top: 8px;">Intuition → model-driven</div>
+              <div style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92); margin-top: 6px;">Annual planning shifted from "last year plus a bit" to a modelled, defensible split.</div>
             </div>
-          </div>
-          <div style="padding:26px 28px; border-bottom:1px solid #EFECE4; display:flex; gap:20px; align-items:flex-start;">
-            <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; color:var(--accent); flex:none; margin-top:2px;">03</span>
-            <div>
-              <div style="font-size:16px; font-weight:600; color:#1C1A15;">Bridged data science and commercial teams</div>
-              <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:8px 0 0 0;">Ran discovery with both sides, turning statistical outputs and business intuition into a shared product language and a single roadmap.</p>
+            <div style="border-top: 1px solid rgb(233, 229, 219); padding-top: 18px;">
+              <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(70, 105, 105);">Adoption</div>
+              <div style="font-size: 16px; font-weight: 600; letter-spacing: -0.01em; margin-top: 8px;">Piloted → scaled</div>
+              <div style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92); margin-top: 6px;">Commercial leaders reallocated budget on the model's guidance, in the planning cycle, at scale.</div>
             </div>
-          </div>
-          <div style="padding:26px 28px; display:flex; gap:20px; align-items:flex-start;">
-            <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; color:var(--accent); flex:none; margin-top:2px;">04</span>
-            <div>
-              <div style="font-size:16px; font-weight:600; color:#1C1A15;">Drove the multi-market rollout</div>
-              <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:8px 0 0 0;">Standardized the experience so a tool proven in Brazil, Mexico and the UK could scale across OpCos with varying data maturity.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- HOW IT WORKS -->
-    <section style="border-bottom:1px solid #E4E1D9;">
-      <div class="cs-wrap cs-section" style="max-width:1160px; margin:0 auto; padding:88px 48px;">
-        <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#9C978B; margin-bottom:16px;">04 — How It Works</div>
-        <h2 style="font-weight:700; font-size:clamp(1.7rem,3.4vw,2.7rem); line-height:1.1; letter-spacing:-0.025em; margin:0 0 48px 0; max-width:20ch; color:#1C1A15;">From three years of data to one allocation.</h2>
-        <div class="how-4" style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px;">
-          <div style="display:flex; flex-direction:column; gap:14px;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.1em; color:var(--accent); border-top:2px solid var(--accent); padding-top:14px;">Step 01</div>
-            <div style="font-size:16px; font-weight:600; color:#1C1A15;">Decompose history</div>
-            <p style="font-size:14px; line-height:1.6; color:#6E6A60; margin:0;">Regression models trained on 3+ years of data separate sales growth into ATL, BTL, commercial levers and control factors.</p>
-          </div>
-          <div style="display:flex; flex-direction:column; gap:14px;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.1em; color:var(--accent); border-top:2px solid var(--accent); padding-top:14px;">Step 02</div>
-            <div style="font-size:16px; font-weight:600; color:#1C1A15;">Build priors</div>
-            <p style="font-size:14px; line-height:1.6; color:#6E6A60; margin:0;">Bayesian priors are built and updated per touchpoint, then models are trained and aggregated for each distinct channel.</p>
-          </div>
-          <div style="display:flex; flex-direction:column; gap:14px;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.1em; color:var(--accent); border-top:2px solid var(--accent); padding-top:14px;">Step 03</div>
-            <div style="font-size:16px; font-weight:600; color:#1C1A15;">Plot response curves</div>
-            <p style="font-size:14px; line-height:1.6; color:#6E6A60; margin:0;">Each curve maps spend to expected volume and incremental ROI, simulating impact at every spend level.</p>
-          </div>
-          <div style="display:flex; flex-direction:column; gap:14px;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.1em; color:var(--accent); border-top:2px solid var(--accent); padding-top:14px;">Step 04</div>
-            <div style="font-size:16px; font-weight:600; color:#1C1A15;">Optimize under constraints</div>
-            <p style="font-size:14px; line-height:1.6; color:#6E6A60; margin:0;">The optimizer weighs 250+ ROI projections at once, allocating to the best touchpoints within the Brand Role Framework.</p>
-          </div>
-        </div>
-        <div style="margin-top:40px; display:flex; flex-wrap:wrap; gap:10px;">
-          <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.06em; color:#4C4A42; background:#FFFFFF; border:1px solid #E4E1D9; border-radius:999px; padding:8px 15px;">Bayesian regression</span>
-          <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.06em; color:#4C4A42; background:#FFFFFF; border:1px solid #E4E1D9; border-radius:999px; padding:8px 15px;">Response curves</span>
-          <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.06em; color:#4C4A42; background:#FFFFFF; border:1px solid #E4E1D9; border-radius:999px; padding:8px 15px;">Industry-standard optimizer</span>
-          <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.06em; color:#4C4A42; background:#FFFFFF; border:1px solid #E4E1D9; border-radius:999px; padding:8px 15px;">Heineken Azure Platform</span>
-          <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.06em; color:#4C4A42; background:#FFFFFF; border:1px solid #E4E1D9; border-radius:999px; padding:8px 15px;">Automated training &amp; validation</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- IMPACT TIMELINE -->
-    <section style="border-bottom:1px solid #E4E1D9; background:#FFFFFF;">
-      <div class="cs-wrap cs-section split-2" style="max-width:1160px; margin:0 auto; padding:88px 48px; display:grid; grid-template-columns:0.4fr 0.6fr; gap:64px; align-items:start;">
-        <div>
-          <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#9C978B; margin-bottom:16px;">05 — Impact</div>
-          <h2 style="font-weight:700; font-size:clamp(1.7rem,3vw,2.4rem); line-height:1.1; letter-spacing:-0.025em; margin:0; color:#1C1A15;">A structural shift, staged over years.</h2>
-          <p style="font-size:15px; line-height:1.6; color:#6E6A60; margin:20px 0 0 0;">Replacing intuition-based budgeting with precision modelling compounds — pilots prove the lift, global rollout scales it.</p>
-        </div>
-        <div style="display:flex; flex-direction:column;">
-          <div style="display:flex; gap:24px; padding:0 0 28px 0; border-left:2px solid #E4E1D9; padding-left:28px; position:relative;">
-            <span style="position:absolute; left:-7px; top:2px; width:12px; height:12px; border-radius:999px; background:var(--accent); border:2px solid #FFFFFF;"></span>
-            <div>
-              <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.08em; color:var(--accent);">Pilot</div>
-              <div style="font-size:16px; font-weight:600; margin:6px 0 4px 0; color:#1C1A15;">Mexico &amp; Brazil — 2–4% net-revenue uplift</div>
-              <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:0;">First deployments established the baseline: measurable revenue gains from smarter allocation alone.</p>
-            </div>
-          </div>
-          <div style="display:flex; gap:24px; padding:0 0 28px 0; border-left:2px solid #E4E1D9; padding-left:28px; position:relative;">
-            <span style="position:absolute; left:-7px; top:2px; width:12px; height:12px; border-radius:999px; background:var(--accent); border:2px solid #FFFFFF;"></span>
-            <div>
-              <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.08em; color:var(--accent);">2027</div>
-              <div style="font-size:16px; font-weight:600; margin:6px 0 4px 0; color:#1C1A15;">€305M gross-profit uplift</div>
-              <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:0;">Optimizing ABTL allocation across top OpCos, at a cost-to-achieve of roughly €16M — a ~19× return.</p>
-            </div>
-          </div>
-          <div style="display:flex; gap:24px; border-left:2px solid transparent; padding-left:28px; position:relative;">
-            <span style="position:absolute; left:-7px; top:2px; width:12px; height:12px; border-radius:999px; background:var(--accent-deep); border:2px solid #FFFFFF;"></span>
-            <div>
-              <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.08em; color:var(--accent-deep);">2029</div>
-              <div style="font-size:16px; font-weight:600; margin:6px 0 4px 0; color:#1C1A15;">~€600M yearly revenue uplift</div>
-              <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:0;">The enterprise-scale target as the capability rolls out across every applied market under the EverGreen strategy.</p>
+            <div style="border-top: 1px solid rgb(233, 229, 219); padding-top: 18px;">
+              <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(158, 94, 74);">Scope</div>
+              <div style="font-size: 16px; font-weight: 600; letter-spacing: -0.01em; margin-top: 8px;">~€2.9B in play</div>
+              <div style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92); margin-top: 6px;">The annual marketing spend this system was built to allocate across markets, brands and channels.</div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- KPIs -->
-    <section style="border-bottom:1px solid #E4E1D9;">
-      <div class="cs-wrap cs-section" style="max-width:1160px; margin:0 auto; padding:88px 48px;">
-        <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#9C978B; margin-bottom:16px;">06 — What We Measured</div>
-        <h2 style="font-weight:700; font-size:clamp(1.7rem,3vw,2.4rem); line-height:1.1; letter-spacing:-0.025em; margin:0 0 44px 0; color:#1C1A15;">The KPIs behind every allocation.</h2>
-        <div class="three-col" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;">
-          <div style="border:1px solid #E4E1D9; border-radius:10px; padding:30px 28px; background:#FFFFFF;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:18px;">Financial</div>
-            <ul style="margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:12px;">
-              <li style="font-size:15px; line-height:1.5; color:#4C4A42; padding-left:18px; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">›</span>Return on Investment (ROI)</li>
-              <li style="font-size:15px; line-height:1.5; color:#4C4A42; padding-left:18px; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">›</span>Gross Profit (GP) impact</li>
-            </ul>
+    
+    <section style="padding: clamp(72px, 9vw, 112px) 0px 0px;">
+      <div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);">
+          <span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+          <span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+        </div>
+        <div id="cs-overview-grid" style="display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 5vw, 80px); align-items: start;">
+          <div>
+            <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">01 · Overview</div>
+            <h2 style="font-weight: 500; font-size: clamp(1.9rem, 3.4vw, 2.8rem); line-height: 1.1; letter-spacing: -0.03em; margin: 20px 0px 0px; color: rgb(26, 24, 20); max-width: 18ch;">What Allocation AI does</h2>
           </div>
-          <div style="border:1px solid #E4E1D9; border-radius:10px; padding:30px 28px; background:#FFFFFF;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:18px;">Volume</div>
-            <ul style="margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:12px;">
-              <li style="font-size:15px; line-height:1.5; color:#4C4A42; padding-left:18px; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">›</span>Gained volume</li>
-              <li style="font-size:15px; line-height:1.5; color:#4C4A42; padding-left:18px; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">›</span>Sell-out volume per channel</li>
-            </ul>
+          <div style="display: flex; flex-direction: column; gap: 20px; max-width: 60ch;">
+            <p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">Every year Heineken's operating companies face the same question: <em>where should the next marketing euro go?</em> Five million on TV, or on trade promotions? More weight behind a global brand, or a local power brand? Historically these calls leaned on experience and last year's plan.</p>
+            <p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">Allocation AI answers with evidence. It builds a Bayesian response model per operating company, brand and channel, learning how sales actually react to investment. The core output is a set of <strong style="color: rgb(26, 24, 20); font-weight: 600;">response curves</strong> (spend on one axis, expected volume or ROI on the other) that let teams test budget scenarios before committing a cent.</p>
+            <p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">A constraint-aware optimizer then reads those curves and proposes the allocation that maximises return within real strategic limits: brand-role rules, long-term brand-building floors, and short-term caps.</p>
           </div>
-          <div style="border:1px solid #E4E1D9; border-radius:10px; padding:30px 28px; background:#FFFFFF;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:18px;">Investment</div>
-            <ul style="margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:12px;">
-              <li style="font-size:15px; line-height:1.5; color:#4C4A42; padding-left:18px; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">›</span>ATL touchpoint spend</li>
-              <li style="font-size:15px; line-height:1.5; color:#4C4A42; padding-left:18px; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">›</span>BTL budget contributions</li>
-            </ul>
+        </div>
+        <figure style="margin: clamp(44px, 5.5vw, 64px) 0px 0px; border: 1px solid rgb(233, 229, 219); border-radius: 20px; background: rgb(255, 255, 255); padding: 8px; display: flex; flex-direction: column;">
+            <div style="background: rgb(255, 255, 255); border: 1px solid rgb(233, 229, 219); border-radius: 14px; box-shadow: rgba(26, 24, 20, 0.04) 0px 1px 2px, rgba(26, 24, 20, 0.05) 0px 12px 32px; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch;">
+      <div style="padding: 22px 26px 18px;">
+        <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; color: rgb(179, 102, 86); margin-bottom: 2px;">Scenario · "Shift to digital, protect brand"</div>
+        <h2 style="margin: 6px 0px 4px; font-size: 21px; font-weight: 600; letter-spacing: -0.01em;">What this budget scenario delivers</h2>
+        <div style="color: rgb(139, 133, 120); font-size: 13px;">Projected outcome vs last year, before the plan is committed.</div>
+      </div>
+      <div style="border-bottom: 1px solid rgb(233, 229, 219); min-width: 560px;"></div>
+      <div style="padding: 20px 26px 22px; min-width: 560px;">
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 26px;">
+          <div style="border: 1px solid rgb(233, 229, 219); border-radius: 11px; padding: 14px 14px 13px;"><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(139, 133, 120);">Volume</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 25px; font-weight: 600; letter-spacing: -0.02em; margin: 8px 0px 6px;">3.8M</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; color: rgb(81, 106, 84); display: inline-flex; align-items: center; gap: 4px;">↑ 5.0%</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; color: rgb(139, 133, 120); margin-top: 4px;">LY 3.6M</div></div>
+          <div style="border: 1px solid rgb(233, 229, 219); border-radius: 11px; padding: 14px 14px 13px;"><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(139, 133, 120);">Net revenue</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 25px; font-weight: 600; letter-spacing: -0.02em; margin: 8px 0px 6px;">€540M</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; color: rgb(81, 106, 84); display: inline-flex; align-items: center; gap: 4px;">↑ 9.0%</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; color: rgb(139, 133, 120); margin-top: 4px;">LY €495M</div></div>
+          <div style="border: 1px solid rgb(233, 229, 219); border-radius: 11px; padding: 14px 14px 13px;"><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(139, 133, 120);">Gross profit</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 25px; font-weight: 600; letter-spacing: -0.02em; margin: 8px 0px 6px;">€270M</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; color: rgb(81, 106, 84); display: inline-flex; align-items: center; gap: 4px;">↑ 6.0%</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; color: rgb(139, 133, 120); margin-top: 4px;">LY €255M</div></div>
+          <div style="border: 1px solid rgb(233, 229, 219); border-radius: 11px; padding: 14px 14px 13px;"><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(139, 133, 120);">ROI</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 25px; font-weight: 600; letter-spacing: -0.02em; margin: 8px 0px 6px;">3.1×</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; color: rgb(81, 106, 84); display: inline-flex; align-items: center; gap: 4px;">↑ 14%</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; color: rgb(139, 133, 120); margin-top: 4px;">LY 2.7×</div></div>
+        </div>
+
+        <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(139, 133, 120); margin-bottom: 14px;">Projected net revenue vs last year, by brand</div>
+
+        <div style="display: grid; grid-template-columns: 78px 1fr 52px; align-items: center; gap: 14px; margin-bottom: 14px;">
+          <span style="font-size: 13px;">Nordlys</span>
+          <div style="display: flex; flex-direction: column; gap: 5px;">
+            <div style="height: 15px; border-radius: 4px; display: flex; align-items: center; position: relative; background: rgb(200, 189, 174); width: 71%;"><span style="position: absolute; right: -34px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; color: rgb(139, 133, 120);">100</span></div>
+            <div style="height: 15px; border-radius: 4px; display: flex; align-items: center; position: relative; background: rgba(81, 106, 84, 0.72); width: 84%;"><span style="position: absolute; right: -34px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; color: rgb(139, 133, 120);">118</span></div>
+          </div>
+          <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; color: rgb(81, 106, 84); text-align: right; font-weight: 600;">+18%</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 78px 1fr 52px; align-items: center; gap: 14px; margin-bottom: 14px;">
+          <span style="font-size: 13px;">Verano</span>
+          <div style="display: flex; flex-direction: column; gap: 5px;">
+            <div style="height: 15px; border-radius: 4px; display: flex; align-items: center; position: relative; background: rgb(200, 189, 174); width: 64%;"><span style="position: absolute; right: -34px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; color: rgb(139, 133, 120);">90</span></div>
+            <div style="height: 15px; border-radius: 4px; display: flex; align-items: center; position: relative; background: rgba(81, 106, 84, 0.72); width: 74%;"><span style="position: absolute; right: -34px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; color: rgb(139, 133, 120);">104</span></div>
+          </div>
+          <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; color: rgb(81, 106, 84); text-align: right; font-weight: 600;">+16%</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 78px 1fr 52px; align-items: center; gap: 14px; margin-bottom: 14px;">
+          <span style="font-size: 13px;">Kestrel</span>
+          <div style="display: flex; flex-direction: column; gap: 5px;">
+            <div style="height: 15px; border-radius: 4px; display: flex; align-items: center; position: relative; background: rgb(200, 189, 174); width: 86%;"><span style="position: absolute; right: -34px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; color: rgb(139, 133, 120);">120</span></div>
+            <div style="height: 15px; border-radius: 4px; display: flex; align-items: center; position: relative; background: rgba(81, 106, 84, 0.72); width: 94%;"><span style="position: absolute; right: -34px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; color: rgb(139, 133, 120);">131</span></div>
+          </div>
+          <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; color: rgb(81, 106, 84); text-align: right; font-weight: 600;">+9%</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 78px 1fr 52px; align-items: center; gap: 14px; margin-bottom: 14px;">
+          <span style="font-size: 13px;">Aurora</span>
+          <div style="display: flex; flex-direction: column; gap: 5px;">
+            <div style="height: 15px; border-radius: 4px; display: flex; align-items: center; position: relative; background: rgb(200, 189, 174); width: 50%;"><span style="position: absolute; right: -34px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; color: rgb(139, 133, 120);">70</span></div>
+            <div style="height: 15px; border-radius: 4px; display: flex; align-items: center; position: relative; background: rgba(81, 106, 84, 0.72); width: 59%;"><span style="position: absolute; right: -34px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; color: rgb(139, 133, 120);">82</span></div>
+          </div>
+          <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; color: rgb(81, 106, 84); text-align: right; font-weight: 600;">+17%</span>
+        </div>
+
+        <div style="display: flex; gap: 18px; flex-wrap: wrap; margin: 6px 2px 0px; font-size: 12px;">
+          <span style="display: inline-flex; align-items: center; gap: 7px;"><i style="width: 12px; height: 12px; border-radius: 3px; display: inline-block; background: rgb(200, 189, 174);"></i>Last year</span>
+          <span style="display: inline-flex; align-items: center; gap: 7px;"><i style="width: 12px; height: 12px; border-radius: 3px; display: inline-block; background: rgba(81, 106, 84, 0.72);"></i>Optimised plan</span>
+        </div>
+
+        <div style="margin-top: 20px; border-top: 1px solid rgb(233, 229, 219); padding-top: 16px; font-size: 13px; line-height: 1.5;"><b style="font-weight: 600;">A planner spins up a scenario and sees its projected outcome before committing a euro.</b> Every number is labeled as a projection, because it is. This is what moved annual planning from intuition to a model teams could interrogate, compare, and trust enough to act on.</div>
+      </div>
+      <div style="padding: 14px 26px; border-top: 1px solid rgb(233, 229, 219); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; letter-spacing: 0.04em; color: rgb(139, 133, 120); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; min-width: 560px;">
+        <span>Illustrative concept, not the actual product.</span><span>Fictional brands and data.</span>
+      </div>
+    </div>
+            <figcaption style="font-size: 13.5px; line-height: 1.62; color: rgb(107, 102, 92); padding: 16px 14px 12px;"><strong style="color: rgb(26, 24, 20); font-weight: 600;">What a plan delivers before a euro moves.</strong> Every figure is labelled a projection and broken out by brand, so a leader can interrogate the split rather than accept a headline. Numbers people can pull apart are the ones they'll put their name on.</figcaption>
+          </figure>
+      </div>
+    </section>
+
+    
+    <section style="padding: clamp(72px, 9vw, 112px) 0px 0px;">
+      <div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);">
+          <span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+          <span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+        </div>
+        <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">02 · The problem</div>
+        <h2 style="font-weight: 500; font-size: clamp(2rem, 3.8vw, 3.1rem); line-height: 1.08; letter-spacing: -0.03em; margin: 18px 0px 0px; color: rgb(26, 24, 20); max-width: 24ch;">The model was never the hard part.</h2>
+        <div id="cs-problem-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 64px); margin-top: clamp(32px, 4vw, 44px); align-items: start;">
+          <p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">Heineken spends billions on marketing every year: roughly €2.9B, about 9.8% of net revenue. Historically that budget was split across markets, brands and channels by habit and last year's plan, not by predicted return. Data science <em>could</em> build response curves and calculate where the next euro pays back best. That was not the hard part.</p>
+          <p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">The hard part was authority and trust. To act on the model, a commercial leader has to pull real money out of a channel they believe in, on the say-so of a system, and defend that to their market. <strong style="color: rgb(26, 24, 20); font-weight: 600;">A reallocation nobody executes is a slide, not a system.</strong> The blocker was never the optimizer: it was whether a person with budget authority would move the money.</p>
+        </div>
+      </div>
+    </section>
+
+    
+    <section style="padding: clamp(72px, 9vw, 112px) 0px 0px;">
+      <div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);">
+          <span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+          <span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+        </div>
+        <div id="cs-role-grid" style="display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 5vw, 80px); align-items: start;">
+          <div>
+            <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">03 · My role &amp; ownership</div>
+            <h2 style="font-weight: 500; font-size: clamp(1.9rem, 3.4vw, 2.8rem); line-height: 1.1; letter-spacing: -0.03em; margin: 20px 0px 0px; color: rgb(26, 24, 20); max-width: 16ch;">Accountable for whether the money actually moved.</h2>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 20px; max-width: 60ch;">
+            <p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">I was the founding product hire in the analytics group and the product owner for this system, from discovery to delivery: the problem framing, the scope, the roadmap, and the adoption path into the annual planning cycle.</p>
+            <p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">I was accountable for whether operating companies <strong style="color: rgb(26, 24, 20); font-weight: 600;">actually reallocated budget</strong>, not just whether the model produced an answer. I was the standing bridge between the data scientists who built the models and the OpCo commercial leaders who had to change how they planned.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ECOSYSTEM -->
-    <section style="border-bottom:1px solid #E4E1D9; background:var(--blue-100);">
-      <div class="cs-wrap cs-section" style="max-width:1160px; margin:0 auto; padding:88px 48px;">
-        <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#445262; margin-bottom:16px;">07 — In Context</div>
-        <h2 style="font-weight:700; font-size:clamp(1.7rem,3vw,2.4rem); line-height:1.1; letter-spacing:-0.025em; margin:0 0 16px 0; max-width:24ch; color:#1C1A15;">The macro engine of a three-part system.</h2>
-        <p style="font-size:16px; line-height:1.6; color:#4C4A42; max-width:60ch; margin:0 0 44px 0;">Allocation AI sets the sandbox — how much each channel and brand gets — that Smart Flighting and Promo Advisor then execute against. <strong style="color:#1C1A15;">Allocation secures the funding; Smart Flighting schedules the impact; Promo Advisor executes the offer.</strong></p>
-        <div class="three-col" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
-          <div style="background:#FFFFFF; border:2px solid var(--accent); border-radius:10px; padding:26px;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:10px;">Where &amp; how much · You are here</div>
-            <div style="font-size:18px; font-weight:700; color:#1C1A15;">Allocation AI</div>
-            <p style="font-size:14px; line-height:1.55; color:#6E6A60; margin:10px 0 0 0;">Sets the annual budget across OpCos, brands and channels.</p>
+    
+    <section style="padding: clamp(72px, 9vw, 112px) 0px 0px;">
+      <div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);">
+          <span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+          <span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+        </div>
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; flex-wrap: wrap; margin-bottom: clamp(32px, 4vw, 44px);">
+          <div>
+            <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">04 · Key decisions</div>
+            <h2 style="font-weight: 500; font-size: clamp(2rem, 3.8vw, 3.1rem); line-height: 1.08; letter-spacing: -0.03em; margin: 18px 0px 0px; color: rgb(26, 24, 20);">Three product bets that earned adoption</h2>
           </div>
-          <div style="background:#FFFFFF; border:1px solid #B7C5D3; border-radius:10px; padding:26px; opacity:0.85;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:#9C978B; margin-bottom:10px;">When · Coming soon</div>
-            <div style="font-size:18px; font-weight:700; color:#1C1A15;">Smart Flighting</div>
-            <p style="font-size:14px; line-height:1.55; color:#6E6A60; margin:10px 0 0 0;">Stretches each budget across the calendar for maximum pressure.</p>
+          <p style="font-size: 15px; line-height: 1.62; color: rgb(107, 102, 92); margin: 0px 0px 6px; max-width: 42ch;">Each one traded theoretical elegance for something a commercial leader would actually execute.</p>
+        </div>
+        <div id="cs-decisions">
+          <div style="display: grid; grid-template-columns: clamp(44px, 5vw, 72px) 1fr minmax(150px, 220px); align-items: start; gap: clamp(16px, 3vw, 32px); padding: clamp(22px, 2.8vw, 30px) 0px; border-top: 1px solid rgb(233, 229, 219);">
+            <div style="font-size: 13px; font-weight: 600; color: rgb(161, 155, 141); letter-spacing: 0.08em;">01</div>
+            <div>
+              <div style="font-weight: 600; font-size: clamp(1.1rem, 1.6vw, 1.35rem); letter-spacing: -0.02em; color: rgb(26, 24, 20);">A decision tool, not a reporting dashboard.</div>
+              <div style="font-size: 14.5px; line-height: 1.62; color: rgb(107, 102, 92); margin-top: 8px; max-width: 66ch;">The cheaper path was a BI dashboard showing historical ROI by channel. I argued against it: teams didn't need more charts, they needed a defensible answer to "where should the next euro go" that they could take into a planning meeting.</div>
+              <div style="font-size: 14px; line-height: 1.55; color: rgb(107, 102, 92); margin-top: 14px; padding-top: 12px; border-top: 1px solid rgb(240, 237, 229); max-width: 66ch;"><span style="font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(129, 63, 50); margin-right: 10px;">The tradeoff</span>Far more product surface, and far more trust to earn, than a dashboard would have needed.</div>
+            </div>
+            <div style="text-align: right; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(161, 155, 141); padding-top: 4px;">Answer over charts</div>
           </div>
-          <div style="background:#FFFFFF; border:1px solid #B7C5D3; border-radius:10px; padding:26px; opacity:0.85;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:#9C978B; margin-bottom:10px;">What &amp; why · Coming soon</div>
-            <div style="font-size:18px; font-weight:700; color:#1C1A15;">Promo Advisor</div>
-            <p style="font-size:14px; line-height:1.55; color:#6E6A60; margin:10px 0 0 0;">Fills the calendar with the specific winning promo mechanics.</p>
+          <div style="display: grid; grid-template-columns: clamp(44px, 5vw, 72px) 1fr minmax(150px, 220px); align-items: start; gap: clamp(16px, 3vw, 32px); padding: clamp(22px, 2.8vw, 30px) 0px; border-top: 1px solid rgb(233, 229, 219);">
+            <div style="font-size: 13px; font-weight: 600; color: rgb(161, 155, 141); letter-spacing: 0.08em;">02</div>
+            <div>
+              <div style="font-weight: 600; font-size: clamp(1.1rem, 1.6vw, 1.35rem); letter-spacing: -0.02em; color: rgb(26, 24, 20);">Exposed the curve and its uncertainty, not a single "optimal" number.</div>
+              <div style="font-size: 14.5px; line-height: 1.62; color: rgb(107, 102, 92); margin-top: 8px; max-width: 66ch;">The tempting move was a one-click "here is your optimal budget" black box. I rejected it. A black box that silently reallocates millions gets ignored; showing the diminishing-returns curve, the marginal ROI, and the confidence band lets a leader see <em>why</em> the model wants to move money, and where it is unsure.</div>
+              <div style="font-size: 14px; line-height: 1.55; color: rgb(107, 102, 92); margin-top: 14px; padding-top: 12px; border-top: 1px solid rgb(240, 237, 229); max-width: 66ch;"><span style="font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(129, 63, 50); margin-right: 10px;">The tradeoff</span>More for a leader to read, in exchange for a recommendation someone will actually execute.</div>
+            </div>
+            <div style="text-align: right; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(161, 155, 141); padding-top: 4px;">Curve over number</div>
           </div>
+          <div style="display: grid; grid-template-columns: clamp(44px, 5vw, 72px) 1fr minmax(150px, 220px); align-items: start; gap: clamp(16px, 3vw, 32px); padding: clamp(22px, 2.8vw, 30px) 0px; border-top: 1px solid rgb(233, 229, 219); border-bottom: 1px solid rgb(233, 229, 219);">
+            <div style="font-size: 13px; font-weight: 600; color: rgb(161, 155, 141); letter-spacing: 0.08em;">03</div>
+            <div>
+              <div style="font-weight: 600; font-size: clamp(1.1rem, 1.6vw, 1.35rem); letter-spacing: -0.02em; color: rgb(26, 24, 20);">Made the optimizer respect strategy, not just maximise ROI.</div>
+              <div style="font-size: 14.5px; line-height: 1.62; color: rgb(107, 102, 92); margin-top: 8px; max-width: 66ch;">I built in guardrails (brand role, long-term brand building) so the model couldn't starve a strategic brand to chase short-term return. Pure ROI-maximisation would have produced a higher number on paper and lost the room in one meeting. The human sets the objective and the constraints; the system searches within them.</div>
+              <div style="font-size: 14px; line-height: 1.55; color: rgb(107, 102, 92); margin-top: 14px; padding-top: 12px; border-top: 1px solid rgb(240, 237, 229); max-width: 66ch;"><span style="font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(129, 63, 50); margin-right: 10px;">The tradeoff</span>A lower theoretical optimum, for a recommendation that fits how the business actually decides.</div>
+            </div>
+            <div style="text-align: right; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(161, 155, 141); padding-top: 4px;">Strategy over optimum</div>
+          </div>
+        </div>
+
+        
+        <figure style="margin: clamp(40px, 5vw, 60px) 0px 0px;">
+          <div style="border: 1px solid rgb(233, 229, 219); border-radius: 20px; background: rgb(255, 255, 255); padding: clamp(24px, 4vw, 44px); overflow: hidden;">
+            <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(129, 63, 50);">Decision 02, made visible</div>
+            <h3 style="font-weight: 500; font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.14; letter-spacing: -0.025em; margin: 12px 0px clamp(26px, 3.4vw, 36px); color: rgb(26, 24, 20); max-width: 28ch;">Show the whole curve, not just a number.</h3>
+            <div style="background: rgb(255, 255, 255); border: 1px solid rgb(233, 229, 219); border-radius: 14px; box-shadow: rgba(26, 24, 20, 0.04) 0px 1px 2px, rgba(26, 24, 20, 0.05) 0px 12px 32px; overflow: hidden;">
+      <div style="padding: 22px 26px 18px; border-bottom: 1px solid rgb(233, 229, 219);">
+        <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; color: rgb(179, 102, 86); margin-bottom: 2px;">Heat-map → Nordlys · TV</div>
+        <h2 style="margin: 6px 0px 4px; font-size: 21px; font-weight: 600; letter-spacing: -0.01em;">Is this spend still paying back?</h2>
+        <div style="color: rgb(139, 133, 120); font-size: 13px;">Revenue keeps rising, but ROI peaks and falls. The model shows where you are on both.</div>
+      </div>
+      <div style="padding: 18px 26px 20px;">
+        <svg viewBox="0 0 624 300" role="img" aria-label="Response curve: revenue and ROI against spend" style="width: 100%; height: auto; display: block;">
+          <rect x="258" y="30" width="172" height="220" fill="rgba(179,102,86,0.09)"></rect>
+          <line x1="52" y1="24" x2="52" y2="250" stroke="#E9E5DB" stroke-width="1"></line>
+          <line x1="52" y1="250" x2="588" y2="250" stroke="#E9E5DB" stroke-width="1"></line>
+          <path d="M52,250 C142,206 216,122 258,118 C340,112 462,150 588,176" fill="none" stroke="#8B8578" stroke-width="1.2" stroke-dasharray="5 4"></path>
+          <path d="M52,250 C150,246 208,150 280,112 C352,76 470,66 588,62" fill="none" stroke="#516A54" stroke-width="1.6"></path>
+          <line x1="430" y1="30" x2="430" y2="250" stroke="#8B8578" stroke-width="1.2" stroke-dasharray="4 4"></line>
+          <line x1="258" y1="30" x2="258" y2="250" stroke="#B36656" stroke-width="1.3"></line>
+          <text x="430" y="67" font-size="16" fill="#516A54" text-anchor="middle" dominant-baseline="central">◆</text>
+          <text x="258" y="118" font-size="16" fill="#1A1814" text-anchor="middle" dominant-baseline="central">★</text>
+          <text x="56" y="20" font-family="Inter" font-size="10" fill="#8B8578">Revenue</text>
+          <text x="588" y="20" text-anchor="end" font-family="Inter" font-size="10" fill="#8B8578">ROI</text>
+          <text x="586" y="268" text-anchor="end" font-family="Inter" font-size="10" fill="#8B8578">Spend →</text>
+          <text x="258" y="266" text-anchor="middle" font-family="Inter" font-size="10.5" fill="#B36656" font-weight="600">peak ROI</text>
+          <text x="430" y="266" text-anchor="middle" font-family="Inter" font-size="10.5" fill="#8B8578">current</text>
+        </svg>
+        <div style="display: flex; gap: 18px; flex-wrap: wrap; margin: 8px 2px 0px; font-size: 12px;">
+          <span style="display: inline-flex; align-items: center; gap: 7px;"><i style="width: 20px; height: 0px; border-top: 2.5px solid rgb(81, 106, 84); display: inline-block;"></i>Revenue</span>
+          <span style="display: inline-flex; align-items: center; gap: 7px;"><i style="width: 20px; height: 0px; border-top: 1.8px dashed rgb(139, 133, 120); display: inline-block;"></i>ROI</span>
+          <span style="display: inline-flex; align-items: center; gap: 7px;"><i style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; line-height: 1; color: rgb(81, 106, 84);">◆</i>Current spend</span>
+          <span style="display: inline-flex; align-items: center; gap: 7px;"><i style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 13px; line-height: 1; color: rgb(26, 24, 20);">★</i>Peak ROI</span>
+        </div>
+        <div style="margin-top: 16px; border-top: 1px solid rgb(233, 229, 219); padding-top: 16px; font-size: 13px; line-height: 1.5;"><b style="font-weight: 600;">Current spend sits past the point of peak ROI.</b> Each extra euro still adds a little revenue but returns less, so the model recommends easing back toward the peak (the ~25% cut the heat-map flagged for this cell). It shows the whole curve, not just a number, so the team sees the tradeoff and makes the call.</div>
+      </div>
+      <div style="padding: 14px 26px; border-top: 1px solid rgb(233, 229, 219); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; letter-spacing: 0.04em; color: rgb(139, 133, 120); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+        <span>Illustrative concept, not the actual product.</span><span>Fictional brands and data.</span>
+      </div>
+    </div>
+            <p style="font-size: 15px; line-height: 1.68; color: rgb(76, 74, 66); margin: clamp(20px, 3vw, 28px) 0px 0px; max-width: 82ch;">What the model sees that instinct doesn't. Revenue keeps climbing with every extra euro, but ROI peaks and then falls, and this channel is already spending past the peak. I chose to show the whole curve, not a single "optimal" number, so a leader could see the tradeoff and make the cut themselves.</p>
+            <div style="font-size: 10px; letter-spacing: 0.06em; color: rgb(181, 175, 159); margin-top: 20px; text-align: right;">Illustrative concept · fictional brands and data</div>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    
+    <section style="padding: clamp(72px, 9vw, 112px) 0px 0px;">
+      <div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);">
+          <span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+          <span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+        </div>
+        <div id="cs-shipped-grid" style="display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 5vw, 80px); align-items: start; margin-bottom: clamp(40px, 5vw, 56px);">
+          <div>
+            <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">05 · What shipped</div>
+            <h2 style="font-weight: 500; font-size: clamp(1.9rem, 3.4vw, 2.8rem); line-height: 1.1; letter-spacing: -0.03em; margin: 20px 0px 0px; color: rgb(26, 24, 20); max-width: 18ch;">A production system in the planning cycle.</h2>
+          </div>
+          <div style="max-width: 60ch;">
+            <p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">Bayesian response-curve models built per operating company, brand and channel; a scenario simulator for testing budget splits; and a constraint-aware optimizer that weighs hundreds of ROI projections against strategic limits, all on Heineken's Azure platform. Piloted in a first set of markets, then scaled into the annual planning cycle.</p>
+            <div style="font-size: 10.5px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(161, 155, 141); margin-top: 22px;">Bayesian response curves · Scenario simulator · Constraint-aware optimizer · Azure</div>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; align-items: start;">
+          <figure style="margin: 0px; border: 1px solid rgb(233, 229, 219); border-radius: 20px; background: rgb(255, 255, 255); padding: 8px; display: flex; flex-direction: column;">
+            <div style="background: rgb(255, 255, 255); border: 1px solid rgb(233, 229, 219); border-radius: 14px; box-shadow: rgba(26, 24, 20, 0.04) 0px 1px 2px, rgba(26, 24, 20, 0.05) 0px 12px 32px; overflow: hidden;">
+      <div style="padding: 20px 24px 16px; border-bottom: 1px solid rgb(233, 229, 219); display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap;">
+        <div>
+          <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(139, 133, 120);">Manage scenarios</span>
+          <h2 style="margin: 6px 0px 3px; font-size: 19px; font-weight: 600; letter-spacing: -0.01em;">Every plan, organised and comparable</h2>
+          <div style="color: rgb(139, 133, 120); font-size: 12.5px;">Scenarios grouped in folders, versioned, and owned.</div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button style="font-family: Inter, sans-serif; font-size: 12px; font-weight: 500; border-radius: 8px; padding: 8px 12px; border: 1px solid rgb(233, 229, 219); background: rgb(255, 255, 255); color: rgb(26, 24, 20);">Compare</button>
+          <button style="font-family: Inter, sans-serif; font-size: 12px; font-weight: 500; border-radius: 8px; padding: 8px 12px; border: 1px solid rgb(26, 24, 20); background: rgb(26, 24, 20); color: rgb(255, 255, 255);">New scenario</button>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 186px 1fr; min-height: 380px;">
+        <div style="border-right: 1px solid rgb(233, 229, 219); padding: 16px 12px;">
+          <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(139, 133, 120); padding: 0px 8px 8px;">Folders</div>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px; border-radius: 8px; font-size: 13px; background: rgba(179, 102, 86, 0.1); color: rgb(26, 24, 20); font-weight: 500;"><span style="display: flex; align-items: center; gap: 8px;"><i style="width: 15px; height: 12px; border-radius: 2px; background: rgb(179, 102, 86); display: inline-block; border: 1px solid rgba(26, 24, 20, 0.12);"></i>2026 Annual Plan</span><span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; color: rgb(179, 102, 86);">12</span></div>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px; border-radius: 8px; font-size: 13px;"><span style="display: flex; align-items: center; gap: 8px;"><i style="width: 15px; height: 12px; border-radius: 2px; background: rgb(200, 189, 174); display: inline-block; border: 1px solid rgba(26, 24, 20, 0.12);"></i>Meridia West</span><span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; color: rgb(139, 133, 120);">5</span></div>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px; border-radius: 8px; font-size: 13px;"><span style="display: flex; align-items: center; gap: 8px;"><i style="width: 15px; height: 12px; border-radius: 2px; background: rgb(200, 189, 174); display: inline-block; border: 1px solid rgba(26, 24, 20, 0.12);"></i>Nordvik</span><span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; color: rgb(139, 133, 120);">4</span></div>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px; border-radius: 8px; font-size: 13px;"><span style="display: flex; align-items: center; gap: 8px;"><i style="width: 15px; height: 12px; border-radius: 2px; background: rgb(200, 189, 174); display: inline-block; border: 1px solid rgba(26, 24, 20, 0.12);"></i>Experiments</span><span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; color: rgb(139, 133, 120);">8</span></div>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px; border-radius: 8px; font-size: 13px;"><span style="display: flex; align-items: center; gap: 8px;"><i style="width: 15px; height: 12px; border-radius: 2px; background: rgb(200, 189, 174); display: inline-block; border: 1px solid rgba(26, 24, 20, 0.12);"></i>Archive</span><span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; color: rgb(139, 133, 120);">21</span></div>
+        </div>
+        <div style="padding: 6px 4px 10px;">
+          <div style="display: grid; grid-template-columns: 1fr 94px 76px 92px 42px 16px; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid rgb(233, 229, 219); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(139, 133, 120);">
+            <span>Scenario</span><span>Type</span><span>Updated</span><span>Owner</span><span style="text-align: right;">ROI</span><span></span>
+          </div>
+          
+            <div style="display: grid; grid-template-columns: 1fr 94px 76px 92px 42px 16px; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid rgb(240, 237, 229);">
+              <div><div style="font-size: 13px; font-weight: 500;"><span class="sc-interp">Shift to digital, protect brand</span></div><div style="font-size: 11px; color: rgb(139, 133, 120); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><span class="sc-interp">Move spend to social, hold TV for hero brands</span></div></div>
+              <span><span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 6px; display: inline-block; color: rgb(81, 106, 84); background: rgba(81, 106, 84, 0.13);"><span class="sc-interp">Optimisation</span></span></span>
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; color: rgb(139, 133, 120);"><span class="sc-interp">2 days ago</span></span>
+              <span style="display: flex; align-items: center; gap: 7px; font-size: 12px;"><span style="width: 22px; height: 22px; border-radius: 50%; background: rgba(26, 24, 20, 0.07); color: rgb(26, 24, 20); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><span class="sc-interp">AR</span></span><span class="sc-interp">A. Rivas</span></span>
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12.5px; text-align: right;"><span class="sc-interp">3.1×</span></span>
+              <span style="color: rgb(139, 133, 120); text-align: center; font-size: 14px; letter-spacing: 1px;">⋯</span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 1fr 94px 76px 92px 42px 16px; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid rgb(240, 237, 229);">
+              <div><div style="font-size: 13px; font-weight: 500;"><span class="sc-interp">Baseline 2026</span></div><div style="font-size: 11px; color: rgb(139, 133, 120); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><span class="sc-interp">Last year's split, carried forward</span></div></div>
+              <span><span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 6px; display: inline-block; color: rgb(81, 106, 84); background: rgba(81, 106, 84, 0.13);"><span class="sc-interp">Optimisation</span></span></span>
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; color: rgb(139, 133, 120);"><span class="sc-interp">5 days ago</span></span>
+              <span style="display: flex; align-items: center; gap: 7px; font-size: 12px;"><span style="width: 22px; height: 22px; border-radius: 50%; background: rgba(26, 24, 20, 0.07); color: rgb(26, 24, 20); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><span class="sc-interp">MF</span></span><span class="sc-interp">M. Feld</span></span>
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12.5px; text-align: right;"><span class="sc-interp">2.9×</span></span>
+              <span style="color: rgb(139, 133, 120); text-align: center; font-size: 14px; letter-spacing: 1px;">⋯</span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 1fr 94px 76px 92px 42px 16px; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid rgb(240, 237, 229);">
+              <div><div style="font-size: 13px; font-weight: 500;"><span class="sc-interp">Aggressive trade push</span></div><div style="font-size: 11px; color: rgb(139, 133, 120); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><span class="sc-interp">What if we over-index on activation?</span></div></div>
+              <span><span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 6px; display: inline-block; color: rgb(179, 102, 86); background: rgba(179, 102, 86, 0.13);"><span class="sc-interp">Simulation</span></span></span>
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; color: rgb(139, 133, 120);"><span class="sc-interp">1 week ago</span></span>
+              <span style="display: flex; align-items: center; gap: 7px; font-size: 12px;"><span style="width: 22px; height: 22px; border-radius: 50%; background: rgba(26, 24, 20, 0.07); color: rgb(26, 24, 20); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><span class="sc-interp">TN</span></span><span class="sc-interp">T. Novak</span></span>
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12.5px; text-align: right;"><span class="sc-interp">3.0×</span></span>
+              <span style="color: rgb(139, 133, 120); text-align: center; font-size: 14px; letter-spacing: 1px;">⋯</span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 1fr 94px 76px 92px 42px 16px; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid rgb(240, 237, 229);">
+              <div><div style="font-size: 13px; font-weight: 500;"><span class="sc-interp">Protect Kestrel margin</span></div><div style="font-size: 11px; color: rgb(139, 133, 120); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><span class="sc-interp">Cap discounting, defend the premium tier</span></div></div>
+              <span><span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 6px; display: inline-block; color: rgb(179, 102, 86); background: rgba(179, 102, 86, 0.13);"><span class="sc-interp">Simulation</span></span></span>
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; color: rgb(139, 133, 120);"><span class="sc-interp">1 week ago</span></span>
+              <span style="display: flex; align-items: center; gap: 7px; font-size: 12px;"><span style="width: 22px; height: 22px; border-radius: 50%; background: rgba(26, 24, 20, 0.07); color: rgb(26, 24, 20); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><span class="sc-interp">AR</span></span><span class="sc-interp">A. Rivas</span></span>
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12.5px; text-align: right;"><span class="sc-interp">2.8×</span></span>
+              <span style="color: rgb(139, 133, 120); text-align: center; font-size: 14px; letter-spacing: 1px;">⋯</span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 1fr 94px 76px 92px 42px 16px; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid rgb(240, 237, 229);">
+              <div><div style="font-size: 13px; font-weight: 500;"><span class="sc-interp">Cut OOH, test social</span></div><div style="font-size: 11px; color: rgb(139, 133, 120); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><span class="sc-interp">Reallocate out-of-home into paid social</span></div></div>
+              <span><span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 6px; display: inline-block; color: rgb(81, 106, 84); background: rgba(81, 106, 84, 0.13);"><span class="sc-interp">Optimisation</span></span></span>
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; color: rgb(139, 133, 120);"><span class="sc-interp">2 weeks ago</span></span>
+              <span style="display: flex; align-items: center; gap: 7px; font-size: 12px;"><span style="width: 22px; height: 22px; border-radius: 50%; background: rgba(26, 24, 20, 0.07); color: rgb(26, 24, 20); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><span class="sc-interp">LH</span></span><span class="sc-interp">L. Haas</span></span>
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12.5px; text-align: right;"><span class="sc-interp">3.0×</span></span>
+              <span style="color: rgb(139, 133, 120); text-align: center; font-size: 14px; letter-spacing: 1px;">⋯</span>
+            </div>
+          
+            <div style="display: grid; grid-template-columns: 1fr 94px 76px 92px 42px 16px; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid rgb(240, 237, 229);">
+              <div><div style="font-size: 13px; font-weight: 500;"><span class="sc-interp">Q3 reforecast</span></div><div style="font-size: 11px; color: rgb(139, 133, 120); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><span class="sc-interp">Mid-year update after the price change</span></div></div>
+              <span><span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 6px; display: inline-block; color: rgb(179, 102, 86); background: rgba(179, 102, 86, 0.13);"><span class="sc-interp">Simulation</span></span></span>
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; color: rgb(139, 133, 120);"><span class="sc-interp">3 weeks ago</span></span>
+              <span style="display: flex; align-items: center; gap: 7px; font-size: 12px;"><span style="width: 22px; height: 22px; border-radius: 50%; background: rgba(26, 24, 20, 0.07); color: rgb(26, 24, 20); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><span class="sc-interp">MF</span></span><span class="sc-interp">M. Feld</span></span>
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12.5px; text-align: right;"><span class="sc-interp">2.7×</span></span>
+              <span style="color: rgb(139, 133, 120); text-align: center; font-size: 14px; letter-spacing: 1px;">⋯</span>
+            </div>
+          
+        </div>
+      </div>
+      <div style="padding: 13px 24px; border-top: 1px solid rgb(233, 229, 219); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; letter-spacing: 0.04em; color: rgb(139, 133, 120); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+        <span>Illustrative concept, not the actual product.</span><span>Fictional folders, scenarios, and names.</span>
+      </div>
+    </div>
+            <figcaption style="font-size: 13.5px; line-height: 1.62; color: rgb(107, 102, 92); padding: 16px 14px 12px;"><strong style="color: rgb(26, 24, 20); font-weight: 600;">Used, not piloted.</strong> Dozens of plans (versioned, owned and comparable) built by real teams inside the annual cycle. Being able to spin up a scenario and defend it in a planning meeting is what actually moved budget, not the optimizer alone.</figcaption>
+          </figure>
+          
+        </div>
+        <div style="font-size: 10px; letter-spacing: 0.06em; color: rgb(181, 175, 159); margin-top: 18px; text-align: right;">Illustrative concepts, not the actual product. Fictional brands, scenarios and data.</div>
+      </div>
+    </section>
+
+    
+    <section style="padding: clamp(72px, 9vw, 112px) 0px 0px;">
+      <div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);">
+          <span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+          <span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+        </div>
+        <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141); margin-bottom: 24px;">06 · The lesson</div>
+        <h2 style="font-weight: 500; font-size: clamp(2rem, 4.4vw, 3.6rem); line-height: 1.16; letter-spacing: -0.035em; margin: 0px; color: rgb(26, 24, 20); max-width: 30ch; text-wrap: balance;">The value of an optimizer isn't the optimum. <span style="color: rgb(139, 133, 120);">It's whether a human with authority will execute it, so legibility and real-world constraints beat a higher theoretical number no one acts on.</span></h2>
+      </div>
+    </section>
+
+    
+    <section style="padding: clamp(72px, 9vw, 112px) 0px clamp(80px, 10vw, 128px);">
+      <div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);">
+          <span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+          <span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+        </div>
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; flex-wrap: wrap; margin-bottom: clamp(32px, 4vw, 44px);">
+          <div>
+            <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">07 · In context</div>
+            <h2 style="font-weight: 500; font-size: clamp(2rem, 3.8vw, 3.1rem); line-height: 1.08; letter-spacing: -0.03em; margin: 18px 0px 0px; color: rgb(26, 24, 20); max-width: 22ch;">The macro engine of a three-part system</h2>
+          </div>
+          <p style="font-size: 15px; line-height: 1.62; color: rgb(107, 102, 92); margin: 0px 0px 6px; max-width: 44ch;">Allocation AI sets the sandbox (how much each channel and brand gets) that Smart Flighting and Promo Advisor then execute against.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+          <div style="border: 1px solid rgb(179, 102, 86); border-radius: 16px; background: rgb(255, 255, 255); padding: 24px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(129, 63, 50);"><span style="width: 6px; height: 6px; border-radius: 999px; background: rgb(179, 102, 86);"></span>01 · Plan, you are here</div>
+            <div style="font-size: 16.5px; font-weight: 600; letter-spacing: -0.01em; margin-top: 2px;">Allocation AI</div>
+            <div style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92);">Sets the annual budget across OpCos, brands and channels.</div>
+          </div>
+          <a href="smart-flighting.html" class="scp0" style="border: 1px solid rgb(233, 229, 219); border-radius: 16px; background: rgb(255, 255, 255); padding: 24px; display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: rgb(26, 24, 20);">
+            <div style="display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(70, 105, 105);"><span style="width: 6px; height: 6px; border-radius: 999px; background: rgb(117, 153, 153);"></span>02 · Schedule</div>
+            <div style="font-size: 16.5px; font-weight: 600; letter-spacing: -0.01em; margin-top: 2px;">Smart Flighting</div>
+            <div style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92);">Stretches each budget across the calendar for maximum pressure.</div>
+            <div style="font-size: 13px; font-weight: 600; color: rgb(26, 24, 20); margin-top: auto; padding-top: 10px;">Case study →</div>
+          </a>
+          <a href="promo-advisor.html" class="scp0" style="border: 1px solid rgb(233, 229, 219); border-radius: 16px; background: rgb(255, 255, 255); padding: 24px; display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: rgb(26, 24, 20);">
+            <div style="display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(158, 94, 74);"><span style="width: 6px; height: 6px; border-radius: 999px; background: rgb(197, 126, 99);"></span>03 · Execute</div>
+            <div style="font-size: 16.5px; font-weight: 600; letter-spacing: -0.01em; margin-top: 2px;">Promo Advisor</div>
+            <div style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92);">Fills the calendar with the specific winning promo mechanics.</div>
+            <div style="font-size: 13px; font-weight: 600; color: rgb(26, 24, 20); margin-top: auto; padding-top: 10px;">Case study →</div>
+          </a>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- FOOTER / NEXT -->
-  <section style="background:var(--accent-deep); color:#F4F3EF;">
-    <div class="cs-wrap" style="max-width:1160px; margin:0 auto; padding:96px 48px;">
-      <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#B7C5D3; margin-bottom:22px;">Keep exploring</div>
-      <h2 style="font-weight:700; font-size:clamp(2rem,4vw,3.4rem); line-height:1.05; letter-spacing:-0.03em; margin:0; max-width:18ch;">Two more case studies on the way.</h2>
-      <p style="font-size:16px; line-height:1.6; color:#B7C5D3; max-width:52ch; margin:22px 0 0 0;">Smart Flighting and Promo Advisor complete the picture. In the meantime, head back to the work or get in touch.</p>
-      <div style="display:flex; flex-wrap:wrap; gap:14px; margin-top:38px;">
-        <a href="index.html#work" style="display:inline-flex; align-items:center; gap:9px; padding:15px 28px; border-radius:8px; background:#F4F3EF; color:#1C1A15; font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none;"><span style="color:var(--accent);">←</span> Back to all work</a>
-        <a href="index.html#contact" style="display:inline-flex; align-items:center; padding:15px 28px; border-radius:8px; background:transparent; border:1px solid #445261; color:#F4F3EF; font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none;">Get in touch</a>
+  
+  <section style="position: relative; overflow: hidden; background: rgb(44, 42, 39);">
+    <div class="sc-host-x" style="position: absolute; inset: 0px;"><grad-plate colors="#3A3833,#2C2A27,#232220,#1C1B19" bg="#2C2A27" ink="#F4F1E8" art="none" grain="0.5" seed="alloc-footer" style="display: block; width: 100%; height: 100%;"></grad-plate></div>
+    <div style="position: relative; z-index: 2; max-width: 1320px; margin: 0px auto; padding: clamp(80px, 10vw, 120px) clamp(20px, 4.5vw, 48px) clamp(52px, 6vw, 72px);">
+      <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(244, 241, 232, 0.65); margin-bottom: 26px;">Keep exploring</div>
+      <h2 style="font-weight: 500; font-size: clamp(2.2rem, 4.6vw, 4rem); line-height: 1.05; letter-spacing: -0.035em; margin: 0px; max-width: 18ch; color: rgb(247, 245, 239);">The rest of the system is live.</h2>
+      <p style="font-size: 16px; line-height: 1.62; color: rgba(247, 245, 239, 0.78); max-width: 50ch; margin: 24px 0px 0px;">Smart Flighting schedules the impact; Promo Advisor executes the offer, or head back to all work.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px;">
+        <a href="smart-flighting.html" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 999px; background: rgb(244, 241, 232); color: rgb(26, 24, 20); font-size: 13.5px; font-weight: 600; text-decoration: none;">Smart Flighting →</a>
+        <a href="promo-advisor.html" style="display: inline-flex; align-items: center; padding: 14px 28px; border-radius: 999px; background: rgba(244, 241, 232, 0.08); border: 1px solid rgba(244, 241, 232, 0.4); color: rgb(244, 241, 232); font-size: 13.5px; font-weight: 500; text-decoration: none;">Promo Advisor</a>
+        <a href="index.html#case-studies" style="display: inline-flex; align-items: center; padding: 14px 28px; border-radius: 999px; background: rgba(244, 241, 232, 0.08); border: 1px solid rgba(244, 241, 232, 0.4); color: rgb(244, 241, 232); font-size: 13.5px; font-weight: 500; text-decoration: none;">← All work</a>
+      </div>
+      <div style="position: relative; height: 1px; background: rgba(244, 241, 232, 0.22); margin-top: clamp(56px, 7vw, 84px);">
+        <span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgba(244, 241, 232, 0.22);"></span>
+        <span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgba(244, 241, 232, 0.22);"></span>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; padding-top: 28px;">
+        <span style="font-size: 14px; font-weight: 600; color: rgb(247, 245, 239);">Tomasz Czarnecki</span>
+        <span style="font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(244, 241, 232, 0.55);">© <span class="sc-interp">2026</span> · czarnecki.ai · Product visuals are illustrative concepts</span>
       </div>
     </div>
-    <div style="border-top:1px solid rgba(183,197,211,0.25);">
-      <div class="cs-bar" style="max-width:1160px; margin:0 auto; padding:30px 48px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;">
-        <span style="display:flex; align-items:center; gap:10px; font-size:14px; font-weight:600; color:#F4F3EF;"><span style="width:14px; height:14px; background:#F4F3EF; border-radius:3px; display:inline-block;"></span>Tomasz Czarnecki</span>
-        <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.06em; color:#B7C5D3;">© 2026 · czarnecki.ai</span>
-      </div>
-    </div>
-  </section>
-</div>
+  </section></div></div></div>
+<script src="grad-canvases.js"></script>
+<script>
+/* Mobile: let charts/tables that are wider than the screen scroll horizontally
+   instead of being clipped. Marks only the innermost near-full-width panels
+   whose content overflows; a no-op on desktop where everything fits. */
+(function () {
+  var marked = [];
+  function fix() {
+    marked.forEach(function (el) { el.style.overflowX = ''; el.style.webkitOverflowScrolling = ''; });
+    marked = [];
+    var vw = document.documentElement.clientWidth;
+    var nodes = [].slice.call(document.querySelectorAll('div, table'));
+    var over = nodes.filter(function (el) {
+      return el.scrollWidth - el.clientWidth > 8 && el.clientWidth >= vw - 90;
+    });
+    over.forEach(function (el) {
+      var hasInner = over.some(function (d) { return d !== el && el.contains(d); });
+      if (!hasInner) { el.style.overflowX = 'auto'; el.style.webkitOverflowScrolling = 'touch'; marked.push(el); }
+    });
+  }
+  addEventListener('resize', fix);
+  if (document.readyState === 'loading') addEventListener('DOMContentLoaded', fix); else fix();
+})();
+</script>
 </body>
 </html>

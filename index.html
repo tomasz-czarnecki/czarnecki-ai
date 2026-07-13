@@ -3,290 +3,520 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tomasz Czarnecki — AI Product Engineer</title>
-<!-- SEO -->
+<title>Tomasz Czarnecki — Senior AI Product Manager</title>
+<meta name="description" content="Senior AI Product Manager. Ten years building non-deterministic systems: genetic algorithms at MAD Architects, three production AI systems optimizing Heineken's ~€2.9B marketing budget. I build what I spec.">
 <meta name="author" content="Tomasz Czarnecki">
-<meta name="robots" content="index, follow">
-<meta name="description" content="AI Product Engineer shaping AI systems from intent to delivery. Owned three production AI products at Heineken steering €3.2B in commercial spend.">
 <link rel="canonical" href="https://czarnecki.ai/">
-<meta name="theme-color" content="#F4F3EF">
-<!-- Open Graph (LinkedIn, Facebook, Slack, iMessage) -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Tomasz Czarnecki">
-<meta property="og:title" content="Tomasz Czarnecki — AI Product Engineer">
-<meta property="og:description" content="Shaping AI systems from intent to delivery. Three production AI products at Heineken steering €3.2B in commercial spend; now building independently.">
+<meta property="og:title" content="Tomasz Czarnecki — Senior AI Product Manager">
+<meta property="og:description" content="Senior AI Product Manager. Ten years building non-deterministic systems: genetic algorithms at MAD Architects, three production AI systems optimizing Heineken's ~€2.9B marketing budget. I build what I spec.">
 <meta property="og:url" content="https://czarnecki.ai/">
 <meta property="og:image" content="https://czarnecki.ai/assets/og-card.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Tomasz Czarnecki — AI Product Engineer">
-<!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Tomasz Czarnecki — AI Product Engineer">
-<meta name="twitter:description" content="Shaping AI systems from intent to delivery. Three production AI products at Heineken steering €3.2B; now building independently.">
+<meta name="twitter:title" content="Tomasz Czarnecki — Senior AI Product Manager">
+<meta name="twitter:description" content="Senior AI Product Manager. Ten years building non-deterministic systems: genetic algorithms at MAD Architects, three production AI systems optimizing Heineken's ~€2.9B marketing budget. I build what I spec.">
 <meta name="twitter:image" content="https://czarnecki.ai/assets/og-card.jpg">
+<meta name="theme-color" content="#FCFBF8">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
-  *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-  body{ margin:0; background:#F4F3EF; }
-  ::selection{ background:#1C1A15; color:#F4F3EF; }
-  @keyframes riseIn{ from{ opacity:0; transform:translateY(14px);} to{ opacity:1; transform:translateY(0);} }
-
-  /* Responsive — the source design is desktop-first; these reflow it for tablet/mobile.
-     !important is required to override the design's inline styles. */
-  @media (max-width:1000px){
-    .cards{ grid-template-columns:repeat(2,1fr) !important; }
-    .about-grid{ grid-template-columns:1fr !important; gap:44px !important; }
-    .journey-grid{ grid-template-columns:repeat(2,1fr) !important; }
-    .stat-grid{ grid-template-columns:1fr !important; }
-    .hero-photo{ height:min(72%,560px) !important; }
-  }
-  @media (max-width:680px){
-    .wrap{ padding-left:24px !important; padding-right:24px !important; }
-    .hero-inner{ padding:76px 24px 40px 24px !important; }
-    .bar{ padding-left:24px !important; padding-right:24px !important; }
-    .cards, .journey-grid{ grid-template-columns:1fr !important; }
-    .nav, .logo-tag, .resume-top{ display:none !important; }
-    .hero-photo{ opacity:0.32 !important; height:min(86%,600px) !important; }
-  }
+.sc-placeholder { background: color-mix(in srgb, currentcolor 8%, transparent); border: 1px solid color-mix(in srgb, currentcolor, transparent); border-radius: 2px; box-sizing: border-box; overflow: hidden; }
+@keyframes sc-shine { 
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+html.sc-dc-streaming .sc-placeholder, html.sc-dc-streaming .sc-interp.sc-missing { position: relative; background: color-mix(in srgb, currentcolor 5%, transparent); border-color: transparent; }
+html.sc-dc-streaming .sc-placeholder::before, html.sc-dc-streaming .sc-interp.sc-missing::before { content: ""; position: absolute; inset: 0px; pointer-events: none; background: linear-gradient(90deg, rgba(217, 119, 87, 0) 25%, rgba(247, 225, 211, 0.95) 37%, rgba(217, 119, 87, 0) 63%) 0% 0% / 400% 100%; animation: 1.4s ease 0s infinite normal none running sc-shine; }
+html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before, html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before { animation: auto ease 0s 1 normal none running none; background: color-mix(in srgb, currentcolor 8%, transparent); }
+.sc-placeholder-error { padding: 4px 8px; font: 11px / 1.4 ui-monospace, monospace; color: color-mix(in srgb, currentcolor 70%, transparent); word-break: break-word; }
+.sc-interp.sc-missing { display: inline-block; width: 2em; height: 1em; overflow: hidden; vertical-align: text-bottom; background: rgba(255, 255, 255, 0.3); border: 1px solid rgba(0, 0, 0, 0.5); border-radius: 2px; box-sizing: border-box; color: transparent; user-select: none; }
+.sc-interp.sc-unresolved { font-family: ui-monospace, monospace; font-size: 0.85em; color: color-mix(in srgb, currentcolor, transparent); background: color-mix(in srgb, currentcolor 10%, transparent); border-radius: 3px; padding: 0px 3px; }
+.sc-host.sc-has-error { position: relative; }
+.sc-logic-error { position: absolute; top: 8px; left: 8px; z-index: 2147483647; max-width: 60ch; padding: 6px 10px; background: rgb(176, 0, 32); color: rgb(255, 255, 255); font: 12px / 1.4 ui-monospace, monospace; border-radius: 4px; white-space: pre-wrap; pointer-events: none; }
+@media print {
+  @page { margin: 0.5cm; }
+  figure, table { break-inside: avoid; }
+  #dc-root, #dc-root > .sc-host { height: auto; }
+  *, ::before, ::after { print-color-adjust: exact; backdrop-filter: none !important; animation-delay: -99s !important; animation-duration: 0.001s !important; animation-iteration-count: 1 !important; animation-fill-mode: both !important; animation-play-state: running !important; transition-duration: 0s !important; }
+}
+x-dc { display: none !important; }
+.scp0:hover { filter: brightness(1.05); }
+.scp1:hover { box-shadow: rgba(26, 24, 20, 0.08) 0px 12px 36px; transition: box-shadow 0.25s; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0px; background: rgb(252, 251, 248); }
+::selection { background: rgb(26, 24, 20); color: rgb(244, 241, 232); }
+a { color: rgb(26, 24, 20); }
+a:hover { opacity: 0.82; }
+@media (max-width: 920px) {
+  #v2-nav { display: none !important; }
+  #v2-about-grid { grid-template-columns: 1fr !important; }
+  #v2-quotes { grid-template-columns: 1fr !important; gap: 48px !important; }
+  #v2-intro-grid { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 780px) {
+  #v2-journey > div { grid-template-columns: 1fr !important; gap: 8px !important; }
+  #v2-journey > div > div:last-child { text-align: left !important; }
+  #v2-archive-pair { grid-template-columns: 1fr !important; gap: 20px !important; }
+  #v2-archive-arrow { transform: rotate(90deg) !important; }
+}
 </style>
 </head>
 <body>
-<div style="--accent:#1C1A15; --green:#2E7D46; background:#F4F3EF; color:#1C1A15; font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden;">
+<div id="dc-root"><div class="sc-host"><div style="background: rgb(252, 251, 248); color: rgb(26, 24, 20); font-family: Inter, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: clip;">
 
-  <!-- HEADER -->
-  <header style="position:sticky; top:0; z-index:50; background:rgba(244,243,239,0.85); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid #E4E1D9;">
-    <div class="bar" style="max-width:1360px; margin:0 auto; padding:16px 48px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
-      <a href="#top" style="display:flex; align-items:center; gap:11px; text-decoration:none; color:#1C1A15;">
-        <span style="width:18px; height:18px; background:#1C1A15; border-radius:4px; display:inline-block; flex:none;"></span>
-        <span style="font-size:15px; font-weight:600; letter-spacing:-0.01em;">Tomasz Czarnecki</span>
-        <span class="logo-tag" style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; color:#9C978B; border-left:1px solid #E4E1D9; padding-left:11px;">CZARNECKI.AI</span>
+  
+  <header style="position: sticky; top: 0px; z-index: 50; background: rgba(252, 251, 248, 0.88); backdrop-filter: blur(14px); border-bottom: 1px solid rgb(236, 232, 222);">
+    <div style="max-width: 1320px; margin: 0px auto; padding: 18px clamp(20px, 4.5vw, 48px); display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+      <a href="#top" style="display: flex; align-items: center; gap: 7px; text-decoration: none; color: rgb(26, 24, 20);">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" style="display: block; flex: 0 0 auto;"><rect x="1" y="1" width="16" height="16" rx="5" fill="#2D2A1E"></rect></svg>
+        <span style="font-size: 15.5px; font-weight: 600; letter-spacing: -0.01em;">Tomasz Czarnecki</span>
       </a>
-      <nav class="nav" style="display:flex; gap:30px; align-items:center;">
-        <a href="#work" style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase; font-weight:500; color:#6E6A60; text-decoration:none;">Work</a>
-        <a href="#about" style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase; font-weight:500; color:#6E6A60; text-decoration:none;">About</a>
-        <a href="#journey" style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase; font-weight:500; color:#6E6A60; text-decoration:none;">Journey</a>
-        <a href="#contact" style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase; font-weight:500; color:#6E6A60; text-decoration:none;">Contact</a>
+      <nav id="v2-nav" style="display: flex; gap: 32px; align-items: center;">
+        <a href="#case-studies" style="font-size: 13.5px; font-weight: 500; color: rgb(107, 102, 92); text-decoration: none;">Work</a>
+        <a href="#building" style="font-size: 13.5px; font-weight: 500; color: rgb(107, 102, 92); text-decoration: none;">Building</a>
+        <a href="#about" style="font-size: 13.5px; font-weight: 500; color: rgb(107, 102, 92); text-decoration: none;">About</a>
+        <a href="#journey" style="font-size: 13.5px; font-weight: 500; color: rgb(107, 102, 92); text-decoration: none;">Journey</a>
+        <a href="#contact" style="font-size: 13.5px; font-weight: 500; color: rgb(107, 102, 92); text-decoration: none;">Contact</a>
       </nav>
-      <a class="resume-top" href="assets/CV_TomaszCzarnecki_Latest.pdf" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; padding:10px 18px; border-radius:7px; background:#1C1A15; color:#F4F3EF; font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none;">Download Resume</a>
+      <a href="assets/Tomasz-Czarnecki-CV.pdf" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; padding: 10px 20px; border-radius: 999px; background: rgb(26, 24, 20); color: rgb(244, 241, 232); font-size: 13px; font-weight: 500; letter-spacing: 0.01em; text-decoration: none;">Download resume</a>
     </div>
   </header>
 
-  <main id="top" style="width:100%;">
+  <main id="top" style="width: 100%;">
 
-    <!-- HERO -->
-    <section class="hero" style="position:relative; min-height:calc(100vh - 65px); display:flex; align-items:flex-start; overflow:hidden; background:#C9D9E6; background-image:radial-gradient(rgba(28,26,21,0.05) 1px, transparent 1px); background-size:24px 24px;">
-      <img class="hero-photo" src="assets/tomasz_transparent.webp" alt="Tomasz Czarnecki" style="position:absolute; right:0; bottom:0; height:min(99%,960px); width:auto; object-fit:contain; object-position:bottom right; pointer-events:none; user-select:none;">
-      <div class="hero-inner" style="position:relative; z-index:2; width:100%; max-width:1360px; margin:0 auto; padding:120px 48px 48px 48px;">
-        <div style="max-width:640px; display:flex; flex-direction:column;">
-          <div style="display:inline-flex; align-items:center; gap:9px; margin-bottom:30px;">
-            <span style="width:8px; height:8px; border-radius:999px; background:#2E7D46; display:inline-block; box-shadow:0 0 0 3px rgba(46,125,70,0.16);"></span>
-            <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#33475C;">Available for AI product work</span>
+    
+    <section style="position: relative; min-height: max(560px, calc(-70.2px + (0.9 * 100svh))); display: flex; flex-direction: column; overflow: hidden; background: rgb(57, 82, 123);">
+      <div class="sc-host-x" style="position: absolute; inset: 0px;"><grad-plate colors="#2B4C7E,#4A3E6B,#8A4A38,#241F1B" bg="#201E28" ink="#F4F1E8" art="petals" artx="0.72" arty="0.6" artr="0.31" grain="0.6" spin="0.05" mouse="" drag="" seed="hero-2026" style="display: block; width: 100%; height: 100%;"></grad-plate></div>
+      <span style="position: absolute; inset: 0px; z-index: 1; pointer-events: none; background: radial-gradient(125% 105% at 50% 42%, rgba(18, 16, 24, 0) 38%, rgba(18, 16, 24, 0.55) 100%);"></span>
+      <div style="position: relative; z-index: 2; width: 100%; max-width: 1320px; margin: 0px auto; padding: clamp(56px, 8vh, 104px) clamp(20px, 4.5vw, 48px) 64px; display: flex; flex-direction: column; flex: 1 1 0%;">
+        <div style="display: flex; align-items: center; gap: 18px;">
+          <div style="position: relative; width: clamp(76px, 7vw, 96px); height: clamp(76px, 7vw, 96px); border-radius: 999px; background: rgb(244, 241, 232); overflow: hidden; flex: 0 0 auto; box-shadow: rgba(20, 25, 40, 0.28) 0px 10px 28px;">
+            <img src="uploads/tomasz_transparent.webp" alt="Tomasz Czarnecki" style="position: absolute; left: 50%; top: 5%; transform: translateX(-50%); width: 112%; filter: grayscale(1);">
           </div>
-          <h1 style="font-weight:700; font-size:clamp(2.6rem,5.6vw,5.1rem); line-height:1.02; letter-spacing:-0.03em; margin:0; color:#1C1A15;">Building AI products with ownership.</h1>
-          <p style="font-size:clamp(1.05rem,1.4vw,1.25rem); line-height:1.62; color:#33475C; max-width:46ch; margin:30px 0 0 0;">I shape AI systems from intent to delivery. At Heineken I owned the product direction for three production AI systems influencing €3.2B in spend. Now building independently with a focus on agentic workflows.</p>
-          <div style="display:flex; flex-wrap:wrap; gap:14px; margin-top:40px;">
-            <a href="assets/CV_TomaszCzarnecki_Latest.pdf" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; padding:14px 26px; border-radius:8px; background:#1C1A15; color:#F4F3EF; font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none;">Download Resume</a>
-            <a href="#contact" style="display:inline-flex; align-items:center; gap:9px; padding:14px 26px; border-radius:8px; background:#FFFFFF; border:1px solid #B7C6D3; color:#1C1A15; font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none;">Get in touch <span style="color:var(--accent,#1C1A15);">→</span></a>
-          </div>
+          <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(244, 241, 232, 0.85); line-height: 2;">Tomasz Czarnecki<br><span style="color: rgba(244, 241, 232, 0.6);">Senior AI Product Manager</span></div>
+        </div>
+        <h1 style="font-weight: 500; font-size: clamp(2.7rem, 5.8vw, 5.2rem); line-height: 1.05; letter-spacing: -0.035em; margin: 28px 0px 0px; color: rgb(247, 245, 239); max-width: 15ch;">Ten years of non‑deterministic systems</h1>
+        <p style="font-size: clamp(1.02rem, 1.35vw, 1.2rem); line-height: 1.65; color: rgba(247, 245, 239, 0.82); max-width: 52ch; margin: 26px 0px 0px;">Genetic algorithms on real buildings at MAD Architects. Three production AI systems at Heineken, built to optimize a ~€2.9B marketing budget. Now shipping agentic products end to end. I build what I spec.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px;">
+          <a href="https://github.com/tomasz-czarnecki" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; border-radius: 999px; background: rgb(244, 241, 232); color: rgb(26, 24, 20); font-size: 13.5px; font-weight: 600; text-decoration: none;">GitHub ↗</a>
+          <a href="assets/Tomasz-Czarnecki-CV.pdf" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; padding: 13px 26px; border-radius: 999px; background: rgba(244, 241, 232, 0.08); border: 1px solid rgba(244, 241, 232, 0.45); color: rgb(244, 241, 232); font-size: 13.5px; font-weight: 500; text-decoration: none;">Resume</a>
+        </div>
+
+      </div>
+    </section>
+
+    
+    <section id="experience" style="border-bottom: 1px solid rgb(236, 232, 222);">
+      <div style="max-width: 1320px; margin: 0px auto; padding: 40px clamp(20px, 4.5vw, 48px); display: flex; align-items: center; justify-content: space-between; gap: clamp(24px, 5vw, 56px); flex-wrap: wrap;">
+        <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(161, 155, 141);">Where I've built</div>
+        <div style="display: flex; align-items: center; gap: 16px clamp(28px, 4.5vw, 60px); flex-wrap: wrap;">
+          <img src="assets/heineken-logo.svg" alt="Heineken" style="height: 34px; width: auto; display: block; filter: invert(0.82); opacity: 0.8;">
+          <img src="assets/macopedia-logo.svg" alt="Macopedia" style="height: 28px; width: auto; display: block; filter: invert(0.82); opacity: 0.8;">
+          <img src="assets/arep-logo.svg" alt="AREP" style="height: 28px; width: auto; display: block; filter: invert(0.82); opacity: 0.8;">
+          <img src="assets/mad-logo.svg" alt="MAD Architects" style="height: 32px; width: auto; display: block; filter: invert(0.82); opacity: 0.8;">
         </div>
       </div>
     </section>
 
-    <!-- SELECTED WORK -->
-    <section id="work" style="padding:80px 0; scroll-margin-top:90px; border-top:1px solid #E4E1D9;">
-      <div class="wrap" style="max-width:1360px; margin:0 auto; padding:0 48px;">
-        <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:44px;">
-          <div>
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#9C978B; margin-bottom:16px;">01 — Case Studies</div>
-            <h2 style="font-weight:700; font-size:clamp(1.9rem,3.6vw,2.9rem); letter-spacing:-0.025em; margin:0; color:#1C1A15;">AI Case Studies</h2>
-          </div>
-          <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; letter-spacing:0.04em; color:#6E6A60;">Heineken · Global Analytics &amp; AI Hub</span>
+    
+    <section id="intro" style="padding: clamp(72px, 9vw, 112px) 0px; scroll-margin-top: 90px;">
+      <div id="v2-intro-grid" style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px); display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 5vw, 80px); align-items: center;">
+        <div>
+          <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">01 · In my own words</div>
+          <h2 style="font-weight: 500; font-size: clamp(1.9rem, 3.4vw, 2.8rem); line-height: 1.1; letter-spacing: -0.03em; margin: 20px 0px 0px; color: rgb(26, 24, 20);">One job for fourteen years</h2>
+          <p style="font-size: 16px; line-height: 1.66; color: rgb(107, 102, 92); max-width: 42ch; margin: 20px 0px 0px;">Same job for fourteen years, just different material: give a system a goal and constraints, let it search. The hard part was never the computer science, it was trust.</p>
         </div>
-        <div class="cards" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;">
-          <!-- Card 1 — Allocation AI (live case study) -->
-          <a href="allocation-ai.html" style="display:flex; flex-direction:column; background:#FFFFFF; border:1px solid #E4E1D9; border-radius:10px; overflow:hidden; text-decoration:none; color:inherit; box-shadow:0 1px 2px rgba(0,0,0,0.03);">
-            <div style="padding:24px 24px 0 24px;">
-              <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:#9C978B;">Marketing Mix · 01</div>
-              <h3 style="font-weight:700; font-size:clamp(1.4rem,2vw,1.75rem); line-height:1.1; letter-spacing:-0.02em; margin:10px 0 0 0; color:#1C1A15;">Allocation AI</h3>
-            </div>
-            <div style="margin:20px 24px 0 24px; position:relative; border:1px solid #E4E1D9; border-radius:8px; overflow:hidden; aspect-ratio:4/3; background:#E3CABA;">
-              <img src="assets/case-allocation-ai.jpg" alt="Allocation AI" style="object-fit:cover; object-position:center 22%; height:100%; width:100%;">
-            </div>
-            <div style="display:flex; flex-direction:column; flex:1; padding:20px 24px 24px 24px;">
-              <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid #EFECE4;">
-                <span style="font-weight:700; font-size:1.8rem; line-height:1; letter-spacing:-0.02em; color:#1C1A15;">€600M</span>
-                <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:#9C978B;">Targeted uplift by 2029</span>
-              </div>
-              <p style="font-size:14.5px; line-height:1.55; color:#6E6A60; margin:0;">Led the product direction for a Bayesian allocation system that set annual promo budgets across markets, brands, and channels. Shaped how non-technical stakeholders could interact with complex optimization models — turning €3.2B in spend decisions from intuition-driven to data-driven. Targeted €600M yearly revenue uplift at scale.</p>
-              <div style="display:flex; align-items:center; gap:7px; margin-top:auto; padding-top:20px; font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#1C1A15;">Case study <span style="color:var(--accent,#1C1A15);">→</span></div>
-            </div>
-          </a>
-          <!-- Card 2 — Promo Advisor (case study coming soon) -->
-          <div style="display:flex; flex-direction:column; background:#FFFFFF; border:1px solid #E4E1D9; border-radius:10px; overflow:hidden; color:inherit; box-shadow:0 1px 2px rgba(0,0,0,0.03);">
-            <div style="padding:24px 24px 0 24px;">
-              <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:#9C978B;">Revenue Management · 02</div>
-              <h3 style="font-weight:700; font-size:clamp(1.4rem,2vw,1.75rem); line-height:1.1; letter-spacing:-0.02em; margin:10px 0 0 0; color:#1C1A15;">Promo Advisor</h3>
-            </div>
-            <div style="margin:20px 24px 0 24px; position:relative; border:1px solid #E4E1D9; border-radius:8px; overflow:hidden; aspect-ratio:4/3; background:#E3CABA;">
-              <img src="assets/case-promo-advisor.jpg" alt="Promo Advisor" style="width:100%; height:100%; object-fit:cover; object-position:center 22%;">
-            </div>
-            <div style="display:flex; flex-direction:column; flex:1; padding:20px 24px 24px 24px;">
-              <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid #EFECE4;">
-                <span style="font-weight:700; font-size:1.8rem; line-height:1; letter-spacing:-0.02em; color:#1C1A15;">17</span>
-                <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:#9C978B;">Markets live · 30–40% faster planning</span>
-              </div>
-              <p style="font-size:14.5px; line-height:1.55; color:#6E6A60; margin:0;">Owned the product strategy and user experience for an AI-driven promo management platform deployed across 17 markets. Defined and shipped three core modules (Diagnostics, Scenario Simulator, and Calendar Optimizer) that helped commercial teams move from manual planning to structured, data-informed decision making — cutting planning time by 30–40%.</p>
-              <div style="display:flex; align-items:center; gap:7px; margin-top:auto; padding-top:20px; font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#B3AEA2;">Case study — coming soon</div>
-            </div>
-          </div>
-          <!-- Card 3 — Smart Flighting (case study coming soon) -->
-          <div style="display:flex; flex-direction:column; background:#FFFFFF; border:1px solid #E4E1D9; border-radius:10px; overflow:hidden; color:inherit; box-shadow:0 1px 2px rgba(0,0,0,0.03);">
-            <div style="padding:24px 24px 0 24px;">
-              <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:#9C978B;">Media Execution · 03</div>
-              <h3 style="font-weight:700; font-size:clamp(1.4rem,2vw,1.75rem); line-height:1.1; letter-spacing:-0.02em; margin:10px 0 0 0; color:#1C1A15;">Smart Flighting</h3>
-            </div>
-            <div style="margin:20px 24px 0 24px; position:relative; border:1px solid #E4E1D9; border-radius:8px; overflow:hidden; aspect-ratio:4/3; background:#E3CABA;">
-              <img src="assets/case-smart-flighting.jpg" alt="Smart Flighting" style="width:100%; height:100%; object-fit:cover; object-position:center 22%;">
-            </div>
-            <div style="display:flex; flex-direction:column; flex:1; padding:20px 24px 24px 24px;">
-              <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid #EFECE4;">
-                <span style="font-weight:700; font-size:1.8rem; line-height:1; letter-spacing:-0.02em; color:#1C1A15;">+1.5%</span>
-                <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:#9C978B;">Net revenue from timing alone</span>
-              </div>
-              <p style="font-size:14.5px; line-height:1.55; color:#6E6A60; margin:0;">Led product discovery and interface design for a media flighting simulator that allowed teams to test and optimize campaign timing using AI response models. Shaped the tool from Excel-based workflows into an interactive platform that helped media teams improve revenue through better execution timing, delivering an estimated +1.5% net revenue lift.</p>
-              <div style="display:flex; align-items:center; gap:7px; margin-top:auto; padding-top:20px; font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#B3AEA2;">Case study — coming soon</div>
-            </div>
-          </div>
+        <div id="dc-intro" data-yt="Lt2gnszqE-w" style="position: relative; border: 1px solid rgb(236, 232, 222); border-radius: 18px; overflow: hidden; background: rgb(34, 48, 63); aspect-ratio: 16 / 9; box-shadow: rgba(26, 24, 20, 0.07) 0px 8px 28px;">
+          
+          
+            <button aria-label="Play the 90-second introduction" class="scp0" style="position: absolute; inset: 0px; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; cursor: pointer; background: transparent; display: block; font: inherit; color: inherit;">
+              <img src="https://img.youtube.com/vi/Lt2gnszqE-w/hqdefault.jpg" alt="Tomasz Czarnecki: introduction video thumbnail" style="position: absolute; inset: 0px; width: 100%; height: 100%; object-fit: cover; display: block;">
+              <span style="position: absolute; inset: 0px; background: linear-gradient(rgba(26, 24, 20, 0) 46%, rgba(26, 24, 20, 0.5) 100%);"></span>
+              <span style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: clamp(64px, 7vw, 84px); height: clamp(64px, 7vw, 84px); border-radius: 999px; background: rgba(250, 249, 245, 0.94); display: flex; align-items: center; justify-content: center; box-shadow: rgba(0, 0, 0, 0.28) 0px 10px 28px;">
+                <span style="display: block; width: 0px; height: 0px; border-style: solid; border-width: 13px 0px 13px 22px; border-color: transparent transparent transparent rgb(26, 24, 20); margin-left: 5px;"></span>
+              </span>
+              <span style="position: absolute; left: 20px; bottom: 18px; display: inline-flex; align-items: center; padding: 9px 14px; background: rgba(250, 249, 245, 0.92); border-radius: 999px; font-size: 12px; font-weight: 600; color: rgb(26, 24, 20);">Watch the intro ↗</span>
+            </button>
+          
         </div>
       </div>
     </section>
 
-    <!-- TESTIMONIAL -->
-    <section style="padding:96px 0; border-top:1px solid #E4E1D9;">
-      <div class="wrap" style="max-width:1360px; margin:0 auto; padding:0 48px;">
-        <figure style="margin:0; max-width:none;">
-          <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#9C978B; margin-bottom:34px;">Testimonial</div>
-          <blockquote style="margin:0; font-weight:600; font-size:clamp(1.7rem,3.2vw,2.6rem); line-height:1.22; letter-spacing:-0.025em; color:#1C1A15; width:100%;">“Always highly motivated to improve his process. Such a rare quality.”</blockquote>
-          <figcaption style="display:flex; align-items:center; gap:22px; margin-top:44px;">
-            <img src="assets/ma-yansong-signature.svg" alt="Ma Yansong signature" style="height:56px; width:auto; flex:none;">
-            <div style="width:1px; height:44px; background:#D9D5CB; flex:none;"></div>
-            <div>
-              <div style="font-size:15px; font-weight:600; color:#1C1A15;">Ma Yansong</div>
-              <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.06em; color:#9C978B; margin-top:5px;">Founder &amp; Principal, MAD Architects</div>
-            </div>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- ABOUT / PHILOSOPHY -->
-    <section id="about" style="padding:96px 0; scroll-margin-top:90px; border-top:1px solid #E4E1D9;">
-      <div class="wrap about-grid" style="max-width:1360px; margin:0 auto; padding:0 48px; display:grid; grid-template-columns:0.82fr 1.18fr; gap:64px; align-items:start;">
-        <div style="display:flex; flex-direction:column; gap:18px;">
-          <div style="border:1px solid #E4E1D9; border-radius:10px; overflow:hidden; background:#FFFFFF; aspect-ratio:1/1; box-shadow:0 1px 2px rgba(0,0,0,0.03);">
-            <img src="assets/philosophy.jpg" alt="Tomasz Czarnecki" style="width:100%; height:100%; object-fit:cover;">
-          </div>
-          <div style="border:1px solid #E4E1D9; border-radius:10px; background:#FFFFFF; padding:16px 18px;">
-            <div style="font-size:15px; font-weight:600; color:#1C1A15;">Tomasz Czarnecki</div>
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9C978B; margin-top:6px;">Polish · English C2 · Mandarin B2</div>
-          </div>
+    
+    <section id="case-studies" style="padding: 0px 0px clamp(72px, 9vw, 112px); scroll-margin-top: 90px;">
+      <div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);">
+          <span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+          <span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
         </div>
         <div>
-          <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#9C978B; margin-bottom:26px;">02 — Philosophy</div>
-          <p style="font-weight:600; font-size:clamp(1.6rem,2.9vw,2.5rem); line-height:1.16; letter-spacing:-0.025em; margin:0; color:#1C1A15;">Non-deterministic systems have been my material for ten years.</p>
-          <div style="display:flex; flex-direction:column; gap:18px; max-width:58ch; margin-top:32px;">
-            <p style="font-size:16px; line-height:1.66; color:#6E6A60; margin:0;">I spent a decade building generative and optimization systems — genetic algorithms, evolutionary solvers, and large-scale parametric work at MAD Architects and AREP. The same mental model of handling uncertainty, constraints, and trade-offs now applies directly to LLM agents and agentic workflows.</p>
-            <p style="font-size:16px; line-height:1.66; color:#6E6A60; margin:0;">At Heineken, I applied this thinking at scale: shaping the product layer for AI systems that influenced €3.2B in commercial spend. I approach AI products as a builder who owns outcomes — from discovery to shipped systems — not just as a designer of interfaces.</p>
+          <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">02 · Case studies</div>
+          <h2 style="font-weight: 500; font-size: clamp(2rem, 3.8vw, 3.1rem); line-height: 1.08; letter-spacing: -0.03em; margin: 18px 0px 0px; color: rgb(26, 24, 20);">Three systems, one decision loop</h2>
+          <p style="font-size: 15px; line-height: 1.62; color: rgb(107, 102, 92); margin: 14px 0px 0px; max-width: 52ch;">Built at Heineken's Global Analytics &amp; AI Hub to work as one: from annual budget planning down to week-by-week retail execution.</p>
+        </div>
+
+        
+        <div style="border: 1px solid rgb(233, 229, 219); border-radius: 20px; background: rgb(255, 255, 255); padding: clamp(28px, 4vw, 48px); margin-top: clamp(36px, 4.5vw, 52px);">
+          <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: clamp(20px, 3vw, 40px); flex-wrap: wrap;">
+            <div style="display: flex; align-items: flex-end; gap: clamp(18px, 2.5vw, 32px); flex-wrap: wrap;">
+              <div style="font-weight: 500; font-size: clamp(56px, 7.5vw, 110px); line-height: 0.84; letter-spacing: -0.05em; color: rgb(26, 24, 20);">€2.9B</div>
+              <div style="font-size: 12.5px; letter-spacing: 0.02em; color: rgb(139, 133, 120); max-width: 26ch; line-height: 1.6; margin-bottom: 4px;">Heineken's annual marketing spend, the budget this trio was built to optimize.</div>
+            </div>
+            <a href="https://www.theheinekencompany.com/newsroom/brewing-with-ai/" target="_blank" rel="noopener" style="font-size: 13.5px; font-weight: 600; color: rgb(26, 24, 20); text-decoration: none; border-bottom: 1px solid rgb(201, 196, 182); padding-bottom: 3px; margin-bottom: 6px;">Brewing with AI ↗</a>
           </div>
-          <div class="stat-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:0; margin-top:40px; border:1px solid #E4E1D9; border-radius:10px; overflow:hidden; background:#FFFFFF;">
-            <div style="padding:22px 24px; border-right:1px solid #EFECE4;">
-              <div style="font-weight:700; font-size:28px; letter-spacing:-0.02em; color:#1C1A15;">10+ yrs</div>
-              <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:#9C978B; margin-top:8px;">In Asia</div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: clamp(20px, 2.5vw, 32px); margin-top: clamp(28px, 3.5vw, 40px);">
+            <div style="border-top: 1px solid rgb(233, 229, 219); padding-top: 18px;">
+              <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(129, 63, 50);">01 · Plan</div>
+              <div style="font-size: 16px; font-weight: 600; letter-spacing: -0.01em; margin-top: 8px;">Allocation AI</div>
+              <div style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92); margin-top: 6px;">Sets the annual budget across OpCos, brands and channels.</div>
             </div>
-            <div style="padding:22px 24px; border-right:1px solid #EFECE4;">
-              <div style="font-weight:700; font-size:28px; letter-spacing:-0.02em; color:#1C1A15;">€3.2B</div>
-              <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:#9C978B; margin-top:8px;">Spend steered by shipped AI</div>
+            <div style="border-top: 1px solid rgb(233, 229, 219); padding-top: 18px;">
+              <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(70, 105, 105);">02 · Schedule</div>
+              <div style="font-size: 16px; font-weight: 600; letter-spacing: -0.01em; margin-top: 8px;">Smart Flighting</div>
+              <div style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92); margin-top: 6px;">Stretches that budget across the calendar, week by week.</div>
             </div>
-            <div style="padding:22px 24px;">
-              <div style="font-weight:700; font-size:28px; letter-spacing:-0.02em; color:#1C1A15;">3 products</div>
-              <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:#9C978B; margin-top:8px;">In production, 17 markets</div>
+            <div style="border-top: 1px solid rgb(233, 229, 219); padding-top: 18px;">
+              <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(158, 94, 74);">03 · Execute</div>
+              <div style="font-size: 16px; font-weight: 600; letter-spacing: -0.01em; margin-top: 8px;">Promo Advisor</div>
+              <div style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92); margin-top: 6px;">Fills the timing structure with specific, tested offers.</div>
+            </div>
+            <div style="border-top: 1px solid rgb(233, 229, 219); padding-top: 18px;">
+              <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(179, 102, 86);">04 · Learn</div>
+              <div style="font-size: 16px; font-weight: 600; letter-spacing: -0.01em; margin-top: 8px;">Measured lift, fed back</div>
+              <div style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92); margin-top: 6px;">Next year's plan starts from evidence, not habit.</div>
+            </div>
+          </div>
+        </div>
+
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+
+          <a href="allocation-ai.html" class="scp1" style="text-decoration: none; color: rgb(26, 24, 20); display: flex; flex-direction: column; border: 1px solid rgb(233, 229, 219); border-radius: 20px; overflow: hidden; background: rgb(255, 255, 255); padding: 8px;">
+            <span style="position: relative; display: block; height: 240px; overflow: hidden; border-radius: 13px; background: rgb(232, 210, 192);">
+              <div class="sc-host-x" style="position: absolute; inset: 0px;"><grad-plate colors="#F0E3D6,#E3CABA,#D09D82,#C57E63" bg="#E6CFBC" ink="#FDFBF6" art="rings" artx="0.5" arty="0.5" artr="0.42" grain="0.4" seed="alloc" style="display: block; width: 100%; height: 100%;"></grad-plate></div>
+            </span>
+            <span style="display: flex; flex-direction: column; gap: 9px; padding: 20px 18px 18px; flex: 1 1 0%;">
+              <span style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(161, 155, 141);">Marketing mix · 01</span>
+              <span style="font-size: 19px; font-weight: 600; letter-spacing: -0.02em;">Allocation AI</span>
+              <span style="font-size: 14px; line-height: 1.6; color: rgb(107, 102, 92);">Bayesian budget allocation across markets, brands, and channels: intuition-driven to data-driven.</span>
+              <span style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 14px; border-top: 1px solid rgb(240, 237, 229);">
+                
+                  <span style="display: flex; align-items: baseline; gap: 8px;">
+                    <span style="font-size: 19px; font-weight: 600; letter-spacing: -0.02em; color: rgb(26, 24, 20);">36%</span>
+                    <span style="font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(161, 155, 141);">ROI improvement</span>
+                  </span>
+                
+                <span style="font-size: 13px; font-weight: 600; color: rgb(26, 24, 20); flex: 0 0 auto;">Case study →</span>
+              </span>
+            </span>
+          </a>
+
+          <a href="smart-flighting.html" class="scp1" style="text-decoration: none; color: rgb(26, 24, 20); display: flex; flex-direction: column; border: 1px solid rgb(233, 229, 219); border-radius: 20px; overflow: hidden; background: rgb(255, 255, 255); padding: 8px;">
+            <span style="position: relative; display: block; height: 240px; overflow: hidden; border-radius: 13px; background: rgb(196, 212, 212);">
+              <div class="sc-host-x" style="position: absolute; inset: 0px;"><grad-plate colors="#DCE7E7,#BDCFD0,#A1BCBD,#759999" bg="#C2D2D2" ink="#FDFBF6" art="waves" grain="0.4" seed="flight" style="display: block; width: 100%; height: 100%;"></grad-plate></div>
+            </span>
+            <span style="display: flex; flex-direction: column; gap: 9px; padding: 20px 18px 18px; flex: 1 1 0%;">
+              <span style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(161, 155, 141);">Media execution · 02</span>
+              <span style="font-size: 19px; font-weight: 600; letter-spacing: -0.02em;">Smart Flighting</span>
+              <span style="font-size: 14px; line-height: 1.6; color: rgb(107, 102, 92);">A flighting simulator for testing campaign timing with AI response models: Excel to interactive platform.</span>
+              <span style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 14px; border-top: 1px solid rgb(240, 237, 229);">
+                
+                  <span style="display: flex; align-items: baseline; gap: 8px;">
+                    <span style="font-size: 19px; font-weight: 600; letter-spacing: -0.02em; color: rgb(26, 24, 20);">+1–1.5%</span>
+                    <span style="font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(161, 155, 141);">Net revenue</span>
+                  </span>
+                
+                <span style="font-size: 13px; font-weight: 600; color: rgb(26, 24, 20); flex: 0 0 auto;">Case study →</span>
+              </span>
+            </span>
+          </a>
+
+          <a href="promo-advisor.html" class="scp1" style="text-decoration: none; color: rgb(26, 24, 20); display: flex; flex-direction: column; border: 1px solid rgb(233, 229, 219); border-radius: 20px; overflow: hidden; background: rgb(255, 255, 255); padding: 8px;">
+            <span style="position: relative; display: block; height: 240px; overflow: hidden; border-radius: 13px; background: rgb(229, 205, 180);">
+              <div class="sc-host-x" style="position: absolute; inset: 0px;"><grad-plate colors="#F3E4D2,#EBD5C2,#D9B28F,#C57E63" bg="#E7CFB6" ink="#FDFBF6" art="squares" artr="2.1" grain="0.4" seed="promo" style="display: block; width: 100%; height: 100%;"></grad-plate></div>
+            </span>
+            <span style="display: flex; flex-direction: column; gap: 9px; padding: 20px 18px 18px; flex: 1 1 0%;">
+              <span style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgb(161, 155, 141);">Revenue management · 03</span>
+              <span style="font-size: 19px; font-weight: 600; letter-spacing: -0.02em;">Promo Advisor</span>
+              <span style="font-size: 14px; line-height: 1.6; color: rgb(107, 102, 92);">Promo management live in multiple markets: Diagnostics, Scenario Simulator, Calendar Optimizer.</span>
+              <span style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 14px; border-top: 1px solid rgb(240, 237, 229);">
+                
+                  <span style="display: flex; align-items: baseline; gap: 8px;">
+                    <span style="font-size: 19px; font-weight: 600; letter-spacing: -0.02em; color: rgb(26, 24, 20);">30–40%</span>
+                    <span style="font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(161, 155, 141);">Faster planning</span>
+                  </span>
+                
+                <span style="font-size: 13px; font-weight: 600; color: rgb(26, 24, 20); flex: 0 0 auto;">Case study →</span>
+              </span>
+            </span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    
+    <section id="building" style="padding: 0px 0px clamp(72px, 9vw, 112px); scroll-margin-top: 90px;">
+      <div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);">
+          <span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+          <span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+        </div>
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; flex-wrap: wrap; margin-bottom: clamp(32px, 4vw, 44px);">
+          <div>
+            <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">03 · Builder chapter</div>
+            <h2 style="font-weight: 500; font-size: clamp(2rem, 3.8vw, 3.1rem); line-height: 1.08; letter-spacing: -0.03em; margin: 18px 0px 0px; color: rgb(26, 24, 20);">Things I'm building</h2>
+          </div>
+          <a href="https://www.linkedin.com/in/czarnecki-ai/recent-activity/all/" target="_blank" rel="noopener" style="font-size: 13.5px; font-weight: 600; color: rgb(26, 24, 20); text-decoration: none; border-bottom: 1px solid rgb(201, 196, 182); padding-bottom: 3px; margin-bottom: 6px;">Writing: notes on building with AI ↗</a>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+          <a href="https://github.com/tomasz-czarnecki" target="_blank" rel="noopener" class="scp1" style="text-decoration: none; color: rgb(26, 24, 20); display: flex; flex-direction: column; border: 1px solid rgb(233, 229, 219); border-radius: 16px; overflow: hidden; background: rgb(255, 255, 255); padding: 8px;">
+            <span style="position: relative; display: block; height: 150px; overflow: hidden; border-radius: 11px; background: rgb(224, 211, 176);">
+              <div class="sc-host-x" style="position: absolute; inset: 0px;"><grad-plate colors="#EDE3C8,#E0D3B0,#C9B57D,#B39A6B" bg="#E0D3B0" ink="#FDFBF6" art="squares" artr="2.4" grain="0.4" seed="domain-cli" style="display: block; width: 100%; height: 100%;"></grad-plate></div>
+            </span>
+            <span style="display: flex; flex-direction: column; gap: 10px; padding: 18px 14px 14px; flex: 1 1 0%;">
+              <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(143, 122, 74);"><span style="width: 6px; height: 6px; border-radius: 999px; background: rgb(179, 154, 107);"></span>Experiment</span>
+              <span style="font-size: 16.5px; font-weight: 600; letter-spacing: -0.01em;">Domain-Discovery CLI</span>
+              <span style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92);">Hunts brandable domains from a VPS, calling an LLM only when a candidate is worth judging. Built to practice low-cost agent loops.</span>
+              <span style="display: flex; align-items: center; justify-content: flex-end; margin-top: auto; padding-top: 12px; border-top: 1px solid rgb(240, 237, 229);">
+                <span style="font-size: 13px; font-weight: 600; color: rgb(26, 24, 20); flex: 0 0 auto;">Case Study ↗</span>
+              </span>
+            </span>
+          </a>
+          <a href="https://github.com/tomasz-czarnecki" target="_blank" rel="noopener" class="scp1" style="text-decoration: none; color: rgb(26, 24, 20); display: flex; flex-direction: column; border: 1px solid rgb(233, 229, 219); border-radius: 16px; overflow: hidden; background: rgb(255, 255, 255); padding: 8px;">
+            <span style="position: relative; display: block; height: 150px; overflow: hidden; border-radius: 11px; background: rgb(211, 208, 223);">
+              <div class="sc-host-x" style="position: absolute; inset: 0px;"><grad-plate colors="#E4E2ED,#D3D0DF,#B7B0CE,#998FBE" bg="#D3D0DF" ink="#FDFBF6" art="waves" grain="0.4" seed="llm-content" style="display: block; width: 100%; height: 100%;"></grad-plate></div>
+            </span>
+            <span style="display: flex; flex-direction: column; gap: 10px; padding: 18px 14px 14px; flex: 1 1 0%;">
+              <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(143, 122, 74);"><span style="width: 6px; height: 6px; border-radius: 999px; background: rgb(179, 154, 107);"></span>Experiment</span>
+              <span style="font-size: 16.5px; font-weight: 600; letter-spacing: -0.01em;">LLM Content System</span>
+              <span style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92);">Drafts and typesets my own posts in one voice and visual style. Built to learn LLM content workflows.</span>
+              <span style="display: flex; align-items: center; justify-content: flex-end; margin-top: auto; padding-top: 12px; border-top: 1px solid rgb(240, 237, 229);">
+                <span style="font-size: 13px; font-weight: 600; color: rgb(26, 24, 20); flex: 0 0 auto;">Case Study ↗</span>
+              </span>
+            </span>
+          </a>
+          <a href="https://github.com/tomasz-czarnecki" target="_blank" rel="noopener" class="scp1" style="text-decoration: none; color: rgb(26, 24, 20); display: flex; flex-direction: column; border: 1px solid rgb(233, 229, 219); border-radius: 16px; overflow: hidden; background: rgb(255, 255, 255); padding: 8px;">
+            <span style="position: relative; display: block; height: 150px; overflow: hidden; border-radius: 11px; background: rgb(216, 205, 190);">
+              <div class="sc-host-x" style="position: absolute; inset: 0px;"><grad-plate colors="#E8E1D6,#D8CDBE,#C8BDAE,#8A7868" bg="#D8CDBE" ink="#FDFBF6" art="petals" artx="0.5" arty="0.52" artr="0.4" grain="0.4" seed="blender-mcp" style="display: block; width: 100%; height: 100%;"></grad-plate></div>
+            </span>
+            <span style="display: flex; flex-direction: column; gap: 10px; padding: 18px 14px 14px; flex: 1 1 0%;">
+              <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(143, 122, 74);"><span style="width: 6px; height: 6px; border-radius: 999px; background: rgb(179, 154, 107);"></span>Experiment</span>
+              <span style="font-size: 16.5px; font-weight: 600; letter-spacing: -0.01em;">Blender-MCP Pipeline</span>
+              <span style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92);">Builds 3D scenes in Blender through MCP, prompt to rendered scene. Built to learn where agent autonomy breaks.</span>
+              <span style="display: flex; align-items: center; justify-content: flex-end; margin-top: auto; padding-top: 12px; border-top: 1px solid rgb(240, 237, 229);">
+                <span style="font-size: 13px; font-weight: 600; color: rgb(26, 24, 20); flex: 0 0 auto;">Case Study ↗</span>
+              </span>
+            </span>
+          </a>
+          <a href="#top" class="scp1" style="text-decoration: none; color: rgb(26, 24, 20); display: flex; flex-direction: column; border: 1px solid rgb(233, 229, 219); border-radius: 16px; overflow: hidden; background: rgb(255, 255, 255); padding: 8px;">
+            <span style="position: relative; display: block; height: 150px; overflow: hidden; border-radius: 11px; background: rgb(202, 212, 196);">
+              <div class="sc-host-x" style="position: absolute; inset: 0px;"><grad-plate colors="#DCE4D7,#CAD4C4,#B3C1AA,#94A891" bg="#CAD4C4" ink="#FDFBF6" art="rings" grain="0.4" seed="czarnecki-live" style="display: block; width: 100%; height: 100%;"></grad-plate></div>
+            </span>
+            <span style="display: flex; flex-direction: column; gap: 10px; padding: 18px 14px 14px; flex: 1 1 0%;">
+              <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(81, 106, 84);"><span style="width: 6px; height: 6px; border-radius: 999px; background: rgb(81, 106, 84);"></span>Live</span>
+              <span style="font-size: 16.5px; font-weight: 600; letter-spacing: -0.01em;">czarnecki.ai</span>
+              <span style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92);">You're looking at it: designed, built, and shipped end to end. The site itself is the proof of build.</span>
+              <span style="display: flex; align-items: center; justify-content: flex-end; margin-top: auto; padding-top: 12px; border-top: 1px solid rgb(240, 237, 229);">
+                <span style="font-size: 13px; font-weight: 600; color: rgb(26, 24, 20); flex: 0 0 auto;">Live Demo ↗</span>
+              </span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    
+    <section style="padding: 0px 0px clamp(72px, 9vw, 112px);">
+      <div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);">
+          <span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+          <span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+        </div>
+        <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141); margin-bottom: 40px;">What they say</div>
+        <div id="v2-quotes" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 64px; align-items: start;">
+          <figure style="margin: 0px;">
+            <blockquote style="margin: 0px; font-weight: 500; font-size: clamp(1.25rem, 1.9vw, 1.6rem); line-height: 1.4; letter-spacing: -0.02em; color: rgb(26, 24, 20);">“Most importantly, he has great working habits: extremely well organized in all aspects, always looking into possible ways to improve his own work and his team's.”</blockquote>
+            <figcaption style="display: flex; align-items: center; gap: 20px; margin-top: 30px;">
+              <img src="assets/ma-yansong-signature.svg" alt="Ma Yansong signature" style="height: 44px; width: auto; flex: 0 0 auto; opacity: 0.9;">
+              <div style="width: 1px; height: 36px; background: rgb(224, 220, 208); flex: 0 0 auto;"></div>
+              <div>
+                <div style="font-size: 14.5px; font-weight: 600; color: rgb(26, 24, 20);">Ma Yansong</div>
+                <div style="font-size: 12px; letter-spacing: 0.03em; color: rgb(139, 133, 120); margin-top: 4px;">Founder &amp; Principal, MAD Architects</div>
+              </div>
+            </figcaption>
+          </figure>
+          <figure style="margin: 0px;">
+            <blockquote style="margin: 0px; font-weight: 500; font-size: clamp(1.25rem, 1.9vw, 1.6rem); line-height: 1.4; letter-spacing: -0.02em; color: rgb(26, 24, 20);">“Tomasz made a great effort to investigate the problem, and through the research process he kept the highest standards and followed very clear logic.”</blockquote>
+            <figcaption style="margin-top: 30px;">
+              <div style="font-size: 14.5px; font-weight: 600; color: rgb(26, 24, 20);">Piotr Marciniak</div>
+              <div style="font-size: 12px; letter-spacing: 0.03em; color: rgb(139, 133, 120); margin-top: 4px;">Professor, Poznań University of Technology</div>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    
+    <section id="about" style="padding: 0px 0px clamp(72px, 9vw, 112px); scroll-margin-top: 90px;">
+      <div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);">
+          <span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+          <span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+        </div>
+        <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141); margin-bottom: 24px;">04 · Philosophy</div>
+        <h2 style="font-weight: 500; font-size: clamp(2rem, 4.4vw, 3.6rem); line-height: 1.1; letter-spacing: -0.035em; margin: 0px; color: rgb(26, 24, 20);">The model isn't the hard part</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: rgb(107, 102, 92); max-width: 48ch; margin: 20px 0px 0px;">It's the human layer — the trust, adoption, and judgment calls that decide whether people actually act on it.</p>
+        <div style="border: 1px solid rgb(233, 229, 219); border-radius: 20px; background: rgb(255, 255, 255); padding: clamp(28px, 4vw, 48px); margin-top: clamp(44px, 6vw, 64px);">
+          <div id="v2-about-grid" style="display: grid; grid-template-columns: 1.18fr 0.82fr; gap: clamp(36px, 5vw, 72px); align-items: start;">
+            <div style="display: flex; flex-direction: column; gap: 22px; max-width: 60ch;">
+              <p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">I spent a decade building generative and optimization systems: genetic algorithms, evolutionary solvers, and large-scale parametric work at MAD Architects and AREP. The same mental model of handling uncertainty, constraints, and trade-offs now applies directly to LLM agents and agentic workflows.</p>
+              <p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">At Heineken, I applied this thinking at scale: shaping the product layer for AI systems built to optimize a ~€2.9B marketing budget. I approach AI products as a builder who owns outcomes, from discovery to shipped systems, not just as a designer of interfaces.</p>
+              <p style="font-size: 16px; line-height: 1.7; color: rgb(76, 74, 66); margin: 0px;"><strong style="color: rgb(26, 24, 20); font-weight: 600;">My specialty is uncertainty UX</strong>: turning model output and confidence into explainable, simulatable interfaces that non-technical teams trust and act on. On every product I've shipped, the bottleneck was never model accuracy. It was adoption.</p>
+            </div>
+            <div style="position: relative; border: 1px solid rgb(233, 229, 219); border-radius: 18px; overflow: hidden; aspect-ratio: 1 / 1; background: rgb(239, 235, 225);">
+              <img src="assets/philosophy.jpg" alt="Tomasz Czarnecki" style="position: absolute; inset: 0px; width: 100%; height: 100%; object-fit: cover;">
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- JOURNEY -->
-    <section id="journey" style="padding:96px 0; scroll-margin-top:90px; border-top:1px solid #E4E1D9;">
-      <div class="wrap" style="max-width:1360px; margin:0 auto; padding:0 48px;">
-        <div style="margin-bottom:48px;">
-          <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#9C978B; margin-bottom:16px;">03 — Timeline</div>
-          <h2 style="font-weight:700; font-size:clamp(1.9rem,3.6vw,2.9rem); letter-spacing:-0.025em; margin:0 0 12px 0; color:#1C1A15;">The Long Way Here</h2>
-          <span style="font-size:15px; line-height:1.5; color:#6E6A60; max-width:42ch; display:inline-block;">Computer science, architecture and adventure — converging on AI.</span>
+    
+    <section id="journey" style="padding: 0px 0px clamp(40px, 5vw, 60px); scroll-margin-top: 90px;">
+      <div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);">
+          <span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+          <span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
         </div>
-        <div class="journey-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid #E4E1D9; border-radius:10px; overflow:hidden; background:#FFFFFF;">
-          <div style="padding:28px 26px; border-right:1px solid #EFECE4; border-bottom:1px solid #EFECE4;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.08em; color:var(--accent,#1C1A15); margin-bottom:16px;">01 · 2007</div>
-            <h3 style="font-weight:600; font-size:18px; letter-spacing:-0.01em; margin:0 0 10px 0; color:#1C1A15;">Computer Science</h3>
-            <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:0;">Started in IT and picked up the skill that underwrites everything since — algorithmic thinking — before a drawing exam pulled me toward architecture.</p>
+        <div style="margin-bottom: clamp(32px, 4vw, 44px);">
+          <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">05 · Timeline</div>
+          <h2 style="font-weight: 500; font-size: clamp(2rem, 3.8vw, 3.1rem); line-height: 1.08; letter-spacing: -0.03em; margin: 18px 0px 0px; color: rgb(26, 24, 20);">The long way here</h2>
+          <p style="font-size: 15px; line-height: 1.62; color: rgb(107, 102, 92); margin: 14px 0px 0px; max-width: 52ch;">Before AI agents, I optimized buildings with genetic algorithms. Same operation, different material: set the objective, let the system search.</p>
+        </div>
+        <div id="v2-journey">
+          <div style="display: grid; grid-template-columns: clamp(44px, 5vw, 72px) 1fr minmax(150px, 220px); align-items: start; gap: clamp(16px, 3vw, 32px); padding: clamp(22px, 2.8vw, 30px) 0px; border-top: 1px solid rgb(233, 229, 219);">
+            <div style="font-size: 13px; font-weight: 600; color: rgb(161, 155, 141); letter-spacing: 0.08em;">01</div>
+            <div>
+              <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(139, 133, 120);">2014–2019 · AREP, MAD Architects</div>
+              <div style="font-weight: 600; font-size: clamp(1.1rem, 1.6vw, 1.35rem); letter-spacing: -0.02em; margin-top: 8px; color: rgb(26, 24, 20);">Optimizing buildings</div>
+              <div style="font-size: 14.5px; line-height: 1.62; color: rgb(107, 102, 92); margin-top: 8px; max-width: 60ch;">Wrote the parametric and evolutionary systems other studios ran on: genetic algorithms shaped MAD's 60,000 m² Xinhee facade, and the scripting library behind AREP's prize-winning 21M m² Chengdu masterplan.</div>
+            </div>
+            <div style="text-align: right; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(161, 155, 141); padding-top: 4px;">Grasshopper · Galapagos</div>
           </div>
-          <div style="padding:28px 26px; border-right:1px solid #EFECE4; border-bottom:1px solid #EFECE4;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.08em; color:var(--accent,#1C1A15); margin-bottom:16px;">02 · 2011</div>
-            <h3 style="font-weight:600; font-size:18px; letter-spacing:-0.01em; margin:0 0 10px 0; color:#1C1A15;">Istanbul &amp; Parametric Design</h3>
-            <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:0;">An exchange year under prof. Ozan Önder Özener. Buildings as programs — geometry described mathematically in C#. It became my thesis and my edge.</p>
+          <div style="display: grid; grid-template-columns: clamp(44px, 5vw, 72px) 1fr minmax(150px, 220px); align-items: start; gap: clamp(16px, 3vw, 32px); padding: clamp(22px, 2.8vw, 30px) 0px; border-top: 1px solid rgb(233, 229, 219);">
+            <div style="font-size: 13px; font-weight: 600; color: rgb(161, 155, 141); letter-spacing: 0.08em;">02</div>
+            <div>
+              <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(139, 133, 120);">2020–2021 · Macopedia, Poznań</div>
+              <div style="font-weight: 600; font-size: clamp(1.1rem, 1.6vw, 1.35rem); letter-spacing: -0.02em; margin-top: 8px; color: rgb(26, 24, 20);">Designing interfaces</div>
+              <div style="font-size: 14.5px; line-height: 1.62; color: rgb(107, 102, 92); margin-top: 8px; max-width: 60ch;">Owned enterprise e-commerce delivery end to end (discovery and UX through to production front-end) and built a reusable component system adopted across client builds (Pearson, Macmillan, Raben).</div>
+            </div>
+            <div style="text-align: right; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(161, 155, 141); padding-top: 4px;">React · design systems</div>
           </div>
-          <div style="padding:28px 26px; border-bottom:1px solid #EFECE4;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.08em; color:var(--accent,#1C1A15); margin-bottom:16px;">03 · 2015</div>
-            <h3 style="font-weight:600; font-size:18px; letter-spacing:-0.01em; margin:0 0 10px 0; color:#1C1A15;">A One-Way Ticket to Beijing</h3>
-            <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:0;">Borrowed money for a one-way ticket and joined MAD Architects, on the team behind the Harbin Opera House. Perfection as countless iterations.</p>
+          <div style="display: grid; grid-template-columns: clamp(44px, 5vw, 72px) 1fr minmax(150px, 220px); align-items: start; gap: clamp(16px, 3vw, 32px); padding: clamp(22px, 2.8vw, 30px) 0px; border-top: 1px solid rgb(233, 229, 219);">
+            <div style="font-size: 13px; font-weight: 600; color: rgb(161, 155, 141); letter-spacing: 0.08em;">03</div>
+            <div>
+              <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(139, 133, 120);">2021–2026 · Heineken · Global Analytics &amp; AI Hub</div>
+              <div style="font-weight: 600; font-size: clamp(1.1rem, 1.6vw, 1.35rem); letter-spacing: -0.02em; margin-top: 8px; color: rgb(26, 24, 20);">Optimizing spend</div>
+              <div style="font-size: 14.5px; line-height: 1.62; color: rgb(107, 102, 92); margin-top: 8px; max-width: 60ch;">First product hire in a startup-style AI hub. Shipped three production AI systems optimizing Heineken's ~€2.9B annual marketing spend. The hard part was never the model: it was making probabilistic output commercial teams trust and act on.</div>
+            </div>
+            <div style="text-align: right; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(161, 155, 141); padding-top: 4px;">Bayesian optimizer</div>
           </div>
-          <div style="padding:28px 26px; border-right:1px solid #EFECE4;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.08em; color:var(--accent,#1C1A15); margin-bottom:16px;">04 · 2017</div>
-            <h3 style="font-weight:600; font-size:18px; letter-spacing:-0.01em; margin:0 0 10px 0; color:#1C1A15;">Leading in Guizhou</h3>
-            <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:0;">Project leader at a local institute, running a team of ten Mandarin-only designers. Finally close to real users — and asking why so few decisions were data-based.</p>
-          </div>
-          <div style="padding:28px 26px; border-right:1px solid #EFECE4;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.08em; color:var(--accent,#1C1A15); margin-bottom:16px;">05 · 2020</div>
-            <h3 style="font-weight:600; font-size:18px; letter-spacing:-0.01em; margin:0 0 10px 0; color:#1C1A15;">Back to the Roots — UX</h3>
-            <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:0;">Twelve years after first meeting the word <em>usability</em>, it clicked. The field that joined all three threads: computer science, design, and making lives simpler.</p>
-          </div>
-          <div style="padding:28px 26px;">
-            <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.08em; color:var(--accent,#1C1A15); margin-bottom:16px;">06 · Now</div>
-            <h3 style="font-weight:600; font-size:18px; letter-spacing:-0.01em; margin:0 0 10px 0; color:#1C1A15;">AI Product Engineering</h3>
-            <p style="font-size:14.5px; line-height:1.6; color:#6E6A60; margin:0;">Five years shipping production ML at Heineken, now building independently. Non-deterministic, rule-based systems were always the material — LLM agents are the new medium.</p>
+          <div style="display: grid; grid-template-columns: clamp(44px, 5vw, 72px) 1fr minmax(150px, 220px); align-items: start; gap: clamp(16px, 3vw, 32px); padding: clamp(22px, 2.8vw, 30px) 0px; border-top: 1px solid rgb(233, 229, 219);">
+            <div style="font-size: 13px; font-weight: 600; color: rgb(161, 155, 141); letter-spacing: 0.08em;">04</div>
+            <div>
+              <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(139, 133, 120);">2026 – Now · Independent</div>
+              <div style="font-weight: 600; font-size: clamp(1.1rem, 1.6vw, 1.35rem); letter-spacing: -0.02em; margin-top: 8px; color: rgb(26, 24, 20);">Optimizing with agents</div>
+              <div style="font-size: 14.5px; line-height: 1.62; color: rgb(107, 102, 92); margin-top: 8px; max-width: 60ch;">A deliberate hands-on period: going deep on agentic AI (LangGraph, Claude Code, MCP) and building the systems myself, not just speccing them.</div>
+            </div>
+            <div style="text-align: right; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(161, 155, 141); padding-top: 4px;">LangGraph · Claude Code</div>
           </div>
         </div>
-        <div style="width:100%; margin-top:24px; height:min(680px,50vw); border:1px solid #E4E1D9; border-radius:10px; overflow:hidden; background:#FFFFFF;"><img src="assets/journey-team.jpg" alt="Tomasz Czarnecki with the MAD Architects team" style="width:100%; height:100%; object-fit:cover;"></div>
+      </div>
+    </section>
+
+    
+    <section id="archive" style="padding: 0px 0px clamp(80px, 10vw, 128px); scroll-margin-top: 90px;">
+      <div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);">
+          <span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+          <span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span>
+        </div>
+        <div style="margin-bottom: clamp(32px, 4vw, 44px);">
+          <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">06 · The through-line</div>
+          <h2 style="font-weight: 500; font-size: clamp(2rem, 3.8vw, 3.1rem); line-height: 1.08; letter-spacing: -0.03em; margin: 18px 0px 0px; color: rgb(26, 24, 20);">Buildings that were programs</h2>
+          <p style="font-size: 15px; line-height: 1.62; color: rgb(107, 102, 92); margin: 14px 0px 0px; max-width: 56ch;">A decade before "AI agent" was a phrase, I was writing evolutionary solvers that bred building geometry from a fitness function. Same operation, different material: set the objective, let the system search.</p>
+        </div>
+        <figure style="margin: 0px;">
+          <div style="border: 1px solid rgb(233, 229, 219); border-radius: 20px; background: rgb(255, 255, 255); padding: clamp(24px, 4vw, 44px); overflow: hidden;">
+            <div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(143, 122, 74);">Case study · MAD Architects, 2016</div>
+            <h3 style="font-weight: 500; font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.14; letter-spacing: -0.025em; margin: 12px 0px 0px; color: rgb(26, 24, 20); max-width: 26ch;">This script grew that building</h3>
+            <p style="font-size: 15px; line-height: 1.68; color: rgb(76, 74, 66); margin: 16px 0px clamp(26px, 3.4vw, 36px); max-width: 82ch;">The graph above is the solver I wrote for Xinhee's facade: it bred thousands of variants against structural load and cost, then output the geometry that got built.</p>
+            <div id="v2-archive-pair" style="display: grid; grid-template-columns: 1fr auto 1fr; gap: clamp(16px, 2.5vw, 28px); align-items: center;">
+              <div>
+                <div style="border: 1px solid rgb(239, 236, 228); border-radius: 12px; overflow: hidden; background: rgb(255, 255, 255); aspect-ratio: 3 / 2;">
+                  <img src="assets/sea-of-spores-grasshopper.jpg" alt="Grasshopper 'XiaMen Facade Optimization' definition, an evolutionary solver that bred the facade geometry." style="display: block; width: 100%; height: 100%; object-fit: contain;">
+                </div>
+                <div style="font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(161, 155, 141); margin-top: 12px;">The definition · Grasshopper + Galapagos</div>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 4px 0px;">
+                <span id="v2-archive-arrow" style="display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 999px; border: 1px solid rgb(143, 122, 74); color: rgb(143, 122, 74); font-size: 18px; line-height: 1; flex: 0 0 auto;">→</span>
+                <span style="font-size: 9.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(143, 122, 74); text-align: center; line-height: 1.5; max-width: 10ch;">Generates geometry</span>
+              </div>
+              <div>
+                <div style="border: 1px solid rgb(239, 236, 228); border-radius: 12px; overflow: hidden; aspect-ratio: 3 / 2;">
+                  <img src="assets/xinhee.jpg" alt="The built Xinhee Design Center, translucent membrane facade, Xiamen." style="display: block; width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div style="font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(161, 155, 141); margin-top: 12px;">The result · Xinhee Design Center, Xiamen</div>
+              </div>
+            </div>
+            <div style="font-size: 10px; letter-spacing: 0.06em; color: rgb(181, 175, 159); margin-top: 20px; text-align: right;">Facade photo © MAD Architects</div>
+          </div>
+        </figure>
       </div>
     </section>
 
   </main>
 
-  <!-- CONTACT -->
-  <section id="contact" style="scroll-margin-top:90px; background:#FFFFFF; border-top:1px solid #E4E1D9;">
-    <div class="wrap" style="max-width:1360px; margin:0 auto; padding:104px 48px;">
-      <div style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#9C978B; margin-bottom:26px;">Get in touch</div>
-      <h2 style="font-weight:700; font-size:clamp(2.2rem,5vw,4.6rem); line-height:1.02; letter-spacing:-0.03em; margin:0; max-width:18ch; color:#1C1A15;">If this resonates, let's chat.</h2>
-      <p style="font-size:17px; line-height:1.6; color:#6E6A60; max-width:48ch; margin:26px 0 0 0;">I’m interested in conversations about building AI products with real ownership. If you’re working on something meaningful, feel free to reach out.</p>
-      <div style="display:flex; flex-wrap:wrap; gap:14px; margin-top:38px;">
-        <a href="https://www.linkedin.com/in/czarnecki-ai" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:9px; padding:15px 28px; border-radius:8px; background:#1C1A15; color:#F4F3EF; font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none;">LinkedIn <span style="color:var(--accent,#F4F3EF);">→</span></a>
-        <a href="mailto:tomasz@czarnecki.ai" style="display:inline-flex; align-items:center; padding:15px 28px; border-radius:8px; background:#FFFFFF; border:1px solid #D9D5CB; color:#1C1A15; font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none;">Email</a>
+  
+  <section id="contact" style="position: relative; overflow: hidden; scroll-margin-top: 90px; background: rgb(44, 42, 39);">
+    <div class="sc-host-x" style="position: absolute; inset: 0px;"><grad-plate colors="#3A3833,#2C2A27,#232220,#1C1B19" bg="#2C2A27" ink="#F4F1E8" art="none" grain="0.5" seed="footer-neutral" style="display: block; width: 100%; height: 100%;"></grad-plate></div>
+    <div style="position: relative; z-index: 2; max-width: 1320px; margin: 0px auto; padding: clamp(90px, 11vw, 140px) clamp(20px, 4.5vw, 48px) clamp(60px, 7vw, 90px);">
+      <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(244, 241, 232, 0.65); margin-bottom: 26px;">Get in touch</div>
+      <h2 style="font-weight: 500; font-size: clamp(2.4rem, 5.2vw, 4.6rem); line-height: 1.04; letter-spacing: -0.035em; margin: 0px; color: rgb(247, 245, 239);">If this resonates, let's chat</h2>
+      <p style="font-size: 17px; line-height: 1.62; color: rgba(247, 245, 239, 0.78); max-width: 48ch; margin: 26px 0px 0px;">I'm looking for a senior AI product seat where hands-on building matters, and always up for conversations about AI products with real ownership.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px;">
+        <a href="https://www.linkedin.com/in/czarnecki-ai" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 9px; padding: 14px 28px; border-radius: 999px; background: rgb(244, 241, 232); color: rgb(26, 24, 20); font-size: 13.5px; font-weight: 600; text-decoration: none;">LinkedIn →</a>
+        <a href="mailto:tomasz@czarnecki.ai" style="display: inline-flex; align-items: center; padding: 14px 28px; border-radius: 999px; background: rgba(244, 241, 232, 0.08); border: 1px solid rgba(244, 241, 232, 0.4); color: rgb(244, 241, 232); font-size: 13.5px; font-weight: 500; text-decoration: none;">Email</a>
+        <a href="https://github.com/tomasz-czarnecki" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; padding: 14px 28px; border-radius: 999px; background: rgba(244, 241, 232, 0.08); border: 1px solid rgba(244, 241, 232, 0.4); color: rgb(244, 241, 232); font-size: 13.5px; font-weight: 500; text-decoration: none;">GitHub</a>
+      </div>
+      <div style="position: relative; height: 1px; background: rgba(244, 241, 232, 0.22); margin-top: clamp(56px, 7vw, 84px);">
+        <span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgba(244, 241, 232, 0.22);"></span>
+        <span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgba(244, 241, 232, 0.22);"></span>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; padding-top: 28px;">
+        <span style="font-size: 14px; font-weight: 600; color: rgb(247, 245, 239);">Tomasz Czarnecki</span>
+        <span style="font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(244, 241, 232, 0.55);">© <span class="sc-interp">2026</span> · Designed &amp; built by Tomasz Czarnecki · czarnecki.ai</span>
       </div>
     </div>
-    <div style="border-top:1px solid #E4E1D9;">
-      <div class="bar" style="max-width:1360px; margin:0 auto; padding:30px 48px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;">
-        <span style="display:flex; align-items:center; gap:10px; font-size:14px; font-weight:600; color:#1C1A15;"><span style="width:14px; height:14px; background:#1C1A15; border-radius:3px; display:inline-block;"></span>Tomasz Czarnecki</span>
-        <span style="font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:0.06em; color:#9C978B;">© 2026 · Designed &amp; built by Tomasz Czarnecki · czarnecki.ai</span>
-      </div>
-    </div>
-  </section>
-</div>
+  </section></div></div></div>
+<script src="grad-canvases.js"></script>
+<script>
+(function () {
+  var box = document.getElementById('dc-intro');
+  if (!box) return;
+  box.style.cursor = 'pointer';
+  box.addEventListener('click', function () {
+    var id = box.getAttribute('data-yt') || 'Lt2gnszqE-w';
+    box.innerHTML = '<iframe src="https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1" title="Tomasz Czarnecki: introduction" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>';
+  }, { once: true });
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Flighting — Case Study | Tomasz Czarnecki</title>
+<meta name="description" content="A flighting simulator for testing campaign timing with AI response models: from an Excel workbook to an interactive platform, worth +1–1.5% of net revenue.">
+<meta name="author" content="Tomasz Czarnecki">
+<link rel="canonical" href="https://czarnecki.ai/smart-flighting.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tomasz Czarnecki">
+<meta property="og:title" content="Smart Flighting — Case Study | Tomasz Czarnecki">
+<meta property="og:description" content="A flighting simulator for testing campaign timing with AI response models: from an Excel workbook to an interactive platform, worth +1–1.5% of net revenue.">
+<meta property="og:url" content="https://czarnecki.ai/smart-flighting.html">
+<meta property="og:image" content="https://czarnecki.ai/assets/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Smart Flighting — Case Study | Tomasz Czarnecki">
+<meta name="twitter:description" content="A flighting simulator for testing campaign timing with AI response models: from an Excel workbook to an interactive platform, worth +1–1.5% of net revenue.">
+<meta name="twitter:image" content="https://czarnecki.ai/assets/og-card.jpg">
+<meta name="theme-color" content="#FCFBF8">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+.sc-placeholder { background: color-mix(in srgb, currentcolor 8%, transparent); border: 1px solid color-mix(in srgb, currentcolor, transparent); border-radius: 2px; box-sizing: border-box; overflow: hidden; }
+@keyframes sc-shine { 
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+html.sc-dc-streaming .sc-placeholder, html.sc-dc-streaming .sc-interp.sc-missing { position: relative; background: color-mix(in srgb, currentcolor 5%, transparent); border-color: transparent; }
+html.sc-dc-streaming .sc-placeholder::before, html.sc-dc-streaming .sc-interp.sc-missing::before { content: ""; position: absolute; inset: 0px; pointer-events: none; background: linear-gradient(90deg, rgba(217, 119, 87, 0) 25%, rgba(247, 225, 211, 0.95) 37%, rgba(217, 119, 87, 0) 63%) 0% 0% / 400% 100%; animation: 1.4s ease 0s infinite normal none running sc-shine; }
+html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before, html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before { animation: auto ease 0s 1 normal none running none; background: color-mix(in srgb, currentcolor 8%, transparent); }
+.sc-placeholder-error { padding: 4px 8px; font: 11px / 1.4 ui-monospace, monospace; color: color-mix(in srgb, currentcolor 70%, transparent); word-break: break-word; }
+.sc-interp.sc-missing { display: inline-block; width: 2em; height: 1em; overflow: hidden; vertical-align: text-bottom; background: rgba(255, 255, 255, 0.3); border: 1px solid rgba(0, 0, 0, 0.5); border-radius: 2px; box-sizing: border-box; color: transparent; user-select: none; }
+.sc-interp.sc-unresolved { font-family: ui-monospace, monospace; font-size: 0.85em; color: color-mix(in srgb, currentcolor, transparent); background: color-mix(in srgb, currentcolor 10%, transparent); border-radius: 3px; padding: 0px 3px; }
+.sc-host.sc-has-error { position: relative; }
+.sc-logic-error { position: absolute; top: 8px; left: 8px; z-index: 2147483647; max-width: 60ch; padding: 6px 10px; background: rgb(176, 0, 32); color: rgb(255, 255, 255); font: 12px / 1.4 ui-monospace, monospace; border-radius: 4px; white-space: pre-wrap; pointer-events: none; }
+@media print {
+  @page { margin: 0.5cm; }
+  figure, table { break-inside: avoid; }
+  #dc-root, #dc-root > .sc-host { height: auto; }
+  *, ::before, ::after { print-color-adjust: exact; backdrop-filter: none !important; animation-delay: -99s !important; animation-duration: 0.001s !important; animation-iteration-count: 1 !important; animation-fill-mode: both !important; animation-play-state: running !important; transition-duration: 0s !important; }
+}
+x-dc { display: none !important; }
+.scp0:hover { box-shadow: rgba(26, 24, 20, 0.08) 0px 12px 36px; transition: box-shadow 0.25s; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0px; background: rgb(252, 251, 248); }
+::selection { background: rgb(26, 24, 20); color: rgb(244, 241, 232); }
+a { color: rgb(26, 24, 20); }
+a:hover { opacity: 0.82; }
+@media (max-width: 920px) {
+  #cs-overview-grid, #cs-role-grid, #cs-shipped-grid, #cs-impact-grid, #cs-problem-grid { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 780px) {
+  #cs-decisions > div { grid-template-columns: 1fr !important; gap: 8px !important; }
+  #cs-decisions > div > div:last-child { text-align: left !important; }
+  #cs-impact-head { flex-direction: column !important; align-items: flex-start !important; }
+}
+</style>
+</head>
+<body>
+<div id="dc-root"><div class="sc-host"><div style="background: rgb(252, 251, 248); color: rgb(26, 24, 20); font-family: Inter, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: clip;">
+
+  <header style="position: sticky; top: 0px; z-index: 50; background: rgba(252, 251, 248, 0.88); backdrop-filter: blur(14px); border-bottom: 1px solid rgb(236, 232, 222);">
+    <div style="max-width: 1320px; margin: 0px auto; padding: 18px clamp(20px, 4.5vw, 48px); display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <a href="index.html" style="display: flex; align-items: center; gap: 7px; text-decoration: none; color: rgb(26, 24, 20);">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" style="display: block; flex: 0 0 auto;"><rect x="1" y="1" width="16" height="16" rx="5" fill="#2D2A1E"></rect></svg>
+          <span style="font-size: 15.5px; font-weight: 600; letter-spacing: -0.01em;">Tomasz Czarnecki</span>
+        </a>
+        <span style="width: 1px; height: 18px; background: rgb(224, 220, 208); flex: 0 0 auto;"></span>
+        <a href="index.html#case-studies" style="font-size: 13.5px; font-weight: 500; color: rgb(107, 102, 92); text-decoration: none;">← All case studies</a>
+      </div>
+      <a href="promo-advisor.html" style="display: inline-flex; align-items: center; padding: 10px 20px; border-radius: 999px; background: rgb(26, 24, 20); color: rgb(244, 241, 232); font-size: 13px; font-weight: 500; letter-spacing: 0.01em; text-decoration: none;">Next case →</a>
+    </div>
+  </header>
+
+  <main style="width: 100%;">
+
+    <section style="position: relative; overflow: hidden; background: rgb(194, 210, 210);">
+      <div class="sc-host-x" style="position: absolute; inset: 0px;"><grad-plate colors="#DCE7E7,#BDCFD0,#A1BCBD,#759999" bg="#C2D2D2" ink="#FDFBF6" art="waves" artx="0.78" arty="0.5" artr="0.4" grain="0.5" seed="flight" style="display: block; width: 100%; height: 100%;"></grad-plate></div>
+      <div style="position: relative; z-index: 2; max-width: 1320px; margin: 0px auto; padding: clamp(56px, 8vh, 96px) clamp(20px, 4.5vw, 48px) 40px; display: flex; flex-direction: column; min-height: 520px;">
+        <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+          <span style="display: inline-flex; align-items: center; padding: 7px 14px; border-radius: 999px; background: rgb(45, 42, 30); color: rgb(244, 241, 232); font-size: 10.5px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;">Case study · 02</span>
+        </div>
+        <h1 style="font-weight: 500; font-size: clamp(2.7rem, 5.8vw, 5.2rem); line-height: 1.04; letter-spacing: -0.035em; margin: 26px 0px 0px; color: rgb(36, 50, 50);">Smart Flighting</h1>
+        <p style="font-size: clamp(1.02rem, 1.35vw, 1.2rem); line-height: 1.65; color: rgba(30, 38, 38, 0.8); max-width: 56ch; margin: 24px 0px 0px;">Convincing media teams that spending in fewer weeks would beat spreading the budget evenly. An interactive timing optimizer that replaced Excel, targeting a <strong style="color: rgb(36, 50, 50); font-weight: 600;">+1–1.5% net-revenue uplift from timing alone</strong>, without spending a euro more.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 64px); margin: clamp(36px, 5vh, 56px) 0px 36px;">
+          <div><div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(30, 38, 38, 0.55);">Role</div><div style="font-size: 14.5px; font-weight: 600; color: rgb(36, 50, 50); margin-top: 7px;">Product lead</div></div>
+          <div><div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(30, 38, 38, 0.55);">Context</div><div style="font-size: 14.5px; font-weight: 600; color: rgb(36, 50, 50); margin-top: 7px;">Heineken · 2021 – 2026</div></div>
+          <div><div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(30, 38, 38, 0.55);">Domain</div><div style="font-size: 14.5px; font-weight: 600; color: rgb(36, 50, 50); margin-top: 7px;">Media planning</div></div>
+          <div><div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(30, 38, 38, 0.55);">Approach</div><div style="font-size: 14.5px; font-weight: 600; color: rgb(36, 50, 50); margin-top: 7px;">Response curves · saturation</div></div>
+        </div>
+
+      </div>
+    </section>
+
+    <section style="padding: clamp(48px, 6vw, 72px) 0px 0px;"><div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="background: rgb(255, 255, 255); border: 1px solid rgb(233, 229, 219); border-radius: 14px; box-shadow: rgba(26, 24, 20, 0.04) 0px 1px 2px, rgba(26, 24, 20, 0.05) 0px 12px 32px; overflow: hidden;">
+      <div style="padding: 22px 26px 18px; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap;">
+        <div>
+          <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(139, 133, 120); margin-bottom: 6px;">Flighting plan 2025 · Meridia</div>
+          <h2 style="margin: 0px 0px 5px; font-size: 21px; font-weight: 600; letter-spacing: -0.01em;">Every campaign and touchpoint, across the year</h2>
+          <div style="color: rgb(139, 133, 120); font-size: 13px; max-width: 560px; line-height: 1.5;">Brands break into campaigns, campaigns into touchpoints. Each bar is when that channel is on air, so overlaps and gaps read at a glance before anything is booked.</div>
+        </div>
+        <div style="display: flex; border: 1px solid rgb(233, 229, 219); border-radius: 9px; overflow: hidden; flex: 0 0 auto;">
+          <span style="font-size: 12px; padding: 8px 13px; border-right: 1px solid rgb(233, 229, 219); background: rgb(26, 24, 20); color: rgb(255, 255, 255);">Timeline</span>
+          <span style="font-size: 12px; padding: 8px 13px; border-right: 1px solid rgb(233, 229, 219); color: rgb(139, 133, 120);">List</span>
+          <span style="font-size: 12px; padding: 8px 13px; color: rgb(139, 133, 120);">Assessment</span>
+        </div>
+      </div>
+      <div style="border-bottom: 1px solid rgb(233, 229, 219); min-width: 650px;"></div>
+      <div style="padding: 8px 26px 6px;">
+        <div style="display: grid; grid-template-columns: 212px minmax(360px, 1fr) 78px; align-items: center; min-width: 650px; padding: 8px 0px;">
+          <div></div>
+          <div style="display: grid; grid-template-columns: repeat(12, 1fr);">
+            
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; color: rgb(139, 133, 120); text-align: center; letter-spacing: 0.02em;"><span class="sc-interp">Jan</span></span>
+            
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; color: rgb(139, 133, 120); text-align: center; letter-spacing: 0.02em;"><span class="sc-interp">Feb</span></span>
+            
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; color: rgb(139, 133, 120); text-align: center; letter-spacing: 0.02em;"><span class="sc-interp">Mar</span></span>
+            
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; color: rgb(139, 133, 120); text-align: center; letter-spacing: 0.02em;"><span class="sc-interp">Apr</span></span>
+            
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; color: rgb(139, 133, 120); text-align: center; letter-spacing: 0.02em;"><span class="sc-interp">May</span></span>
+            
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; color: rgb(139, 133, 120); text-align: center; letter-spacing: 0.02em;"><span class="sc-interp">Jun</span></span>
+            
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; color: rgb(139, 133, 120); text-align: center; letter-spacing: 0.02em;"><span class="sc-interp">Jul</span></span>
+            
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; color: rgb(139, 133, 120); text-align: center; letter-spacing: 0.02em;"><span class="sc-interp">Aug</span></span>
+            
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; color: rgb(139, 133, 120); text-align: center; letter-spacing: 0.02em;"><span class="sc-interp">Sep</span></span>
+            
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; color: rgb(139, 133, 120); text-align: center; letter-spacing: 0.02em;"><span class="sc-interp">Oct</span></span>
+            
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; color: rgb(139, 133, 120); text-align: center; letter-spacing: 0.02em;"><span class="sc-interp">Nov</span></span>
+            
+              <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; color: rgb(139, 133, 120); text-align: center; letter-spacing: 0.02em;"><span class="sc-interp">Dec</span></span>
+            
+          </div>
+          <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(139, 133, 120); text-align: right; padding-right: 26px;">ROI</div>
+        </div>
+        
+          <div style="display: grid; grid-template-columns: 212px minmax(360px, 1fr) 78px; align-items: center; min-width: 650px; height: 33px; border-top: 1px solid rgb(233, 229, 219);">
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 10px; font-size: 12.5px; font-weight: 600; display: flex; align-items: center; gap: 7px;"><span style="width: 7px; height: 7px; border-radius: 2px; background: rgb(70, 105, 105); flex: 0 0 auto;"></span><span class="sc-interp">Nordlys</span></div>
+            <div style="position: relative; height: 33px; background: repeating-linear-gradient(to right, transparent 0px, transparent calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333%));">
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 1.67%; width: 96.67%; height: 15px; background: rgb(70, 105, 105);"></div>
+              
+            </div>
+            <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; padding-right: 26px; color: rgb(26, 24, 20); font-weight: 600;"><span class="sc-interp">1.38</span></div>
+          </div>
+        
+          <div style="display: grid; grid-template-columns: 212px minmax(360px, 1fr) 78px; align-items: center; min-width: 650px; height: 28px; border-top: 1px solid rgb(240, 237, 229);">
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 10px; font-size: 12px; font-weight: 600; padding-left: 15px;"><span class="sc-interp">Coastal Nordlys</span></div>
+            <div style="position: relative; height: 28px; background: repeating-linear-gradient(to right, transparent 0px, transparent calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333%));">
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 8.33%; width: 30%; height: 13px; background: rgb(117, 153, 153);"></div>
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 76.67%; width: 20%; height: 13px; background: rgb(117, 153, 153);"></div>
+              
+            </div>
+            <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; padding-right: 26px; color: rgb(139, 133, 120); font-weight: 400;"><span class="sc-interp">1.42</span></div>
+          </div>
+        
+          <div style="display: grid; grid-template-columns: 212px minmax(360px, 1fr) 78px; align-items: center; min-width: 650px; height: 28px; border-top: 1px solid rgb(240, 237, 229);">
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 10px; font-size: 11.5px; color: rgb(107, 102, 92); padding-left: 30px;"><span class="sc-interp">Open TV</span></div>
+            <div style="position: relative; height: 28px; background: repeating-linear-gradient(to right, transparent 0px, transparent calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333%));">
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 78.33%; width: 16.67%; height: 11px; background: rgb(189, 207, 208);"></div>
+              
+            </div>
+            <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; padding-right: 26px; color: rgb(139, 133, 120); font-weight: 400;"><span class="sc-interp"></span></div>
+          </div>
+        
+          <div style="display: grid; grid-template-columns: 212px minmax(360px, 1fr) 78px; align-items: center; min-width: 650px; height: 28px; border-top: 1px solid rgb(240, 237, 229);">
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 10px; font-size: 11.5px; color: rgb(107, 102, 92); padding-left: 30px;"><span class="sc-interp">Paid TV</span></div>
+            <div style="position: relative; height: 28px; background: repeating-linear-gradient(to right, transparent 0px, transparent calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333%));">
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 9.17%; width: 25%; height: 11px; background: rgb(189, 207, 208);"></div>
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 41.67%; width: 11.67%; height: 11px; background: rgb(189, 207, 208);"></div>
+              
+            </div>
+            <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; padding-right: 26px; color: rgb(139, 133, 120); font-weight: 400;"><span class="sc-interp"></span></div>
+          </div>
+        
+          <div style="display: grid; grid-template-columns: 212px minmax(360px, 1fr) 78px; align-items: center; min-width: 650px; height: 28px; border-top: 1px solid rgb(240, 237, 229);">
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 10px; font-size: 11.5px; color: rgb(107, 102, 92); padding-left: 30px;"><span class="sc-interp">Online video</span></div>
+            <div style="position: relative; height: 28px; background: repeating-linear-gradient(to right, transparent 0px, transparent calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333%));">
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 9.17%; width: 21.67%; height: 11px; background: rgb(189, 207, 208);"></div>
+              
+            </div>
+            <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; padding-right: 26px; color: rgb(139, 133, 120); font-weight: 400;"><span class="sc-interp"></span></div>
+          </div>
+        
+          <div style="display: grid; grid-template-columns: 212px minmax(360px, 1fr) 78px; align-items: center; min-width: 650px; height: 28px; border-top: 1px solid rgb(240, 237, 229);">
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 10px; font-size: 11.5px; color: rgb(107, 102, 92); padding-left: 30px;"><span class="sc-interp">Social</span></div>
+            <div style="position: relative; height: 28px; background: repeating-linear-gradient(to right, transparent 0px, transparent calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333%));">
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 10%; width: 8.33%; height: 11px; background: rgb(189, 207, 208);"></div>
+              
+            </div>
+            <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; padding-right: 26px; color: rgb(139, 133, 120); font-weight: 400;"><span class="sc-interp"></span></div>
+          </div>
+        
+          <div style="display: grid; grid-template-columns: 212px minmax(360px, 1fr) 78px; align-items: center; min-width: 650px; height: 28px; border-top: 1px solid rgb(240, 237, 229);">
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 10px; font-size: 12px; font-weight: 600; padding-left: 15px;"><span class="sc-interp">Nordlys Winter</span></div>
+            <div style="position: relative; height: 28px; background: repeating-linear-gradient(to right, transparent 0px, transparent calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333%));">
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 25%; width: 26.67%; height: 13px; background: rgb(117, 153, 153);"></div>
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 66.67%; width: 25%; height: 13px; background: rgb(117, 153, 153);"></div>
+              
+            </div>
+            <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; padding-right: 26px; color: rgb(139, 133, 120); font-weight: 400;"><span class="sc-interp">1.31</span></div>
+          </div>
+        
+          <div style="display: grid; grid-template-columns: 212px minmax(360px, 1fr) 78px; align-items: center; min-width: 650px; height: 28px; border-top: 1px solid rgb(240, 237, 229);">
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 10px; font-size: 11.5px; color: rgb(107, 102, 92); padding-left: 30px;"><span class="sc-interp">Open TV</span></div>
+            <div style="position: relative; height: 28px; background: repeating-linear-gradient(to right, transparent 0px, transparent calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333%));">
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 68.33%; width: 16.67%; height: 11px; background: rgb(189, 207, 208);"></div>
+              
+            </div>
+            <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; padding-right: 26px; color: rgb(139, 133, 120); font-weight: 400;"><span class="sc-interp"></span></div>
+          </div>
+        
+          <div style="display: grid; grid-template-columns: 212px minmax(360px, 1fr) 78px; align-items: center; min-width: 650px; height: 28px; border-top: 1px solid rgb(240, 237, 229);">
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 10px; font-size: 11.5px; color: rgb(107, 102, 92); padding-left: 30px;"><span class="sc-interp">Online video</span></div>
+            <div style="position: relative; height: 28px; background: repeating-linear-gradient(to right, transparent 0px, transparent calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333%));">
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 25.83%; width: 21.67%; height: 11px; background: rgb(189, 207, 208);"></div>
+              
+            </div>
+            <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; padding-right: 26px; color: rgb(139, 133, 120); font-weight: 400;"><span class="sc-interp"></span></div>
+          </div>
+        
+          <div style="display: grid; grid-template-columns: 212px minmax(360px, 1fr) 78px; align-items: center; min-width: 650px; height: 28px; border-top: 1px solid rgb(240, 237, 229);">
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 10px; font-size: 11.5px; color: rgb(107, 102, 92); padding-left: 30px;"><span class="sc-interp">Social</span></div>
+            <div style="position: relative; height: 28px; background: repeating-linear-gradient(to right, transparent 0px, transparent calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333%));">
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 26.67%; width: 10%; height: 11px; background: rgb(189, 207, 208);"></div>
+              
+            </div>
+            <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; padding-right: 26px; color: rgb(139, 133, 120); font-weight: 400;"><span class="sc-interp"></span></div>
+          </div>
+        
+          <div style="display: grid; grid-template-columns: 212px minmax(360px, 1fr) 78px; align-items: center; min-width: 650px; height: 33px; border-top: 1px solid rgb(233, 229, 219);">
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 10px; font-size: 12.5px; font-weight: 600; display: flex; align-items: center; gap: 7px;"><span style="width: 7px; height: 7px; border-radius: 2px; background: rgb(70, 105, 105); flex: 0 0 auto;"></span><span class="sc-interp">Verano</span></div>
+            <div style="position: relative; height: 33px; background: repeating-linear-gradient(to right, transparent 0px, transparent calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333%));">
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 1.67%; width: 96.67%; height: 15px; background: rgb(70, 105, 105);"></div>
+              
+            </div>
+            <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; padding-right: 26px; color: rgb(26, 24, 20); font-weight: 600;"><span class="sc-interp">1.35</span></div>
+          </div>
+        
+          <div style="display: grid; grid-template-columns: 212px minmax(360px, 1fr) 78px; align-items: center; min-width: 650px; height: 28px; border-top: 1px solid rgb(240, 237, 229);">
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 10px; font-size: 12px; font-weight: 600; padding-left: 15px;"><span class="sc-interp">Verano Summer</span></div>
+            <div style="position: relative; height: 28px; background: repeating-linear-gradient(to right, transparent 0px, transparent calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333%));">
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 16.67%; width: 28.33%; height: 13px; background: rgb(117, 153, 153);"></div>
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 78.33%; width: 13.33%; height: 13px; background: rgb(117, 153, 153);"></div>
+              
+            </div>
+            <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; padding-right: 26px; color: rgb(139, 133, 120); font-weight: 400;"><span class="sc-interp">1.44</span></div>
+          </div>
+        
+          <div style="display: grid; grid-template-columns: 212px minmax(360px, 1fr) 78px; align-items: center; min-width: 650px; height: 28px; border-top: 1px solid rgb(240, 237, 229);">
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 10px; font-size: 11.5px; color: rgb(107, 102, 92); padding-left: 30px;"><span class="sc-interp">Open TV</span></div>
+            <div style="position: relative; height: 28px; background: repeating-linear-gradient(to right, transparent 0px, transparent calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333%));">
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 80%; width: 11.67%; height: 11px; background: rgb(189, 207, 208);"></div>
+              
+            </div>
+            <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; padding-right: 26px; color: rgb(139, 133, 120); font-weight: 400;"><span class="sc-interp"></span></div>
+          </div>
+        
+          <div style="display: grid; grid-template-columns: 212px minmax(360px, 1fr) 78px; align-items: center; min-width: 650px; height: 28px; border-top: 1px solid rgb(240, 237, 229);">
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 10px; font-size: 11.5px; color: rgb(107, 102, 92); padding-left: 30px;"><span class="sc-interp">Paid TV</span></div>
+            <div style="position: relative; height: 28px; background: repeating-linear-gradient(to right, transparent 0px, transparent calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333%));">
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 17.5%; width: 25%; height: 11px; background: rgb(189, 207, 208);"></div>
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 45%; width: 10%; height: 11px; background: rgb(189, 207, 208);"></div>
+              
+            </div>
+            <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; padding-right: 26px; color: rgb(139, 133, 120); font-weight: 400;"><span class="sc-interp"></span></div>
+          </div>
+        
+          <div style="display: grid; grid-template-columns: 212px minmax(360px, 1fr) 78px; align-items: center; min-width: 650px; height: 28px; border-top: 1px solid rgb(240, 237, 229);">
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 10px; font-size: 11.5px; color: rgb(107, 102, 92); padding-left: 30px;"><span class="sc-interp">Online video</span></div>
+            <div style="position: relative; height: 28px; background: repeating-linear-gradient(to right, transparent 0px, transparent calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333%));">
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 17.5%; width: 20%; height: 11px; background: rgb(189, 207, 208);"></div>
+              
+            </div>
+            <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; padding-right: 26px; color: rgb(139, 133, 120); font-weight: 400;"><span class="sc-interp"></span></div>
+          </div>
+        
+          <div style="display: grid; grid-template-columns: 212px minmax(360px, 1fr) 78px; align-items: center; min-width: 650px; height: 28px; border-top: 1px solid rgb(240, 237, 229);">
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 10px; font-size: 12px; font-weight: 600; padding-left: 15px;"><span class="sc-interp">Verano Zero</span></div>
+            <div style="position: relative; height: 28px; background: repeating-linear-gradient(to right, transparent 0px, transparent calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333%));">
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 33.33%; width: 21.67%; height: 13px; background: rgb(117, 153, 153);"></div>
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 60%; width: 20%; height: 13px; background: rgb(117, 153, 153);"></div>
+              
+            </div>
+            <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; padding-right: 26px; color: rgb(139, 133, 120); font-weight: 400;"><span class="sc-interp">1.28</span></div>
+          </div>
+        
+          <div style="display: grid; grid-template-columns: 212px minmax(360px, 1fr) 78px; align-items: center; min-width: 650px; height: 28px; border-top: 1px solid rgb(240, 237, 229);">
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 10px; font-size: 11.5px; color: rgb(107, 102, 92); padding-left: 30px;"><span class="sc-interp">Online video</span></div>
+            <div style="position: relative; height: 28px; background: repeating-linear-gradient(to right, transparent 0px, transparent calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333%));">
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 34.17%; width: 18.33%; height: 11px; background: rgb(189, 207, 208);"></div>
+              
+            </div>
+            <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; padding-right: 26px; color: rgb(139, 133, 120); font-weight: 400;"><span class="sc-interp"></span></div>
+          </div>
+        
+          <div style="display: grid; grid-template-columns: 212px minmax(360px, 1fr) 78px; align-items: center; min-width: 650px; height: 28px; border-top: 1px solid rgb(240, 237, 229);">
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 10px; font-size: 11.5px; color: rgb(107, 102, 92); padding-left: 30px;"><span class="sc-interp">Social</span></div>
+            <div style="position: relative; height: 28px; background: repeating-linear-gradient(to right, transparent 0px, transparent calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333% - 1px), rgb(240, 237, 229) calc(8.33333%));">
+              
+                <div style="position: absolute; top: 50%; transform: translateY(-50%); border-radius: 3px; left: 35%; width: 11.67%; height: 11px; background: rgb(189, 207, 208);"></div>
+              
+            </div>
+            <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; padding-right: 26px; color: rgb(139, 133, 120); font-weight: 400;"><span class="sc-interp"></span></div>
+          </div>
+        
+      </div>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap; padding: 14px 26px 18px; border-top: 1px solid rgb(233, 229, 219);">
+        <span style="display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: rgb(139, 133, 120);"><span style="width: 16px; height: 11px; border-radius: 3px; flex: 0 0 auto; background: rgb(70, 105, 105);"></span>Brand, full year</span>
+        <span style="display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: rgb(139, 133, 120);"><span style="width: 16px; height: 11px; border-radius: 3px; flex: 0 0 auto; background: rgb(117, 153, 153);"></span>Campaign flight</span>
+        <span style="display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: rgb(139, 133, 120);"><span style="width: 16px; height: 11px; border-radius: 3px; flex: 0 0 auto; background: rgb(189, 207, 208);"></span>Touchpoint on air</span>
+      </div>
+      <div style="padding: 14px 26px; border-top: 1px solid rgb(233, 229, 219); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; letter-spacing: 0.04em; color: rgb(139, 133, 120); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+        <span>Illustrative concept, not the actual product.</span><span>Fictional brands and data.</span>
+      </div>
+    </div>
+        <p style="font-size: 13.5px; line-height: 1.65; color: rgb(139, 133, 120); margin: 16px 0px 0px; max-width: 82ch;">The product in one screen. Every brand's campaigns and the touchpoints under them, laid out across the year, so overlaps, gaps and commitments read at a glance instead of across a dozen spreadsheets. <span style="color: rgb(181, 175, 159);">Illustrative concept · fictional brands and data.</span></p>
+      </div>
+    </section>
+
+    <section style="padding: clamp(48px, 6vw, 72px) 0px 0px;"><div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="border: 1px solid rgb(233, 229, 219); border-radius: 20px; background: rgb(255, 255, 255); padding: clamp(28px, 4vw, 48px);">
+          <div id="cs-impact-head" style="display: flex; align-items: flex-end; justify-content: space-between; gap: clamp(20px, 3vw, 40px); flex-wrap: wrap;">
+            <div style="display: flex; align-items: flex-end; gap: clamp(18px, 2.5vw, 32px); flex-wrap: wrap;">
+              <div style="font-weight: 500; font-size: clamp(56px, 7.5vw, 110px); line-height: 0.84; letter-spacing: -0.05em; color: rgb(26, 24, 20);">+1 – 1.5%</div>
+              <div style="font-size: 12.5px; letter-spacing: 0.02em; color: rgb(139, 133, 120); max-width: 26ch; line-height: 1.6; margin-bottom: 4px;">Net-revenue uplift from timing alone: same budget, better weeks.</div>
+            </div>
+            <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(161, 155, 141); margin-bottom: 4px;">Targeted · internal</div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(20px, 2.5vw, 32px); margin-top: clamp(28px, 3.5vw, 40px);">
+            <div style="border-top: 1px solid rgb(233, 229, 219); padding-top: 18px;"><div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(70, 105, 105);">Delivery</div><div style="font-size: 16px; font-weight: 600; letter-spacing: -0.01em; margin-top: 8px;">Excel → interactive toolkit</div><div style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92); margin-top: 6px;">A manual, fragile spreadsheet process replaced by a fact-based planning tool teams actually use.</div></div>
+            <div style="border-top: 1px solid rgb(233, 229, 219); padding-top: 18px;"><div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(158, 94, 74);">Behaviour change</div><div style="font-size: 16px; font-weight: 600; letter-spacing: -0.01em; margin-top: 8px;">Front-loaded → retimed</div><div style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92); margin-top: 6px;">Planners moved from always-on habit to concentrating pressure in the weeks that still respond.</div></div>
+            <div style="border-top: 1px solid rgb(233, 229, 219); padding-top: 18px;"><div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(143, 122, 74);">Approach</div><div style="font-size: 16px; font-weight: 600; letter-spacing: -0.01em; margin-top: 8px;">Saturation, made visible</div><div style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92); margin-top: 6px;">Response and ad-stock curves surface the week each audience stops responding to more pressure.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: clamp(72px, 9vw, 112px) 0px 0px;"><div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);"><span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span><span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span></div>
+        <div id="cs-overview-grid" style="display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 5vw, 80px); align-items: start;">
+          <div><div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">01 · Overview</div><h2 style="font-weight: 500; font-size: clamp(1.9rem, 3.4vw, 2.8rem); line-height: 1.1; letter-spacing: -0.03em; margin: 20px 0px 0px; color: rgb(26, 24, 20); max-width: 18ch;">What Smart Flighting does</h2></div>
+          <div style="display: flex; flex-direction: column; gap: 20px; max-width: 60ch;">
+            <p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">Allocation AI decides <em>how much</em> each brand and channel gets. Smart Flighting decides <em>when</em> to spend it, turning a static, usually front-loaded budget into a dynamic, week-by-week execution plan.</p>
+            <p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">Media teams draft a <strong style="color: rgb(26, 24, 20); font-weight: 600;">flighting plan</strong> (a weekly laydown of campaigns per brand and touchpoint) and test it against AI response curves. The tool projects the uplift of each schedule, flags campaign overlap, and shows the week an audience becomes <strong style="color: rgb(26, 24, 20); font-weight: 600;">saturated</strong> by consecutive pressure.</p>
+            <p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">Built under the "Win with Execution" initiative, it grew from an Excel proof of concept into an interactive toolkit that runs alongside the same allocation system the budget was set with.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: clamp(72px, 9vw, 112px) 0px 0px;"><div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);"><span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span><span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span></div>
+        <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">02 · The problem</div>
+        <h2 style="font-weight: 500; font-size: clamp(2rem, 3.8vw, 3.1rem); line-height: 1.08; letter-spacing: -0.03em; margin: 18px 0px 0px; color: rgb(26, 24, 20); max-width: 24ch;">The model was never the hard part.</h2>
+        <div id="cs-problem-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 64px); margin-top: clamp(32px, 4vw, 44px); align-items: start;">
+          <p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">Media budgets were laid down statically, usually front-loaded, and planned in a spreadsheet, week by week, on experience. But audiences saturate: past a point, another week of pressure adds cost, not sales, because the message is already absorbed (ad-stock). The data science could model response and saturation per brand and touchpoint. That was not the hard part.</p>
+          <p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">The hard part was a belief. Telling a media team that going dark in some weeks, and concentrating pressure in others, earns more from the same money runs against the instinct to be "always on." A plan with gaps looks like under-spending to the people who run it. <strong style="color: rgb(26, 24, 20); font-weight: 600;">The blocker was never the model; it was persuading planners to accept a schedule that felt wrong.</strong></p>
+        </div>
+        <div style="margin-top: clamp(40px, 5vw, 60px);"><div style="background: rgb(255, 255, 255); border: 1px solid rgb(233, 229, 219); border-radius: 14px; box-shadow: rgba(26, 24, 20, 0.04) 0px 1px 2px, rgba(26, 24, 20, 0.05) 0px 12px 32px; overflow: hidden;">
+      <div style="padding: 22px 26px 18px; border-bottom: 1px solid rgb(233, 229, 219);">
+        <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(139, 133, 120); margin-bottom: 6px;">Nordlys Pilsner · Online video · Meridia</div>
+        <h2 style="margin: 0px 0px 5px; font-size: 21px; font-weight: 600; letter-spacing: -0.01em;">Where the next euro of pressure stops paying</h2>
+        <div style="color: rgb(139, 133, 120); font-size: 13px; max-width: 560px; line-height: 1.5;">Modeled response per week of advertising pressure. The curve bends because audiences saturate: past the point where the line flattens, another GRP costs full price and returns almost nothing.</div>
+      </div>
+      <div style="display: flex; gap: 0px; border-bottom: 1px solid rgb(233, 229, 219);">
+        <div style="flex: 1 1 0%; padding: 16px 26px; border-right: 1px solid rgb(233, 229, 219);"><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: rgb(139, 133, 120);">Weeks past saturation</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; margin-top: 7px; color: rgb(179, 102, 86);">5 <span style="font-size: 12px; color: rgb(139, 133, 120);">of 16</span></div></div>
+        <div style="flex: 1 1 0%; padding: 16px 26px; border-right: 1px solid rgb(233, 229, 219);"><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: rgb(139, 133, 120);">First 560 GRPs buy</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; margin-top: 7px; color: rgb(70, 105, 105);">79%</div></div>
+        <div style="flex: 1 1 0%; padding: 16px 26px;"><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: rgb(139, 133, 120);">Next 450 GRPs buy</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; margin-top: 7px; color: rgb(179, 102, 86);">18%</div></div>
+      </div>
+      <div style="padding: 18px 20px 8px;">
+        <svg viewBox="0 0 800 340" role="img" aria-label="Advertising response curve showing diminishing returns past a saturation point" style="display: block; width: 100%; height: auto;">
+          
+            <line x1="64" y1="220.5" x2="772" y2="220.5" stroke="#F0EDE5" stroke-width="1"></line>
+          
+            <line x1="64" y1="161" x2="772" y2="161" stroke="#F0EDE5" stroke-width="1"></line>
+          
+            <line x1="64" y1="101.5" x2="772" y2="101.5" stroke="#F0EDE5" stroke-width="1"></line>
+          
+            <line x1="64" y1="42" x2="772" y2="42" stroke="#F0EDE5" stroke-width="1"></line>
+          
+          <rect x="394.4" y="42" width="377.6" height="238" fill="#B36656" opacity="0.05"></rect>
+          <path d="M 64 280 L 64.0 280.0 L 73.8 269.8 L 83.7 260.0 L 93.5 250.6 L 103.3 241.5 L 113.2 232.9 L 123.0 224.6 L 132.8 216.6 L 142.7 209.0 L 152.5 201.7 L 162.3 194.6 L 172.2 187.9 L 182.0 181.4 L 191.8 175.2 L 201.7 169.3 L 211.5 163.6 L 221.3 158.1 L 231.2 152.9 L 241.0 147.8 L 250.8 143.0 L 260.7 138.4 L 270.5 133.9 L 280.3 129.7 L 290.2 125.6 L 300.0 121.7 L 309.8 117.9 L 319.7 114.3 L 329.5 110.8 L 339.3 107.5 L 349.2 104.3 L 359.0 101.3 L 368.8 98.4 L 378.7 95.6 L 388.5 92.9 L 398.3 90.3 L 408.2 87.8 L 418.0 85.4 L 427.8 83.1 L 437.7 80.9 L 447.5 78.9 L 457.3 76.8 L 467.2 74.9 L 477.0 73.1 L 486.8 71.3 L 496.7 69.6 L 506.5 67.9 L 516.3 66.4 L 526.2 64.9 L 536.0 63.4 L 545.8 62.0 L 555.7 60.7 L 565.5 59.4 L 575.3 58.2 L 585.2 57.1 L 595.0 55.9 L 604.8 54.9 L 614.7 53.8 L 624.5 52.8 L 634.3 51.9 L 644.2 51.0 L 654.0 50.1 L 663.8 49.3 L 673.7 48.4 L 683.5 47.7 L 693.3 46.9 L 703.2 46.2 L 713.0 45.5 L 722.8 44.9 L 732.7 44.3 L 742.5 43.7 L 752.3 43.1 L 762.2 42.5 L 772.0 42.0 L 772 280 Z" fill="#466969" opacity="0.06"></path>
+          <path d="M 64.0 280.0 L 73.8 269.8 L 83.7 260.0 L 93.5 250.6 L 103.3 241.5 L 113.2 232.9 L 123.0 224.6 L 132.8 216.6 L 142.7 209.0 L 152.5 201.7 L 162.3 194.6 L 172.2 187.9 L 182.0 181.4 L 191.8 175.2 L 201.7 169.3 L 211.5 163.6 L 221.3 158.1 L 231.2 152.9 L 241.0 147.8 L 250.8 143.0 L 260.7 138.4 L 270.5 133.9 L 280.3 129.7 L 290.2 125.6 L 300.0 121.7 L 309.8 117.9 L 319.7 114.3 L 329.5 110.8 L 339.3 107.5 L 349.2 104.3 L 359.0 101.3 L 368.8 98.4 L 378.7 95.6 L 388.5 92.9 L 398.3 90.3 L 408.2 87.8 L 418.0 85.4 L 427.8 83.1 L 437.7 80.9 L 447.5 78.9 L 457.3 76.8 L 467.2 74.9 L 477.0 73.1 L 486.8 71.3 L 496.7 69.6 L 506.5 67.9 L 516.3 66.4 L 526.2 64.9 L 536.0 63.4 L 545.8 62.0 L 555.7 60.7 L 565.5 59.4 L 575.3 58.2 L 585.2 57.1 L 595.0 55.9 L 604.8 54.9 L 614.7 53.8 L 624.5 52.8 L 634.3 51.9 L 644.2 51.0 L 654.0 50.1 L 663.8 49.3 L 673.7 48.4 L 683.5 47.7 L 693.3 46.9 L 703.2 46.2 L 713.0 45.5 L 722.8 44.9 L 732.7 44.3 L 742.5 43.7 L 752.3 43.1 L 762.2 42.5 L 772.0 42.0" fill="none" stroke="#466969" stroke-width="1.6" stroke-linejoin="round"></path>
+          <line x1="394.4" y1="42" x2="394.4" y2="280" stroke="#B36656" stroke-width="1.4" stroke-dasharray="4 4" opacity="0.85"></line>
+          <text x="403.4" y="204" font-family="Inter" font-size="10.5" letter-spacing="1" fill="#B36656">SATURATION POINT</text>
+          <text x="403.4" y="219" font-family="Inter" font-size="9.5" fill="#8B8578">pressure stops paying back</text>
+          <line x1="647.9" y1="63.6" x2="410.4" y2="99.3" stroke="#8B8578" stroke-width="1.4" stroke-dasharray="3 3"></line>
+          <path d="M 410.4 99.3 l 9 -4 l -1 8 z" fill="#8B8578"></path>
+          <text x="545.1" y="117.3" text-anchor="middle" font-family="Inter" font-size="10" fill="#8B8578">same total pressure, retimed</text>
+          <circle cx="659.9" cy="49.6" r="5.5" fill="#B36656" stroke="#FFFFFF" stroke-width="2"></circle>
+          <text x="657.9" y="38.6" text-anchor="end" font-family="Inter" font-size="11.5" font-weight="600" fill="#1A1814">Front-loaded plan</text>
+          <text x="669.9" y="54.6" text-anchor="start" font-family="Inter" font-size="10" fill="#8B8578">~1000 GRPs/wk</text>
+          <circle cx="394.4" cy="91.3" r="5.5" fill="#466969" stroke="#FFFFFF" stroke-width="2"></circle>
+          <text x="381.4" y="82.3" text-anchor="end" font-family="Inter" font-size="11.5" font-weight="600" fill="#1A1814">Retimed plan</text>
+          <text x="381.4" y="96.3" text-anchor="end" font-family="Inter" font-size="10" fill="#8B8578">~560 GRPs/wk</text>
+          <text x="64" y="20" font-family="Inter" font-size="10" letter-spacing="1" fill="#8B8578">MODELED NET-REVENUE RESPONSE</text>
+          <text x="772" y="310" text-anchor="end" font-family="Inter" font-size="10" letter-spacing="1" fill="#8B8578">WEEKLY PRESSURE (GRPs) →</text>
+          <line x1="64" y1="280" x2="772" y2="280" stroke="#CFC8B8" stroke-width="1.2"></line>
+        </svg>
+      </div>
+      <div style="display: flex; gap: 18px; flex-wrap: wrap; padding: 6px 26px 18px;">
+        <span style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgb(139, 133, 120);"><span style="width: 15px; height: 0px; border-top: 2.5px solid rgb(70, 105, 105); flex: 0 0 auto;"></span>Modeled response</span>
+        <span style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgb(139, 133, 120);"><span style="width: 13px; height: 13px; border-radius: 3px; flex: 0 0 auto; background: rgb(70, 105, 105);"></span>Retimed plan, at the frontier</span>
+        <span style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgb(139, 133, 120);"><span style="width: 13px; height: 13px; border-radius: 3px; flex: 0 0 auto; background: rgb(179, 102, 86);"></span>Front-loaded plan, past saturation</span>
+      </div>
+      <div style="padding: 14px 26px; border-top: 1px solid rgb(233, 229, 219); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; letter-spacing: 0.04em; color: rgb(139, 133, 120); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+        <span>Illustrative concept, not the actual product.</span><span>Fictional brands and data.</span>
+      </div>
+    </div><p style="font-size: 13.5px; line-height: 1.65; color: rgb(139, 133, 120); margin: 16px 0px 0px; max-width: 82ch;">Why the plan goes dark some weeks. Every touchpoint saturates: the first ~560 GRPs buy most of the response, the next 450 buy almost none. Made legible so a planner can choose to move money off the flat part of the curve. <span style="color: rgb(181, 175, 159);">Illustrative concept · fictional brands and data.</span></p></div>
+      </div>
+    </section>
+
+    <section style="padding: clamp(72px, 9vw, 112px) 0px 0px;"><div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);"><span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span><span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span></div>
+        <div id="cs-role-grid" style="display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 5vw, 80px); align-items: start;">
+          <div><div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">03 · My role &amp; ownership</div><h2 style="font-weight: 500; font-size: clamp(1.9rem, 3.4vw, 2.8rem); line-height: 1.1; letter-spacing: -0.03em; margin: 20px 0px 0px; color: rgb(26, 24, 20); max-width: 18ch;">Accountable for whether planners actually changed the plan.</h2></div>
+          <div style="display: flex; flex-direction: column; gap: 20px; max-width: 60ch;">
+            <p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">I led discovery and owned the move from a manual Excel toolkit to an interactive product. I was the standing bridge between the data scientists building the response and saturation curves and the media planners who had to change their laydowns.</p>
+            <p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">I was accountable for whether planners <strong style="color: rgb(26, 24, 20); font-weight: 600;">actually built plans differently</strong>, not just whether a tool existed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: clamp(72px, 9vw, 112px) 0px 0px;"><div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);"><span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span><span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span></div>
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; flex-wrap: wrap; margin-bottom: clamp(32px, 4vw, 44px);">
+          <div><div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">04 · Key decisions</div><h2 style="font-weight: 500; font-size: clamp(2rem, 3.8vw, 3.1rem); line-height: 1.08; letter-spacing: -0.03em; margin: 18px 0px 0px; color: rgb(26, 24, 20);">Three product bets that earned belief</h2></div>
+          <p style="font-size: 15px; line-height: 1.62; color: rgb(107, 102, 92); margin: 0px 0px 6px; max-width: 42ch;">Each one traded the fastest route to an optimum for a plan media teams would actually run.</p>
+        </div>
+        <div id="cs-decisions">
+          <div style="display: grid; grid-template-columns: clamp(44px, 5vw, 72px) 1fr minmax(150px, 220px); align-items: start; gap: clamp(16px, 3vw, 32px); padding: clamp(22px, 2.8vw, 30px) 0px; border-top: 1px solid rgb(233, 229, 219);"><div style="font-size: 13px; font-weight: 600; color: rgb(161, 155, 141); letter-spacing: 0.08em;">01</div><div><div style="font-weight: 600; font-size: clamp(1.1rem, 1.6vw, 1.35rem); letter-spacing: -0.02em; color: rgb(26, 24, 20);">A simulator planners drive, not an optimizer that hands them a plan.</div><div style="font-size: 14.5px; line-height: 1.62; color: rgb(107, 102, 92); margin-top: 8px; max-width: 66ch;">The impressive path was a one-click "here is your optimal schedule." I rejected it. A media team won't accept a plan that goes dark in weeks they always run, unless they can test their own laydown and watch the model show them the waste. So the tool lets them drive, and surfaces saturation as they go.</div><div style="font-size: 14px; line-height: 1.55; color: rgb(107, 102, 92); margin-top: 14px; padding-top: 12px; border-top: 1px solid rgb(240, 237, 229); max-width: 66ch;"><span style="font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(70, 105, 105); margin-right: 10px;">The tradeoff</span>A slower route to the mathematically optimal plan, in exchange for one planners trust enough to use.</div></div><div style="text-align: right; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(161, 155, 141); padding-top: 4px;">Driven, not handed</div></div>
+          <div style="display: grid; grid-template-columns: clamp(44px, 5vw, 72px) 1fr minmax(150px, 220px); align-items: start; gap: clamp(16px, 3vw, 32px); padding: clamp(22px, 2.8vw, 30px) 0px; border-top: 1px solid rgb(233, 229, 219);"><div style="font-size: 13px; font-weight: 600; color: rgb(161, 155, 141); letter-spacing: 0.08em;">02</div><div><div style="font-weight: 600; font-size: clamp(1.1rem, 1.6vw, 1.35rem); letter-spacing: -0.02em; color: rgb(26, 24, 20);">Made wasted pressure visible per week, not just a recommendation.</div><div style="font-size: 14.5px; line-height: 1.62; color: rgb(107, 102, 92); margin-top: 8px; max-width: 66ch;">Rather than a black-box "better plan," the tool shows where each extra week of pressure stops paying back. Exposing the model's logic to scrutiny is the point: a planner who can see the saturation is a planner who will move the money.</div><div style="font-size: 14px; line-height: 1.55; color: rgb(107, 102, 92); margin-top: 14px; padding-top: 12px; border-top: 1px solid rgb(240, 237, 229); max-width: 66ch;"><span style="font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(70, 105, 105); margin-right: 10px;">The tradeoff</span>The model has to defend itself on screen, every week.</div></div><div style="text-align: right; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(161, 155, 141); padding-top: 4px;">Visible over black-box</div></div>
+          <div style="display: grid; grid-template-columns: clamp(44px, 5vw, 72px) 1fr minmax(150px, 220px); align-items: start; gap: clamp(16px, 3vw, 32px); padding: clamp(22px, 2.8vw, 30px) 0px; border-top: 1px solid rgb(233, 229, 219); border-bottom: 1px solid rgb(233, 229, 219);"><div style="font-size: 13px; font-weight: 600; color: rgb(161, 155, 141); letter-spacing: 0.08em;">03</div><div><div style="font-weight: 600; font-size: clamp(1.1rem, 1.6vw, 1.35rem); letter-spacing: -0.02em; color: rgb(26, 24, 20);">Shipped a lightweight tool to replace Excel, not a platform.</div><div style="font-size: 14.5px; line-height: 1.62; color: rgb(107, 102, 92); margin-top: 8px; max-width: 66ch;">It started as an Excel proof of concept, itself the cheap validation that timing alone moved the number. I said no to over-building: get planners off spreadsheets and into a fact-based toolkit fast, prove the timing value, and leave deeper integration for later.</div><div style="font-size: 14px; line-height: 1.55; color: rgb(107, 102, 92); margin-top: 14px; padding-top: 12px; border-top: 1px solid rgb(240, 237, 229); max-width: 66ch;"><span style="font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(70, 105, 105); margin-right: 10px;">The tradeoff</span>An interim tool rather than the fully integrated end state.</div></div><div style="text-align: right; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(161, 155, 141); padding-top: 4px;">Ship over build</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: clamp(72px, 9vw, 112px) 0px 0px;"><div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);"><span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span><span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span></div>
+        <div id="cs-shipped-grid" style="display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 5vw, 80px); align-items: start; margin-bottom: clamp(40px, 5vw, 56px);">
+          <div><div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">05 · What shipped</div><h2 style="font-weight: 500; font-size: clamp(1.9rem, 3.4vw, 2.8rem); line-height: 1.1; letter-spacing: -0.03em; margin: 20px 0px 0px; color: rgb(26, 24, 20); max-width: 18ch;">A simulator planners drive, alongside the planning cycle.</h2></div>
+          <div style="max-width: 60ch;"><p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">An interactive simulator and optimizer under "Win with Execution." Planners build a full-year plan across brands, campaigns and touchpoints, then test any laydown against AI response curves, seeing projected uplift, campaign overlap, and where the audience saturates, week by week. It replaced a manual Excel process and runs alongside the yearly allocation system.</p><div style="font-size: 10.5px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(161, 155, 141); margin-top: 22px;">Response curves · Ad-stock &amp; saturation modelling · Interactive simulator + optimizer · Allocation AI architecture</div></div>
+        </div>
+        <div><div style="background: rgb(255, 255, 255); border: 1px solid rgb(233, 229, 219); border-radius: 14px; box-shadow: rgba(26, 24, 20, 0.04) 0px 1px 2px, rgba(26, 24, 20, 0.05) 0px 12px 32px; overflow: hidden;">
+      <div style="padding: 20px 26px 14px; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px;"><span style="color: rgb(139, 133, 120); font-size: 18px; line-height: 1;">←</span><h2 style="margin: 0px; font-size: 19px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap;">Nordlys <span style="color: rgb(233, 229, 219); font-weight: 400; margin: 0px 4px;">|</span> Coastal Nordlys</h2></div>
+          <div style="color: rgb(139, 133, 120); font-size: 12.5px; margin: 5px 0px 0px 28px;">Summer campaign, Meridia, across TV and social.</div>
+        </div>
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; background: rgb(26, 24, 20); color: rgb(255, 255, 255); border-radius: 8px; padding: 7px 11px;">Draft ▾</span>
+          <span style="font-size: 12px; color: rgb(26, 24, 20); border: 1px solid rgb(233, 229, 219); border-radius: 8px; padding: 7px 12px; background: rgb(255, 255, 255);">Compare scenarios</span>
+        </div>
+      </div>
+      <div style="display: flex; gap: 26px; padding: 0px 26px; border-bottom: 1px solid rgb(233, 229, 219);">
+        <span style="font-size: 13px; color: rgb(139, 133, 120); padding: 10px 0px; display: flex; align-items: center; gap: 6px;">Scenario 1 <span style="color: rgb(179, 154, 107);">★</span></span>
+        <span style="font-size: 13px; color: rgb(26, 24, 20); font-weight: 600; box-shadow: rgb(26, 24, 20) 0px -2px 0px inset; padding: 10px 0px; display: flex; align-items: center; gap: 6px;">Scenario 2</span>
+        <span style="font-size: 13px; color: rgb(139, 133, 120); padding: 10px 0px;">Scenario 3</span>
+        <span style="font-size: 13px; color: rgb(139, 133, 120); padding: 10px 0px;">Scenario 4</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 16px 26px 4px; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 10px;"><h3 style="margin: 0px; font-size: 15px; font-weight: 600;">More weight on social</h3><span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 9.5px; letter-spacing: 0.04em; background: rgb(220, 231, 231); color: rgb(70, 105, 105); border-radius: 999px; padding: 3px 9px;">✦ Optimized</span></div>
+        <span style="font-size: 12px; color: rgb(26, 24, 20); border: 1px solid rgb(233, 229, 219); border-radius: 8px; padding: 7px 12px; background: rgb(255, 255, 255);">Edit scenario</span>
+      </div>
+      <div style="color: rgb(139, 133, 120); font-size: 12px; margin: 2px 0px 0px; padding: 0px 26px 8px;">Shift budget off saturated TV weeks into social, and concentrate the spend into fewer bursts.</div>
+      <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(139, 133, 120); padding: 16px 26px 10px;">Campaign KPIs</div>
+      <div style="display: flex; margin: 0px 26px; border: 1px solid rgb(233, 229, 219); border-radius: 12px; overflow: hidden;">
+        <div style="flex: 1 1 0%; padding: 14px 20px; border-right: 1px solid rgb(233, 229, 219);">
+          <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 9.5px; letter-spacing: 0.09em; text-transform: uppercase; color: rgb(139, 133, 120); margin-bottom: 11px;">Cost &amp; activation</div>
+          <div style="display: flex; gap: 18px; flex-wrap: wrap;">
+            <div><div style="font-size: 9.5px; color: rgb(139, 133, 120);">Cost</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 600; margin-top: 3px; letter-spacing: -0.01em;">€9.2M</div></div>
+            <div><div style="font-size: 9.5px; color: rgb(139, 133, 120);">GRPs (norm. 30s)</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 600; margin-top: 3px; letter-spacing: -0.01em;">7.1K</div></div>
+            <div><div style="font-size: 9.5px; color: rgb(139, 133, 120);">Impressions</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 600; margin-top: 3px; letter-spacing: -0.01em;">1.3B</div></div>
+            <div><div style="font-size: 9.5px; color: rgb(139, 133, 120);">AP adherence</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 600; margin-top: 3px; letter-spacing: -0.01em;">84%</div></div>
+          </div>
+        </div>
+        <div style="flex: 1 1 0%; padding: 14px 20px; border-right: 1px solid rgb(233, 229, 219);">
+          <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 9.5px; letter-spacing: 0.09em; text-transform: uppercase; color: rgb(139, 133, 120); margin-bottom: 11px;">Flighting assessment</div>
+          <div style="display: flex; gap: 18px; flex-wrap: wrap;">
+            <div><div style="font-size: 9.5px; color: rgb(139, 133, 120);">Sell-out ROI</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 600; margin-top: 3px; letter-spacing: -0.01em;">1.38</div></div>
+            <div><div style="font-size: 9.5px; color: rgb(139, 133, 120);">Optimal timing</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 600; margin-top: 3px; letter-spacing: -0.01em;">47%</div></div>
+            <div><div style="font-size: 9.5px; color: rgb(139, 133, 120);">Optimal start</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 600; margin-top: 3px; letter-spacing: -0.01em;">45%</div></div>
+            <div><div style="font-size: 9.5px; color: rgb(139, 133, 120);">Overlaps</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 600; margin-top: 3px; letter-spacing: -0.01em;">0</div></div>
+          </div>
+        </div>
+        <div style="flex: 1 1 0%; padding: 14px 20px;">
+          <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 9.5px; letter-spacing: 0.09em; text-transform: uppercase; color: rgb(139, 133, 120); margin-bottom: 11px;">Volume</div>
+          <div style="display: flex; gap: 18px; flex-wrap: wrap;">
+            <div><div style="font-size: 9.5px; color: rgb(139, 133, 120);">Net revenue</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 600; margin-top: 3px; letter-spacing: -0.01em;">€6.8M</div></div>
+            <div><div style="font-size: 9.5px; color: rgb(139, 133, 120);">Gross profit</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 600; margin-top: 3px; letter-spacing: -0.01em;">€3.0M</div></div>
+            <div><div style="font-size: 9.5px; color: rgb(139, 133, 120);">Incr. volume</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 600; margin-top: 3px; letter-spacing: -0.01em;">4.6M hL</div></div>
+          </div>
+        </div>
+      </div>
+      <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(139, 133, 120); padding: 16px 26px 10px;">Touchpoint breakdown</div>
+      <div style="margin: 6px 26px 0px; border: 1px solid rgb(233, 229, 219); border-radius: 12px; overflow: hidden;">
+        <div style="display: flex; align-items: center; gap: 10px; padding: 13px 20px; border-bottom: 1px solid rgb(240, 237, 229);">
+          <span style="font-size: 13.5px; font-weight: 600; color: rgb(70, 105, 105);">Open TV</span>
+          <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 9.5px; letter-spacing: 0.04em; background: rgb(220, 231, 231); color: rgb(70, 105, 105); border-radius: 999px; padding: 3px 9px;">✦ Optimized</span>
+        </div>
+        <div style="display: flex; gap: 26px; flex-wrap: wrap; padding: 13px 20px 6px;">
+          <div><div style="font-size: 9.5px; color: rgb(139, 133, 120);">Cost</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 600; margin-top: 3px; letter-spacing: -0.01em;">€4.1M</div></div>
+          <div><div style="font-size: 9.5px; color: rgb(139, 133, 120);">GRPs (norm. 30s)</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 600; margin-top: 3px; letter-spacing: -0.01em;">3.2K</div></div>
+          <div><div style="font-size: 9.5px; color: rgb(139, 133, 120);">Impressions</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 600; margin-top: 3px; letter-spacing: -0.01em;">0.6B</div></div>
+          <div><div style="font-size: 9.5px; color: rgb(139, 133, 120);">Sell-out ROI</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 600; margin-top: 3px; letter-spacing: -0.01em;">1.42</div></div>
+          <div><div style="font-size: 9.5px; color: rgb(139, 133, 120);">Weeks on air</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 600; margin-top: 3px; letter-spacing: -0.01em;">11</div></div>
+        </div>
+        <div style="padding: 6px 14px 10px;">
+          <svg viewBox="0 0 900 312" role="img" aria-label="Impressions delivered per week for one touchpoint, against the responsive capacity band" style="display: block; width: 100%; height: auto;">
+            
+              <line x1="70" y1="248" x2="884" y2="248" stroke="#F0EDE5" stroke-width="1"></line>
+              <text x="62" y="251.5" text-anchor="end" font-family="Inter" font-size="10" fill="#8B8578">0</text>
+            
+              <line x1="70" y1="203.2" x2="884" y2="203.2" stroke="#F0EDE5" stroke-width="1"></line>
+              <text x="62" y="206.7" text-anchor="end" font-family="Inter" font-size="10" fill="#8B8578">2.5M</text>
+            
+              <line x1="70" y1="158.3" x2="884" y2="158.3" stroke="#F0EDE5" stroke-width="1"></line>
+              <text x="62" y="161.8" text-anchor="end" font-family="Inter" font-size="10" fill="#8B8578">5.0M</text>
+            
+              <line x1="70" y1="113.5" x2="884" y2="113.5" stroke="#F0EDE5" stroke-width="1"></line>
+              <text x="62" y="117" text-anchor="end" font-family="Inter" font-size="10" fill="#8B8578">7.5M</text>
+            
+              <line x1="70" y1="68.6" x2="884" y2="68.6" stroke="#F0EDE5" stroke-width="1"></line>
+              <text x="62" y="72.1" text-anchor="end" font-family="Inter" font-size="10" fill="#8B8578">10.0M</text>
+            
+              <line x1="70" y1="22" x2="884" y2="22" stroke="#F0EDE5" stroke-width="1"></line>
+              <text x="62" y="25.5" text-anchor="end" font-family="Inter" font-size="10" fill="#8B8578">12.6M</text>
+            
+            <path d="M 70.0 73.6 L 94.7 71.1 L 119.3 68.2 L 144.0 65.0 L 168.7 61.9 L 193.3 59.0 L 218.0 56.5 L 242.7 54.5 L 267.3 53.1 L 292.0 52.5 L 316.7 52.7 L 341.3 53.6 L 366.0 55.3 L 390.7 57.5 L 415.3 60.3 L 440.0 63.3 L 464.7 66.4 L 489.3 69.5 L 514.0 72.2 L 538.7 74.5 L 563.3 76.3 L 588.0 77.3 L 612.7 77.6 L 637.3 77.1 L 662.0 75.8 L 686.7 73.9 L 711.3 71.4 L 736.0 68.6 L 760.7 65.5 L 785.3 62.3 L 810.0 59.4 L 834.7 56.8 L 859.3 54.7 L 884.0 53.3 L 884.0 248 L 70.0 248 Z" fill="#BDCFD0" opacity="0.55"></path>
+            
+              <line x1="70" y1="22" x2="70" y2="248" stroke="#ECE8DE" stroke-width="1"></line>
+              <text x="75" y="282" font-family="Inter" font-size="10" fill="#8B8578">▸ Jan 25</text>
+            
+              <line x1="168.7" y1="22" x2="168.7" y2="248" stroke="#ECE8DE" stroke-width="1"></line>
+              <text x="173.7" y="282" font-family="Inter" font-size="10" fill="#8B8578">▸ Feb 25</text>
+            
+              <line x1="267.3" y1="22" x2="267.3" y2="248" stroke="#ECE8DE" stroke-width="1"></line>
+              <text x="272.3" y="282" font-family="Inter" font-size="10" fill="#8B8578">▸ Mar 25</text>
+            
+              <line x1="390.7" y1="22" x2="390.7" y2="248" stroke="#ECE8DE" stroke-width="1"></line>
+              <text x="395.7" y="282" font-family="Inter" font-size="10" fill="#8B8578">▸ Apr 25</text>
+            
+              <line x1="489.3" y1="22" x2="489.3" y2="248" stroke="#ECE8DE" stroke-width="1"></line>
+              <text x="494.3" y="282" font-family="Inter" font-size="10" fill="#8B8578">▸ May 25</text>
+            
+              <line x1="612.7" y1="22" x2="612.7" y2="248" stroke="#ECE8DE" stroke-width="1"></line>
+              <text x="617.7" y="282" font-family="Inter" font-size="10" fill="#8B8578">▸ Jun 25</text>
+            
+              <line x1="711.3" y1="22" x2="711.3" y2="248" stroke="#ECE8DE" stroke-width="1"></line>
+              <text x="716.3" y="282" font-family="Inter" font-size="10" fill="#8B8578">▸ Jul 25</text>
+            
+              <line x1="810" y1="22" x2="810" y2="248" stroke="#ECE8DE" stroke-width="1"></line>
+              <text x="815" y="282" font-family="Inter" font-size="10" fill="#8B8578">▸ Aug 25</text>
+            
+            
+              <text x="70" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">1</text>
+            
+              <text x="94.7" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">2</text>
+            
+              <text x="119.3" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">3</text>
+            
+              <text x="144" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">4</text>
+            
+              <text x="168.7" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">5</text>
+            
+              <text x="193.3" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">6</text>
+            
+              <text x="218" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">7</text>
+            
+              <text x="242.7" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">8</text>
+            
+              <text x="267.3" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">9</text>
+            
+              <text x="292" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">10</text>
+            
+              <text x="316.7" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">11</text>
+            
+              <text x="341.3" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">12</text>
+            
+              <text x="366" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">13</text>
+            
+              <text x="390.7" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">14</text>
+            
+              <text x="415.3" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">15</text>
+            
+              <text x="440" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">16</text>
+            
+              <text x="464.7" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">17</text>
+            
+              <text x="489.3" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">18</text>
+            
+              <text x="514" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">19</text>
+            
+              <text x="538.7" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">20</text>
+            
+              <text x="563.3" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">21</text>
+            
+              <text x="588" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">22</text>
+            
+              <text x="612.7" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">23</text>
+            
+              <text x="637.3" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">24</text>
+            
+              <text x="662" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">25</text>
+            
+              <text x="686.7" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">26</text>
+            
+              <text x="711.3" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">27</text>
+            
+              <text x="736" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">28</text>
+            
+              <text x="760.7" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">29</text>
+            
+              <text x="785.3" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">30</text>
+            
+              <text x="810" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">31</text>
+            
+              <text x="834.7" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">32</text>
+            
+              <text x="859.3" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">33</text>
+            
+              <text x="884" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">34</text>
+            
+            <path d="M 70.0 248.0 L 94.7 248.0 L 119.3 248.0 L 144.0 248.0 L 168.7 248.0 L 193.3 248.0 L 218.0 248.0 L 242.7 248.0 L 267.3 248.0 L 292.0 248.0 L 316.7 244.4 L 341.3 240.8 L 366.0 235.4 L 390.7 221.1 L 415.3 187.0 L 440.0 158.3 L 464.7 187.0 L 489.3 219.3 L 514.0 235.4 L 538.7 206.7 L 563.3 201.4 L 588.0 224.7 L 612.7 237.2 L 637.3 221.1 L 662.0 217.5 L 686.7 230.1 L 711.3 240.8 L 736.0 244.4 L 760.7 248.0 L 785.3 248.0 L 810.0 248.0 L 834.7 248.0 L 859.3 248.0 L 884.0 248.0" fill="none" stroke="#466969" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"></path>
+            
+              <circle cx="316.7" cy="244.4" r="3.4" fill="#fff" stroke="#466969" stroke-width="1.8"></circle>
+            
+              <circle cx="341.3" cy="240.8" r="3.4" fill="#fff" stroke="#466969" stroke-width="1.8"></circle>
+            
+              <circle cx="366" cy="235.4" r="3.4" fill="#fff" stroke="#466969" stroke-width="1.8"></circle>
+            
+              <circle cx="390.7" cy="221.1" r="3.4" fill="#fff" stroke="#466969" stroke-width="1.8"></circle>
+            
+              <circle cx="415.3" cy="187" r="3.4" fill="#fff" stroke="#466969" stroke-width="1.8"></circle>
+            
+              <circle cx="440" cy="158.3" r="3.4" fill="#fff" stroke="#466969" stroke-width="1.8"></circle>
+            
+              <circle cx="464.7" cy="187" r="3.4" fill="#fff" stroke="#466969" stroke-width="1.8"></circle>
+            
+              <circle cx="489.3" cy="219.3" r="3.4" fill="#fff" stroke="#466969" stroke-width="1.8"></circle>
+            
+              <circle cx="514" cy="235.4" r="3.4" fill="#fff" stroke="#466969" stroke-width="1.8"></circle>
+            
+              <circle cx="538.7" cy="206.7" r="3.4" fill="#fff" stroke="#466969" stroke-width="1.8"></circle>
+            
+              <circle cx="563.3" cy="201.4" r="3.4" fill="#fff" stroke="#466969" stroke-width="1.8"></circle>
+            
+              <circle cx="588" cy="224.7" r="3.4" fill="#fff" stroke="#466969" stroke-width="1.8"></circle>
+            
+              <circle cx="612.7" cy="237.2" r="3.4" fill="#fff" stroke="#466969" stroke-width="1.8"></circle>
+            
+              <circle cx="637.3" cy="221.1" r="3.4" fill="#fff" stroke="#466969" stroke-width="1.8"></circle>
+            
+              <circle cx="662" cy="217.5" r="3.4" fill="#fff" stroke="#466969" stroke-width="1.8"></circle>
+            
+              <circle cx="686.7" cy="230.1" r="3.4" fill="#fff" stroke="#466969" stroke-width="1.8"></circle>
+            
+              <circle cx="711.3" cy="240.8" r="3.4" fill="#fff" stroke="#466969" stroke-width="1.8"></circle>
+            
+              <circle cx="736" cy="244.4" r="3.4" fill="#fff" stroke="#466969" stroke-width="1.8"></circle>
+            
+            <text x="440" y="147.3" text-anchor="middle" font-family="Inter" font-size="10" fill="#466969">5.0M</text>
+            <text x="70" y="14" font-family="Inter" font-size="10" letter-spacing="1" fill="#8B8578">IMPRESSIONS</text>
+            <text x="477" y="298" text-anchor="middle" font-family="Inter" font-size="9.5" letter-spacing="1" fill="#A19B8D">WEEK NUMBER (ISO)</text>
+            <line x1="70" y1="248" x2="884" y2="248" stroke="#CFC8B8" stroke-width="1.2"></line>
+          </svg>
+        </div>
+      </div>
+      <div style="display: flex; gap: 18px; flex-wrap: wrap; padding: 8px 26px 16px;">
+        <span style="display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: rgb(139, 133, 120);"><span style="width: 15px; height: 12px; border-radius: 3px; flex: 0 0 auto; background: rgb(189, 207, 208);"></span>Responsive capacity (still pays)</span>
+        <span style="display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: rgb(139, 133, 120);"><span style="width: 15px; height: 0px; border-top: 2.5px solid rgb(70, 105, 105); flex: 0 0 auto;"></span>Impressions delivered per week</span>
+      </div>
+      <div style="padding: 14px 26px; border-top: 1px solid rgb(233, 229, 219); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; letter-spacing: 0.04em; color: rgb(139, 133, 120); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+        <span>Illustrative concept, not the actual product.</span><span>Fictional brands and data.</span>
+      </div>
+    </div><p style="font-size: 13.5px; line-height: 1.65; color: rgb(139, 133, 120); margin: 16px 0px 0px; max-width: 82ch;">How a planner tests a call before committing. Each scenario is a saved what-if (here, more weight on social) scored on the same KPIs, with delivered impressions plotted against the responsive ceiling. <span style="color: rgb(181, 175, 159);">Illustrative concept · fictional brands and data.</span></p></div>
+      </div>
+    </section>
+
+    <section style="padding: clamp(72px, 9vw, 112px) 0px 0px;"><div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);"><span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span><span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span></div>
+        <div id="cs-impact-grid" style="display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 5vw, 80px); align-items: start; margin-bottom: clamp(40px, 5vw, 56px);">
+          <div><div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">06 · Impact</div><h2 style="font-weight: 500; font-size: clamp(1.9rem, 3.4vw, 2.8rem); line-height: 1.1; letter-spacing: -0.03em; margin: 20px 0px 0px; color: rgb(26, 24, 20); max-width: 18ch;">Timing alone, worth 1–1.5% of net revenue.</h2></div>
+          <div style="max-width: 60ch;"><p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">The real proof wasn't the model's accuracy: it was the behaviour change. Planners moved from defaulting to front-loaded, always-on plans to testing laydowns against saturation and redistributing pressure to the weeks that still respond. Targets are labelled as targets.</p></div>
+        </div>
+        <div><div style="background: rgb(255, 255, 255); border: 1px solid rgb(233, 229, 219); border-radius: 14px; box-shadow: rgba(26, 24, 20, 0.04) 0px 1px 2px, rgba(26, 24, 20, 0.05) 0px 12px 32px; overflow: hidden;">
+      <div style="padding: 22px 26px 18px; border-bottom: 1px solid rgb(233, 229, 219);">
+        <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(139, 133, 120); margin-bottom: 6px;">Fewer, bigger events · Nordlys Pilsner · Meridia</div>
+        <h2 style="margin: 0px 0px 5px; font-size: 21px; font-weight: 600; letter-spacing: -0.01em;">Same budget, retimed</h2>
+        <div style="color: rgb(139, 133, 120); font-size: 13px; max-width: 580px; line-height: 1.5;">The always-on plan the team started with, next to the one Smart Flighting proposed. Identical spend. The model pulled pressure off the weeks that had stopped paying and out of the dead tail, into fewer, fuller bursts that stay under saturation.</div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0px;">
+        <div style="padding: 18px 26px 14px; border-right: 1px solid rgb(233, 229, 219);">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px;"><span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(139, 133, 120);">Before · Front-loaded</span><span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; color: rgb(139, 133, 120);">16 weeks on air</span></div>
+          <div style="position: relative; height: 132px;">
+            <div style="position: relative; display: grid; grid-template-columns: repeat(16, 1fr); gap: 4px; align-items: end; height: 132px;">
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  <div style="background: rgb(179, 102, 86); border-radius: 3px 3px 0px 0px; margin-bottom: 1px; height: 29px;"></div>
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 92.4px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  <div style="background: rgb(179, 102, 86); border-radius: 3px 3px 0px 0px; margin-bottom: 1px; height: 34.3px;"></div>
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 92.4px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  <div style="background: rgb(179, 102, 86); border-radius: 3px 3px 0px 0px; margin-bottom: 1px; height: 23.8px;"></div>
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 92.4px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  <div style="background: rgb(179, 102, 86); border-radius: 3px 3px 0px 0px; margin-bottom: 1px; height: 15.8px;"></div>
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 92.4px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  <div style="background: rgb(179, 102, 86); border-radius: 3px 3px 0px 0px; margin-bottom: 1px; height: 5.3px;"></div>
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 92.4px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 87.1px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 76.6px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 66px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 52.8px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 44.9px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 37px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 29px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 23.8px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 18.5px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 13.2px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 10.6px;"></div>
+                </div>
+              
+            </div>
+            <div style="position: absolute; left: 0px; right: 0px; border-top: 1.4px dashed rgb(179, 102, 86); pointer-events: none; top: 39.6px;"><span style="position: absolute; right: 0px; top: -15px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 9px; letter-spacing: 0.05em; text-transform: uppercase; color: rgb(179, 102, 86);">Saturation</span></div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(16, 1fr); gap: 4px; margin-top: 7px;">
+            <span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">1</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">2</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">3</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">4</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">5</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">6</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">7</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">8</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">9</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">10</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">11</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">12</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">13</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">14</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">15</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">16</span></span>
+          </div>
+          <div style="margin-top: 12px; font-size: 12px; line-height: 1.45; color: rgb(107, 102, 92);">5 weeks pushed <b style="font-weight: 600; color: rgb(179, 102, 86);">over saturation</b>, then a long dead tail the audience barely registers.</div>
+        </div>
+        <div style="padding: 18px 26px 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px;"><span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(70, 105, 105);">After · Smart Flighting</span><span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; color: rgb(139, 133, 120);">11 weeks on air</span></div>
+          <div style="position: relative; height: 132px;">
+            <div style="position: relative; display: grid; grid-template-columns: repeat(16, 1fr); gap: 4px; align-items: end; height: 132px;">
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 87.1px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 92.4px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 89.8px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 84.5px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 89.8px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 92.4px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 87.1px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 92.4px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 89.8px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 84.5px;"></div>
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  
+                </div>
+              
+                <div style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                  
+                  <div style="background: rgb(200, 189, 174); border-radius: 3px 3px 0px 0px; height: 81.8px;"></div>
+                </div>
+              
+            </div>
+            <div style="position: absolute; left: 0px; right: 0px; border-top: 1.4px dashed rgb(179, 102, 86); pointer-events: none; top: 39.6px;"><span style="position: absolute; right: 0px; top: -15px; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 9px; letter-spacing: 0.05em; text-transform: uppercase; color: rgb(179, 102, 86);">Saturation</span></div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(16, 1fr); gap: 4px; margin-top: 7px;">
+            <span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">1</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">2</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">3</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">4</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">5</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">6</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">7</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">8</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">9</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">10</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">11</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">12</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">13</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">14</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">15</span></span><span style="text-align: center; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 8.5px; color: rgb(161, 155, 141);"><span class="sc-interp">16</span></span>
+          </div>
+          <div style="margin-top: 12px; font-size: 12px; line-height: 1.45; color: rgb(107, 102, 92);">Every week <b style="font-weight: 600; color: rgb(70, 105, 105);">capped under saturation</b>, dark in the weeks that did not respond. No wasted pressure.</div>
+        </div>
+      </div>
+      <div style="display: flex; gap: 18px; flex-wrap: wrap; padding: 2px 26px 16px;">
+        <span style="display: flex; align-items: center; gap: 7px; font-size: 11.5px; color: rgb(139, 133, 120);"><span style="width: 12px; height: 12px; border-radius: 3px; flex: 0 0 auto; background: rgb(200, 189, 174);"></span>Planned pressure</span>
+        <span style="display: flex; align-items: center; gap: 7px; font-size: 11.5px; color: rgb(139, 133, 120);"><span style="width: 12px; height: 12px; border-radius: 3px; flex: 0 0 auto; background: rgb(179, 102, 86);"></span>Above saturation (wasted)</span>
+        <span style="display: flex; align-items: center; gap: 7px; font-size: 11.5px; color: rgb(139, 133, 120);"><span style="width: 15px; height: 0px; border-top: 1.4px dashed rgb(179, 102, 86); flex: 0 0 auto;"></span>Saturation threshold</span>
+      </div>
+      <div style="display: flex; border-top: 1px solid rgb(233, 229, 219);">
+        <div style="flex: 1 1 0%; padding: 16px 22px; border-right: 1px solid rgb(233, 229, 219);"><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 9.5px; letter-spacing: 0.07em; text-transform: uppercase; color: rgb(139, 133, 120);">Total budget</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 20px; font-weight: 600; margin-top: 8px; letter-spacing: -0.01em;">€1.0M</div><div style="font-size: 11px; color: rgb(139, 133, 120); margin-top: 4px;">unchanged, the constraint</div></div>
+        <div style="flex: 1 1 0%; padding: 16px 22px; border-right: 1px solid rgb(233, 229, 219);"><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 9.5px; letter-spacing: 0.07em; text-transform: uppercase; color: rgb(139, 133, 120);">Weeks past saturation</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 20px; font-weight: 600; margin-top: 8px; letter-spacing: -0.01em;">5 <span style="color: rgb(139, 133, 120); font-weight: 400;">→</span> <span style="color: rgb(70, 105, 105);">0</span></div><div style="font-size: 11px; color: rgb(139, 133, 120); margin-top: 4px;">no pressure wasted</div></div>
+        <div style="flex: 1 1 0%; padding: 16px 22px; border-right: 1px solid rgb(233, 229, 219);"><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 9.5px; letter-spacing: 0.07em; text-transform: uppercase; color: rgb(139, 133, 120);">Modeled net revenue</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 20px; font-weight: 600; margin-top: 8px; letter-spacing: -0.01em;"><span style="color: rgb(70, 105, 105);">+1.3%</span></div><div style="font-size: 11px; color: rgb(139, 133, 120); margin-top: 4px;">same spend, better timing</div></div>
+        <div style="flex: 1 1 0%; padding: 16px 22px;"><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 9.5px; letter-spacing: 0.07em; text-transform: uppercase; color: rgb(139, 133, 120);">Weeks above ROI benchmark</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 20px; font-weight: 600; margin-top: 8px; letter-spacing: -0.01em;">44 <span style="color: rgb(139, 133, 120); font-weight: 400;">→</span> <span style="color: rgb(70, 105, 105);">73%</span></div><div style="font-size: 11px; color: rgb(139, 133, 120); margin-top: 4px;">pressure lands where it pays</div></div>
+      </div>
+      <div style="padding: 14px 26px; border-top: 1px solid rgb(233, 229, 219); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; letter-spacing: 0.04em; color: rgb(139, 133, 120); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+        <span>Illustrative concept, not the actual product.</span><span>Fictional brands and data.</span>
+      </div>
+    </div><p style="font-size: 13.5px; line-height: 1.65; color: rgb(139, 133, 120); margin: 16px 0px 0px; max-width: 82ch;">The payoff, on the same money. The always-on plan next to the retimed one: identical spend, pulled off the wasted weeks into fewer, fuller bursts under saturation. Weeks past saturation fall to zero and modelled net revenue rises about 1.3%. <span style="color: rgb(181, 175, 159);">Illustrative concept · fictional brands and data.</span></p></div>
+      </div>
+    </section>
+
+    <section style="padding: clamp(72px, 9vw, 112px) 0px 0px;"><div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);"><span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span><span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span></div>
+        <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">07 · The lesson</div>
+        <h2 style="font-weight: 500; font-size: clamp(2rem, 4.4vw, 3.6rem); line-height: 1.16; letter-spacing: -0.035em; margin: 24px 0px 0px; color: rgb(26, 24, 20); max-width: 30ch; text-wrap: balance;">More is not better. Timing is. <span style="color: rgb(139, 133, 120);">The same budget, spent when the audience can still absorb it, beats the same budget spread thin, and a media team believes that only when the tool shows them the wasted weeks.</span></h2>
+      </div>
+    </section>
+
+    <section style="padding: clamp(72px, 9vw, 112px) 0px clamp(80px, 10vw, 128px);"><div style="max-width: 1320px; margin: 0px auto; padding: 0px clamp(20px, 4.5vw, 48px);">
+        <div style="position: relative; height: 1px; background: rgb(233, 229, 219); margin-bottom: clamp(44px, 5.5vw, 64px);"><span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span><span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgb(233, 229, 219);"></span></div>
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; flex-wrap: wrap; margin-bottom: clamp(32px, 4vw, 44px);">
+          <div><div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">08 · In context</div><h2 style="font-weight: 500; font-size: clamp(2rem, 3.8vw, 3.1rem); line-height: 1.08; letter-spacing: -0.03em; margin: 18px 0px 0px; color: rgb(26, 24, 20); max-width: 22ch;">The timing layer of a three-part system</h2></div>
+          <p style="font-size: 15px; line-height: 1.62; color: rgb(107, 102, 92); margin: 0px 0px 6px; max-width: 44ch;">Smart Flighting takes the budget Allocation AI sets and stretches it across the calendar; Promo Advisor fills that calendar with offers.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+          <a href="allocation-ai.html" class="scp0" style="border: 1px solid rgb(233, 229, 219); border-radius: 16px; background: rgb(255, 255, 255); padding: 24px; display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: rgb(26, 24, 20);"><div style="display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(129, 63, 50);"><span style="width: 6px; height: 6px; border-radius: 999px; background: rgb(179, 102, 86);"></span>01 · Plan</div><div style="font-size: 16.5px; font-weight: 600; letter-spacing: -0.01em; margin-top: 2px;">Allocation AI</div><div style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92);">Sets the annual budget across OpCos, brands and channels.</div><div style="font-size: 13px; font-weight: 600; color: rgb(26, 24, 20); margin-top: auto; padding-top: 10px;">Case study →</div></a>
+          <div style="border: 1px solid rgb(117, 153, 153); border-radius: 16px; background: rgb(255, 255, 255); padding: 24px; display: flex; flex-direction: column; gap: 10px;"><div style="display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(70, 105, 105);"><span style="width: 6px; height: 6px; border-radius: 999px; background: rgb(117, 153, 153);"></span>02 · Schedule, you are here</div><div style="font-size: 16.5px; font-weight: 600; letter-spacing: -0.01em; margin-top: 2px;">Smart Flighting</div><div style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92);">Stretches each budget across the calendar for maximum pressure.</div></div>
+          <a href="promo-advisor.html" class="scp0" style="border: 1px solid rgb(233, 229, 219); border-radius: 16px; background: rgb(255, 255, 255); padding: 24px; display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: rgb(26, 24, 20);"><div style="display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(158, 94, 74);"><span style="width: 6px; height: 6px; border-radius: 999px; background: rgb(197, 126, 99);"></span>03 · Execute</div><div style="font-size: 16.5px; font-weight: 600; letter-spacing: -0.01em; margin-top: 2px;">Promo Advisor</div><div style="font-size: 13.5px; line-height: 1.6; color: rgb(107, 102, 92);">Fills the calendar with the specific winning promo mechanics.</div><div style="font-size: 13px; font-weight: 600; color: rgb(26, 24, 20); margin-top: auto; padding-top: 10px;">Case study →</div></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <section style="position: relative; overflow: hidden; background: rgb(44, 42, 39);">
+    <div class="sc-host-x" style="position: absolute; inset: 0px;"><grad-plate colors="#3A3833,#2C2A27,#232220,#1C1B19" bg="#2C2A27" ink="#F4F1E8" art="none" grain="0.5" seed="flight-footer" style="display: block; width: 100%; height: 100%;"></grad-plate></div>
+    <div style="position: relative; z-index: 2; max-width: 1320px; margin: 0px auto; padding: clamp(80px, 10vw, 120px) clamp(20px, 4.5vw, 48px) clamp(52px, 6vw, 72px);">
+      <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(244, 241, 232, 0.65); margin-bottom: 26px;">Keep exploring</div>
+      <h2 style="font-weight: 500; font-size: clamp(2.2rem, 4.6vw, 4rem); line-height: 1.05; letter-spacing: -0.035em; margin: 0px; max-width: 18ch; color: rgb(247, 245, 239);">That's the timing layer. See the rest.</h2>
+      <p style="font-size: 16px; line-height: 1.62; color: rgba(247, 245, 239, 0.78); max-width: 50ch; margin: 24px 0px 0px;">Allocation AI secures the funding; Promo Advisor executes the offer, or head back to all work.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px;">
+        <a href="allocation-ai.html" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 999px; background: rgb(244, 241, 232); color: rgb(26, 24, 20); font-size: 13.5px; font-weight: 600; text-decoration: none;">Allocation AI →</a>
+        <a href="promo-advisor.html" style="display: inline-flex; align-items: center; padding: 14px 28px; border-radius: 999px; background: rgba(244, 241, 232, 0.08); border: 1px solid rgba(244, 241, 232, 0.4); color: rgb(244, 241, 232); font-size: 13.5px; font-weight: 500; text-decoration: none;">Promo Advisor</a>
+        <a href="index.html#case-studies" style="display: inline-flex; align-items: center; padding: 14px 28px; border-radius: 999px; background: rgba(244, 241, 232, 0.08); border: 1px solid rgba(244, 241, 232, 0.4); color: rgb(244, 241, 232); font-size: 13.5px; font-weight: 500; text-decoration: none;">← All work</a>
+      </div>
+      <div style="position: relative; height: 1px; background: rgba(244, 241, 232, 0.22); margin-top: clamp(56px, 7vw, 84px);"><span style="position: absolute; left: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgba(244, 241, 232, 0.22);"></span><span style="position: absolute; right: -1px; top: -2px; width: 5px; height: 5px; border-radius: 999px; background: rgba(244, 241, 232, 0.22);"></span></div>
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; padding-top: 28px;">
+        <span style="font-size: 14px; font-weight: 600; color: rgb(247, 245, 239);">Tomasz Czarnecki</span>
+        <span style="font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(244, 241, 232, 0.55);">© <span class="sc-interp">2026</span> · czarnecki.ai · Product visuals are illustrative concepts</span>
+      </div>
+    </div>
+  </section></div></div></div>
+<script src="grad-canvases.js"></script>
+<script>
+/* Mobile: let charts/tables that are wider than the screen scroll horizontally
+   instead of being clipped. Marks only the innermost near-full-width panels
+   whose content overflows; a no-op on desktop where everything fits. */
+(function () {
+  var marked = [];
+  function fix() {
+    marked.forEach(function (el) { el.style.overflowX = ''; el.style.webkitOverflowScrolling = ''; });
+    marked = [];
+    var vw = document.documentElement.clientWidth;
+    var nodes = [].slice.call(document.querySelectorAll('div, table'));
+    var over = nodes.filter(function (el) {
+      return el.scrollWidth - el.clientWidth > 8 && el.clientWidth >= vw - 90;
+    });
+    over.forEach(function (el) {
+      var hasInner = over.some(function (d) { return d !== el && el.contains(d); });
+      if (!hasInner) { el.style.overflowX = 'auto'; el.style.webkitOverflowScrolling = 'touch'; marked.push(el); }
+    });
+  }
+  addEventListener('resize', fix);
+  if (document.readyState === 'loading') addEventListener('DOMContentLoaded', fix); else fix();
+})();
+</script>
+</body>
+</html>
