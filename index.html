@@ -60,6 +60,7 @@ a:hover { opacity: 0.82; }
   #v2-intro-grid { grid-template-columns: 1fr !important; }
 }
 @media (max-width: 780px) {
+  #v2-hero { min-height: max(560px, calc(-40px + (0.68 * 100svh))) !important; }
   #v2-journey > div { grid-template-columns: 1fr !important; gap: 8px !important; }
   #v2-journey > div > div:last-child { text-align: left !important; }
   #v2-archive-pair { grid-template-columns: 1fr !important; gap: 20px !important; }
@@ -91,7 +92,7 @@ a:hover { opacity: 0.82; }
   <main id="top" style="width: 100%;">
 
     
-    <section style="position: relative; min-height: max(560px, calc(-70.2px + (0.9 * 100svh))); display: flex; flex-direction: column; overflow: hidden; background: rgb(57, 82, 123);">
+    <section id="v2-hero" style="position: relative; min-height: max(560px, calc(-70.2px + (0.9 * 100svh))); display: flex; flex-direction: column; overflow: hidden; background: rgb(57, 82, 123);">
       <div class="sc-host-x" style="position: absolute; inset: 0px;"><grad-plate colors="#2B4C7E,#4A3E6B,#8A4A38,#241F1B" bg="#201E28" ink="#F4F1E8" art="petals" artx="0.72" arty="0.6" artr="0.31" grain="0.6" spin="0.05" mouse="" drag="" seed="hero-2026" style="display: block; width: 100%; height: 100%;"></grad-plate></div>
       <span style="position: absolute; inset: 0px; z-index: 1; pointer-events: none; background: radial-gradient(125% 105% at 50% 42%, rgba(18, 16, 24, 0) 38%, rgba(18, 16, 24, 0.55) 100%);"></span>
       <div style="position: relative; z-index: 2; width: 100%; max-width: 1320px; margin: 0px auto; padding: clamp(56px, 8vh, 104px) clamp(20px, 4.5vw, 48px) 64px; display: flex; flex-direction: column; flex: 1 1 0%;">
