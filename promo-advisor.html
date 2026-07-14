@@ -60,6 +60,11 @@ a:hover { opacity: 0.82; }
   #cs-decisions > div { grid-template-columns: 1fr !important; gap: 8px !important; }
   #cs-decisions > div > div:last-child { text-align: left !important; }
   #cs-impact-head { flex-direction: column !important; align-items: flex-start !important; }
+  #v2-kpi-baseline { flex-direction: column !important; }
+  #v2-kpi-baseline > div { border-right: none !important; border-bottom: 1px solid rgb(233, 229, 219) !important; }
+  #v2-kpi-baseline > div:last-child { border-bottom: none !important; }
+  #v2-kpi-scenario2 { grid-template-columns: 1fr 1fr !important; }
+  #v2-brand-bars { grid-template-columns: 1fr !important; }
 }
 </style>
 </head>
@@ -595,18 +600,19 @@ a:hover { opacity: 0.82; }
         <span>Illustrative concept, not the actual product.</span><span>Fictional brands and data.</span>
       </div>
     </div><p style="font-size: 15px; line-height: 1.68; color: rgb(76, 74, 66); margin: clamp(22px, 3vw, 28px) 0px 0px; max-width: 82ch;">The core call, on one screen: predicted ROI with its confidence range and the drivers underneath, never one false-confident number. Teams trusted the range precisely because it admitted what it didn't know.</p><div style="font-size: 10px; letter-spacing: 0.06em; color: rgb(181, 175, 159); margin-top: 20px; text-align: right;">Illustrative concept · fictional brands and data</div></div></figure>
-        <figure style="margin: clamp(28px, 3.5vw, 40px) 0px 0px;"><div style="border: 1px solid rgb(233, 229, 219); border-radius: 20px; background: rgb(255, 255, 255); padding: clamp(24px, 4vw, 44px); overflow: hidden;"><div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(158, 94, 74);">Decision 03, made visible</div><h3 style="font-weight: 500; font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.14; letter-spacing: -0.025em; margin: 12px 0px clamp(26px, 3.4vw, 36px); color: rgb(26, 24, 20); max-width: 30ch;">Credit only what's truly incremental.</h3><div style="background: rgb(255, 255, 255); border: 1px solid rgb(233, 229, 219); border-radius: 14px; box-shadow: rgba(26, 24, 20, 0.04) 0px 1px 2px, rgba(26, 24, 20, 0.05) 0px 12px 32px; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch;">
+        <figure style="margin: clamp(28px, 3.5vw, 40px) 0px 0px;"><div style="border: 1px solid rgb(233, 229, 219); border-radius: 20px; background: rgb(255, 255, 255); padding: clamp(24px, 4vw, 44px); overflow: hidden;"><div style="font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(158, 94, 74);">Decision 03, made visible</div><h3 style="font-weight: 500; font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.14; letter-spacing: -0.025em; margin: 12px 0px clamp(26px, 3.4vw, 36px); color: rgb(26, 24, 20); max-width: 30ch;">Credit only what's truly incremental.</h3><div style="background: rgb(255, 255, 255); border: 1px solid rgb(233, 229, 219); border-radius: 14px; box-shadow: rgba(26, 24, 20, 0.04) 0px 1px 2px, rgba(26, 24, 20, 0.05) 0px 12px 32px; overflow: hidden;">
       <div style="padding: 22px 26px 18px;">
         <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(139, 133, 120); margin-bottom: 6px;">Nordlys 330ml · 24-pack · Nordmart · Q3 plan</div>
         <h2 style="margin: 0px 0px 5px; font-size: 21px; font-weight: 600; letter-spacing: -0.01em;">Baseline vs uplift, week by week</h2>
         <div style="color: rgb(139, 133, 120); font-size: 13px; max-width: 560px; line-height: 1.5;">The hard part is separating what the promo actually added from what would have sold anyway. Light bars are baseline volume, dark green is true incremental uplift, and the line is the promo price that drove it. You only credit (and pay margin on) the uplift.</div>
       </div>
-      <div style="border-bottom: 1px solid rgb(233, 229, 219); min-width: 480px;"></div>
-      <div style="display: flex; gap: 0px; border-bottom: 1px solid rgb(233, 229, 219); min-width: 480px;">
+      <div style="border-bottom: 1px solid rgb(233, 229, 219);"></div>
+      <div id="v2-kpi-baseline" style="display: flex; gap: 0px; border-bottom: 1px solid rgb(233, 229, 219);">
         <div style="flex: 1 1 0%; padding: 16px 26px; border-right: 1px solid rgb(233, 229, 219);"><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: rgb(139, 133, 120);">Baseline volume</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; margin-top: 7px;">65.5K hL</div></div>
         <div style="flex: 1 1 0%; padding: 16px 26px; border-right: 1px solid rgb(233, 229, 219);"><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: rgb(139, 133, 120);">Promo uplift</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; margin-top: 7px; color: rgb(81, 106, 84);">+12.3K hL</div></div>
         <div style="flex: 1 1 0%; padding: 16px 26px;"><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: rgb(139, 133, 120);">Truly incremental</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; margin-top: 7px;">16% of volume</div></div>
       </div>
+      <div style="overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch;">
       <div style="padding: 18px 20px 8px; min-width: 480px;">
         <svg viewBox="0 0 800 300" role="img" aria-label="Weekly baseline and uplift volume with promo price line" style="display: block; width: 100%; height: auto;">
           
@@ -727,13 +733,14 @@ a:hover { opacity: 0.82; }
           <text x="784" y="284" text-anchor="end" font-family="Inter" font-size="10" letter-spacing="1" fill="#8B8578">WEEK</text>
         </svg>
       </div>
-      <div style="display: flex; gap: 20px; flex-wrap: wrap; padding: 6px 26px 18px; min-width: 480px;">
+      </div>
+      <div style="display: flex; gap: 20px; flex-wrap: wrap; padding: 6px 26px 18px;">
         <span style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgb(139, 133, 120);"><span style="width: 13px; height: 13px; border-radius: 3px; flex: 0 0 auto; background: rgb(216, 205, 190);"></span>Baseline (would have sold anyway)</span>
         <span style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgb(139, 133, 120);"><span style="width: 13px; height: 13px; border-radius: 3px; flex: 0 0 auto; background: rgb(81, 106, 84);"></span>Uplift (incremental)</span>
         <span style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgb(139, 133, 120);"><span style="width: 18px; height: 0px; border-top: 2.5px solid rgb(179, 102, 86); flex: 0 0 auto;"></span>Promo price</span>
         <span style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgb(139, 133, 120);"><span style="width: 18px; height: 0px; border-top: 2px dashed rgb(161, 155, 141); flex: 0 0 auto;"></span>Regular price</span>
       </div>
-      <div style="padding: 14px 26px; border-top: 1px solid rgb(233, 229, 219); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; letter-spacing: 0.04em; color: rgb(139, 133, 120); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; min-width: 480px;">
+      <div style="padding: 14px 26px; border-top: 1px solid rgb(233, 229, 219); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; letter-spacing: 0.04em; color: rgb(139, 133, 120); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
         <span>Illustrative concept, not the actual product.</span><span>Fictional brands and data.</span>
       </div>
     </div><p style="font-size: 15px; line-height: 1.68; color: rgb(76, 74, 66); margin: clamp(22px, 3vw, 28px) 0px 0px; max-width: 82ch;">Split true uplift from the baseline that would have sold anyway; the price line shows what drove it. We only paid margin on the incremental part, which is what made the ROI believable.</p><div style="font-size: 10px; letter-spacing: 0.06em; color: rgb(181, 175, 159); margin-top: 20px; text-align: right;">Illustrative concept · fictional brands and data</div></div></figure>
@@ -875,7 +882,7 @@ a:hover { opacity: 0.82; }
           <div><div style="font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(161, 155, 141);">06 · Impact</div><h2 style="font-weight: 500; font-size: clamp(1.9rem, 3.4vw, 2.8rem); line-height: 1.1; letter-spacing: -0.03em; margin: 20px 0px 0px; color: rgb(26, 24, 20); max-width: 18ch;">From money-losing promos to a data-driven baseline.</h2></div>
           <div style="max-width: 60ch;"><p style="font-size: 16px; line-height: 1.7; color: rgb(107, 102, 92); margin: 0px;">The real proof wasn't the accuracy: it was the behaviour change. Revenue teams moved from defending last year's calendar to planning against the model and asking it why. Delivered outcomes are stated as delivered; benchmarks are labelled as such.</p></div>
         </div>
-        <div><div style="background: rgb(255, 255, 255); border: 1px solid rgb(233, 229, 219); border-radius: 14px; box-shadow: rgba(26, 24, 20, 0.04) 0px 1px 2px, rgba(26, 24, 20, 0.05) 0px 12px 32px; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch;">
+        <div><div style="background: rgb(255, 255, 255); border: 1px solid rgb(233, 229, 219); border-radius: 14px; box-shadow: rgba(26, 24, 20, 0.04) 0px 1px 2px, rgba(26, 24, 20, 0.05) 0px 12px 32px; overflow: hidden;">
       <div style="padding: 22px 26px 18px; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap;">
         <div>
           <span style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(139, 133, 120);">Fewer, bigger events · Nordmart · Q3 2025</span>
@@ -884,15 +891,15 @@ a:hover { opacity: 0.82; }
         </div>
         <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; padding: 4px 11px; border-radius: 999px; border: 1px solid rgb(233, 229, 219); color: rgb(139, 133, 120); white-space: nowrap; flex: 0 0 auto; margin-top: 4px;"><span style="width: 6px; height: 6px; border-radius: 50%; background: rgb(200, 189, 174);"></span>Exploration</span>
       </div>
-      <div style="border-bottom: 1px solid rgb(233, 229, 219); min-width: 680px;"></div>
-      <div style="padding: 22px 26px; min-width: 680px;">
-        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; margin-bottom: 18px;">
+      <div style="border-bottom: 1px solid rgb(233, 229, 219);"></div>
+      <div style="padding: 22px 26px;">
+        <div id="v2-kpi-scenario2" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; margin-bottom: 18px;">
           <div style="border: 1px solid rgb(233, 229, 219); border-radius: 12px; padding: 15px 15px 14px;"><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: rgb(139, 133, 120);">Incremental GP (€)</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 26px; font-weight: 600; letter-spacing: -0.02em; margin: 9px 0px 7px;">€4.1M</div><div style="font-size: 12px; color: rgb(139, 133, 120);">LY €3.6M &nbsp;<span style="color: rgb(81, 106, 84); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11.5px;">▲ 14%</span></div></div>
           <div style="border: 1px solid rgb(233, 229, 219); border-radius: 12px; padding: 15px 15px 14px;"><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: rgb(139, 133, 120);">ROI (%)</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 26px; font-weight: 600; letter-spacing: -0.02em; margin: 9px 0px 7px;">33%</div><div style="font-size: 12px; color: rgb(139, 133, 120);">LY 28% &nbsp;<span style="color: rgb(81, 106, 84); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11.5px;">▲ 5 pts</span></div></div>
           <div style="border: 1px solid rgb(233, 229, 219); border-radius: 12px; padding: 15px 15px 14px;"><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: rgb(139, 133, 120);">Incremental volume (hL)</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 26px; font-weight: 600; letter-spacing: -0.02em; margin: 9px 0px 7px;">512K</div><div style="font-size: 12px; color: rgb(139, 133, 120);">LY 486K &nbsp;<span style="color: rgb(81, 106, 84); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11.5px;">▲ 5%</span></div></div>
           <div style="border: 1px solid rgb(233, 229, 219); border-radius: 12px; padding: 15px 15px 14px;"><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: rgb(139, 133, 120);">Incremental net rev (€)</div><div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 26px; font-weight: 600; letter-spacing: -0.02em; margin: 9px 0px 7px;">€14.8M</div><div style="font-size: 12px; color: rgb(139, 133, 120);">LY €13.1M &nbsp;<span style="color: rgb(81, 106, 84); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 11.5px;">▲ 13%</span></div></div>
         </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+        <div id="v2-brand-bars" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
           <div style="border: 1px solid rgb(233, 229, 219); border-radius: 12px; padding: 16px 18px 8px;">
             <div style="font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(139, 133, 120); margin-bottom: 16px;">Incremental GP by brand</div>
             
@@ -923,7 +930,7 @@ a:hover { opacity: 0.82; }
           </div>
         </div>
       </div>
-      <div style="padding: 14px 26px; border-top: 1px solid rgb(233, 229, 219); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; letter-spacing: 0.04em; color: rgb(139, 133, 120); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; min-width: 680px;">
+      <div style="padding: 14px 26px; border-top: 1px solid rgb(233, 229, 219); font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 10.5px; letter-spacing: 0.04em; color: rgb(139, 133, 120); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
         <span>Illustrative concept, not the actual product.</span><span>Fictional brands and data.</span>
       </div>
     </div><p style="font-size: 13.5px; line-height: 1.65; color: rgb(139, 133, 120); margin: 16px 0px 0px; max-width: 82ch;">Proof it stayed honest. The tool surfaced where a winning plan still cannibalised smaller brands, not just the flattering top line. Showing the downside is what earned trust in the upside. <span style="color: rgb(181, 175, 159);">Illustrative concept · fictional brands and data.</span></p></div>
