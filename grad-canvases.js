@@ -77,6 +77,12 @@
       this._spin = this.num('spin', 0);
       this._reactive = this.hasAttribute('mouse');
       this._draggable = this.hasAttribute('drag');
+      // Opt-in: drive the per-art time-based sway (rings ripple, waves flow,
+      // squares pulse) from real elapsed time instead of the static frame's
+      // frozen instant. Off by default — existing plates render exactly as
+      // before unless this attribute is added.
+      this._timeLive = this.hasAttribute('time-live') || this.hasAttribute('timelive');
+      this._speed = this.num('speed', 1);
       this._mx = this._my = this._tmx = this._tmy = 0;
       this._ox = this._oy = 0; this._spinAngle = 0; this._t0anim = null;
       this._dragX = null; this._dragY = null; this._dragging = false;
@@ -87,7 +93,7 @@
           if (s) { const p = JSON.parse(s); if (Array.isArray(p)) { this._dragX = p[0]; this._dragY = p[1]; } }
         } catch (e) {}
       }
-      if (!reduce && (this._spin || this._reactive || this._draggable || this._grainLive)) {
+      if (!reduce && (this._spin || this._reactive || this._draggable || this._grainLive || this._timeLive)) {
         if (this._reactive || this._draggable) {
           this._onMove = (e) => {
             const b = this._cv.getBoundingClientRect();
@@ -150,7 +156,7 @@
             this._oy = this._my * amp;
           }
           this._spinAngle = el * this._spin;
-          this._composite(3.7);
+          this._composite(this._timeLive ? 3.7 + el * this._speed : 3.7);
           this._raf = requestAnimationFrame(this._loop);
         };
         this._raf = requestAnimationFrame(this._loop);
@@ -311,19 +317,47 @@
       }
     }
 
-    /* organic petal wireframe (rotating slowly) */
+    /* organic petal wireframe. Default: slow drift (the homepage hero). Named
+       petal-anim modes (bloom | spin | counter | shimmer) drive richer motion
+       for the hero-flower motion studies — the default branch is byte-identical
+       to the original so pages that don't set petal-anim are untouched. */
     _petals(ctx, W, H, t) {
+      const mode = this.attr('petal-anim', '');
       const ax = this._dragX != null ? this._dragX : this.num('art-x', 0.5);
       const ay = this._dragY != null ? this._dragY : this.num('art-y', 0.56);
       const cx = ax * W + (this._ox || 0);
       const cy = ay * H + (this._oy || 0);
-      const R = this.num('art-r', 0.36) * Math.min(W, H);
+      const R0 = this.num('art-r', 0.36) * Math.min(W, H);
       const N = this._petalN;
-      const rot = t * 0.02 + this._wob[0] + (this._spinAngle || 0) + (this._mx || 0) * 0.12;
+      const spin = this._spinAngle || 0;
+      const mouse = (this._mx || 0) * 0.12;
+      let rot, bAng = 0, petalReach = 1, boundScale = 1, shimmer = 0;
+      if (mode === 'bloom') {
+        // flower opens and closes in a slow breath while drifting
+        rot = t * 0.12 + this._wob[0] + spin + mouse;
+        petalReach = 0.72 + 0.33 * (0.5 + 0.5 * Math.sin(t * 0.6 + this._wob[0]));
+        boundScale = 0.98 + 0.04 * Math.sin(t * 0.6 + this._wob[0]);
+      } else if (mode === 'spin') {
+        // steady mandala rotation, petals + rim locked together
+        rot = t * 0.5 + this._wob[0] + spin + mouse;
+        bAng = t * 0.5;
+      } else if (mode === 'counter') {
+        // petals turn one way, outer rim the other → layered depth
+        rot = t * 0.28 + this._wob[0] + spin + mouse;
+        bAng = -t * 0.42;
+      } else if (mode === 'shimmer') {
+        // a ripple travels petal to petal so the bloom flutters
+        rot = t * 0.14 + this._wob[0] + spin + mouse;
+        shimmer = 1;
+      } else {
+        rot = t * 0.02 + this._wob[0] + spin + mouse;
+      }
       ctx.globalAlpha = 0.75;
       for (let i = 0; i < N; i++) {
         const a = rot + (i / N) * Math.PI * 2;
         const w = (Math.PI / N) * 0.82;
+        const reach = shimmer ? petalReach * (0.84 + 0.16 * Math.sin(t * 1.4 - i * 1.1 + this._wob[2])) : petalReach;
+        const R = R0 * reach;
         const tipR = R * (0.94 + 0.08 * Math.sin(this._wob[1] + i * 2.1 + t * 0.05));
         const x = (ang, rr) => cx + Math.cos(ang) * rr;
         const y = (ang, rr) => cy + Math.sin(ang) * rr;
@@ -336,8 +370,8 @@
       // irregular outer boundary
       ctx.beginPath();
       for (let k = 0; k <= 140; k++) {
-        const ang = (k / 140) * Math.PI * 2;
-        const rr = R * (1.0 + 0.055 * Math.sin(3 * ang + this._wob[1] + t * 0.04) + 0.035 * Math.sin(5 * ang + this._wob[2]));
+        const ang = (k / 140) * Math.PI * 2 + bAng;
+        const rr = R0 * boundScale * (1.0 + 0.055 * Math.sin(3 * ang + this._wob[1] + t * 0.04) + 0.035 * Math.sin(5 * ang + this._wob[2]));
         const px = cx + Math.cos(ang) * rr, py = cy + Math.sin(ang) * rr;
         k === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
       }
@@ -346,18 +380,25 @@
       ctx.globalAlpha = 1;
     }
 
-    /* concentric wobbly rings */
+    /* concentric wobbly rings — breathe outward like ripples + slow differential spin */
     _rings(ctx, W, H, t) {
       const cx = this.num('art-x', 0.5) * W;
       const cy = this.num('art-y', 0.5) * H;
       const R = this.num('art-r', 0.38) * Math.min(W, H);
+      const spin = this._spinAngle || 0;
       ctx.globalAlpha = 0.62;
       for (let n = 0; n < 4; n++) {
-        const rr0 = R * (0.4 + 0.2 * n);
+        // radial ripple: each ring lags the one inside it, so the pulse reads
+        // as travelling outward from the centre
+        const breathe = 1 + 0.055 * Math.sin(t * 0.7 - n * 0.9 + this._wob[0]);
+        const rr0 = R * (0.4 + 0.2 * n) * breathe;
+        // differential rotation: outer rings drift a touch faster — the cluster
+        // never turns rigidly, so the hairlines look alive
+        const rot = spin * (1 + n * 0.16);
         ctx.beginPath();
         for (let k = 0; k <= 120; k++) {
-          const ang = (k / 120) * Math.PI * 2;
-          const rr = rr0 * (1 + 0.05 * Math.sin(3 * ang + this._wob[n % 3] + n * 1.7 + t * 0.06) + 0.03 * Math.sin(6 * ang - t * 0.04));
+          const ang = (k / 120) * Math.PI * 2 + rot;
+          const rr = rr0 * (1 + 0.05 * Math.sin(3 * ang + this._wob[n % 3] + n * 1.7 + t * 0.45) + 0.03 * Math.sin(6 * ang - t * 0.3));
           const px = cx + Math.cos(ang) * rr, py = cy + Math.sin(ang) * rr;
           k === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
         }
@@ -367,7 +408,7 @@
       ctx.globalAlpha = 1;
     }
 
-    /* slow horizontal hairline waves */
+    /* horizontal hairline waves — flow steadily left→right, gently undulating */
     _waves(ctx, W, H, t) {
       const rows = Math.max(3, Math.round(H / 90));
       ctx.globalAlpha = 0.45;
@@ -375,8 +416,8 @@
         const y0 = H * (j + 0.5) / rows;
         ctx.beginPath();
         for (let x = -4; x <= W + 4; x += 8) {
-          const y = y0 + Math.sin(x / (W * 0.24) + j * 1.4 + this._wob[0] + t * 0.1) * H * 0.035
-            + Math.sin(x / (W * 0.09) - j * 0.8 + t * 0.06) * H * 0.012;
+          const y = y0 + Math.sin(x / (W * 0.24) + j * 1.4 + this._wob[0] + t * 0.8) * H * 0.04
+            + Math.sin(x / (W * 0.09) - j * 0.8 + t * 0.5) * H * 0.013;
           x <= -4 + 0.1 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
         }
         ctx.stroke();
@@ -399,14 +440,23 @@
           ctx.stroke();
         }
       }
-      // nested center squircles
+      // nested centre squircles — counter-rotate against each other and breathe,
+      // like a slow mechanism at the heart of the grid
       const ci = Math.floor(cols / 2), cj = Math.floor(rows / 2);
-      const cx = x0 + ci * cell, cy = y0 + cj * cell;
-      for (let k = 1; k <= 2; k++) {
-        const inset = cell * 0.14 * k + Math.sin(t * 0.08 + k) * 1.5;
+      const cxC = x0 + ci * cell + cell / 2, cyC = y0 + cj * cell + cell / 2;
+      const spin = this._spinAngle || 0;
+      for (let k = 1; k <= 3; k++) {
+        const inset = cell * 0.12 * k + Math.sin(t * 0.85 + k * 0.9) * (cell * 0.035);
+        const side = cell - inset * 2;
+        if (side <= 8) continue;
+        const rot = spin * (k % 2 ? 1 : -1.15) * (1 + k * 0.2);
+        ctx.save();
+        ctx.translate(cxC, cyC);
+        ctx.rotate(rot);
         ctx.beginPath();
-        ctx.roundRect(cx + inset, cy + inset, cell - inset * 2, cell - inset * 2, Math.max(8, rad - inset * 0.7));
+        ctx.roundRect(-side / 2, -side / 2, side, side, Math.max(6, rad - inset * 0.6));
         ctx.stroke();
+        ctx.restore();
       }
       ctx.globalAlpha = 1;
     }
