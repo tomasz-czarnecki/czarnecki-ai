@@ -184,7 +184,7 @@ class FurMonsterDock extends HTMLElement {
     this.build(gen).catch(e => { if (gen === this._gen) this.fail(e); });
   }
   disconnectedCallback() { this._gen = (this._gen || 0) + 1; clearInterval(this.grainTimer); this.cleanup && this.cleanup(); this.cleanup = null; this._built = false; this.replaceChildren(); this.layer && this.layer.remove(); }
-  num(n, d) { const v = parseFloat(this.getAttribute(n)); return isFinite(v) ? v : d; }
+  num(n, d) { const v = parseFloat(this.getAttribute(n) ?? this.getAttribute(n.replaceAll('-', ''))); return isFinite(v) ? v : d; } // DC runtime strips hyphens (x-small → xsmall)
   isReduced() { return this.hasAttribute('reduced-motion') || this.mq.matches; }
   fail(e) {
     console.warn('[fur-monster-ground] WebGL unavailable — showing fallback.', e);
@@ -719,6 +719,8 @@ class FurMonsterDock extends HTMLElement {
       S.cx = S.px / S.W * 2 - 1; S.cy = 1 - drawY / S.H * 2; S.rPx = S.r * 1.05;
       const lb = this.label;
       lb.style.transform = `translate(${S.px.toFixed(1)}px, ${(drawY + S.r * 1.3).toFixed(1)}px) translateX(-50%)`;
+      const lw = lb.offsetWidth / 2; // keep the caption on screen; the connector line stays under the creature
+      lb.lastElementChild.style.transform = `translateX(${(clamp(S.px, lw + 8, S.W - lw - 8) - S.px).toFixed(1)}px)`;
       lb.style.opacity = String(1 - smooth(0.02, 0.18, p));
       const inkNow = this.getAttribute('label-ink') || this.getAttribute('labelink'); if (inkNow && lb.style.color !== inkNow && lb._ink !== inkNow) { lb.style.color = inkNow; lb._ink = inkNow; }
       if (this.bubble) think(t, drawY);
