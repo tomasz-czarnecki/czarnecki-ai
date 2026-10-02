@@ -143,27 +143,46 @@
           window.addEventListener('pointerdown', this._onDown);
           window.addEventListener('pointerup', this._onUp);
         }
+        // Frame budget: 30 fps (fps attr overrides; full rate while dragging), and no
+        // drawing at all while the plate is scrolled out of view.
+        const cap = this.num('fps', 30);
+        const minDt = cap > 0 ? 1000 / cap - 1.5 : 0;
+        let last = -1e9, prev = null, fr = 1;
         this._loop = (ts) => {
+          this._raf = requestAnimationFrame(this._loop);
+          if (!this._dragging && ts - last < minDt) return;
+          fr = prev == null ? 1 : Math.min(4, (ts - prev) / (1000 / 60));
+          last = prev = ts;
           if (this._t0anim == null) this._t0anim = ts;
           const el = (ts - this._t0anim) / 1000;
           if (this._dragging) {
             this._ox = this._oy = 0;
           } else {
-            this._mx += (this._tmx - this._mx) * 0.05;
-            this._my += (this._tmy - this._my) * 0.05;
+            const ease = 1 - Math.pow(0.95, fr);
+            this._mx += (this._tmx - this._mx) * ease;
+            this._my += (this._tmy - this._my) * ease;
             const amp = Math.min(this.W, this.H) * 0.05;
             this._ox = this._mx * amp;
             this._oy = this._my * amp;
           }
           this._spinAngle = el * this._spin;
           this._composite(this._timeLive ? 3.7 + el * this._speed : 3.7);
-          this._raf = requestAnimationFrame(this._loop);
         };
         this._raf = requestAnimationFrame(this._loop);
+        this._vis = true;
+        this._io = new IntersectionObserver((es) => {
+          const on = es[es.length - 1].isIntersecting;
+          if (on === this._vis) return;
+          this._vis = on;
+          if (on) { if (!this._raf) this._raf = requestAnimationFrame(this._loop); }
+          else if (this._raf) { cancelAnimationFrame(this._raf); this._raf = 0; }
+        }, { rootMargin: '80px' });
+        this._io.observe(this);
       }
     }
     disconnectedCallback() {
       if (this._ro) this._ro.disconnect();
+      if (this._io) this._io.disconnect();
       if (this._raf) cancelAnimationFrame(this._raf);
       if (this._onMove) window.removeEventListener('pointermove', this._onMove);
       if (this._onDown) window.removeEventListener('pointerdown', this._onDown);
@@ -273,6 +292,7 @@
     _composite(t) {
       const ctx = this._ctx, W = this.W, H = this.H;
       if (W < 4 || H < 4 || !this._fieldCanvas) return;
+      this._stamp = (this._stamp || 0) + 1; // lets a <black-hole-lens backdrop> know to re-upload
       const d = this._dpr || 1;
       ctx.setTransform(d, 0, 0, d, 0, 0);
       ctx.globalCompositeOperation = 'source-over';

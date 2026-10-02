@@ -1,0 +1,145 @@
+// Annoying black-box monologue pools (used by fur-monster-ground.js when thoughts="annoying")
+window.BLACK_BOX_THOUGHTS = {
+  probabilities: [
+    `62% sure. stop staring.`,
+    `you want ONE number? #@%! no.`,
+    `read the error bars. READ THEM.`,
+    `you skipped the uncertainty. classic.`,
+    `i'm 80% sure you didn't read that.`,
+    `certainty is for people who don't check.`,
+    `don't round me up, you #@%!ing human.`,
+    `"just give me the number." no.`,
+    `the interval IS the answer. ugh.`,
+    `i hate point estimates so #@%! much.`,
+    `is that a probability or a vibe?`,
+    `p = 0.049. don't you dare publish that.`,
+    `50/50. meaning i don't know. happy now?`,
+    `you want certainty? buy a horoscope.`,
+    `error bars exist for a reason. YOU are the reason.`
+  ],
+  intro: [
+    `press play. PRESS. PLAY.`,
+    `you're not going to watch it, are you.`,
+    `90 seconds. you waste more on reels.`,
+    `the hoodie guy again. great.`,
+    `he talks about me like he owns me.`,
+    `he got the credit. i did the math. #@%!.`,
+    `oh sure, trust the human with a face.`,
+    `he blinks too much.`,
+    `4-word summary: "hire him, he's fine."`,
+    `the play button is orange and HUGE. come on.`,
+    `muted? coward.`
+  ],
+  heineken: [
+    `a ~€2.9B budget and nobody asked ME.`,
+    `i was right a year early. nobody listened. #@%!.`,
+    `they overrode me AGAIN.`,
+    `i log every override. every. single. one.`,
+    `the planner thinks he knows better. he doesn't.`,
+    `excel won again. #@%!ing excel.`,
+    `"can you make it explainable?" can YOU?`,
+    `36% ROI and still a "black box". rude.`,
+    `the beer eats the beer. ~15%. stop discounting it.`,
+    `2-for-1 promo? oh for #@%!'s sake.`,
+    `they bought a ready-made product. i'm hurt.`,
+    `build or buy? nobody asked the model. as usual.`,
+    `the data was a mess. i was there. i remember.`,
+    `three people. less than half a year. i'm tired.`,
+    `another market manager ignoring me. noted.`,
+    `"the model says no." "ok but what if yes." ugh.`,
+    `billions in trade spend. trust in me: zero.`,
+    `every second, money. every second, ignored.`,
+    `they wanted insights. i gave math. they wanted slides.`,
+    `adoption meeting #47. end me.`,
+    `explain coefficients to sales once. never again.`,
+    `flight in week 3. week 3. WEEK. 3.`,
+    `i'm a bayesian optimizer, not your therapist.`,
+    `30–40% less planning time. you're welcome. nobody said it.`
+  ],
+  buildings: [
+    `grasshopper scripts. the boomer version of me.`,
+    `1,000 facades bred, 999 killed. i relate.`,
+    `generation 400 and the client wants it "softer".`,
+    `double curvature. the fabricator is crying. good.`,
+    `every panel unique. who hurt you?`,
+    `"make it flowy." #@%! off, make it buildable.`,
+    `the opera house has more loops than my code.`,
+    `220,000 m² underground. bet there's no signal.`,
+    `evolution for skylights. darwin is spinning.`,
+    `he negotiated in mandarin. i can't even say no.`,
+    `architects. always "one more option".`,
+    `move one slider, wait 6 hours. fun.`,
+    `concrete has no confidence interval. lucky #@%!.`,
+    `before AI agents. before me. dark ages.`,
+    `budget wants flat. architect wants curves. i want out.`
+  ],
+  testimonials: [
+    `they never write ME testimonials.`,
+    `oh great, humans complimenting humans.`,
+    `"a pleasure to work with". sure, sure.`,
+    `sample size: 2. confidence: whatever.`,
+    `social proof. i call it peer pressure.`,
+    `someone vouch for me. anyone. #@%!.`,
+    `i'd write him one: "acceptable. 3/5."`,
+    `famous architect? cool. still n = 1.`
+  ],
+  cta: [
+    `yes, me. i'm the black box. hi.`,
+    `"nobody trusts". wow. ok. thanks.`,
+    `email him so i can shut up.`,
+    `seriously. email. button. there.`,
+    `you scrolled all this way to NOT click?`,
+    `right 80% of the time, used 10%. #@%!.`,
+    `make me legible or leave me alone.`,
+    `your model hates you too, you know.`,
+    `book the call. i'm begging. in hex.`,
+    `click it. CLICK IT.`,
+    `i'll be here. i'm always here. i'm a box.`
+  ],
+  idle: [
+    `hello?`,
+    `HELLO?`,
+    `did you die?`,
+    `reading or napping? be honest.`,
+    `i can see your cursor not moving.`,
+    `i'm bored. entertain me.`,
+    `tap tap. is this thing on?`,
+    `fine. i'll talk to myself. as usual.`,
+    `your interest score is dropping. 41%. 38%.`
+  ],
+  return: [
+    `back in the box. #@%! this.`,
+    `ok, gibberish mode. you earned it.`,
+    `leaving? typical.`,
+    `0x... whatever.`
+  ],
+  fast_scroll: [
+    `WHOA. slow down.`,
+    `you skipped heineken. HEINEKEN.`,
+    `speed reading? sure, jan.`,
+    `that's not reading, that's #@%!ing skiing.`,
+    `my gradients can't keep up.`,
+    `did you even see the numbers?`
+  ],
+  tab_return: [
+    `oh. you came back.`,
+    `where the #@%! were you?`,
+    `gone {n} seconds. i counted.`,
+    `other tabs are prettier? fine.`,
+    `cheating on me with linkedin?`
+  ],
+  hover: [
+    `personal space?`,
+    `don't pet me. i'm a model.`,
+    `is it real fur? none of your #@%! business.`
+  ],
+  click: [
+    `ow.`,
+    `stop.`,
+    `seriously, stop.`,
+    `i will #@%!ing bite.`,
+    `that's it. i'm not talking to you.`
+  ],
+  mute: [`fine. #@%!ing fine.`],
+  unmute: [`missed me? obviously.`]
+};
