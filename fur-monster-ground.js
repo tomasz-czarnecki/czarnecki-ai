@@ -158,11 +158,16 @@ class FurMonsterDock extends HTMLElement {
     const shadow = this.shadow = document.createElement('div');
     shadow.style.cssText = 'position:absolute;left:0;top:0;width:100px;height:20px;border-radius:50%;pointer-events:none;opacity:0;transform-origin:50% 50%;will-change:transform,opacity;background:radial-gradient(50% 50% at 50% 50%, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 36%, rgba(170,160,255,0.07) 64%, rgba(170,160,255,0) 100%);';
     layer.append(shadow, canvas, label);
+    // DOM hit area over the creature: taps never depend on WebGL raycasting or on what sits underneath
+    const hit = this.hit = document.createElement('button');
+    hit.type = 'button'; hit.setAttribute('aria-label', 'Poke the black box');
+    hit.style.cssText = 'position:absolute;left:0;top:0;width:60px;height:60px;margin:0;padding:0;border:0;border-radius:32%;background:transparent;pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;outline-offset:2px;will-change:transform;';
+    layer.append(hit);
     if (this.hasAttribute('thoughts') && !['off', 'false'].includes(this.getAttribute('thoughts'))) {
       const bub = this.bubble = document.createElement('div');
       const dot = (sz, l, b) => `<div data-d style="position:absolute;width:${sz}px;height:${sz}px;border-radius:50%;background:#FCFBF8;border:2px solid #1A1814;box-shadow:2px 2px 0 #1A1814;left:${l}px;bottom:${b}px;opacity:0;box-sizing:border-box;"></div>`;
       bub.style.cssText = 'position:absolute;left:0;top:0;pointer-events:none;opacity:0;padding-bottom:34px;will-change:transform,opacity;';
-      bub.innerHTML = `<div data-c style="transform-origin:18px 100%;padding:10px 16px 11px;background:#FCFBF8;border:2px solid #1A1814;border-radius:46% 54% 50% 50% / 60% 52% 48% 40%;box-shadow:3px 3px 0 #1A1814;font:500 12.5px/1.2 'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:0.03em;color:#1A1814;white-space:nowrap;opacity:0;"><span data-t></span></div>` + dot(7, 4, 0) + dot(12, 12, 12);
+      bub.innerHTML = `<div data-c style="transform-origin:18px 100%;padding:10px 16px 11px;background:#FCFBF8;border:2px solid #1A1814;border-radius:46% 54% 50% 50% / 60% 52% 48% 40%;box-shadow:3px 3px 0 #1A1814;font:500 12.5px/1.2 'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:0.03em;color:#1A1814;white-space:nowrap;opacity:0;"><span data-t></span><div data-chips style="display:none;flex-wrap:wrap;gap:0 4px;margin:2px -1px -9px;pointer-events:auto;">` + [['recruiter', 'recruiter'], ['founder', 'founder'], ['just_looking', 'just looking']].map(([v, l]) => `<button type="button" data-v="${v}" style="appearance:none;-webkit-appearance:none;background:none;border:0;margin:0;padding:9px 1px;cursor:pointer;font:inherit;color:inherit;-webkit-tap-highlight-color:transparent;touch-action:manipulation;"><span style="display:inline-block;padding:3px 8px 4px;border:1.5px solid #1A1814;border-radius:999px;background:#fff;font-size:11px;letter-spacing:0.04em;white-space:nowrap;">${l}</span></button>`).join('') + `</div></div>` + dot(7, 4, 0) + dot(12, 12, 12);
       layer.append(bub);
       if (this.getAttribute('thoughts') === 'annoying') {
         if (!document.getElementById('bb-annoy-css')) { const st = document.createElement('style'); st.id = 'bb-annoy-css'; st.textContent = '@keyframes bbJit{0%,100%{transform:translate(0,0)}25%{transform:translate(1px,-1px)}50%{transform:translate(-1px,1px)}75%{transform:translate(1px,1px)}}[data-bb-g]{color:#FF7A3D;display:inline-block;animation:bbJit .12s steps(1) infinite}@media (prefers-reduced-motion:reduce){[data-bb-g]{animation:none}}'; document.head.appendChild(st); }
@@ -188,7 +193,7 @@ class FurMonsterDock extends HTMLElement {
   isReduced() { return this.hasAttribute('reduced-motion') || this.mq.matches; }
   fail(e) {
     console.warn('[fur-monster-ground] WebGL unavailable — showing fallback.', e);
-    this.canvas.remove(); this.label.remove();
+    this.canvas.remove(); this.label.remove(); this.hit && this.hit.remove();
     const small = this.clientWidth < 760;
     const fx = small ? this.num('x-small', 0.5) : this.num('x', 0.72), fy = small ? this.num('y-small', 0.76) : this.num('y', 0.53);
     const f = document.createElement('div');
@@ -481,22 +486,53 @@ class FurMonsterDock extends HTMLElement {
     const annoy = this.getAttribute('thoughts') === 'annoying';
     const nowR = () => performance.now() / 1000;
     const AN = { bags: {}, queue: [], cut: false, lockUntil: 0, muted: false, lastDots: nowR(), inHero: true, wasOut: false, key: null, whereT: 0,
-      lastScroll: nowR(), idleArmed: true, idleCount: 0, sY: window.scrollY, sT: nowR(), sV: 0, lastFast: -99, clickN: 0, lastClick: -99, hoverAt: 0, hoverDone: false, hiddenAt: 0, shVis: false, shW: 0 };
+      lastScroll: nowR(), idleArmed: true, idleCount: 0, sY: window.scrollY, sT: nowR(), sV: 0, lastFast: -99, clickN: 0, lastClick: -99, hoverAt: 0, hoverDone: false, hiddenAt: 0, shVis: false, shW: 0, seen: {}, chipsLive: false };
+    const quiet = () => S.W < 768; // mobile: no timed loop, speaks only on tap / section entry / tab_return
     const POOL = () => window.BLACK_BOX_THOUGHTS || {};
     const draw = (k) => { const p = POOL()[k]; if (!p || !p.length) return null; let b = AN.bags[k]; if (!b || !b.length) b = AN.bags[k] = p.slice().sort(() => Math.random() - 0.5); return b.pop(); };
     const fire = (key, o = {}) => {
-      if (!annoy || (!o.force && (AN.muted || AN.inHero || nowR() < AN.lockUntil))) return false;
+      if (!annoy || (!o.force && (AN.muted || AN.inHero || AN.chipsLive || nowR() < AN.lockUntil))) return false;
       let line = o.text || draw(key); if (!line) return false;
       if (o.map) line = o.map(line);
       AN.queue = [{ text: line, dur: o.dur || 4 }].concat(o.then || []); AN.cut = true; return true;
     };
+    // visitor type: asked on the first tap of a visit, remembered across visits
+    const tryStore = (k) => { try { return window[k]; } catch (_) { return null; } };
+    const kv = (k) => ({ get: (n) => { try { return tryStore(k).getItem(n); } catch (_) { return null; } }, set: (n, v) => { try { tryStore(k).setItem(n, v); } catch (_) {} } });
+    const store = kv('localStorage'), sess = kv('sessionStorage');
+    const VT_KEY = 'bb_visitor_type', VT_SEEN = 'bb_chips_seen';
+    const ANS = { recruiter: 'updating... 100% recruiter. hire him, he\'s fine.', founder: 'updating... a founder. got a black box nobody trusts?', just_looking: 'updating... a tourist. fine. poke me again.' };
+    const NOUN = { recruiter: 'recruiter', founder: 'founder', just_looking: 'tourist' };
+    const VT = { stored: store.get(VT_KEY), chipsDone: sess.get(VT_SEEN) === '1', greeted: false };
+    if (!ANS[VT.stored]) VT.stored = null;
+    const track = (name, p) => {
+      try {
+        if (typeof window.gtag === 'function') window.gtag('event', name, p);
+        if (typeof window.plausible === 'function') window.plausible(name, { props: p });
+        if (window.umami && typeof window.umami.track === 'function') window.umami.track(name, p);
+        (window.dataLayer = window.dataLayer || []).push(Object.assign({ event: name }, p));
+        window.dispatchEvent(new CustomEvent('blackbox:analytics', { detail: Object.assign({ name }, p) }));
+      } catch (_) {}
+    };
+    const greet = () => {
+      if (!annoy || VT.greeted || !VT.stored || AN.muted || AN.chipsLive) return false;
+      VT.greeted = true; AN.queue = [{ text: `oh. the ${NOUN[VT.stored]} is back.`, dur: 3.6 }]; AN.cut = true; return true;
+    };
+    const choose = (v) => {
+      if (!ANS[v]) return;
+      VT.stored = v; VT.greeted = true; store.set(VT_KEY, v);
+      track('visitor_type', { visitor_type: v });
+      AN.chipsLive = false; AN.queue = [{ text: ANS[v], dur: 4.5 }]; AN.cut = true;
+      S.blinkStart = clock.elapsedTime; S.lastPtrT = clock.elapsedTime;
+    };
+    if (this.bubble) this.bubble.querySelectorAll('[data-v]').forEach((b) => b.addEventListener('click', () => choose(b.dataset.v)));
     const SEC = [['journey', 'intro'], ['case-studies', 'heineken'], ['prototype', 'heineken'], ['the-loop', 'heineken'], ['buildings-deep-dive', 'buildings'], ['testimonials', 'testimonials'], ['contact', 'cta']];
     const where = () => {
       const mid = S.H * 0.5, prob = document.getElementById('probabilities');
       if (prob) { const r = prob.getBoundingClientRect(); if (+getComputedStyle(prob).opacity > 0.3 && r.top < mid && r.bottom > mid) return { hero: true }; }
       const hero = document.getElementById('v2-hero');
       if (hero) { const r = hero.getBoundingClientRect(); if (+getComputedStyle(hero).opacity > 0.4 && r.top < S.H * 0.6 && r.bottom > S.H * 0.4) return { hero: true }; }
-      for (const [id, k] of SEC) { const el = document.getElementById(id); if (!el) continue; const r = el.getBoundingClientRect(); if (r.height && r.top <= mid && r.bottom >= mid) return { hero: false, key: k }; }
+      for (const [id, k] of SEC) { const el = document.getElementById(id); if (!el) continue; const r = el.getBoundingClientRect(); if (r.height && r.top <= mid && r.bottom >= mid) return { hero: false, key: k, id }; }
       return { hero: false, key: null };
     };
     const nextLine = () => {
@@ -504,15 +540,19 @@ class FurMonsterDock extends HTMLElement {
       const l = draw(AN.key); return l ? { text: l, gib: false } : { text: gibber(), gib: true };
     };
     const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    const fitBub = (cl) => { const K = clamp(S.r / 42, 1.7, 2.7); cl.style.maxWidth = Math.max(110, Math.min(200, (S.W - 32) / K - 36)).toFixed(0) + 'px'; };
+    const bubK = () => S.W < 760 ? clamp(S.r / 56, 1.05, this.num('bubble-small', 1.3)) : clamp(S.r / 42, 1.7, 2.7);
+    const fitBub = (cl) => { const K = bubK(); cl.style.maxWidth = (quiet() ? Math.min(220, S.W * 0.7 / K) : Math.max(110, Math.min(200, (S.W - 32) / K - 36))).toFixed(0) + 'px'; };
     const annoyTick = (t, drawY) => {
-      const now = nowR();
+      const now = nowR(), q = quiet();
       if (now - AN.whereT > 0.3) {
         AN.whereT = now; const w = where();
-        if (w.hero && AN.wasOut) { AN.wasOut = false; AN.inHero = true; fire('return', { force: true }); }
+        if (w.hero && AN.wasOut) { AN.wasOut = false; AN.inHero = true; if (!q) fire('return', { force: true }); }
         if (!w.hero) AN.wasOut = true;
         AN.inHero = w.hero; if (w.key) AN.key = w.key;
+        if (!w.hero && greet()) { if (w.id) AN.seen[w.id] = 1; }
+        else if (q && w.id && !AN.seen[w.id]) { AN.seen[w.id] = 1; fire(w.key); } // once per section
       }
+      if (q) return;
       if (AN.idleArmed && AN.idleCount < 3 && now - AN.lastScroll > 12 && fire('idle')) { AN.idleArmed = false; AN.idleCount++; }
       const docked = S.prog > 0.985 && (S.foot || 0) < 0.05;
       const over = docked && S.hasPtr && !S.touch && !S.ptrOut && Math.hypot((S.ptr.x - S.cx) * S.W / 2, (S.ptr.y - S.cy) * S.H / 2) < S.rPx * 1.1;
@@ -522,13 +562,17 @@ class FurMonsterDock extends HTMLElement {
     };
     const think = (t, drawY) => {
       const bub = this.bubble, cl = bub.firstElementChild, tx = cl.firstElementChild, dots = bub.querySelectorAll('[data-d]');
-      const newSpot = () => { TH.side = Math.random() < 0.5 ? -1 : 1; TH.off = (Math.random() * 0.3 - 0.15); TH.lift = Math.random() * 0.3; TH.rot = (Math.random() * 2 - 1) * 5; };
+      const chipsEl = cl.querySelector('[data-chips]');
+      const newSpot = () => {
+        TH.side = Math.random() < 0.5 ? -1 : 1; TH.off = (Math.random() * 0.3 - 0.15); TH.lift = Math.random() * 0.3; TH.rot = (Math.random() * 2 - 1) * (quiet() ? 2 : 5);
+        TH.chips = false; if (TH.chipsOn) { chipsEl.style.display = 'none'; TH.chipsOn = false; }
+      };
       if (annoy) annoyTick(t, drawY);
       if (annoy && AN.queue.length && (AN.cut || t - TH.t0 >= TH.dur)) {
         AN.cut = false; const q = AN.queue.shift(); newSpot(); fitBub(cl);
-        TH.t0 = t; TH.dur = q.dur; TH.text = q.text; TH.gib = false; TH.shown = null; TH.next = t + q.dur + 1.5 + Math.random() * 1.5;
+        TH.t0 = t; TH.dur = q.dur; TH.text = q.text; TH.gib = false; TH.shown = null; TH.next = t + q.dur + 1.5 + Math.random() * 1.5; TH.chips = !!q.chips;
       }
-      else if (annoy && t > TH.next && t - TH.t0 > TH.dur) {
+      else if (annoy && !quiet() && t > TH.next && t - TH.t0 > TH.dur) {
         const q = AN.muted || (S.fearA || 0) > 0.2 ? null : nextLine();
         if (q) { newSpot(); fitBub(cl); TH.t0 = t; TH.dur = 4; TH.text = q.text; TH.gib = q.gib; TH.shown = null; TH.next = t + 4 + 1.5 + Math.random() * 1.5; }
         else TH.next = t + 1;
@@ -537,10 +581,12 @@ class FurMonsterDock extends HTMLElement {
       else if (TH.poked) { TH.poked = false; newSpot(); TH.t0 = t; TH.dur = 1.8; TH.text = pick(['?!', '#@%&!', 'eep!?', '!!∆!']); TH.next = t + 6 + Math.random() * 6; }
       else if (t > TH.next && t - TH.t0 > TH.dur && !((S.fearA || 0) > 0.2)) { newSpot(); TH.t0 = t; TH.dur = 3 + Math.random() * 1.6; TH.text = gibber(); TH.next = t + TH.dur + 5 + Math.random() * 9; }
       const u = t - TH.t0, out = smooth(TH.dur - 0.3, TH.dur, u), live = u >= 0 && u < TH.dur;
-      if (!live) { if (bub.style.opacity !== '0') bub.style.opacity = '0'; return; }
+      if (!live) { AN.chipsLive = false; if (TH.chipsOn) { chipsEl.style.display = 'none'; TH.chipsOn = false; } if (bub.style.opacity !== '0') bub.style.opacity = '0'; return; }
+      AN.chipsLive = !!TH.chips;
       // typewriter reveal, then the thought keeps churning a glyph at a time
       const k = clamp(Math.floor((u - 0.32) * 26), 0, TH.text.length);
       let s = TH.text.slice(0, k) + (k < TH.text.length && u > 0.32 ? pick(GLY) : '');
+      if (TH.chips && !TH.chipsOn && k >= TH.text.length) { chipsEl.style.display = 'flex'; TH.chipsOn = true; TH.shown = null; }
       if (k >= TH.text.length && t - TH.lastMut > 0.28 && (!annoy || TH.gib)) {
         TH.lastMut = t; const arr = [...TH.text], i = Math.random() * arr.length | 0;
         if (arr[i] !== ' ') arr[i] = Math.random() < 0.5 ? pick(GLY) : arr[i]; TH.text = arr.join('');
@@ -553,16 +599,27 @@ class FurMonsterDock extends HTMLElement {
       dots[1].style.opacity = String(clamp((u - 0.1) / 0.08, 0, 1));
       cl.style.opacity = String(clamp((u - 0.2) / 0.06, 0, 1));
       cl.style.transform = `scale(${(0.2 + 0.8 * back((u - 0.2) / 0.32)).toFixed(3)}) rotate(${((TH.rot || 0) + Math.sin(t * 2.1) * 1.5).toFixed(2)}deg)`;
-      const K = S.W < 760 ? clamp(S.r / 56, 1.05, this.num('bubble-small', 1.3)) : clamp(S.r / 42, 1.7, 2.7), sw = TH.w * K, sh = TH.h * K;
-      // each thought picks its own spot on the head and its own direction
-      let side = TH.side || 1;
-      let ax = S.px + S.r * (TH.off || 0.3), ay = drawY - S.r * (1.08 + (TH.lift || 0)) + Math.sin(t * 2.4) * 2 * K;
-      if (ay - sh < 84) ay = 84 + sh; // no headroom: cloud pinned under the header, dots still rise from the crown
-      if (side > 0 && ax + sw + 12 > S.W) side = -1;
-      if (side < 0 && ax - sw - 12 < 0) side = 1;
-      const flip = side < 0;
-      const bx = clamp(flip ? ax - sw + 8 * K : ax - 8 * K, 8, S.W - sw - 8);
-      const by = Math.max(84, ay - sh);
+      const K = bubK(), sw = TH.w * K, sh = TH.h * K;
+      let ax, ay, bx, by;
+      if (quiet()) {
+        // mobile: hug the box. right-aligned to it, just above the head; in the hero never above the copy's bottom edge
+        ax = S.px; ay = drawY - S.r * 1.12 + Math.sin(t * 2.4) * 1.5;
+        const right = S.px > S.W / 2;
+        bx = clamp(right ? Math.min(S.px + S.r * 1.1, S.W - 8) - sw : S.px - S.r * 1.1, 8, Math.max(8, S.W - sw - 8));
+        by = ay - sh;
+        if (AN.inHero) { const hc = document.getElementById('v2-hero-copy'), fb = hc ? hc.getBoundingClientRect().bottom + 12 : 0; if (fb > by) by = fb; }
+        by = clamp(by, 84, Math.max(84, S.H - sh - 8));
+      } else {
+        // each thought picks its own spot on the head and its own direction
+        let side = TH.side || 1;
+        ax = S.px + S.r * (TH.off || 0.3); ay = drawY - S.r * (1.08 + (TH.lift || 0)) + Math.sin(t * 2.4) * 2 * K;
+        if (ay - sh < 84) ay = 84 + sh; // no headroom: cloud pinned under the header, dots still rise from the crown
+        if (side > 0 && ax + sw + 12 > S.W) side = -1;
+        if (side < 0 && ax - sw - 12 < 0) side = 1;
+        const flip = side < 0;
+        bx = clamp(flip ? ax - sw + 8 * K : ax - 8 * K, 8, S.W - sw - 8);
+        by = Math.max(84, ay - sh);
+      }
       // dots always start at the crown (ax, top of head) and step toward the cloud, wherever it was clamped to
       const hx = (ax - bx) / K, hy = (drawY - S.r * 1.02 - by) / K;
       const cx0 = clamp(hx, 14, TH.w - 14), cy0 = TH.h - 34;
@@ -572,6 +629,7 @@ class FurMonsterDock extends HTMLElement {
         dots[i].style.top = (lerp(hy, cy0, f) - sz / 2).toFixed(1) + 'px';
         dots[i].style.bottom = 'auto';
       });
+      if (hy < TH.h - 10) dots[0].style.opacity = dots[1].style.opacity = '0'; // cloud pushed down onto the head: no tail
       cl.style.transformOrigin = `${cx0.toFixed(0)}px 100%`;
       bub.style.transformOrigin = '0 0';
       bub.style.transform = `translate(${bx.toFixed(1)}px, ${by.toFixed(1)}px) scale(${K.toFixed(3)})`;
@@ -717,6 +775,12 @@ class FurMonsterDock extends HTMLElement {
       const ccy = drawY - cyW * S.r;
       canvas.style.transform = `translate(${(S.px - Rc).toFixed(2)}px, ${(ccy - Rc).toFixed(2)}px) scale(${(2 * Rc / S.buf).toFixed(4)})`;
       S.cx = S.px / S.W * 2 - 1; S.cy = 1 - drawY / S.H * 2; S.rPx = S.r * 1.05;
+      if (this.hit) {
+        let hw = 2.3 * S.r, hh = 1.15 * S.r + S.r * (1.08 + L * Math.max(0, FEET - 1.08)), top = drawY - 1.15 * S.r;
+        if (hw < 48) hw = 48; if (hh < 48) { top -= (48 - hh) / 2; hh = 48; }
+        if (Math.abs(hw - (S.hitW || 0)) > 1 || Math.abs(hh - (S.hitH || 0)) > 1) { S.hitW = hw; S.hitH = hh; this.hit.style.width = hw.toFixed(0) + 'px'; this.hit.style.height = hh.toFixed(0) + 'px'; }
+        this.hit.style.transform = `translate(${(S.px - S.hitW / 2).toFixed(1)}px, ${top.toFixed(1)}px)`;
+      }
       const lb = this.label;
       lb.style.transform = `translate(${S.px.toFixed(1)}px, ${(drawY + S.r * 1.3).toFixed(1)}px) translateX(-50%)`;
       const lw = lb.offsetWidth / 2; // keep the caption on screen; the connector line stays under the creature
@@ -755,6 +819,8 @@ class FurMonsterDock extends HTMLElement {
       S.lean5 = ease(S.lean5 || 0, S.hopping && !R ? S.hopDir : 0, S.hopping ? 8 : 12, dt);
       creature.rotation.set((-S.lean.y * 0.13 - pf * 0.06) * rk, (BASE_YAW * (1 - e * 0.5) + S.idleYaw + S.lean.x * 0.3 + S.walk * 0.5 + (S.hopping ? S.hopDir * 0.25 : 0)) * rk, (-S.lean.x * 0.04 - tilt - (S.hopTilt || 0)) * rk - S.lean5 * 0.087 * D); // ≤5° lean into travel
       if (S.hopSq) { const q = S.hopSq; creature.scale.x *= 1 - q * 0.55; creature.scale.z *= 1 - q * 0.55; creature.scale.y *= 1 + q; }
+      { const pk = (t - (S.pokeAt ?? -9)) / 0.25; // poke: squash then stretch, ~250ms
+        if (pk >= 0 && pk < 1 && !R) { const q = Math.sin(pk * Math.PI * 2) * (1 - pk) * 0.24; creature.scale.y *= 1 - q; creature.scale.x *= 1 + q * 0.55; creature.scale.z *= 1 + q * 0.55; } }
       // fearTarget (set by the page): shrink back + lean away, with a faint tremble
       if ((S.fearA || 0) > 0.001) {
         const f = S.fearA, away = S.fearX != null && S.fearX < S.px ? -1 : 1;
@@ -914,12 +980,24 @@ class FurMonsterDock extends HTMLElement {
     const onMove = (e) => toNdc(e);
     const onDown = (e) => {
       if (e.target.closest && e.target.closest('a,button,input,select,textarea,label')) return;
-      toNdc(e);
-      const distPx = Math.hypot((S.ptr.x - S.cx) * S.W / 2, (S.ptr.y - S.cy) * S.H / 2);
-      if (distPx > S.rPx * 1.35 || !hitBody()) return; // only his body catches pokes
-      S.startleAt = clock.elapsedTime; S.sBlink = false; S.glanceUntil = 0;
-      if (!annoy) TH.poked = true;
-      else if (AN.inHero) { AN.queue = [{ text: pick(['?!', '#@%&!', 'eep!?', '!!∆!']), dur: 1.8 }]; AN.cut = true; }
+      toNdc(e); // eyes follow taps anywhere; pokes go through the DOM hit area below
+    };
+    const hit = this.hit;
+    const buzz = (ms) => { try { if (typeof navigator.vibrate === 'function') navigator.vibrate(ms); } catch (_) {} }; // no-op on iOS
+    const poke = () => {
+      const t = clock.elapsedTime;
+      S.startleAt = t; S.sBlink = true; S.blinkStart = t; S.pokeAt = t; S.glanceUntil = 0; S.lastPtrT = t;
+      S.nextBlink = t + 3.2 + Math.random() * 3;
+      if (!this.isReduced()) S.puffV += 5;
+      buzz(15);
+      if (!annoy) { TH.poked = true; return; }
+      if (AN.chipsLive) return; // let them answer
+      if (!AN.muted && !VT.stored && !VT.chipsDone) {
+        VT.chipsDone = true; VT.greeted = true; sess.set(VT_SEEN, '1');
+        AN.queue = [{ text: '62% recruiter. 30% curious. 8% your mum.', dur: 14, chips: true }]; AN.cut = true; return;
+      }
+      if (greet()) return;
+      if (AN.inHero) { AN.queue = [{ text: pick(['?!', '#@%&!', 'eep!?', '!!∆!']), dur: 1.8 }]; AN.cut = true; }
       else if (!AN.muted && nowR() >= AN.lockUntil) {
         const n = nowR(); if (n - AN.lastClick > 5) AN.clickN = 0;
         AN.lastClick = n; AN.clickN++;
@@ -927,11 +1005,34 @@ class FurMonsterDock extends HTMLElement {
         if (line && AN.clickN >= 5) { fire('click', { text: line, dur: 2.6, then: [{ text: '...', dur: 10 }, { text: '...fine. what.', dur: 3 }] }); AN.lockUntil = n + 15.6; AN.clickN = 0; }
         else if (line) fire('click', { text: line, dur: 2.2 });
       }
-      S.nextBlink = S.startleAt + 3.2 + Math.random() * 3;
-      if (!this.isReduced()) S.puffV += 9;
     };
+    // long-press (600ms) toggles mute
+    const LP = { id: null, timer: 0, x: 0, y: 0 };
+    const lpCancel = () => { clearTimeout(LP.timer); LP.id = null; };
+    const longPress = () => {
+      LP.id = null; const t = clock.elapsedTime;
+      S.blinkStart = t; S.pokeAt = t; S.lastPtrT = t; buzz(15);
+      if (!annoy) return;
+      AN.muted = !AN.muted; AN.lastDots = nowR();
+      AN.chipsLive = false; AN.queue = [{ text: draw(AN.muted ? 'mute' : 'unmute') || (AN.muted ? 'fine.' : 'hi.'), dur: 2.6 }]; AN.cut = true;
+    };
+    const onHitDown = (e) => {
+      if (e.button > 0) return;
+      toNdc(e); lpCancel(); LP.id = e.pointerId; LP.x = e.clientX; LP.y = e.clientY;
+      try { hit.setPointerCapture(e.pointerId); } catch (_) {}
+      LP.timer = setTimeout(longPress, 600);
+    };
+    const onHitMove = (e) => { if (e.pointerId === LP.id && Math.hypot(e.clientX - LP.x, e.clientY - LP.y) > 14) lpCancel(); };
+    const onHitUp = (e) => { if (e.pointerId !== LP.id) return; lpCancel(); poke(); };
+    const onHitClick = (e) => { if (e.detail === 0) poke(); }; // keyboard Enter / Space
+    const noMenu = (e) => e.preventDefault();
+    if (hit) {
+      hit.addEventListener('pointerdown', onHitDown); hit.addEventListener('pointermove', onHitMove);
+      hit.addEventListener('pointerup', onHitUp); hit.addEventListener('pointercancel', lpCancel);
+      hit.addEventListener('click', onHitClick); hit.addEventListener('contextmenu', noMenu);
+    }
     window.addEventListener('pointermove', onMove, { passive: true });
-    window.addEventListener('pointerdown', onDown);
+    window.addEventListener('pointerdown', onDown, { passive: true });
     const onOut = (e) => { if (!e.relatedTarget) S.ptrOut = true; };
     const onBlur = () => { S.ptrOut = true; };
     document.addEventListener('pointerout', onOut); window.addEventListener('blur', onBlur);
@@ -967,7 +1068,7 @@ class FurMonsterDock extends HTMLElement {
     update();
 
     this.cleanup = () => {
-      renderer.setAnimationLoop(null); ro.disconnect();
+      renderer.setAnimationLoop(null); ro.disconnect(); clearTimeout(LP.timer);
       window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', kick);
       window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerdown', onDown); document.removeEventListener('pointerout', onOut); window.removeEventListener('blur', onBlur);
       document.removeEventListener('visibilitychange', update); document.removeEventListener('visibilitychange', onVisA);
