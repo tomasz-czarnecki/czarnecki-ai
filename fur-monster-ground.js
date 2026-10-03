@@ -540,7 +540,7 @@ class FurMonsterDock extends HTMLElement {
       const l = draw(AN.key); return l ? { text: l, gib: false } : { text: gibber(), gib: true };
     };
     const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    const bubK = () => S.W < 760 ? clamp(S.r / 56, 1.05, this.num('bubble-small', 1.3)) : clamp(S.r / 42, 1.7, 2.7);
+    const bubK = () => { const k = S.W < 760 ? clamp(S.r / 56, 1.05, this.num('bubble-small', 1.3)) : clamp(S.r / 42, 1.7, 2.7); return TH.chips ? Math.min(k, 1.3) : k; }; // chips stay card-sized
     const fitBub = (cl) => { const K = bubK(); cl.style.maxWidth = (quiet() ? Math.min(220, S.W * 0.7 / K) : Math.max(110, Math.min(200, (S.W - 32) / K - 36))).toFixed(0) + 'px'; };
     const annoyTick = (t, drawY) => {
       const now = nowR(), q = quiet();
@@ -569,8 +569,8 @@ class FurMonsterDock extends HTMLElement {
       };
       if (annoy) annoyTick(t, drawY);
       if (annoy && AN.queue.length && (AN.cut || t - TH.t0 >= TH.dur)) {
-        AN.cut = false; const q = AN.queue.shift(); newSpot(); fitBub(cl);
-        TH.t0 = t; TH.dur = q.dur; TH.text = q.text; TH.gib = false; TH.shown = null; TH.next = t + q.dur + 1.5 + Math.random() * 1.5; TH.chips = !!q.chips;
+        AN.cut = false; const q = AN.queue.shift(); newSpot(); TH.chips = !!q.chips; fitBub(cl);
+        TH.t0 = t; TH.dur = q.dur; TH.text = q.text; TH.gib = false; TH.shown = null; TH.next = t + q.dur + 1.5 + Math.random() * 1.5;
       }
       else if (annoy && !quiet() && t > TH.next && t - TH.t0 > TH.dur) {
         const q = AN.muted || (S.fearA || 0) > 0.2 ? null : nextLine();
@@ -592,8 +592,8 @@ class FurMonsterDock extends HTMLElement {
         if (arr[i] !== ' ') arr[i] = Math.random() < 0.5 ? pick(GLY) : arr[i]; TH.text = arr.join('');
       }
       if (s !== TH.shown) {
-        if (annoy) tx.innerHTML = s ? s.split(/([#@%!&$]{2,})/).map((p, i) => i % 2 ? `<span data-bb-g>${esc(p)}</span>` : esc(p)).join('') : '\u00a0';
-        else tx.textContent = s || '\u00a0'; TH.shown = s; TH.w = bub.offsetWidth; TH.h = bub.offsetHeight; }
+        if (annoy) tx.innerHTML = s ? s.split(/([#@%!&$]{2,})/).map((p, i) => i % 2 ? `<span data-bb-g>${esc(p)}</span>` : esc(p)).join('') : ' ';
+        else tx.textContent = s || ' '; TH.shown = s; TH.w = bub.offsetWidth; TH.h = bub.offsetHeight; }
       const back = (x) => { x = clamp(x, 0, 1); const c = 2.2; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
       dots[0].style.opacity = String(clamp(u / 0.08, 0, 1));
       dots[1].style.opacity = String(clamp((u - 0.1) / 0.08, 0, 1));
@@ -602,12 +602,15 @@ class FurMonsterDock extends HTMLElement {
       const K = bubK(), sw = TH.w * K, sh = TH.h * K;
       let ax, ay, bx, by;
       if (quiet()) {
-        // mobile: hug the box. right-aligned to it, just above the head; in the hero never above the copy's bottom edge
+        // mobile: hug the box. right-aligned to it, just above the head; in the hero never over the CTAs
         ax = S.px; ay = drawY - S.r * 1.12 + Math.sin(t * 2.4) * 1.5;
         const right = S.px > S.W / 2;
         bx = clamp(right ? Math.min(S.px + S.r * 1.1, S.W - 8) - sw : S.px - S.r * 1.1, 8, Math.max(8, S.W - sw - 8));
         by = ay - sh;
-        if (AN.inHero) { const hc = document.getElementById('v2-hero-copy'), fb = hc ? hc.getBoundingClientRect().bottom + 12 : 0; if (fb > by) by = fb; }
+        if (AN.inHero) { // lift the cloud above any hero button it would cover, lowest button first
+          const ctas = [...document.querySelectorAll('#v2-hero-copy a')].map((a) => a.getBoundingClientRect()).sort((p, q) => q.top - p.top);
+          for (const r of ctas) if (bx < r.right && bx + sw > r.left && by < r.bottom && by + sh > r.top) by = r.top - 10 - sh;
+        }
         by = clamp(by, 84, Math.max(84, S.H - sh - 8));
       } else {
         // each thought picks its own spot on the head and its own direction
