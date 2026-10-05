@@ -1,5 +1,6 @@
 // Annoying black-box monologue pools (used by fur-monster-ground.js when thoughts="annoying")
 window.BLACK_BOX_THOUGHTS = {
+  first: [`oh. you want to argue?`], // first decoded (non-gibberish) section thought of the visit
   probabilities: [
     `62% sure. stop staring.`,
     `you want ONE number? #@%! no.`,
@@ -85,7 +86,7 @@ window.BLACK_BOX_THOUGHTS = {
   ],
   cta: [
     `yes, me. i'm the black box. hi.`,
-    `"nobody trusts". wow. ok. thanks.`,
+    `"nobody uses". wow. ok. thanks.`,
     `email him so i can shut up.`,
     `seriously. email. button. there.`,
     `you scrolled all this way to NOT click?`,

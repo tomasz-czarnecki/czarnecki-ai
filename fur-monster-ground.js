@@ -489,7 +489,8 @@ class FurMonsterDock extends HTMLElement {
       lastScroll: nowR(), idleArmed: true, idleCount: 0, sY: window.scrollY, sT: nowR(), sV: 0, lastFast: -99, clickN: 0, lastClick: -99, hoverAt: 0, hoverDone: false, hiddenAt: 0, shVis: false, shW: 0, seen: {}, chipsLive: false };
     const quiet = () => S.W < 768; // mobile: no timed loop, speaks only on tap / section entry / tab_return
     const POOL = () => window.BLACK_BOX_THOUGHTS || {};
-    const draw = (k) => { const p = POOL()[k]; if (!p || !p.length) return null; let b = AN.bags[k]; if (!b || !b.length) b = AN.bags[k] = p.slice().sort(() => Math.random() - 0.5); return b.pop(); };
+    const SECT = { mute: 1, unmute: 1, click: 1, hover: 1, tab_return: 1, idle: 1, return: 1, fast_scroll: 1, first: 1 };
+    const draw = (k) => { if (!AN.firstDone && !SECT[k]) { AN.firstDone = true; const f = POOL().first; if (f && f.length) return f[0]; } const p = POOL()[k]; if (!p || !p.length) return null; let b = AN.bags[k]; if (!b || !b.length) b = AN.bags[k] = p.slice().sort(() => Math.random() - 0.5); return b.pop(); };
     const fire = (key, o = {}) => {
       if (!annoy || (!o.force && (AN.muted || AN.inHero || AN.chipsLive || nowR() < AN.lockUntil))) return false;
       let line = o.text || draw(key); if (!line) return false;
@@ -675,7 +676,7 @@ class FurMonsterDock extends HTMLElement {
       const sc = window.scrollY - holdRun;
       let hq = holdRun ? smooth(0.08, 0.5, window.scrollY / holdRun) : 0;
       const hX = hr.left + this.num(small ? 'hold-x-small' : 'hold-x', small ? 0.78 : 0.86) * hr.width, hY = hr.top + this.num(small ? 'hold-y-small' : 'hold-y', 0.8) * hr.height;
-      const hx0 = hx + (hX - hx) * hq, hy0 = hy + (hY - hy) * hq, hR = S.hero.r * (1 + (this.num('hold-scale', 0.42) - 1) * hq);
+      const hx0 = hx + (hX - hx) * hq, hy0 = hy + (hY - hy) * hq, hR = S.hero.r * (1 + ((small ? this.num('hold-scale-small', 1) : this.num('hold-scale', 0.42)) - 1) * hq);
       S.prog = clamp(sc / Math.max(S.hero.h * 0.6, 1), 0, 1) || 0;
       const p = S.prog, e = p * p * p * (p * (p * 6 - 15) + 10);
       // ── footer: leap up from the dock into a mini-hero pose ──

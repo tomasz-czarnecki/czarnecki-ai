@@ -1,7 +1,7 @@
 // <loop-track> — a rounded-rectangle feedback loop drawn through the [data-node] markers of the nearest [data-track] container.
 // A comet runs the loop in node order, dwelling at each stop and lighting matching [data-step] items. Hover a [data-step] to send it there.
 // [data-track-mask] elements punch holes in the base line (so labels sitting on the line stay clean).
-// attrs: accent · ink · dwell (s) · speed (px/s)
+// attrs: accent · ink · dwell (s) · speed (px/s) · wait (comet hidden and parked until el.start() is called)
 (() => {
 if (customElements.get('loop-track')) return;
 const rgb = (h) => { h = String(h || '').replace('#', ''); if (h.length === 3) h = h.replace(/./g, (c) => c + c); const n = parseInt(h, 16) || 0; return [n >> 16 & 255, n >> 8 & 255, n & 255]; };
@@ -16,6 +16,7 @@ class LoopTrack extends HTMLElement {
     c.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;';
     this.appendChild(c);
     this.reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.waiting = this.hasAttribute('wait') && !this.reduce;
     this.box = this.closest('[data-track]') || this.parentElement.closest('[data-track]') || this.parentElement;
     this.root = this.closest('section') || document.body;
     this.cur = 0; this.next = null; this.pos = 0; this.t0 = 0; this.dwellT = 0; this.hold = null; this.pulses = []; this.vis = true; this.last = 0; this.frameN = 0;
@@ -25,13 +26,19 @@ class LoopTrack extends HTMLElement {
     this.onLeave = () => { this.hold = null; };
     this.root.addEventListener('pointerover', this.onOver);
     this.root.addEventListener('pointerleave', this.onLeave);
-    this.size(); this.measure(); this.sync(0);
+    this.size(); this.measure(); this.sync(this.waiting ? -1 : 0);
     const loop = (now) => { this.raf = requestAnimationFrame(loop); if (this.vis && !document.hidden) this.frame(now / 1000); };
     this.raf = requestAnimationFrame(loop);
   }
   disconnectedCallback() {
     cancelAnimationFrame(this.raf); this.ro && this.ro.disconnect(); this.io && this.io.disconnect();
     this.root.removeEventListener('pointerover', this.onOver); this.root.removeEventListener('pointerleave', this.onLeave);
+  }
+  start() {
+    if (!this.waiting) return;
+    this.waiting = false; this.cur = 0; this.next = null; this.dwellT = 0; this.last = 0;
+    if (this.stops) this.pos = this.stops[0];
+    this.pulses.push({ i: 0, t: performance.now() / 1000 }); this.sync(0);
   }
   size() {
     const r = this.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1);
@@ -83,7 +90,8 @@ class LoopTrack extends HTMLElement {
     if (!this.pts) return;
     const dt = Math.min(0.05, this.last ? now - this.last : 0); this.last = now;
     const N = this.stops.length, S = this.stops, L = this.L, speed = this.num('speed', 520);
-    if (!this.reduce) {
+    if (this.waiting) this.pos = S[0];
+    else if (!this.reduce) {
       if (this.next == null) {
         const goal = this.hold != null ? mod(this.hold, N) : null;
         if (goal != null && goal !== this.cur) { this.next = goal; this.t0 = now; this.from = S[this.cur]; this.dist = mod(S[goal] - S[this.cur], L); }
@@ -118,6 +126,7 @@ class LoopTrack extends HTMLElement {
     (this.masks || []).forEach((m) => ctx.fillRect(m.x - 14, m.y - 8, m.w + 28, m.h + 16));
     this.nodes.forEach((n) => { ctx.beginPath(); ctx.arc(n.x, n.y, 16, 0, 7); ctx.fill(); });
     ctx.restore();
+    if (this.waiting) return;
     // comet trail
     const TL = 260, STEP = 4;
     for (let d = TL; d > 0; d -= STEP) {
