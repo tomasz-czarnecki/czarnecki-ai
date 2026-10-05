@@ -37,44 +37,19 @@
   ::selection{ background:#FF7A3D; color:#08070b; }
   a{ color:#f4f2f7; }
   a:hover{ opacity:0.9; }
-  @media (max-width:760px){ #v2-builder-grid > a{ grid-column:1 / -1 !important; } }
   @media (max-width:920px){
     #v2-nav{ display:none !important; }
-    #v3-loop-grid{ grid-template-columns:minmax(0,1fr) !important; }
-    #v3-track-head{ grid-template-columns:minmax(0,1fr) !important; }
     #v3-track-grid{ grid-template-columns:minmax(0,1fr) !important; gap:40px !important; }
     #v3-track-grid > div{ display:grid !important; grid-template-columns:14px minmax(0,1fr); column-gap:20px; align-items:start; }
     #v3-track-grid > div > div{ margin-top:0 !important; }
     #v3-track-grid > div > span{ margin-top:4px; }
-    #v3-cases > a, #v3-ecom > div{ position:relative !important; top:auto !important; grid-template-columns:minmax(0,1fr) !important; min-height:0 !important; }
-    #v3-about-grid{ grid-template-columns:minmax(0,1fr) !important; }
-    #v3-quotes{ grid-template-columns:minmax(0,1fr) !important; gap:56px !important; }
-    #v3-intro-grid{ grid-template-columns:minmax(0,1fr) !important; }
-    [data-career-row]{ grid-template-columns:minmax(0,1fr) !important; gap:14px !important; }
-    #v3-logos{ grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
-    #v3-logos > div:first-child{ grid-column:1 / -1 !important; }
-    #v3-logos > div{ border-left:0 !important; padding-left:0 !important; }
+    #v3-cases > a{ position:relative !important; top:auto !important; grid-template-columns:minmax(0,1fr) !important; min-height:0 !important; }
   }
   @media (max-width:780px){
     #v2-hero-frame{ justify-content:flex-start !important; }
     #v2-hero-copy{ max-width:none !important; }
     #v2-hero-title{ font-size:clamp(2rem,9.6vw,3.2rem) !important; max-width:none !important; }
     #v2-hero-portrait{ width:64px !important; }
-    #v3-career-strip{ grid-template-columns:minmax(0,1fr) !important; gap:26px !important; padding-left:24px !important; }
-    #v3-career-strip::before{ content:''; position:absolute; left:4px; top:8px; bottom:8px; width:1px; background:#2A2932; }
-    #v3-career-strip > button{ gap:6px !important; padding-right:0 !important; }
-    [data-career-noderow]{ position:absolute !important; left:-24px; top:3px; margin:0 !important; }
-    [data-career-seg]{ display:none !important; }
-    [data-career-inline]{ display:block !important; margin-top:4px; }
-    #v3-career-detail{ display:none !important; }
-    #v3-archive-pair{ grid-template-columns:minmax(0,1fr) !important; gap:20px !important; }
-    #v3-archive-arrow{ transform:rotate(90deg) !important; }
-    #v2-yaga-grid{ grid-template-columns:minmax(0,1fr) !important; gap:36px !important; }
-    #v2-yaga-fig{ justify-content:flex-start !important; padding-top:84px !important; padding-left:4% !important; }
-    #v2-yaga-box{ height:min(420px, 110vw) !important; }
-    #v2-yaga-bubble{ left:72% !important; bottom:82% !important; max-width:min(190px, 44vw) !important; padding-bottom:40px !important; }
-    #v2-yaga-cloud{ font-size:12.5px !important; padding:18px 28px 20px !important; border-width:2px !important; box-shadow:3px 3px 0 #1A1814 !important; }
-    #v2-yaga-text{ top:18px !important; left:28px !important; right:28px !important; }
   }
 </style>
 <script src="./black-box-thoughts.js"></script>
@@ -190,7 +165,6 @@
     <!-- 03 THE LOOP -->
     <section id="the-loop" style="position:relative; padding:clamp(40px,4.5vw,64px) 0 clamp(40px,4.5vw,64px); scroll-margin-top:72px;" data-om-label="The loop" data-screen-label="The Loop">
       <div style="position:relative; max-width:1320px; margin:0 auto; padding:0 clamp(20px,4.5vw,48px);">
-        <sc-if value="{{ loopTrack }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#7E7B89;"><span style="width:10px; height:10px; border-radius:3px; background:#FF7A3D; flex:none;"></span><span style="color:#f4f2f7;">03</span><span>The loop</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#2A2932,rgba(42,41,50,0));"></span></div>
         <h2 data-reveal="" style="font-weight:500; font-size:clamp(44px,5.8vw,96px); line-height:0.95; letter-spacing:-0.048em; margin:clamp(28px,3.4vw,44px) 0 0 0; color:#f4f2f7; max-width:18ch; text-wrap:balance;">Three questions. One loop.</h2>
         <div data-track="" style="position:relative; margin-top:clamp(56px,6vw,80px); padding:0 clamp(6px,1vw,12px);">
@@ -229,58 +203,6 @@
             </div>
           </div>
         </div>
-        </sc-if>
-
-        <sc-if value="{{ loopOrbit }}" hint-placeholder-val="{{ false }}">
-        <div id="v3-loop-grid" style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(32px,5vw,80px); align-items:center; margin-top:clamp(28px,3.4vw,44px);">
-          <div style="min-width:0;">
-            <h2 data-reveal="" style="font-weight:500; font-size:clamp(44px,5.8vw,96px); line-height:0.95; letter-spacing:-0.048em; margin:0; color:#f4f2f7; text-wrap:balance;">Three systems, one decision loop</h2>
-            <p style="font-size:16px; line-height:1.64; color:#A09DAA; margin:24px 0 0 0; max-width:48ch; text-wrap:pretty;">Every euro of Heineken's ~€2.9B marketing budget answers three questions: where to spend (Allocation AI), what to promote (Promo Advisor), when to promote (Smart Flighting). Three systems, wired to <span style="color:#f4f2f7; font-weight:500; border-bottom:1.5px solid #FF7A3D; padding-bottom:1px;">run as one loop</span>, not three separate tools.</p>
-            <div style="margin-top:clamp(28px,3.4vw,40px);">
-              <div data-step="0" style="display:grid; grid-template-columns:10px minmax(0,1fr); gap:16px; padding:16px 0; border-top:1px solid #1F1E26; opacity:0.4; transition:opacity 0.5s ease; cursor:default;">
-                <span data-step-dot="" style="width:10px; height:10px; border-radius:3px; background:#3A3845; margin-top:9px; transition:background 0.4s ease;"></span>
-                <div>
-                  <div style="display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;"><span style="font-size:24px; font-weight:500; letter-spacing:-0.02em;">Where?</span><span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:#8A8795;">01 · Allocation AI</span></div>
-                  <div style="font-size:14px; line-height:1.6; color:#A09DAA; margin-top:6px; max-width:52ch;">Wherever the response curve says the next euro pays back best, by OpCo, brand and channel.</div>
-                </div>
-              </div>
-              <div data-step="1" style="display:grid; grid-template-columns:10px minmax(0,1fr); gap:16px; padding:16px 0; border-top:1px solid #1F1E26; opacity:0.4; transition:opacity 0.5s ease; cursor:default;">
-                <span data-step-dot="" style="width:10px; height:10px; border-radius:3px; background:#3A3845; margin-top:9px; transition:background 0.4s ease;"></span>
-                <div>
-                  <div style="display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;"><span style="font-size:24px; font-weight:500; letter-spacing:-0.02em;">What?</span><span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:#8A8795;">02 · Promo Advisor</span></div>
-                  <div style="font-size:14px; line-height:1.6; color:#A09DAA; margin-top:6px; max-width:52ch;">Whichever offer, mechanic and price simulate the best lift, tested before they ever launch.</div>
-                </div>
-              </div>
-              <div data-step="2" style="display:grid; grid-template-columns:10px minmax(0,1fr); gap:16px; padding:16px 0; border-top:1px solid #1F1E26; opacity:0.4; transition:opacity 0.5s ease; cursor:default;">
-                <span data-step-dot="" style="width:10px; height:10px; border-radius:3px; background:#3A3845; margin-top:9px; transition:background 0.4s ease;"></span>
-                <div>
-                  <div style="display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;"><span style="font-size:24px; font-weight:500; letter-spacing:-0.02em;">When?</span><span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:#8A8795;">03 · Smart Flighting</span></div>
-                  <div style="font-size:14px; line-height:1.6; color:#A09DAA; margin-top:6px; max-width:52ch;">Whenever the AI response curve says that spend actually converts, week by week.</div>
-                </div>
-              </div>
-              <div data-step="3" style="display:grid; grid-template-columns:10px minmax(0,1fr); gap:16px; padding:16px 0; border-top:1px solid #1F1E26; border-bottom:1px solid #1F1E26; opacity:0.4; transition:opacity 0.5s ease; cursor:default;">
-                <span data-step-dot="" style="width:10px; height:10px; border-radius:3px; background:#3A3845; margin-top:9px; transition:background 0.4s ease;"></span>
-                <div>
-                  <div style="display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;"><span style="font-size:24px; font-weight:500; letter-spacing:-0.02em;">Loop</span><span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:#8A8795;">04 · Measured lift, fed back</span></div>
-                  <div style="font-size:14px; line-height:1.6; color:#A09DAA; margin-top:6px; max-width:52ch;">The same three questions, asked again next year, now answered with measured lift.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div style="position:relative; width:100%; max-width:640px; aspect-ratio:1; justify-self:center;">
-            <x-import component-from-global-scope="loop-orbit" from="./loop-orbit.js" nodes="4" r="0.34" accent="#FF7A3D" ink="#f4f2f7" dwell="{{ orbitDwell }}" hint-size="100%,100%" style="position:absolute; inset:0;"></x-import>
-            <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; pointer-events:none; text-align:center;">
-              <div style="font-weight:500; font-size:clamp(44px,6.2vw,104px); line-height:0.86; letter-spacing:-0.055em; color:#f4f2f7;">€2.9B</div>
-              <div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; letter-spacing:0.18em; text-transform:uppercase; color:#8A8795; margin-top:14px;">a year · one loop</div>
-            </div>
-            <div data-step="0" style="position:absolute; left:50%; top:16%; transform:translate(-50%, calc(-100% - 18px)); display:flex; align-items:center; gap:8px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#f4f2f7; white-space:nowrap; opacity:0.4; transition:opacity 0.5s ease;"><span data-step-dot="" style="width:7px; height:7px; border-radius:2px; background:#3A3845;"></span>Where</div>
-            <div data-step="1" style="position:absolute; left:84%; top:50%; transform:translate(-50%, calc(-100% - 18px)); display:flex; align-items:center; gap:8px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#f4f2f7; white-space:nowrap; opacity:0.4; transition:opacity 0.5s ease;"><span data-step-dot="" style="width:7px; height:7px; border-radius:2px; background:#3A3845;"></span>What</div>
-            <div data-step="2" style="position:absolute; left:50%; top:84%; transform:translate(-50%, 18px); display:flex; align-items:center; gap:8px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#f4f2f7; white-space:nowrap; opacity:0.4; transition:opacity 0.5s ease;"><span data-step-dot="" style="width:7px; height:7px; border-radius:2px; background:#3A3845;"></span>When</div>
-            <div data-step="3" style="position:absolute; left:16%; top:50%; transform:translate(-50%, calc(-100% - 18px)); display:flex; align-items:center; gap:8px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#f4f2f7; white-space:nowrap; opacity:0.4; transition:opacity 0.5s ease;"><span data-step-dot="" style="width:7px; height:7px; border-radius:2px; background:#3A3845;"></span>Loop</div>
-          </div>
-        </div>
-        </sc-if>
 
         <div style="display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; margin-top:clamp(56px,6vw,80px);">
           <div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#7E7B89;">One system per question</div>
@@ -453,220 +375,6 @@
       </div>
     </section>
 
-    <!-- PARKED SECTIONS: hidden, kept for later -->
-    <div data-om-label="Parked sections" hidden="" style="display:none;">
-    <!-- CAREER (parked): four eras, one method -->
-    <section id="career" style="position:relative; padding:clamp(40px,4.5vw,64px) 0 clamp(40px,4.5vw,64px); scroll-margin-top:72px;" data-om-label="Career" data-screen-label="Career">
-      <div style="position:relative; max-width:1320px; margin:0 auto; padding:0 clamp(20px,4.5vw,48px);">
-        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#7E7B89;"><span style="width:10px; height:10px; border-radius:3px; background:#FF7A3D; flex:none;"></span><span style="color:#f4f2f7;">05</span><span>Career</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#2A2932,rgba(42,41,50,0));"></span></div>
-        <h2 data-reveal="" style="font-weight:500; font-size:clamp(44px,5.8vw,96px); line-height:0.95; letter-spacing:-0.048em; margin:clamp(28px,3.4vw,44px) 0 0 0; color:#f4f2f7; max-width:18ch; text-wrap:balance;">Four eras, one method.</h2>
-        <p data-reveal="" data-om-label="First person three times" style="font-size:clamp(16px,1.4vw,19px); line-height:1.6; color:#A09DAA; max-width:56ch; margin:clamp(20px,2.4vw,32px) 0 0 0; text-wrap:pretty;"><span style="color:#f4f2f7; font-weight:500;">I've been the first person inside something new three times.</span> I was the first hire at a Chinese architecture firm's European office and set it up in Poland from zero. At MAD Architects in Beijing, I was one of two founding members of the parametric design group. And I was the first product person in Heineken's Global Analytics &amp; AI Hub.</p>
-        <div data-reveal="" onMouseLeave="{{ careerReset }}" style="margin-top:clamp(40px,5vw,64px); border-bottom:1px solid #1F1E26;">
-          <sc-for list="{{ careerEras }}" as="c" hint-placeholder-count="5">
-            <div data-career-row="" onMouseEnter="{{ c.enter }}" style="display:grid; grid-template-columns:minmax(150px,0.8fr) minmax(0,2.4fr) minmax(0,1.6fr); gap:clamp(16px,2.4vw,40px); align-items:center; padding:clamp(28px,3.4vw,44px) 0; border-top:1px solid #1F1E26; cursor:default;">
-              <div style="display:flex; flex-direction:column; gap:6px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase;">
-                <span style="display:flex; align-items:center; gap:10px; color:{{ c.yearColor }}; transition:color .3s;"><span style="width:8px; height:8px; border-radius:2px; background:{{ c.node }}; flex:none; transition:background .3s;"></span>{{ c.y }}</span>
-                <span style="color:#7E7B89;">{{ c.org }}</span>
-              </div>
-              <div style="min-width:0;">
-                <div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#7E7B89;">{{ c.verb }}</div>
-                <div style="font-weight:500; font-size:clamp(56px,8vw,128px); line-height:0.95; letter-spacing:-0.055em; color:{{ c.wordColor }}; transition:color .4s; margin-top:6px; overflow-wrap:anywhere;">{{ c.w }}</div>
-              </div>
-              <div style="display:flex; flex-direction:column; gap:14px; min-width:0;">
-                <p style="margin:0; font-size:15px; line-height:1.6; color:#A09DAA; text-wrap:pretty;"><sc-for list="{{ c.parts }}" as="pt" hint-placeholder-count="1"><sc-if value="{{ pt.chip }}" hint-placeholder-val="{{ false }}"><span style="display:inline-block; background:#FF7A3D; color:#08070b; font-weight:500; padding:0 6px; border-radius:3px; line-height:1.5;">{{ pt.text }}</span></sc-if><sc-if value="{{ pt.plain }}" hint-placeholder-val="{{ true }}">{{ pt.text }}</sc-if></sc-for></p>
-                <span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:#6E6B79;">{{ c.tags }}</span>
-              </div>
-            </div>
-          </sc-for>
-        </div>
-      </div>
-    </section>
-    <!-- 03 BUILDING IN PUBLIC -->
-    <section id="building" style="position:relative; padding:clamp(40px,4.5vw,64px) 0 clamp(40px,4.5vw,64px); scroll-margin-top:72px;" data-om-label="Building in Public" data-screen-label="Building">
-      <span id="videos" style="display:block; position:relative; top:-90px;"></span>
-      <div style="max-width:1320px; margin:0 auto; padding:0 clamp(20px,4.5vw,48px);">
-        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#7E7B89;"><span style="width:10px; height:10px; border-radius:3px; background:#FF7A3D; flex:none;"></span><span style="color:#f4f2f7;">07</span><span>Building in public</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#2A2932,rgba(42,41,50,0));"></span></div>
-        <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:28px; flex-wrap:wrap; margin:clamp(28px,3.4vw,44px) 0 clamp(36px,4.4vw,52px);">
-          <div style="min-width:0;">
-            <h2 data-reveal="" style="font-weight:500; font-size:clamp(44px,5.8vw,96px); line-height:0.95; letter-spacing:-0.048em; margin:0; color:#f4f2f7;">Things I'm building</h2>
-            <p style="font-size:16px; line-height:1.64; color:#A09DAA; margin:20px 0 0 0; max-width:52ch;">Side projects, and the short videos I record while shipping them. New uploads land here automatically.</p>
-          </div>
-          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:6px;">
-            <sc-for list="{{ builderFilters }}" as="f" hint-placeholder-count="2">
-              <button onClick="{{ f.pick }}" style="font-family:inherit; font-size:13px; font-weight:500; padding:9px 16px; border-radius:999px; cursor:pointer; border:1px solid {{ f.border }}; background:{{ f.bg }}; color:{{ f.fg }};">{{ f.label }}</button>
-            </sc-for>
-          </div>
-        </div>
-        <div id="v2-builder-grid" style="display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:16px;">
-          <sc-for list="{{ builderItems }}" as="it" hint-placeholder-count="7">
-            <a href="{{ it.href }}" target="{{ it.target }}" rel="noopener" style="grid-column:span {{ it.span6 }}; text-decoration:none; color:#f4f2f7; display:flex; flex-direction:column; border:1px solid #1F1E26; border-radius:20px; overflow:hidden; background:#0E0D13; padding:8px; transition:background 0.25s, border-color 0.25s, transform 0.35s cubic-bezier(.16,.8,.24,1);" style-hover="background:#15141B; border-color:#44424F; transform:translateY(-4px); opacity:1;">
-              <span style="position:relative; display:block; height:230px; overflow:hidden; border-radius:14px; background:{{ it.bg }};">
-                <x-import component-from-global-scope="grad-plate" from="./grad-canvases.js" colors="{{ it.colors }}" bg="{{ it.bg }}" ink="#FDFBF6" art="{{ it.art }}" art-r="{{ it.artR }}" grain="0.4" seed="{{ it.seed }}" hint-size="100%,230px" style="position:absolute; inset:0;"></x-import>
-                <sc-if value="{{ it.hasThumb }}" hint-placeholder-val="{{ false }}">
-                  <span style="position:absolute; inset:0; background-image:url({{ it.thumb }}); background-size:cover; background-position:center; display:block;"></span>
-                </sc-if>
-                <sc-if value="{{ it.isVideo }}" hint-placeholder-val="{{ false }}">
-                  <span style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(8,7,11,0) 55%, rgba(8,7,11,0.4) 100%);"></span>
-                  <span style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:58px; height:58px; border-radius:999px; background:#FF7A3D; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 8px rgba(255,122,61,0.16), 0 8px 22px rgba(0,0,0,0.3);"><span style="display:block; width:0; height:0; border-style:solid; border-width:8px 0 8px 14px; border-color:transparent transparent transparent #08070b; margin-left:4px;"></span></span>
-                </sc-if>
-              </span>
-              <span style="display:flex; flex-direction:column; gap:10px; padding:20px 16px 14px; flex:1;">
-                <span style="display:flex; align-items:center; gap:8px; font-family:'Geist Mono',ui-monospace,monospace; font-size:10px; font-weight:400; letter-spacing:0.14em; text-transform:uppercase; color:{{ it.tagInk }};"><span style="width:6px; height:6px; border-radius:2px; background:{{ it.tagDot }};"></span>{{ it.tag }}</span>
-                <span style="font-size:20px; font-weight:500; letter-spacing:-0.02em; line-height:1.3;">{{ it.title }}</span>
-                <span style="font-size:14px; line-height:1.6; color:#A09DAA; max-width:48ch;">{{ it.body }}</span>
-                <span style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:auto; padding-top:12px; border-top:1px solid #1A1920;">
-                  <span style="font-size:12px; color:#8A8795;">{{ it.meta }}</span>
-                  <span style="font-size:13px; font-weight:500; color:#f4f2f7; flex:none;">{{ it.cta }}</span>
-                </span>
-              </span>
-            </a>
-          </sc-for>
-        </div>
-        <div style="display:flex; justify-content:flex-end; align-items:center; gap:24px; flex-wrap:wrap; margin-top:28px;">
-          <sc-if value="{{ videosLive }}" hint-placeholder-val="{{ false }}">
-            <span style="display:inline-flex; align-items:center; gap:7px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; font-weight:400; letter-spacing:0.06em; color:#7CC4B4;"><span style="width:6px; height:6px; border-radius:999px; background:#7CC4B4;"></span>Synced with YouTube</span>
-          </sc-if>
-          <a href="https://www.linkedin.com/in/czarnecki-ai/recent-activity/all/" target="_blank" rel="noopener" style="font-size:13.5px; font-weight:500; color:#f4f2f7; text-decoration:none; border-bottom:1px solid #FF7A3D; padding-bottom:3px;">Writing on LinkedIn ↗</a>
-          <a href="https://youtube.com/@czarneckiai" target="_blank" rel="noopener" style="font-size:13.5px; font-weight:500; color:#f4f2f7; text-decoration:none; border-bottom:1px solid #FF7A3D; padding-bottom:3px;">All videos on YouTube ↗</a>
-        </div>
-      </div>
-    </section>
-    <!-- 01 ABOUT: manifesto + intro video -->
-    <section id="about" style="position:relative; padding:clamp(40px,4.5vw,64px) 0 clamp(40px,4.5vw,64px); scroll-margin-top:72px;" data-om-label="About" data-screen-label="About">
-      <span id="intro" style="display:block; position:relative; top:-90px;"></span>
-      <div style="position:relative; max-width:1320px; margin:0 auto; padding:0 clamp(20px,4.5vw,48px);">
-        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#7E7B89;"><span style="width:10px; height:10px; border-radius:3px; background:#FF7A3D; flex:none;"></span><span style="color:#f4f2f7;">08</span><span>About</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#2A2932,rgba(42,41,50,0));"></span></div>
-        <h2 style="font-weight:500; font-size:clamp(36px,5.4vw,90px); line-height:1.02; letter-spacing:-0.045em; margin:clamp(32px,4vw,52px) 0 0 0; max-width:21ch; text-wrap:balance;"><span ref="{{ manifesto }}" style="background-image:linear-gradient(#f4f2f7,#f4f2f7), linear-gradient(#3A3845,#3A3845); background-size:0% 100%, 100% 100%; background-repeat:no-repeat; -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;">The model isn't the hard part. It's the human layer: the trust, adoption, and judgment calls that decide whether people actually act on it.</span></h2>
-        <div data-reveal="" style="font-size:clamp(36px,5.4vw,90px); max-width:21ch; margin-top:clamp(56px,7vw,96px);">
-          <p style="font-size:clamp(20px,1.8vw,24px); line-height:1.45; letter-spacing:-0.015em; color:#C4C1CC; margin:0;"><strong style="color:#f4f2f7; font-weight:500;">My specialty is uncertainty UX</strong>: turning model output and confidence into explainable, simulatable interfaces that non-technical teams trust and act on. On every product I've shipped, the bottleneck was never model accuracy. <span style="color:#f4f2f7; font-weight:500; border-bottom:1.5px solid #FF7A3D; padding-bottom:1px;">It was adoption.</span></p>
-        </div>
-      </div>
-    </section>
-      <div data-om-label="Parked: Xinhee case study">
-            <div data-om-label="Xinhee description" style="margin-top:clamp(56px,7vw,96px); display:flex; flex-direction:column; gap:clamp(28px,3.4vw,44px);">
-              <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:24px 64px; flex-wrap:wrap;">
-                <div style="flex:1 1 380px; min-width:0;">
-                  <div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; letter-spacing:0.2em; text-transform:uppercase; color:#FF9A66;">Case study · MAD Architects, 2016</div>
-                  <h3 style="font-weight:500; font-size:clamp(26px,2.8vw,40px); line-height:1.08; letter-spacing:-0.03em; margin:12px 0 0 0; color:#f4f2f7; max-width:16ch; text-wrap:balance;">A building with skin and bones</h3>
-                </div>
-                <div style="flex:0 1 54ch; display:flex; flex-direction:column; gap:14px; font-size:15px; line-height:1.68; color:#C4C1CC;">
-                  <p style="margin:0; text-wrap:pretty;">Xinhee Design Center is a 61,000 m² headquarters for a fashion group in Xiamen: a solid "bone" structure of six arms around a central atrium, wrapped in a translucent PTFE skin.</p>
-                  <p style="margin:0; text-wrap:pretty;">As the algorithmic designer, I built the model and made sure the facade could actually be built. I wrote the Grasshopper program that drove Galapagos, an evolutionary solver that bred <span style="color:#f4f2f7; font-weight:500; border-bottom:1.5px solid #FF7A3D; padding-bottom:1px;">thousands of facade variants</span> against structural load and cost until the geometry was constructible. The building was a program.</p>
-                </div>
-              </div>
-              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:16px 32px;">
-                <div style="display:flex; flex-direction:column; gap:6px; padding-top:14px; border-top:1px solid #1F1E26;"><span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:#7E7B89;">Role</span><span style="font-size:14.5px; color:#f4f2f7;">Algorithmic designer</span></div>
-                <div style="display:flex; flex-direction:column; gap:6px; padding-top:14px; border-top:1px solid #1F1E26;"><span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:#7E7B89;">Studio</span><span style="font-size:14.5px; color:#f4f2f7;">MAD Architects</span></div>
-                <div style="display:flex; flex-direction:column; gap:6px; padding-top:14px; border-top:1px solid #1F1E26;"><span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:#7E7B89;">Location</span><span style="font-size:14.5px; color:#f4f2f7;">Xiamen, China</span></div>
-                <div style="display:flex; flex-direction:column; gap:6px; padding-top:14px; border-top:1px solid #1F1E26;"><span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:#7E7B89;">Area</span><span style="font-size:14.5px; color:#f4f2f7;">61,000 m²</span></div>
-              </div>
-            </div>
-      </div>
-
-      <div data-om-label="Parked: Yaga Labs" style="max-width:1320px; margin:0 auto; padding:0 clamp(20px,4.5vw,48px);">
-          <div id="yaga" ref="{{ yagaSec }}" data-om-label="Yaga Labs" style="position:relative; padding:0 0 clamp(48px,6vw,80px) 0; scroll-margin-top:72px;">
-      <div aria-hidden="true" style="position:absolute; left:0; right:0; top:-120px; bottom:-120px; pointer-events:none; -webkit-mask-image:linear-gradient(180deg, transparent 0%, #000 18%, #000 55%, transparent 100%); mask-image:linear-gradient(180deg, transparent 0%, #000 18%, #000 55%, transparent 100%); background:radial-gradient(38% 42% at 24% 48%, oklch(0.60 0.16 48 / 0.30) 0%, oklch(0.50 0.14 44 / 0.12) 55%, transparent 100%), radial-gradient(70% 40% at 52% 48%, oklch(0.46 0.13 42 / 0.26) 0%, oklch(0.34 0.09 38 / 0.12) 50%, transparent 100%);"></div>
-            <div style="position:relative; font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; letter-spacing:0.2em; text-transform:uppercase; color:#FF9A66;">Now building · Yaga Labs</div>
-            <div style="position:relative;">
-            <div id="v2-yaga-grid" style="margin-top:0; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(32px,5vw,80px); align-items:center;">
-              <div id="v2-yaga-fig" style="align-self:end; display:flex; justify-content:center; align-items:flex-end; padding-top:clamp(40px,5vw,72px);">
-                <div ref="{{ yagaRise }}" id="v2-yaga-box" style="position:relative; height:clamp(560px,58vw,820px); aspect-ratio:900 / 1831;">
-                  <div style="position:absolute; left:50%; top:46%; width:190%; aspect-ratio:1; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(closest-side, oklch(0.62 0.13 50 / 0.24) 0%, oklch(0.48 0.10 42 / 0.10) 48%, transparent 100%); pointer-events:none;"></div>
-                  <div style="position:absolute; left:50%; bottom:-10px; width:78%; height:28px; transform:translateX(-50%); border-radius:50%; background:radial-gradient(closest-side, rgba(0,0,0,0.75), rgba(0,0,0,0) 100%); pointer-events:none;"></div>
-                  <div ref="{{ yagaSway }}" style="position:absolute; inset:0; transform-origin:50% 100%; will-change:transform;">
-                    <img ref="{{ yagaFig }}" src="assets/pani-yaga.webp" alt="Pani Yaga: an old witch with red curly hair, round black glasses, a YAGA LABS hoodie, an embroidered folk skirt and a birch broom" style="position:absolute; inset:0; width:100%; height:100%; display:block; object-fit:contain;">
-                  </div>
-                  <div ref="{{ yagaBub }}" id="v2-yaga-bubble" aria-live="polite" style="position:absolute; left:78%; bottom:80%; width:max-content; max-width:min(340px, 38vw); padding-bottom:48px; pointer-events:none; opacity:0; z-index:2;">
-                    <div data-c="" id="v2-yaga-cloud" style="position:relative; transform-origin:12px 100%; padding:24px 36px 26px; background:#FCFBF8; border:3px solid #1A1814; border-radius:46% 54% 50% 50% / 60% 52% 48% 40%; box-shadow:4px 4px 0 #1A1814; font-family:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace; font-weight:500; font-size:16px; line-height:1.35; letter-spacing:0.03em; color:#1A1814; opacity:0; text-wrap:pretty;">
-                      <span data-g="" style="visibility:hidden; display:block;">Three hundred years I read tea leaves. Now they call it a confidence interval.</span>
-                      <span data-t="" id="v2-yaga-text" style="position:absolute; top:24px; left:36px; right:36px; display:block; text-wrap:pretty;"></span>
-                    </div>
-                    <div data-d="" style="position:absolute; width:10px; height:10px; border-radius:50%; background:#FCFBF8; border:3px solid #1A1814; box-shadow:3px 3px 0 #1A1814; left:-14px; bottom:0; opacity:0; box-sizing:border-box;"></div>
-                    <div data-d="" style="position:absolute; width:17px; height:17px; border-radius:50%; background:#FCFBF8; border:3px solid #1A1814; box-shadow:3px 3px 0 #1A1814; left:0; bottom:18px; opacity:0; box-sizing:border-box;"></div>
-                  </div>
-                </div>
-              </div>
-              <div id="v2-yaga-copy" style="min-width:0; padding-bottom:clamp(24px,4vw,64px);">
-                <h2 style="font-weight:500; font-size:clamp(40px,5vw,84px); line-height:0.96; letter-spacing:-0.048em; margin:0; color:#f4f2f7; max-width:12ch; text-wrap:balance;">She complains about AI. Then she ships it.</h2>
-                <p style="font-size:17px; line-height:1.66; color:#A09DAA; max-width:44ch; margin:24px 0 0 0; text-wrap:pretty;">Yaga Labs is where I build now: agentic products and <span style="color:#f4f2f7; font-weight:500; border-bottom:1.5px solid #FF7A3D; padding-bottom:1px;">interfaces that explain themselves</span>. Pani Yaga is the studio's conscience. She has opinions about your model, and she's usually right.</p>
-                <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:32px;">
-                  <a href="https://yaga.sh" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; padding:14px 28px; border-radius:10px; background:rgba(244,242,247,0.08); border:1px solid rgba(244,242,247,0.4); color:#f4f2f7; font-size:13.5px; font-weight:500; text-decoration:none;">Meet the studio ↗</a>
-                </div>
-              </div>
-            </div>
-            </div>
-          </div>
-      </div>
-      <div data-om-label="Parked: Macopedia cards" style="max-width:1320px; margin:0 auto; padding:0 clamp(20px,4.5vw,48px);">
-          <div id="v3-ecom" data-om-label="E-commerce cards" style="display:flex; flex-direction:column; gap:28px; padding:0 0 clamp(48px,6vw,80px) 0;">
-            <div data-om-label="Raben Group card" style="position:sticky; top:96px; display:grid; grid-template-columns:minmax(0,0.92fr) minmax(0,1.08fr); gap:clamp(28px,4vw,64px); min-height:min(720px, calc(100svh - 136px)); padding:clamp(24px,4vw,56px); border-radius:28px; border:1px solid rgba(244,242,247,0.09); background:#0E0B0B; color:#f4f2f7; overflow:hidden; box-shadow:0 -24px 60px rgba(0,0,0,0.55);">
-              <div style="display:flex; flex-direction:column; min-width:0;">
-                <div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#8A8795;"><span style="color:#FF9A66;">01</span> / 04 · Logistics</div>
-                <img src="assets/raben-logo.svg" alt="Raben Group" style="height:34px; width:auto; max-width:100%; align-self:flex-start; display:block; margin:28px 0 0 0;">
-                <div style="font-size:clamp(18px,1.6vw,22px); color:#FF9A66; margin-top:22px; letter-spacing:-0.01em;">Find, quote, track.</div>
-                <p style="font-size:16px; line-height:1.64; color:#A09DAA; margin:16px 0 0 0; max-width:40ch; text-wrap:pretty;">A corporate redesign built around three customer jobs, running on TYPO3 headless with a PWA that keeps working on a weak connection.</p>
-                <div style="margin-top:auto; padding-top:40px;">
-                  <div style="font-weight:500; font-size:clamp(40px,4.6vw,76px); line-height:0.9; letter-spacing:-0.05em; color:#FF9A66;">Redesign → launch</div>
-                  <div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:#8A8795; margin-top:14px;">TYPO3 headless · PWA</div>
-                </div>
-              </div>
-              <div style="position:relative; min-height:clamp(260px,34vw,480px);">
-                <img src="assets/raben-sectors.webp" alt="" loading="lazy" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; opacity:0.5; box-shadow:0 30px 70px rgba(0,0,0,0.5);">
-                <img src="assets/raben-contact.webp" alt="Raben Group site: navigation and contact form with a dotted map of Europe" loading="lazy" style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);">
-              </div>
-            </div>
-            <div data-om-label="Robomow card" style="position:sticky; top:114px; display:grid; grid-template-columns:minmax(0,0.92fr) minmax(0,1.08fr); gap:clamp(28px,4vw,64px); min-height:min(720px, calc(100svh - 154px)); padding:clamp(24px,4vw,56px); border-radius:28px; border:1px solid rgba(244,242,247,0.09); background:#0D0C0A; color:#f4f2f7; overflow:hidden; box-shadow:0 -24px 60px rgba(0,0,0,0.55);">
-              <div style="display:flex; flex-direction:column; min-width:0;">
-                <div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#8A8795;"><span style="color:#F2D24B;">02</span> / 04 · Garden tech</div>
-                <img src="assets/robomow-logo.svg" alt="Robomow" style="height:40px; width:auto; max-width:100%; align-self:flex-start; display:block; margin:28px 0 0 0;">
-                <div style="font-size:clamp(18px,1.6vw,22px); color:#F2D24B; margin-top:22px; letter-spacing:-0.01em;">One CMS, every market.</div>
-                <p style="font-size:16px; line-height:1.64; color:#A09DAA; margin:16px 0 0 0; max-width:40ch; text-wrap:pretty;">Local sites on WordPress and Shopify replaced by one headless TYPO3 backend for several brands, with a Nuxt PWA front-end. My first project from discovery to the live site.</p>
-                <div style="margin-top:auto; padding-top:40px;">
-                  <div style="font-weight:500; font-size:clamp(40px,4.6vw,76px); line-height:0.9; letter-spacing:-0.05em; color:#F2D24B;">Discovery → live</div>
-                  <div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:#8A8795; margin-top:14px;">TYPO3 headless · Nuxt PWA</div>
-                </div>
-              </div>
-              <div style="position:relative; min-height:clamp(260px,34vw,480px);">
-                <img src="assets/robomow-desktop.webp" alt="" loading="lazy" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; opacity:0.5; box-shadow:0 30px 70px rgba(0,0,0,0.5);">
-                <img src="assets/robomow-mobile.webp" alt="Robomow mobile screens: product page, series hero, menu and feature highlights" loading="lazy" style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);">
-              </div>
-            </div>
-            <div data-om-label="Macmillan Education card" style="position:sticky; top:132px; display:grid; grid-template-columns:minmax(0,0.92fr) minmax(0,1.08fr); gap:clamp(28px,4vw,64px); min-height:min(720px, calc(100svh - 172px)); padding:clamp(24px,4vw,56px); border-radius:28px; border:1px solid rgba(244,242,247,0.09); background:#0E0B0C; color:#f4f2f7; overflow:hidden; box-shadow:0 -24px 60px rgba(0,0,0,0.55);">
-              <div style="display:flex; flex-direction:column; min-width:0;">
-                <div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#8A8795;"><span style="color:#F0848C;">03</span> / 04 · Education</div>
-                <img src="assets/macmillan-logo.svg" alt="Macmillan Education" style="height:40px; width:auto; max-width:100%; align-self:flex-start; display:block; margin:28px 0 0 0;">
-                <div style="font-size:clamp(18px,1.6vw,22px); color:#F0848C; margin-top:22px; letter-spacing:-0.01em;">Mobile first, region by region.</div>
-                <p style="font-size:16px; line-height:1.64; color:#A09DAA; margin:16px 0 0 0; max-width:40ch; text-wrap:pretty;">I ran the discovery workshops and led the full redesign of the global portal, iterating on interactive prototypes with the dev team through to an on-schedule launch.</p>
-                <div style="margin-top:auto; padding-top:40px;">
-                  <div style="font-weight:500; font-size:clamp(40px,4.6vw,76px); line-height:0.9; letter-spacing:-0.05em; color:#F0848C;">Workshops → launch</div>
-                  <div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:#8A8795; margin-top:14px;">TYPO3 · PWA</div>
-                </div>
-              </div>
-              <div style="position:relative; min-height:clamp(260px,34vw,480px);">
-                <img src="assets/macmillan-catalogue.webp" alt="" loading="lazy" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; opacity:0.5; box-shadow:0 30px 70px rgba(0,0,0,0.5);">
-                <img src="assets/macmillan-redesign.webp" alt="Macmillan Education redesign: title search, student zone and course listings" loading="lazy" style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);">
-              </div>
-            </div>
-            <div data-om-label="Pearson card" style="position:sticky; top:150px; display:grid; grid-template-columns:minmax(0,0.92fr) minmax(0,1.08fr); gap:clamp(28px,4vw,64px); min-height:min(720px, calc(100svh - 190px)); padding:clamp(24px,4vw,56px); border-radius:28px; border:1px solid rgba(244,242,247,0.09); background:#0A0C0F; color:#f4f2f7; overflow:hidden; box-shadow:0 -24px 60px rgba(0,0,0,0.55);">
-              <div style="display:flex; flex-direction:column; min-width:0;">
-                <div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#8A8795;"><span style="color:#6FB8D6;">04</span> / 04 · Education</div>
-                <img src="assets/pearson-logo.svg" alt="Pearson" style="height:40px; width:auto; max-width:100%; align-self:flex-start; display:block; margin:28px 0 0 0;">
-                <div style="font-size:clamp(18px,1.6vw,22px); color:#6FB8D6; margin-top:22px; letter-spacing:-0.01em;">Built for browsing.</div>
-                <p style="font-size:16px; line-height:1.64; color:#A09DAA; margin:16px 0 0 0; max-width:40ch; text-wrap:pretty;">A product-discovery portal for teachers and students across Central Europe: separate sign-up paths, single sign-on across apps, and events run from the CMS.</p>
-                <div style="margin-top:auto; padding-top:40px;">
-                  <div style="font-weight:500; font-size:clamp(40px,4.6vw,76px); line-height:0.9; letter-spacing:-0.05em; color:#6FB8D6;">5 / 5</div>
-                  <div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:#8A8795; margin-top:14px;">Clutch rating</div>
-                </div>
-              </div>
-              <div style="position:relative; min-height:clamp(260px,34vw,480px);">
-                <img src="assets/pearson-cards.webp" alt="" loading="lazy" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; opacity:0.5; box-shadow:0 30px 70px rgba(0,0,0,0.5);">
-                <img src="assets/pearson-home.webp" alt="Pearson portal: home page with catalogue navigation, promo banners and quick links" loading="lazy" style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);">
-              </div>
-            </div>
-          </div>
-      </div>
-    </div>
-
   </main>
 
   <!-- CONTACT: callback to the hero -->
@@ -689,21 +397,12 @@
   </section>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;loopStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;track&quot;,&quot;orbit&quot;],&quot;default&quot;:&quot;track&quot;,&quot;tsType&quot;:&quot;'track'|'orbit'&quot;,&quot;section&quot;:&quot;Case studies&quot;},&quot;orbitDwell&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.8,&quot;min&quot;:0.6,&quot;max&quot;:4,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Case studies&quot;},&quot;hopping&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;dockMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;right&quot;,&quot;left&quot;,&quot;roam&quot;],&quot;default&quot;:&quot;right&quot;,&quot;tsType&quot;:&quot;'right'|'left'|'roam'&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;heroSea&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;seaLines&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:12,&quot;min&quot;:4,&quot;max&quot;:30,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;seaSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:3,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;grain&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Atmosphere&quot;},&quot;showPortrait&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showMetrics&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;youtubeId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Lt2gnszqE-w&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;channelId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;YouTube&quot;},&quot;videoIds&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;YouTube&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;orbitDwell&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.8,&quot;min&quot;:0.6,&quot;max&quot;:4,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Case studies&quot;},&quot;hopping&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;dockMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;right&quot;,&quot;left&quot;,&quot;roam&quot;],&quot;default&quot;:&quot;right&quot;,&quot;tsType&quot;:&quot;'right'|'left'|'roam'&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;heroSea&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;seaLines&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:12,&quot;min&quot;:4,&quot;max&quot;:30,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;seaSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:3,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;grain&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Atmosphere&quot;},&quot;showPortrait&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showMetrics&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;youtubeId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Lt2gnszqE-w&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
-  CHANNEL_URL = 'https://youtube.com/@czarneckiai';
-
   state = {
     introPlaying: false,
-    videosLive: false,
-    videos: [
-      { title: 'Latest upload from the channel', dateLabel: 'Syncs on publish', thumb: null, hasThumb: false, href: 'https://youtube.com/@czarneckiai' },
-      { title: 'Second-latest upload', dateLabel: 'Syncs on publish', thumb: null, hasThumb: false, href: 'https://youtube.com/@czarneckiai' },
-      { title: 'Third-latest upload', dateLabel: 'Syncs on publish', thumb: null, hasThumb: false, href: 'https://youtube.com/@czarneckiai' },
-    ],
   };
 
-  manifesto = React.createRef();
   todayTicker = React.createRef();
   journey = React.createRef();
 
@@ -714,8 +413,6 @@ class Component extends DCLogic {
       this._spRaf = requestAnimationFrame(loop); }
     this.initHandoff();
     this._bbT = setInterval(() => { if (!document.hidden) this.setState(s => ({ bbStep: ((s.bbStep ?? 0) + 1) % 4 })); }, 3200);
-    this.fetchLatestVideos();
-    this.initYaga();
     this.initScroll();
     this.initFootGrain();
   }
@@ -730,9 +427,9 @@ class Component extends DCLogic {
     const mq = matchMedia('(prefers-reduced-motion: reduce)');
     this._fgT = setInterval(() => { if (mq.matches || document.hidden) return; el.style.backgroundPosition = `${Math.random() * G | 0}px ${Math.random() * G | 0}px`; }, 90);
   }
-  componentWillUnmount() { this._hoIO && this._hoIO.disconnect(); cancelAnimationFrame(this._hoRaf); clearTimeout(this._hoPoll); this._hoDot && this._hoDot.remove(); window.removeEventListener('resize', this._stackFit); this._stackRO && this._stackRO.disconnect(); cancelAnimationFrame(this._spRaf); clearInterval(this._fgT); clearInterval(this._bbT); clearTimeout(this._yRetry); this.stopYaga && this.stopYaga(); this.stopScroll && this.stopScroll(); }
+  componentWillUnmount() { this._hoIO && this._hoIO.disconnect(); cancelAnimationFrame(this._hoRaf); clearTimeout(this._hoPoll); this._hoDot && this._hoDot.remove(); window.removeEventListener('resize', this._stackFit); this._stackRO && this._stackRO.disconnect(); cancelAnimationFrame(this._spRaf); clearInterval(this._fgT); clearInterval(this._bbT); this.stopScroll && this.stopScroll(); }
 
-  // scroll-driven: fade-up reveals, manifesto fill, lit timeline row
+  // scroll-driven: fade-up reveals, lit timeline row
   initScroll() {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const io = new IntersectionObserver((es) => es.forEach((e) => {
@@ -778,12 +475,6 @@ class Component extends DCLogic {
       document.querySelectorAll('main#top').forEach((el) => { el.style.backgroundPosition = '12px calc(12px + ' + py + 'px)'; });
     }
     this.introFx();
-    const m = this.manifesto.current;
-    if (m) {
-      const r = m.getBoundingClientRect();
-      const p = reduce ? 1 : Math.max(0, Math.min(1, (vh * 0.82 - r.top) / (r.height + vh * 0.3)));
-      m.style.backgroundSize = (p * 100).toFixed(2) + '% 100%, 100% 100%';
-    }
     const j = this.journey.current;
     if (j) {
       const rows = j.querySelectorAll('[data-era]');
@@ -796,172 +487,6 @@ class Component extends DCLogic {
         if (mk) mk.style.background = lit ? '#FF7A3D' : '#2A2932';
       });
     }
-  }
-
-  // Pani Yaga: rise-in, idle sway, typed thought bubble, and she spooks the docked black box
-  yagaSec = React.createRef(); yagaRise = React.createRef(); yagaSway = React.createRef(); yagaBub = React.createRef(); yagaFig = React.createRef();
-  YAGA_LINES = [
-    'Three hundred years I read tea leaves. Now they call it a confidence interval.',
-    'Everyone talks to AI now. Nobody talks to their friends.',
-    'Your model is 73% sure. I am 100% sure it’s wrong.',
-  ];
-  initYaga() {
-    const sec = this.yagaSec.current, rise = this.yagaRise.current, sway = this.yagaSway.current, bub = this.yagaBub.current;
-    if (!sec || !rise || !sway || !bub) { this._yRetry = setTimeout(() => this.initYaga(), 200); return; }
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const cloud = bub.querySelector('[data-c]'), ghost = bub.querySelector('[data-g]'), txt = bub.querySelector('[data-t]'), dots = bub.querySelectorAll('[data-d]');
-    const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
-    const back = (x) => { x = clamp(x); const c = 2.2; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
-    const GLY = '#$%&@*!?≈∑∆∫λθ∂±∞§', pick = (s) => s[Math.random() * s.length | 0];
-    const Y = { vis: false, fear: false, phase: 'gap', next: null, line: -1, t0: 0, k: -1, raf: 0 };
-    if (!reduce && sec.getBoundingClientRect().top > window.innerHeight * 0.85) { rise.style.transform = 'translateY(64px)'; rise.style.opacity = '0'; }
-    requestAnimationFrame(() => { rise.style.transition = 'transform 1.3s cubic-bezier(.16,.8,.24,1), opacity 1s ease'; });
-    const reveal = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { rise.style.transform = 'translateY(0)'; rise.style.opacity = '1'; reveal.disconnect(); } }), { threshold: 0.12 });
-    reveal.observe(sec);
-    const headPt = () => { const img = this.yagaFig.current; if (!img) return null; const r = img.getBoundingClientRect(); return { x: r.left + r.width * 0.54, y: r.top + r.height * 0.2 }; };
-    const applyFear = () => { const m = document.querySelector('fur-monster-ground'); if (m && (!!m.fearTarget) !== Y.fear) m.fearTarget = Y.fear ? headPt : null; };
-    const fearIO = new IntersectionObserver((es) => es.forEach((e) => { Y.fear = e.isIntersecting; applyFear(); }), { rootMargin: '-25% 0px -25% 0px' });
-    fearIO.observe(sec);
-    const loop = (now) => {
-      Y.raf = Y.vis ? requestAnimationFrame(loop) : 0;
-      const t = now / 1000;
-      applyFear();
-      if (!reduce) sway.style.transform = `rotate(${(Math.sin(t * Math.PI * 2 / 7) * 1).toFixed(3)}deg)`;
-      if (Y.next == null) Y.next = t + 0.9;
-      if (Y.phase === 'gap' && t >= Y.next) {
-        Y.line = (Y.line + 1) % this.YAGA_LINES.length; ghost.textContent = this.YAGA_LINES[Y.line];
-        if (txt._a) { txt._a.textContent = ''; txt._b.textContent = ''; } Y.k = -1; Y.t0 = t; Y.phase = 'on';
-      }
-      if (Y.phase !== 'on') return;
-      const s = this.YAGA_LINES[Y.line], u = t - Y.t0, typeEnd = 0.45 + s.length / 30, hold = typeEnd + 4;
-      const k = clamp(Math.floor((u - 0.45) * 30), 0, s.length);
-      if (k !== Y.k || k < s.length) {
-        const g = k < s.length && u > 0.45 ? pick(GLY) : '', cut = k + (g ? 1 : 0);
-        if (!txt._a) { txt.textContent = ''; txt._a = document.createElement('span'); txt._b = document.createElement('span'); txt._b.style.visibility = 'hidden'; txt.append(txt._a, txt._b); }
-        txt._a.textContent = s.slice(0, k) + g; txt._b.textContent = s.slice(cut); Y.k = k;
-      }
-      dots[0].style.opacity = String(clamp(u / 0.08));
-      dots[1].style.opacity = String(clamp((u - 0.1) / 0.08));
-      cloud.style.opacity = String(clamp((u - 0.2) / 0.06));
-      cloud.style.transform = `scale(${(0.2 + 0.8 * back((u - 0.2) / 0.32)).toFixed(3)}) rotate(${(-1.5 + (reduce ? 0 : Math.sin(t * 2.1) * 1.2)).toFixed(2)}deg)`;
-      bub.style.opacity = String(1 - clamp((u - hold) / 0.3));
-      if (u > hold + 0.3) { Y.phase = 'gap'; Y.next = t + 0.7; bub.style.opacity = '0'; cloud.style.opacity = '0'; dots.forEach((d) => { d.style.opacity = '0'; }); }
-    };
-    const visIO = new IntersectionObserver((es) => es.forEach((e) => { Y.vis = e.isIntersecting; if (Y.vis && !Y.raf) Y.raf = requestAnimationFrame(loop); }), { rootMargin: '80px 0px' });
-    visIO.observe(sec);
-    this.stopYaga = () => {
-      reveal.disconnect(); fearIO.disconnect(); visIO.disconnect(); cancelAnimationFrame(Y.raf); Y.vis = false;
-      const m = document.querySelector('fur-monster-ground'); if (m) m.fearTarget = null;
-    };
-  }
-
-  // Latest uploads: resolve the channel from its @handle (cached), read its RSS feed via a CORS proxy, cache the result.
-  HANDLE = 'CzarneckiAI';
-  proxied(url, ms = 6000) {
-    const via = [
-      (u) => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
-      (u) => 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u),
-    ];
-    const one = async (mk) => {
-      const ctl = new AbortController();
-      const t = setTimeout(() => ctl.abort(), ms);
-      try { const r = await fetch(mk(url), { signal: ctl.signal }); if (!r.ok) throw new Error(r.status); return await r.text(); }
-      finally { clearTimeout(t); }
-    };
-    return Promise.any(via.map(one));
-  }
-  async channelId() {
-    if (this.props.channelId) return this.props.channelId;
-    const key = 'czai-yt-channel-' + this.HANDLE;
-    try { const c = localStorage.getItem(key); if (c) return c; } catch (e) {}
-    const html = await this.proxied('https://www.youtube.com/@' + this.HANDLE, 9000);
-    const m = html.match(/"(?:externalId|browseId)":"(UC[\w-]{22})"/) || html.match(/channel_id=(UC[\w-]{22})/) || html.match(/\/channel\/(UC[\w-]{22})/);
-    if (!m) throw new Error('channel id not found');
-    try { localStorage.setItem(key, m[1]); } catch (e) {}
-    return m[1];
-  }
-  async pinnedVideos() {
-    const ids = String(this.props.videoIds || '').split(/[\s,]+/).map((x) => (x.match(/(?:v=|youtu\.be\/|shorts\/)?([\w-]{11})(?:$|[?&])/) || [])[1]).filter(Boolean).slice(0, 3);
-    if (!ids.length) return false;
-    const got = await Promise.all(ids.map(async (id) => {
-      let title = 'Watch on YouTube';
-      try { const r = await fetch('https://www.youtube.com/oembed?format=json&url=' + encodeURIComponent('https://www.youtube.com/watch?v=' + id)); if (r.ok) title = (await r.json()).title || title; } catch (e) {}
-      return { title, dateLabel: 'On YouTube', thumb: 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg', hasThumb: true, href: 'https://www.youtube.com/watch?v=' + id };
-    }));
-    this.setState({ videos: this.padVideos(got), videosLive: true });
-    return true;
-  }
-  async fetchLatestVideos() {
-    if (await this.pinnedVideos()) return;
-    const cacheKey = 'czai-yt-latest-' + this.HANDLE;
-    try {
-      const c = JSON.parse(localStorage.getItem(cacheKey) || 'null');
-      if (c && c.videos && c.videos.length) this.setState({ videos: this.padVideos(c.videos), videosLive: true });
-    } catch (e) {}
-    for (let attempt = 0; attempt < 3; attempt++) {
-      try {
-        const id = await this.channelId();
-        const xmlText = await this.proxied('https://www.youtube.com/feeds/videos.xml?channel_id=' + id);
-        const xml = new DOMParser().parseFromString(xmlText, 'text/xml');
-        const entries = Array.from(xml.getElementsByTagName('entry')).slice(0, 3);
-        const parsed = entries.map((e) => {
-          const vid = (e.getElementsByTagName('yt:videoId')[0] || {}).textContent
-            || ((e.getElementsByTagName('link')[0] || { getAttribute: () => '' }).getAttribute('href').match(/[?&]v=([^&]+)/) || [])[1];
-          const titleEl = e.getElementsByTagName('title')[0];
-          const publishedEl = e.getElementsByTagName('published')[0];
-          const published = publishedEl ? publishedEl.textContent : '';
-          return {
-            title: titleEl ? titleEl.textContent : 'Untitled upload',
-            dateLabel: published ? new Date(published).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '',
-            thumb: vid ? ('https://i.ytimg.com/vi/' + vid + '/hqdefault.jpg') : null,
-            hasThumb: !!vid,
-            href: vid ? ('https://www.youtube.com/watch?v=' + vid) : this.CHANNEL_URL,
-          };
-        });
-        if (!parsed.length) throw new Error('empty feed');
-        try { localStorage.setItem(cacheKey, JSON.stringify({ at: Date.now(), videos: parsed })); } catch (e) {}
-        this.setState({ videos: this.padVideos(parsed), videosLive: true });
-        return;
-      } catch (err) {
-        await new Promise((r) => setTimeout(r, 1500 * (attempt + 1)));
-      }
-    }
-  }
-  padVideos(list) {
-    const out = list.slice(0, 3);
-    while (out.length < 3) out.push({ ...this.state.videos[out.length] });
-    return out;
-  }
-
-  builderVals() {
-    const GH = 'https://github.com/tomasz-czarnecki';
-    const exp = { tag: 'Experiment', tagInk: '#FF9A66', tagDot: '#FF7A3D', cta: 'Case Study ↗', meta: 'Project', isVideo: false, hasThumb: false, target: '_blank', href: GH, artR: '' };
-    const projects = [
-      { ...exp, title: 'Domain-Discovery CLI', body: 'Hunts brandable domains from a VPS, calling an LLM only when a candidate is worth judging. Built to practice low-cost agent loops.', colors: '#1A0F16,#3A1628,#7A2E3E,#FF7A3D', bg: '#1A0F16', art: 'squares', artR: '2.4', seed: 'domain-cli' },
-      { ...exp, title: 'LLM Content System', body: 'Drafts and typesets my own posts in one voice and visual style. Built to learn LLM content workflows.', colors: '#15122A,#261E4A,#3E3175,#6D5BC0', bg: '#15122A', art: 'waves', seed: 'llm-content' },
-      { ...exp, title: 'Blender-MCP Pipeline', body: 'Builds 3D scenes in Blender through MCP, prompt to rendered scene. Built to learn where agent autonomy breaks.', colors: '#16151C,#24222D,#3A3745,#6E6A7E', bg: '#16151C', art: 'petals', seed: 'blender-mcp' },
-      { ...exp, tag: 'Live', tagInk: '#7CC4B4', tagDot: '#7CC4B4', cta: 'Live Demo ↗', target: '_self', href: '#top', title: 'czarnecki.ai', body: "You're looking at it: designed, built, and shipped end to end. The site itself is the proof of build.", colors: '#0E1C18,#16302A,#23493F,#4F8F7A', bg: '#0E1C18', art: 'rings', seed: 'czarnecki-live' },
-    ];
-    const plates = [
-      { tag: '01 · Latest upload', tagInk: '#A9B8E8', tagDot: '#5B78B8', colors: '#101829,#1A2742,#2A3D66,#5B78B8', bg: '#101829', seed: 'v1' },
-      { tag: '02 · Previously', tagInk: '#7CC4B4', tagDot: '#3F8F92', colors: '#0C1D22,#123238,#1C4E55,#3F8F92', bg: '#0C1D22', seed: 'v2' },
-      { tag: '03 · Previously', tagInk: '#7CC4B4', tagDot: '#4F8F7A', colors: '#0E1C18,#16302A,#23493F,#4F8F7A', bg: '#0E1C18', seed: 'v3' },
-    ];
-    const videos = this.state.videos.map((v, i) => ({ ...plates[i], title: v.title, body: '', meta: v.dateLabel, thumb: v.thumb, hasThumb: v.hasThumb, href: v.href, target: '_blank', cta: 'Watch ↗', isVideo: true, art: 'none', artR: '' }));
-    const f = this.state.builderFilter || 'All';
-    const all = [
-      { ...videos[0], span6: 4 }, { ...projects[3], span6: 2 },
-      { ...projects[0], span6: 2 }, { ...projects[1], span6: 2 }, { ...projects[2], span6: 2 },
-      { ...videos[1], span6: 3 }, { ...videos[2], span6: 3 },
-    ];
-    const items = f === 'All' ? all : (f === 'Videos' ? videos : projects).map(x => ({ ...x, span6: 2 }));
-    return {
-      builderItems: items,
-      builderFilters: ['All', 'Videos'].map(label => ({
-        label, pick: () => this.setState({ builderFilter: label }),
-        bg: label === f ? '#f4f2f7' : 'transparent', fg: label === f ? '#08070b' : '#C4C1CC', border: label === f ? '#f4f2f7' : '#2E2D36',
-      })),
-    };
   }
 
   // euro handoff: one dot leaves the 02 counter's last digit and becomes the loop's comet at Where?
@@ -1019,29 +544,6 @@ class Component extends DCLogic {
       bbUsBorder: st >= 2 ? '#FF7A3D' : '#2A2932', bbUsTag: st >= 3 ? 'Hub: ~10 → 100+' : 'Three people' };
   }
 
-  CAREER = [
-    { y: '2026 – Now', org: 'Independent', verb: 'Optimizing with', w: 'agents', tags: 'Claude Code · MCP', parts: [{ text: 'Learning to build agents end to end, in public. First solo build in progress.' }] },
-    { y: '2021–2026', org: 'Heineken AI Hub', verb: 'Optimizing', w: 'spend', tags: 'Bayesian optimizer', parts: [{ text: 'First product person, when the hub was under ten people. Three production decision systems later, it was 100+.' }] },
-    { y: '2020–2021', org: 'Macopedia', verb: 'Designing', w: 'interfaces', tags: 'Figma · Design systems', parts: [{ text: 'Designed web platforms in Figma for enterprise clients (Pearson, Macmillan, Raben) and a reusable component library shared across builds.' }] },
-    { y: '2017–2019', org: '7 International', verb: 'Negotiating', w: 'contracts', tags: 'Mandarin · Business development', parts: [{ text: "Won ~70M RMB of new work from Chinese clients, negotiating in Mandarin, and led a 12-person team of architects between Poland and China. Before that, set up the company's first European office." }] },
-    { y: '2015–2017', org: 'AREP · MAD', verb: 'Optimizing', w: 'buildings', tags: 'Grasshopper · Galapagos', parts: [{ text: "Wrote the parametric and evolutionary systems other designers ran on: genetic algorithms shaped MAD's " }, { text: '60,000 m²', chip: true }, { text: " Xinhee facade, and the scripting library behind AREP's prize-winning " }, { text: '21M m²', chip: true }, { text: ' Chengdu masterplan.' }] },
-  ];
-  careerVals() {
-    const HI = 1, sel = this.state.careerSel;
-    return {
-      careerEras: this.CAREER.map((c, i) => {
-        const lit = sel == null ? i === HI : i === sel;
-        return { ...c,
-          parts: c.parts.map(p => ({ text: p.text, chip: !!p.chip, plain: !p.chip })),
-          wordColor: lit ? '#f4f2f7' : '#3A3845',
-          yearColor: lit ? '#f4f2f7' : '#A09DAA',
-          node: i === HI ? '#FF7A3D' : (lit ? '#f4f2f7' : '#3A3845'),
-          enter: () => { if (this.state.careerSel !== i) this.setState({ careerSel: i }); } };
-      }),
-      careerReset: () => { if (this.state.careerSel != null) this.setState({ careerSel: null }); },
-    };
-  }
-
   renderVals() {
     const youtubeId = this.props.youtubeId ?? 'Lt2gnszqE-w';
     const swk = this.state.cardSwap || null;
@@ -1050,7 +552,6 @@ class Component extends DCLogic {
     const galP = this.state.galPalette || 'ghost', galOn = (k) => galP === k;
     return {
       ...this.bbVals(),
-      ...this.careerVals(),
       galPalette: galP,
       galGhostClick: () => this.setState({ galPalette: 'ghost' }), galColorClick: () => this.setState({ galPalette: 'color' }),
       galGhostBg: galOn('ghost') ? '#FF7A3D' : 'transparent', galGhostFg: galOn('ghost') ? '#08070b' : '#A09DAA',
@@ -1060,25 +561,20 @@ class Component extends DCLogic {
       swapOut: () => { if (this.state.cardSwap) this.setState({ cardSwap: null }); },
       footGrain: this.footGrain,
       hopAttr: (this.props.hopping ?? true) ? 'on' : 'off',
-      yagaSec: this.yagaSec, yagaRise: this.yagaRise, yagaSway: this.yagaSway, yagaBub: this.yagaBub, yagaFig: this.yagaFig,
-      manifesto: this.manifesto, todayTicker: this.todayTicker, journey: this.journey,
+      todayTicker: this.todayTicker, journey: this.journey,
       dockMode: this.props.dockMode ?? 'right',
       heroSea: this.props.heroSea ?? false,
       seaLines: String(this.props.seaLines ?? 12),
       seaSpeed: String(this.props.seaSpeed ?? 1),
       orbitDwell: String(this.props.orbitDwell ?? 1.8),
-      loopTrack: (this.props.loopStyle ?? 'track') === 'track',
-      loopOrbit: (this.props.loopStyle ?? 'track') === 'orbit',
       grain: this.props.grain ?? true,
       showPortrait: this.props.showPortrait ?? true,
       showMetrics: this.props.showMetrics ?? true,
       year: '2026',
       introPlaying: this.state.introPlaying,
-      videosLive: this.state.videosLive,
       introIdle: !this.state.introPlaying,
       embedUrl: youtubeId ? ('https://www.youtube.com/embed/' + youtubeId + '?autoplay=1&rel=0&modestbranding=1') : '',
       playIntro: () => { if (youtubeId) this.setState({ introPlaying: true }); },
-      ...this.builderVals(),
     };
   }
 }
