@@ -119,7 +119,7 @@
           <div style="display:flex; align-items:center; gap:clamp(14px,1.6vw,22px); margin:clamp(22px,2.6vw,34px) 0 0 0;">
             <sc-if value="{{ showPortrait }}" hint-placeholder-val="{{ true }}">
               <div id="v2-hero-portrait" style="flex:0 0 auto; width:clamp(64px,6vw,92px); aspect-ratio:1; border-radius:999px; overflow:hidden; background:#2A2830;">
-                <img src="assets/tomasz_portrait_2026_sm.png" alt="Tomasz Czarnecki" style="width:100%; height:100%; object-fit:cover; object-position:50% 30%; transform:translateY(4%) scale(1.12); transform-origin:50% 30%; display:block;">
+                <img src="assets/tomasz_portrait_2026_sm.webp" alt="Tomasz Czarnecki" style="width:100%; height:100%; object-fit:cover; object-position:50% 30%; transform:translateY(4%) scale(1.12); transform-origin:50% 30%; display:block;">
               </div>
             </sc-if>
             <p style="font-family:'Geist',system-ui,sans-serif; font-size:clamp(15px,1.15vw,17px); line-height:1.6; font-weight:400; color:#A09DAA; max-width:54ch; margin:0; text-wrap:pretty;">First product person at Heineken's Global Analytics &amp; AI Hub. Three production decision systems, built for a <span style="color:#08070b; background:#FF7A3D; padding:1px 6px; border-radius:4px; font-weight:500; white-space:nowrap;">~€2.9B</span> budget.</p>
@@ -306,8 +306,8 @@
               </div>
             </div>
             <div onMouseLeave="{{ swapOut }}" style="position:relative; min-height:clamp(260px,34vw,480px);">
-              <img onMouseEnter="{{ allocFront }}" src="assets/allocation-ai/cs-heatmap.png" alt="" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; z-index:{{ alloc.backZ }}; opacity:{{ alloc.backOp }}; transform:{{ alloc.backT }}; transition:opacity 0.5s ease, transform 0.6s cubic-bezier(.2,.8,.2,1), box-shadow 0.5s ease; box-shadow:0 30px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);">
-              <img onMouseEnter="{{ swapOut }}" src="assets/allocation-ai/cs-curve.png" alt="Allocation AI response-curve view: current spend sits past the point of peak ROI." style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; z-index:1; opacity:{{ alloc.frontOp }}; transform:{{ alloc.frontT }}; transition:opacity 0.5s ease, transform 0.6s cubic-bezier(.2,.8,.2,1); box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);">
+              <img onMouseEnter="{{ allocFront }}" src="assets/allocation-ai/cs-heatmap.webp" alt="" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; z-index:{{ alloc.backZ }}; opacity:{{ alloc.backOp }}; transform:{{ alloc.backT }}; transition:opacity 0.5s ease, transform 0.6s cubic-bezier(.2,.8,.2,1), box-shadow 0.5s ease; box-shadow:0 30px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);">
+              <img onMouseEnter="{{ swapOut }}" src="assets/allocation-ai/cs-curve.webp" alt="Allocation AI response-curve view: current spend sits past the point of peak ROI." style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; z-index:1; opacity:{{ alloc.frontOp }}; transform:{{ alloc.frontT }}; transition:opacity 0.5s ease, transform 0.6s cubic-bezier(.2,.8,.2,1); box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);">
             </div>
           </a>
 
@@ -328,8 +328,8 @@
               </div>
             </div>
             <div onMouseLeave="{{ swapOut }}" style="position:relative; min-height:clamp(260px,34vw,480px);">
-              <img onMouseEnter="{{ promoFront }}" src="assets/promo-advisor/cs-mechanic.png" alt="" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; z-index:{{ promo.backZ }}; opacity:{{ promo.backOp }}; transform:{{ promo.backT }}; transition:opacity 0.5s ease, transform 0.6s cubic-bezier(.2,.8,.2,1), box-shadow 0.5s ease; box-shadow:0 30px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);">
-              <img onMouseEnter="{{ swapOut }}" src="assets/promo-advisor/cs-calendar.png" alt="Promo Advisor promo calendar: every SKU's promotions across the year, coloured by whether each one pays back." style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; z-index:1; opacity:{{ promo.frontOp }}; transform:{{ promo.frontT }}; transition:opacity 0.5s ease, transform 0.6s cubic-bezier(.2,.8,.2,1); box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);">
+              <img onMouseEnter="{{ promoFront }}" src="assets/promo-advisor/cs-mechanic.webp" alt="" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; z-index:{{ promo.backZ }}; opacity:{{ promo.backOp }}; transform:{{ promo.backT }}; transition:opacity 0.5s ease, transform 0.6s cubic-bezier(.2,.8,.2,1), box-shadow 0.5s ease; box-shadow:0 30px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);">
+              <img onMouseEnter="{{ swapOut }}" src="assets/promo-advisor/cs-calendar.webp" alt="Promo Advisor promo calendar: every SKU's promotions across the year, coloured by whether each one pays back." style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; z-index:1; opacity:{{ promo.frontOp }}; transform:{{ promo.frontT }}; transition:opacity 0.5s ease, transform 0.6s cubic-bezier(.2,.8,.2,1); box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);">
             </div>
           </a>
 
@@ -350,8 +350,8 @@
               </div>
             </div>
             <div onMouseLeave="{{ swapOut }}" style="position:relative; min-height:clamp(260px,34vw,480px);">
-              <img onMouseEnter="{{ flightFront }}" src="assets/smart-flighting/cs-timeline.png" alt="" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; z-index:{{ flight.backZ }}; opacity:{{ flight.backOp }}; transform:{{ flight.backT }}; transition:opacity 0.5s ease, transform 0.6s cubic-bezier(.2,.8,.2,1), box-shadow 0.5s ease; box-shadow:0 30px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);">
-              <img onMouseEnter="{{ swapOut }}" src="assets/smart-flighting/cs-curve.png" alt="Smart Flighting response curve: where the next euro of media pressure stops paying." style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; z-index:1; opacity:{{ flight.frontOp }}; transform:{{ flight.frontT }}; transition:opacity 0.5s ease, transform 0.6s cubic-bezier(.2,.8,.2,1); box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);">
+              <img onMouseEnter="{{ flightFront }}" src="assets/smart-flighting/cs-timeline.webp" alt="" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; z-index:{{ flight.backZ }}; opacity:{{ flight.backOp }}; transform:{{ flight.backT }}; transition:opacity 0.5s ease, transform 0.6s cubic-bezier(.2,.8,.2,1), box-shadow 0.5s ease; box-shadow:0 30px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);">
+              <img onMouseEnter="{{ swapOut }}" src="assets/smart-flighting/cs-curve.webp" alt="Smart Flighting response curve: where the next euro of media pressure stops paying." style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; z-index:1; opacity:{{ flight.frontOp }}; transform:{{ flight.frontT }}; transition:opacity 0.5s ease, transform 0.6s cubic-bezier(.2,.8,.2,1); box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);">
             </div>
           </a>
 
@@ -441,13 +441,13 @@
                 <div style="display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#8A8795;"><span><span style="color:#FF9A66;">MAD Architects</span> · Harbin</span><span>2015</span></div>
                 <h3 style="font-weight:500; font-size:clamp(28px,3vw,44px); line-height:1; letter-spacing:-0.045em; margin:6px 0 0 0; color:#f4f2f7; text-wrap:balance;">Harbin Opera House</h3>
                 <p style="font-size:16px; line-height:1.6; color:#C4C1CC; margin:0; text-wrap:pretty;"><span style="color:#f4f2f7; font-weight:500;">My part:</span> parametric timber interior, detailed down to fabrication.</p>
-                <img src="assets/harbin/harbin-aerial.png" alt="Harbin Opera House from above, curving along the Songhua River wetlands" loading="lazy" style="width:100%; aspect-ratio:3/2; object-fit:cover; border-radius:12px; display:block; margin-top:auto; box-shadow:0 0 0 1px rgba(255,255,255,0.06);">
+                <img src="assets/harbin/harbin-aerial.webp" alt="Harbin Opera House from above, curving along the Songhua River wetlands" loading="lazy" style="width:100%; aspect-ratio:3/2; object-fit:cover; border-radius:12px; display:block; margin-top:auto; box-shadow:0 0 0 1px rgba(255,255,255,0.06);">
               </div>
               <div data-om-label="Gangxia North hub card" style="display:flex; flex-direction:column; gap:14px; padding:clamp(24px,3vw,36px); border-radius:20px; border:1px solid rgba(244,242,247,0.09); background:#0D0B10; min-width:0;">
                 <div style="display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#8A8795;"><span><span style="color:#FF9A66;">AREP</span> · Shenzhen</span><span>2016–2017</span></div>
                 <h3 style="font-weight:500; font-size:clamp(28px,3vw,44px); line-height:1; letter-spacing:-0.045em; margin:6px 0 0 0; color:#f4f2f7; text-wrap:balance;">Gangxia North hub</h3>
                 <p style="font-size:16px; line-height:1.6; color:#C4C1CC; margin:0; text-wrap:pretty;"><span style="color:#f4f2f7; font-weight:500;">My part:</span> parametric skylights and entrances for the competition win.</p>
-                <img src="assets/shenzhen/gangxia-eye.png" alt="Gangxia North hub: the 'Eye of Shenzhen' lattice skylight above the main concourse" loading="lazy" style="width:100%; aspect-ratio:3/2; object-fit:cover; border-radius:12px; display:block; margin-top:auto; box-shadow:0 0 0 1px rgba(255,255,255,0.06);">
+                <img src="assets/shenzhen/gangxia-eye.webp" alt="Gangxia North hub: the 'Eye of Shenzhen' lattice skylight above the main concourse" loading="lazy" style="width:100%; aspect-ratio:3/2; object-fit:cover; border-radius:12px; display:block; margin-top:auto; box-shadow:0 0 0 1px rgba(255,255,255,0.06);">
               </div>
             </div>
       </div>
@@ -611,8 +611,8 @@
                 </div>
               </div>
               <div style="position:relative; min-height:clamp(260px,34vw,480px);">
-                <img src="assets/raben-sectors.png" alt="" loading="lazy" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; opacity:0.5; box-shadow:0 30px 70px rgba(0,0,0,0.5);">
-                <img src="assets/raben-contact.png" alt="Raben Group site: navigation and contact form with a dotted map of Europe" loading="lazy" style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);">
+                <img src="assets/raben-sectors.webp" alt="" loading="lazy" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; opacity:0.5; box-shadow:0 30px 70px rgba(0,0,0,0.5);">
+                <img src="assets/raben-contact.webp" alt="Raben Group site: navigation and contact form with a dotted map of Europe" loading="lazy" style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);">
               </div>
             </div>
             <div data-om-label="Robomow card" style="position:sticky; top:114px; display:grid; grid-template-columns:minmax(0,0.92fr) minmax(0,1.08fr); gap:clamp(28px,4vw,64px); min-height:min(720px, calc(100svh - 154px)); padding:clamp(24px,4vw,56px); border-radius:28px; border:1px solid rgba(244,242,247,0.09); background:#0D0C0A; color:#f4f2f7; overflow:hidden; box-shadow:0 -24px 60px rgba(0,0,0,0.55);">
@@ -627,8 +627,8 @@
                 </div>
               </div>
               <div style="position:relative; min-height:clamp(260px,34vw,480px);">
-                <img src="assets/robomow-desktop.png" alt="" loading="lazy" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; opacity:0.5; box-shadow:0 30px 70px rgba(0,0,0,0.5);">
-                <img src="assets/robomow-mobile.png" alt="Robomow mobile screens: product page, series hero, menu and feature highlights" loading="lazy" style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);">
+                <img src="assets/robomow-desktop.webp" alt="" loading="lazy" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; opacity:0.5; box-shadow:0 30px 70px rgba(0,0,0,0.5);">
+                <img src="assets/robomow-mobile.webp" alt="Robomow mobile screens: product page, series hero, menu and feature highlights" loading="lazy" style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);">
               </div>
             </div>
             <div data-om-label="Macmillan Education card" style="position:sticky; top:132px; display:grid; grid-template-columns:minmax(0,0.92fr) minmax(0,1.08fr); gap:clamp(28px,4vw,64px); min-height:min(720px, calc(100svh - 172px)); padding:clamp(24px,4vw,56px); border-radius:28px; border:1px solid rgba(244,242,247,0.09); background:#0E0B0C; color:#f4f2f7; overflow:hidden; box-shadow:0 -24px 60px rgba(0,0,0,0.55);">
@@ -643,8 +643,8 @@
                 </div>
               </div>
               <div style="position:relative; min-height:clamp(260px,34vw,480px);">
-                <img src="assets/macmillan-catalogue.png" alt="" loading="lazy" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; opacity:0.5; box-shadow:0 30px 70px rgba(0,0,0,0.5);">
-                <img src="assets/macmillan-redesign.png" alt="Macmillan Education redesign: title search, student zone and course listings" loading="lazy" style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);">
+                <img src="assets/macmillan-catalogue.webp" alt="" loading="lazy" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; opacity:0.5; box-shadow:0 30px 70px rgba(0,0,0,0.5);">
+                <img src="assets/macmillan-redesign.webp" alt="Macmillan Education redesign: title search, student zone and course listings" loading="lazy" style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);">
               </div>
             </div>
             <div data-om-label="Pearson card" style="position:sticky; top:150px; display:grid; grid-template-columns:minmax(0,0.92fr) minmax(0,1.08fr); gap:clamp(28px,4vw,64px); min-height:min(720px, calc(100svh - 190px)); padding:clamp(24px,4vw,56px); border-radius:28px; border:1px solid rgba(244,242,247,0.09); background:#0A0C0F; color:#f4f2f7; overflow:hidden; box-shadow:0 -24px 60px rgba(0,0,0,0.55);">
@@ -659,8 +659,8 @@
                 </div>
               </div>
               <div style="position:relative; min-height:clamp(260px,34vw,480px);">
-                <img src="assets/pearson-cards.png" alt="" loading="lazy" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; opacity:0.5; box-shadow:0 30px 70px rgba(0,0,0,0.5);">
-                <img src="assets/pearson-home.png" alt="Pearson portal: home page with catalogue navigation, promo banners and quick links" loading="lazy" style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);">
+                <img src="assets/pearson-cards.webp" alt="" loading="lazy" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; opacity:0.5; box-shadow:0 30px 70px rgba(0,0,0,0.5);">
+                <img src="assets/pearson-home.webp" alt="Pearson portal: home page with catalogue navigation, promo banners and quick links" loading="lazy" style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06);">
               </div>
             </div>
           </div>
