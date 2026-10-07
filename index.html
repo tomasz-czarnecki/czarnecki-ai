@@ -85,7 +85,7 @@
     <section id="v2-hero" style="position:relative; overflow:clip; background:#08070b; padding:0; transform-origin:50% 40%; will-change:opacity,transform;" data-om-label="Hero" data-screen-label="Hero">
       <div id="v2-hero-frame" style="position:relative; height:calc(100svh - 72px); min-height:560px; border-bottom:1px solid rgba(255,255,255,0.14); background:#08070b; display:flex; flex-direction:column; justify-content:center; overflow:hidden;">
         <sc-if value="{{ heroSea }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="hero-sea" from="./hero-sea.js" lines="{{ seaLines }}" speed="{{ seaSpeed }}" far="#8B7FE0" near="#4FA3A5" amp="0.55" horizon="0.55" hint-size="100%,30%" style="position:absolute; left:0; right:0; bottom:0; height:30%; z-index:0; pointer-events:none;"></x-import></sc-if>
-        <x-import component-from-global-scope="fur-monster-ground" from="./fur-monster-ground.js" anchor="#v2-hero-frame" hold="#intro-pin" footer="#contact" dock="{{ dockMode }}" hop="{{ hopAttr }}" thoughts="annoying" x="0.75" y="0.54" x-small="0.83" y-small="0.79" scale-small="0.42" bubble-small="1.05" label="The black box · poke it" label-ink="#f4f2f7" grain="0.06" hint-size="100%,100%" style="position:absolute; inset:0; z-index:1; pointer-events:none;"></x-import>
+        <x-import component-from-global-scope="black-box-faces" from="./black-box-faces.js" mouth-style="crater" lip-scale="0.75" lip-color="pink" dish="0.11" dish-floor="0.2" expression="{{ bbFace }}" anchor="#v2-hero-frame" hold="#intro-pin" footer="#contact" dock="{{ dockMode }}" hop="{{ hopAttr }}" thoughts="annoying" x="0.75" y="0.54" x-small="0.83" y-small="0.79" scale-small="0.42" bubble-small="1.05" label="The black box · poke it" label-ink="#f4f2f7" grain="0.06" hint-size="100%,100%" style="position:absolute; inset:0; z-index:1; pointer-events:none;"></x-import>
         <div style="position:relative; z-index:3; width:100%; max-width:1320px; margin:0 auto; padding:clamp(40px,5vw,72px) clamp(20px,4.5vw,48px);">
           <div id="v2-hero-copy" style="min-width:0; max-width:min(52%, 680px); pointer-events:auto;">
           <div style="display:flex; align-items:center; gap:10px; font-family:'Geist Mono',ui-monospace,monospace; font-size:clamp(11px,1vw,12.5px); letter-spacing:0.14em; text-transform:uppercase; color:rgba(244,242,247,0.62); margin:0 0 clamp(12px,1.3vw,18px) 0;"><span style="width:7px; height:7px; border-radius:2px; background:#FF7A3D; flex:0 0 auto;"></span><span>AI Product Manager · Pricing · Promotion · Marketing Spend</span></div>
@@ -397,7 +397,7 @@
   </section>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;orbitDwell&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.8,&quot;min&quot;:0.6,&quot;max&quot;:4,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Case studies&quot;},&quot;hopping&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;dockMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;right&quot;,&quot;left&quot;,&quot;roam&quot;],&quot;default&quot;:&quot;right&quot;,&quot;tsType&quot;:&quot;'right'|'left'|'roam'&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;heroSea&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;seaLines&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:12,&quot;min&quot;:4,&quot;max&quot;:30,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;seaSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:3,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;grain&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Atmosphere&quot;},&quot;showPortrait&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showMetrics&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;youtubeId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;y4ujczQ-hPs&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;faceCycle&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;faceCycleSec&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:2.4,&quot;min&quot;:1,&quot;max&quot;:6,&quot;step&quot;:0.2,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;faceExpression&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;grin&quot;,&quot;smile&quot;,&quot;oh&quot;],&quot;default&quot;:&quot;grin&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;orbitDwell&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.8,&quot;min&quot;:0.6,&quot;max&quot;:4,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Case studies&quot;},&quot;hopping&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;dockMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;right&quot;,&quot;left&quot;,&quot;roam&quot;],&quot;default&quot;:&quot;right&quot;,&quot;tsType&quot;:&quot;'right'|'left'|'roam'&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;heroSea&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;seaLines&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:12,&quot;min&quot;:4,&quot;max&quot;:30,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;seaSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:3,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;grain&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Atmosphere&quot;},&quot;showPortrait&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showMetrics&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;youtubeId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;y4ujczQ-hPs&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
   state = {
     introPlaying: false,
@@ -412,9 +412,17 @@ class Component extends DCLogic {
     { let lastD = -1; const loop = (t) => { { const n = new Date(), m = new Date(n); m.setHours(0, 0, 0, 0); const s = (n - m) / 1000, dv = Math.floor(s * 2.9e9 / 31557600); if (dv !== lastD && this.todayTicker.current) { this.todayTicker.current.textContent = '€' + dv.toLocaleString('en-US'); lastD = dv; } } this._spRaf = requestAnimationFrame(loop); };
       this._spRaf = requestAnimationFrame(loop); }
     this.initHandoff();
+    this.faceLoop();
     this._bbT = setInterval(() => { if (!document.hidden) this.setState(s => ({ bbStep: ((s.bbStep ?? 0) + 1) % 4 })); }, 3200);
     this.initScroll();
     this.initFootGrain();
+  }
+  faceOrder = ['grin', 'smile', 'oh', 'smile'];
+  faceLoop() {
+    this._faceT = setTimeout(() => {
+      if ((this.props.faceCycle ?? true) && !document.hidden) this.setState(s => ({ faceI: ((s.faceI ?? 0) + 1) % this.faceOrder.length }));
+      this.faceLoop();
+    }, (this.props.faceCycleSec ?? 2.4) * 1000);
   }
   footGrain = React.createRef();
   initFootGrain() {
@@ -427,7 +435,7 @@ class Component extends DCLogic {
     const mq = matchMedia('(prefers-reduced-motion: reduce)');
     this._fgT = setInterval(() => { if (mq.matches || document.hidden) return; el.style.backgroundPosition = `${Math.random() * G | 0}px ${Math.random() * G | 0}px`; }, 90);
   }
-  componentWillUnmount() { this._hoIO && this._hoIO.disconnect(); cancelAnimationFrame(this._hoRaf); clearTimeout(this._hoPoll); this._hoDot && this._hoDot.remove(); window.removeEventListener('resize', this._stackFit); this._stackRO && this._stackRO.disconnect(); cancelAnimationFrame(this._spRaf); clearInterval(this._fgT); clearInterval(this._bbT); this.stopScroll && this.stopScroll(); }
+  componentWillUnmount() { this._hoIO && this._hoIO.disconnect(); cancelAnimationFrame(this._hoRaf); clearTimeout(this._hoPoll); this._hoDot && this._hoDot.remove(); window.removeEventListener('resize', this._stackFit); this._stackRO && this._stackRO.disconnect(); cancelAnimationFrame(this._spRaf); clearInterval(this._fgT); clearInterval(this._bbT); clearTimeout(this._faceT); this.stopScroll && this.stopScroll(); }
 
   // scroll-driven: fade-up reveals, lit timeline row
   initScroll() {
@@ -552,6 +560,7 @@ class Component extends DCLogic {
     const galP = this.state.galPalette || 'ghost', galOn = (k) => galP === k;
     return {
       ...this.bbVals(),
+      bbFace: (this.props.faceCycle ?? true) ? this.faceOrder[this.state.faceI ?? 0] : (this.props.faceExpression ?? 'grin'),
       galPalette: galP,
       galGhostClick: () => this.setState({ galPalette: 'ghost' }), galColorClick: () => this.setState({ galPalette: 'color' }),
       galGhostBg: galOn('ghost') ? '#FF7A3D' : 'transparent', galGhostFg: galOn('ghost') ? '#08070b' : '#A09DAA',
