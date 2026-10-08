@@ -70,7 +70,7 @@
   <!-- HEADER -->
   <header style="position:sticky; top:0; z-index:50; background:rgba(8,7,11,0.86); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border-bottom:1px solid #1F1E26;">
     <div style="max-width:1320px; margin:0 auto; padding:18px clamp(20px,4.5vw,48px); display:flex; align-items:center; justify-content:space-between; gap:24px;">
-      <a href="#top" style="display:flex; align-items:center; gap:7px; text-decoration:none; color:#f4f2f7;">
+      <a href="#top" onClick="{{ toTop }}" style="display:flex; align-items:center; gap:7px; text-decoration:none; color:#f4f2f7;">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" style="display:block; flex:none;"><rect x="1" y="1" width="16" height="16" rx="5" fill="#FF7A3D"></rect></svg>
         <span style="font-size:15.5px; font-weight:500; letter-spacing:-0.01em;">Tomasz Czarnecki</span>
       </a>
@@ -671,6 +671,7 @@ class Component extends DCLogic {
       allocFront: swIn('alloc'), promoFront: swIn('promo'), flightFront: swIn('flight'),
       swapOut: () => { if (this.state.cardSwap) this.setState({ cardSwap: null }); },
       footGrain: this.footGrain,
+      toTop: (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); if (history.replaceState) history.replaceState(null, '', location.pathname + location.search); },
       yagaSec: this.yagaSec, yagaRise: this.yagaRise, yagaSway: this.yagaSway, yagaBub: this.yagaBub, yagaFig: this.yagaFig,
       hopAttr: (this.props.hopping ?? true) ? 'on' : 'off',
       todayTicker: this.todayTicker, journey: this.journey,
