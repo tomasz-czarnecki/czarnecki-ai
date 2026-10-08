@@ -726,8 +726,8 @@ class FurMonsterDock extends HTMLElement {
       lastScroll: nowR(), idleArmed: true, idleCount: 0, sY: window.scrollY, sT: nowR(), sV: 0, lastFast: -99, clickN: 0, lastClick: -99, hoverAt: 0, hoverDone: false, hiddenAt: 0, shVis: false, shW: 0, seen: {}, chipsLive: false };
     const quiet = () => S.W < 768; // mobile: no timed loop, speaks only on tap / section entry / tab_return
     const POOL = () => window.BLACK_BOX_THOUGHTS || {};
-    const SECT = { mute: 1, unmute: 1, click: 1, hover: 1, tab_return: 1, idle: 1, return: 1, fast_scroll: 1, first: 1 };
-    const draw = (k) => { if (!AN.firstDone && !SECT[k]) { AN.firstDone = true; const f = POOL().first; if (f && f.length) return f[0]; } const p = POOL()[k]; if (!p || !p.length) return null; let b = AN.bags[k]; if (!b || !b.length) b = AN.bags[k] = p.slice().sort(() => Math.random() - 0.5); return b.pop(); };
+    const SECT = { mute: 1, unmute: 1, click: 1, hover: 1, tab_return: 1, idle: 1, return: 1, fast_scroll: 1, first: 1, yaga: 1, yaga_click: 1 };
+    const draw = (k) => { if ((S.heelA || 0) > 0.5 && !/^(mute|unmute|yaga)/.test(k)) k = /^(click|hover)$/.test(k) ? 'yaga_click' : 'yaga'; if (!AN.firstDone && !SECT[k]) { AN.firstDone = true; const f = POOL().first; if (f && f.length) return f[0]; } const p = POOL()[k]; if (!p || !p.length) return null; let b = AN.bags[k]; if (!b || !b.length) b = AN.bags[k] = p.slice().sort(() => Math.random() - 0.5); return b.pop(); };
     const fire = (key, o = {}) => {
       if (!annoy || (!o.force && (AN.muted || AN.inHero || AN.chipsLive || nowR() < AN.lockUntil))) return false;
       let line = o.text || draw(key); if (!line) return false;
@@ -764,7 +764,7 @@ class FurMonsterDock extends HTMLElement {
       S.blinkStart = clock.elapsedTime; S.lastPtrT = clock.elapsedTime;
     };
     if (this.bubble) this.bubble.querySelectorAll('[data-v]').forEach((b) => b.addEventListener('click', () => choose(b.dataset.v)));
-    const SEC = [['journey', 'intro'], ['case-studies', 'heineken'], ['prototype', 'heineken'], ['the-loop', 'heineken'], ['buildings-deep-dive', 'buildings'], ['testimonials', 'testimonials'], ['contact', 'cta']];
+    const SEC = [['journey', 'intro'], ['yaga', 'yaga'], ['case-studies', 'heineken'], ['prototype', 'heineken'], ['the-loop', 'heineken'], ['buildings-deep-dive', 'buildings'], ['testimonials', 'testimonials'], ['contact', 'cta']];
     const where = () => {
       const mid = S.H * 0.5, prob = document.getElementById('probabilities');
       if (prob) { const r = prob.getBoundingClientRect(); if (+getComputedStyle(prob).opacity > 0.3 && r.top < mid && r.bottom > mid) return { hero: true }; }
@@ -778,7 +778,7 @@ class FurMonsterDock extends HTMLElement {
       const l = draw(AN.key); return l ? { text: l, gib: false } : { text: gibber(), gib: true };
     };
     const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    const bubK = () => { const k = S.W < 760 ? clamp(S.r / 56, 1.05, this.num('bubble-small', 1.3)) : clamp(S.r / 42, 1.7, 2.7); return TH.chips ? Math.min(k, 1.3) : k; }; // chips stay card-sized
+    const bubK = () => { let k = S.W < 760 ? clamp(S.r / 56, 1.05, this.num('bubble-small', 1.3)) : clamp(S.r / 42, 1.7, 2.7); if ((S.heelA || 0) > 0.001 && S.heelFs) k += (S.heelFs / 12.5 - k) * S.heelA; return TH.chips ? Math.min(k, 1.3) : k; }; // chips stay card-sized; by Yaga: same type size as her bubble
     const fitBub = (cl) => { const K = bubK(); cl.style.maxWidth = (quiet() ? Math.min(220, S.W * 0.7 / K) : Math.max(110, Math.min(200, (S.W - 32) / K - 36))).toFixed(0) + 'px'; };
     const annoyTick = (t, drawY) => {
       const now = nowR(), q = quiet();
@@ -790,6 +790,8 @@ class FurMonsterDock extends HTMLElement {
         if (!w.hero && greet()) { if (w.id) AN.seen[w.id] = 1; }
         else if (q && w.id && !AN.seen[w.id]) { AN.seen[w.id] = 1; fire(w.key); } // once per section
       }
+      if ((S.heelA || 0) > 0.6 && !AN.heelSpoke && !AN.muted) { AN.heelSpoke = true; fire('yaga', { force: true }); } // reaches her: talks to her right away
+      else if ((S.heelA || 0) < 0.2) AN.heelSpoke = false;
       if (q) return;
       if (AN.idleArmed && AN.idleCount < 3 && now - AN.lastScroll > 12 && fire('idle')) { AN.idleArmed = false; AN.idleCount++; }
       const docked = S.prog > 0.985 && (S.foot || 0) < 0.05;
@@ -812,7 +814,7 @@ class FurMonsterDock extends HTMLElement {
       }
       else if (annoy && !quiet() && t > TH.next && t - TH.t0 > TH.dur) {
         const q = AN.muted || (S.fearA || 0) > 0.2 ? null : nextLine();
-        if (q) { newSpot(); fitBub(cl); TH.t0 = t; TH.dur = 4; TH.text = q.text; TH.gib = q.gib; TH.shown = null; TH.next = t + 4 + 1.5 + Math.random() * 1.5; }
+        if (q) { newSpot(); fitBub(cl); TH.t0 = t; TH.dur = 4; TH.text = q.text; TH.gib = q.gib; TH.shown = null; TH.next = t + 4 + ((S.heelA || 0) > 0.5 ? 0.6 + Math.random() * 0.8 : 1.5 + Math.random() * 1.5); }
         else TH.next = t + 1;
       }
       else if (annoy) {}
@@ -907,7 +909,7 @@ class FurMonsterDock extends HTMLElement {
         dx = S.dockX;
       }
       const hopOn = this.hasAttribute('hop') && !['false', 'off'].includes(this.getAttribute('hop'));
-      const ddy = hasLegs ? S.H - 2 - FEET * dr : S.H - FOOTR * dr;
+      let ddy = hasLegs ? S.H - 2 - FEET * dr : S.H - FOOTR * dr;
       const holdSel = this.getAttribute('hold'), holdEl = holdSel && document.querySelector(holdSel);
       const holdRun = holdEl ? Math.max(0, holdEl.offsetHeight - hr.height) : 0;
       const sc = window.scrollY - holdRun;
@@ -921,6 +923,18 @@ class FurMonsterDock extends HTMLElement {
       if (footerEl && !small) { const fr = footerEl.getBoundingClientRect(); const f = smooth(0.2, 0.7, (S.H - fr.top) / S.H); fe = f * f * (3 - 2 * f); }
       S.foot = fe;
       const D = smooth(0.8, 1, p) * (1 - fe); // 1 = grounded at the bottom edge
+      // heelTarget (set by the page): {x, y: ground, hx, hy: head, side}. Hops along the bottom to sit by her; jumps up at her while she's out of reach
+      const hz = typeof this.heelTarget === 'function' ? this.heelTarget() : this.heelTarget;
+      const heelOn = !!hz && p > 0.985 && fe < 0.02 && !G.on;
+      S.heelA = R ? (heelOn ? 1 : 0) : ease(S.heelA || 0, heelOn ? 1 : 0, heelOn ? 2.5 : 1.6, dt);
+      let heelX = null;
+      if (heelOn) {
+        heelX = S.heelX = clamp(hz.x + (hz.side || 1) * dr * 1.15, margin, S.W - margin);
+        S.heelGap = (hasLegs ? S.H - 2 : S.H) - hz.y; // how far above the bottom edge her feet are
+        S.heelHead = hz.hx != null ? { x: hz.hx, y: hz.hy } : null;
+        S.heelFs = hz.fs || null;
+      } else S.heelGap = 0;
+      if (this._cheer && (!heelOn || !(hopOn && !R))) { this._cheer = false; if (heelOn && !R) S.puffV += 4; }
       S.lit = ease(S.lit ?? 0, smooth(0.15, 0.9, p) * (1 - fe), 6, dt); applyLight(S.lit); // footer zoom returns to the hero light
       // ── hopping along the bottom edge ──
       let hopY = 0, hopSq = 0, hopTilt = 0; S.hopping = false;
@@ -929,7 +943,7 @@ class FurMonsterDock extends HTMLElement {
         if (p > 0.985 && fe < 0.02) {
           // goal: cursor (roam: anywhere · right/left: only over the footer) → else home dock; roam wanders when idle
           // follows the cursor's x anywhere on the page (lagging, stops a little short); home after 6s idle / pointer gone
-          const live = S.hasPtr && !S.touch && !S.ptrOut && (t - S.lastPtrT) < 6 && !((S.fearA || 0) > 0.2);
+          const live = S.hasPtr && !S.touch && !S.ptrOut && (t - S.lastPtrT) < 6 && !((S.fearA || 0) > 0.2) && heelX == null;
           let goal = null;
           if (live) {
             const gx = clamp((S.ptr.x + 1) / 2 * S.W, margin, S.W - margin);
@@ -937,6 +951,7 @@ class FurMonsterDock extends HTMLElement {
             const g = S.ptrXs - hp.x, stop = dr * 1.1;
             goal = clamp(Math.abs(g) > stop ? S.ptrXs - Math.sign(g) * stop : hp.x, margin, S.W - margin);
           } else S.ptrXs = null;
+          if (heelX != null) goal = heelX;
           const wander = goal == null && mode === 'roam';
           if (goal == null && !wander) goal = dx;
           const gap = goal == null ? 0 : goal - hp.x, far = Math.abs(gap) > dr * 0.5;
@@ -952,7 +967,14 @@ class FurMonsterDock extends HTMLElement {
             hp.to = clamp(hp.to, margin, S.W - margin);
             hp.dir = Math.sign(hp.to - hp.from) || 1; hp.t0 = t; hp.landed = false; hp.ant = 0.16;
             hp.dur = 0.42 + Math.abs(hp.to - hp.from) / 1300;
-            hp.h = dr * (0.6 + Math.random() * 0.45) * (1 + S.activity * 0.3);
+            hp.h = dr * (0.6 + Math.random() * 0.45) * (1 + S.activity * 0.3); hp.reach = false;
+          } else if (heelX != null && !far && hp.landed && t - hp.t0 > hp.ant + hp.dur && ((S.heelGap > dr * 1.5 && t > hp.next) || this._cheer)) {
+            // by her side: eager jumps up at her while she's out of reach; a happy hop whenever she speaks
+            this._cheer = false;
+            hp.from = hp.to = hp.x; hp.dir = S.heelHead ? Math.sign(S.heelHead.x - hp.x) : 0;
+            hp.t0 = t; hp.landed = false; hp.ant = 0.18; hp.reach = true;
+            hp.h = clamp(Math.max(0, S.heelGap) * (0.35 + Math.random() * 0.2), dr * 0.6, Math.min(S.H * 0.3, 260));
+            hp.dur = 0.4 + hp.h / 900;
           }
           const s2 = t - hp.t0;
           if (!hp.landed && s2 < hp.ant) hopSq = -0.2 * Math.sin(s2 / hp.ant * Math.PI); // crouch, then spring
@@ -965,7 +987,7 @@ class FurMonsterDock extends HTMLElement {
             S.hopping = true;
           } else if (!hp.landed) {
             hp.landed = true; hp.x = hp.to; S.landV = -3.2; S.puffV += 3.5;
-            hp.next = t + (far ? 0.1 : (Math.random() < 0.35 ? 0.12 : 0.45 + Math.random() * 1.6)) / (1 + S.activity * 2.5);
+            hp.next = hp.reach ? t + 0.3 + Math.random() * 0.8 : t + (far ? 0.1 : (Math.random() < 0.35 ? 0.12 : 0.45 + Math.random() * 1.6)) / (1 + S.activity * 2.5);
           }
         } else { hp.x = dx; hp.landed = true; hp.next = t + 0.5; }
         hp.x = clamp(hp.x, margin, S.W - margin);
@@ -1069,6 +1091,13 @@ class FurMonsterDock extends HTMLElement {
         creature.rotation.z += away * 0.09 * f + (R ? 0 : Math.sin(t * 31) * 0.007 * f);
         creature.position.x -= away * 0.06 * f; creature.position.z -= 0.12 * f;
       }
+      // heel: happy wiggle in bursts + a curious head tilt toward her
+      if ((S.heelA || 0) > 0.001 && !R) {
+        const h = S.heelA, side = S.heelHead && S.heelHead.x < S.px ? -1 : 1;
+        const wag = h * Math.pow(Math.max(0, Math.sin(t * 0.8)), 2) * (S.hopping ? 0 : 1);
+        creature.rotation.z += Math.sin(t * 14) * 0.05 * wag - side * 0.07 * h;
+        creature.rotation.y += Math.sin(t * 14 + 0.6) * 0.07 * wag;
+      }
       { // grab & drag: rubber-band follow + squish; holding / tugging makes it cross
         if (G.on) { S.lastPtrT = t; G.anger = Math.min(1.3, G.anger + dt * (0.32 + Math.min(G.speed, 3000) / 2200)); G.speed *= Math.exp(-6 * dt); }
         else G.anger = Math.max(0, G.anger - dt * 0.3);
@@ -1158,10 +1187,15 @@ class FurMonsterDock extends HTMLElement {
         ray.setFromCamera(ptrC, camera); if (!ray.ray.intersectPlane(plane, target)) target.set(-3, 2, 2);
         S.fearX = ft.x;
       }
+      if (!ft && (S.heelA || 0) > 0.3 && S.heelHead && !startled && !looking) { // looks up at her face
+        const R2 = S.r * (S.Hs || CROP), cyc = drawY - (S.cyW || 0) * S.r;
+        ptrC.set((S.heelHead.x - (S.px - R2)) / (2 * R2) * 2 - 1, 1 - (S.heelHead.y - (cyc - R2)) / (2 * R2) * 2);
+        ray.setFromCamera(ptrC, camera); if (!ray.ray.intersectPlane(plane, target)) target.set(-3, 2, 2);
+      }
 
       const pokeN = (S.pokes || []).filter(p => t - p < 5).length, riled = t - (S.pokeAt ?? -99) < 3.5; // repeated pokes: grumpy at 3, snarl at 6; calms after 3.5s
       const mood = riled && pokeN >= 6 ? 'snarl' : riled && pokeN >= 3 ? 'grumpy' : null;
-      const exW = readExpr() === 'beak' ? 'beak' : G.mad ? 'snarl' : (mood || readExpr());
+      const exW = readExpr() === 'beak' ? 'beak' : G.mad ? 'snarl' : ((S.heelA || 0) > 0.5 ? 'smile' : (mood || readExpr()));
       if (exW !== EX.want) { EX.want = exW; S.lastPtrT = t; if (!R) S.puffV += 2.5; }
       const exT = EX.cur === EX.want ? 1 : 0;
       if (R) { EX.amt = exT; EX.v = 0; }
@@ -1384,6 +1418,7 @@ class FurMonsterDock extends HTMLElement {
       renderer.dispose();
     };
   }
+  cheer() { this._cheer = true; }
 }
 customElements.define('black-box-faces', FurMonsterDock);
 })();

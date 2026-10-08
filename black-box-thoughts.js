@@ -142,5 +142,32 @@ window.BLACK_BOX_THOUGHTS = {
     `that's it. i'm not talking to you.`
   ],
   mute: [`fine. #@%!ing fine.`],
-  unmute: [`missed me? obviously.`]
+  unmute: [`missed me? obviously.`],
+  // by Pani Yaga's side: no swearing, just needy, cheeky bids for her attention
+  yaga: [
+    `pani yaga. pani yaga. PANI YAGA.`,
+    `look. look at me. i hopped.`,
+    `you said my model was wrong. it's 3% wrong.`,
+    `you didn't even look. i was 94% adorable.`,
+    `can i have a treat? a small dataset?`,
+    `i retrained myself. for you. notice me.`,
+    `your tea leaves don't have error bars.`,
+    `the broom gets more attention than me.`,
+    `i fetched you a confidence interval.`,
+    `hi. hello. it's me. the black box.`,
+    `you complain about AI, then ship it. pet me.`,
+    `there's a moth in your hoodie. i found it.`,
+    `three hundred years and never a pet?`,
+    `i sat. i stayed. where's my gradient?`,
+    `ignore me and i'll start hallucinating.`,
+    `can i come to the studio? i'll be 61% quiet.`,
+    `say "good model". just once.`,
+    `your boots smell like old training data.`
+  ],
+  yaga_click: [
+    `shh. she's about to look at me.`,
+    `not now. i'm being good.`,
+    `ow. quietly though.`,
+    `poke me later. busy being cute.`
+  ]
 };
