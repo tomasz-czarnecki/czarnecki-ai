@@ -24,7 +24,7 @@
       this._reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
       this._t0 = performance.now();
       this._resize();
-      const loop = (now) => { this._raf = requestAnimationFrame(loop); if (this._vis) this._draw((now - this._t0) / 1000); };
+      const loop = (now) => { this._raf = requestAnimationFrame(loop); if (this._vis && !this._off && !document.hidden) this._draw((now - this._t0) / 1000); };
       if (this._reduce) this._draw(4); else this._raf = requestAnimationFrame(loop);
     }
     disconnectedCallback() { cancelAnimationFrame(this._raf); window.removeEventListener('pointermove', this._onMove); document.removeEventListener('pointerleave', this._onLeave); this._ro && this._ro.disconnect(); this._io && this._io.disconnect(); }

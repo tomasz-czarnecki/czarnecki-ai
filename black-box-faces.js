@@ -1,8 +1,49 @@
 // <black-box-faces> — fork of fur-monster-ground.js with switchable expressions: expression="grin|oh|grumpy|smile|beak" (live attribute).
-// mouth-style="cut|crater|pocket|parting|muzzle|lips" (read once). attrs: anchor (selector of hero frame) · x, y, x-small, y-small (0–1 position inside anchor) · label · label-ink · grain · dock (right|left|roam) · reduced-motion
+// mouth-style="cut|crater|pocket|parting|muzzle|lips" (read once). skin="carton|lidbox" (read once): dark cardboard box / paper box with lift-off lid (box-color="black|kraft") instead of fur. attrs: anchor (selector of hero frame) · x, y, x-small, y-small (0–1 position inside anchor) · label · label-ink · grain · dock (right|left|roam) · reduced-motion
 (() => {
 if (customElements.get('black-box-faces')) return;
 const THREE_URL = 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+// render="ink": the lit 3D frame goes through a screen-space pen-and-ink pass (posterised tones → hatching, solid blacks, cream highlights, ~9fps line boil)
+const INK_VERT = `varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }`;
+const INK_FRAG = `
+uniform sampler2D tCol; uniform vec2 uRes; uniform float uStep, uDpr, uExp, uSp, uHR, uST; uniform vec3 uInk, uPaper;
+varying vec2 vUv;
+float h21(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
+float vn(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f); return mix(mix(h21(i), h21(i + vec2(1, 0)), f.x), mix(h21(i + vec2(0, 1)), h21(i + vec2(1, 1)), f.x), f.y); }
+vec3 aces(vec3 x){ return clamp((x * (2.51 * x + 0.03)) / (x * (2.43 * x + 0.59) + 0.14), 0.0, 1.0); }
+float hatch(vec2 fc, float ang, float sp, float cover, float seed){
+  if (cover <= 0.0) return 0.0;
+  vec2 d = vec2(cos(ang), sin(ang));
+  float t = dot(fc, vec2(-d.y, d.x)) / sp + (vn(fc * 0.045 + seed + uStep * 3.1) - 0.5) * 0.8;
+  float f = abs(fract(t) - 0.5) * 2.0, aa = fwidth(t) * 1.5;
+  return 1.0 - smoothstep(cover - aa, cover + aa, f);
+}
+float lumOf(vec4 c){ vec3 rgb = pow(aces(max(c.rgb / max(c.a, 1e-3), 0.0) * uExp), vec3(1.0 / 2.2)); return dot(rgb, vec3(0.299, 0.587, 0.114)); }
+void main(){
+  vec2 fc = gl_FragCoord.xy / uDpr;
+  vec2 wob = vec2(vn(fc / 13.0 + uStep * 7.3), vn(fc / 13.0 + 31.7 + uStep * 5.1)) - 0.5;
+  vec2 uv = vUv + wob * 2.6 * uDpr / uRes;
+  vec4 c = texture2D(tCol, uv);
+  float a = c.a;
+  if (a < 0.03) { gl_FragColor = vec4(0.0); return; }
+  float L = lumOf(c), j = (h21(vec2(uStep, 3.7)) - 0.5) * 0.03;
+  float sum = 0.0, ws = 0.0;
+  for (int i = 0; i < 8; i++) {
+    float an = float(i) * 0.785 + uStep * 0.4;
+    vec4 sm = texture2D(tCol, uv + vec2(cos(an), sin(an)) * uHR * uDpr / uRes);
+    float w = step(0.25, sm.a); sum += w * lumOf(sm); ws += w;
+  }
+  float Lb = ws > 0.0 ? sum / ws : L, det = L - Lb;
+  float strand = smoothstep(uST, uST * 2.4, det) * (0.3 + 0.7 * smoothstep(0.04, 0.3, Lb + 0.06));
+  float d = 1.0 - L + j;
+  float ink = hatch(fc, 0.79, uSp, clamp((d - 0.3) * 1.7, 0.0, 0.8), 0.0);
+  ink = max(ink, hatch(fc, -0.72, uSp * 1.15, clamp((d - 0.55) * 1.9, 0.0, 0.8), 11.0));
+  ink = max(ink, smoothstep(0.78, 0.84, d));
+  ink *= 1.0 - strand;
+  vec3 col = mix(uPaper, uInk, ink);
+  float A = smoothstep(0.22, 0.5, a);
+  gl_FragColor = vec4(col * A, A);
+}`;
 
 const MOUTH_GLSL = `
 uniform float uMouthMode, uMouthHW, uMouthN, uMouthAmt;
@@ -84,11 +125,15 @@ void main(){
 
 const FUR_FRAG = `
 uniform sampler2D uNoise;
-uniform float uDensity, uRim, uShells;
+uniform float uDensity, uRim, uShells, uCow, uCowSeed, uDragon, uScaleN, uGinger; uniform vec3 uWhite, uScaleCol, uGinA, uGinB, uGinC;
 uniform vec3 uRoot, uTip, uSky, uGround, uKeyDir, uKeyCol, uRimDir, uIriA, uIriB, uIriC;
 varying vec2 vUv; varying float vLevel; varying vec3 vN; varying vec3 vW; varying float vMask;
 varying vec3 vObj; varying float vMuzK; varying float vMK;
 ${MOUTH_GLSL}
+float cowH(vec3 p){ return fract(sin(dot(p, vec3(127.1, 311.7, 74.7))) * 43758.5453); }
+float cowN(vec3 p){ vec3 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
+  return mix(mix(mix(cowH(i), cowH(i + vec3(1,0,0)), f.x), mix(cowH(i + vec3(0,1,0)), cowH(i + vec3(1,1,0)), f.x), f.y),
+             mix(mix(cowH(i + vec3(0,0,1)), cowH(i + vec3(1,0,1)), f.x), mix(cowH(i + vec3(0,1,1)), cowH(i + vec3(1,1,1)), f.x), f.y), f.z); }
 void main(){
   if (uMCut > 0.5 && mouthD(vObj) < 0.0) discard; // the mouth is a real hole in the pelt
   vec4 tx = texture2D(uNoise, vUv * uDensity);
@@ -110,15 +155,66 @@ void main(){
   float ndl = dot(N, uKeyDir);
   float wrap = clamp((ndl + 0.35) / 1.35, 0.0, 1.0);
   vec3 col = base * (hemi + uKeyCol * wrap) * ao;
+  float cowK = 0.0;
+  if (uCow > 0.5) { // coat="cow": big ragged white patches over the black pelt
+    vec3 q = vObj * 1.25 + vec3(uCowSeed, uCowSeed * 0.71, uCowSeed * 1.37);
+    float n = cowN(q) * 0.64 + cowN(q * 2.4 + 7.1) * 0.36;
+    cowK = smoothstep(0.475, 0.525, n + (tx.g - 0.5) * 0.14 * (0.3 + L));
+    vec3 wb = uWhite * mix(0.42, 1.0, pow(L, 1.1)) * (0.86 + 0.28 * tx.g);
+    vec3 lw = mix(hemi, vec3(dot(hemi, vec3(0.3333))), 0.65) * 1.7 + uKeyCol * wrap * 0.62;
+    col = mix(col, wb * lw * ao, cowK);
+  }
+  if (uGinger > 0.5) { // coat="ginger": orange tabby — warm base, cream tips, ragged darker stripes
+    float n = cowN(vObj * 2.1 + 4.0) * 0.65 + cowN(vObj * 5.0) * 0.35;
+    float s = sin((vObj.x + vObj.z) * 5.2 + vObj.y * 1.2 + n * 3.4 + (tx.g - 0.5) * 0.5);
+    float stK = smoothstep(0.35, 0.75, s);
+    vec3 gb = mix(uGinA, uGinB, stK * 0.85);
+    gb = mix(gb, uGinC, pow(L, 1.6) * 0.45 * (1.0 - stK * 0.7));
+    gb *= mix(0.4, 1.0, pow(L, 1.1)) * (0.86 + 0.28 * tx.g);
+    vec3 lw = mix(hemi, vec3(dot(hemi, vec3(0.3333))), 0.75) * 1.7 + uKeyCol * wrap * 0.62;
+    col = gb * lw * ao; cowK = 1.0;
+  }
   col += uKeyCol * pow(L, 3.0) * pow(max(ndl, 0.0), 1.5) * 0.05 * strand;
   float t = 0.5 + 0.5 * sin(dot(N, vec3(1.7, 2.3, 0.9)) * 2.2 + fres * 4.0);
   vec3 iri = mix(uIriA, uIriB, t);
   iri = mix(iri, uIriC, smoothstep(0.3, 0.9, 0.5 + 0.5 * sin(dot(N, vec3(-2.0, 0.6, 1.4)) * 1.8)));
   vec3 sheen = mix(iri, uTip, 0.35);
   float tipW = pow(L, 1.8);
+  sheen *= 1.0 - 0.75 * cowK;
   col += sheen * tipW * (fres * uRim * 0.9 + 0.012) * strand;
   float back = pow(clamp(dot(N, uRimDir), 0.0, 1.0), 1.5) * fres;
   col += sheen * back * uRim * tipW * 1.1;
+  if (uDragon > 0.5) { // coat="dragon": one shell of overlapping hanging scales — glossy, iridescent free edges
+    vec2 g = vUv * vec2(uScaleN, uScaleN * 1.2);
+    float R = 0.74, r0 = floor(g.y), found = 0.0, rowId = 0.0; vec2 cen = vec2(0.0);
+    for (int k = 0; k < 3; k++) {
+      float r = r0 + 1.0 - float(k), off = 0.5 * mod(r, 2.0);
+      vec2 cc = vec2(floor(g.x - off + 0.5) + off, r);
+      if (found < 0.5 && length(g - cc) < R) { cen = cc; found = 1.0; rowId = r; }
+    }
+    vec2 q = (g - cen) / R; float rr = length(q);
+    float ofA = 0.5 * mod(rowId + 1.0, 2.0);
+    vec2 u1 = vec2(floor(g.x - ofA + 0.5) + ofA, rowId + 1.0), u2 = u1 + vec2(g.x < u1.x ? -1.0 : 1.0, 0.0);
+    float tuck = smoothstep(R - 0.02, R + 0.24, min(length(g - u1), length(g - u2)));
+    float hs = cowH(vec3(cen, 1.7));
+    vec3 nl = normalize(vec3(q.x * 0.55, q.y * 0.55 + 0.32, 1.0));
+    vec3 dp1 = dFdx(vW), dp2 = dFdy(vW); vec2 d1 = dFdx(g), d2 = dFdy(g);
+    vec3 p2 = cross(dp2, N), p1 = cross(N, dp1);
+    vec3 T = p2 * d1.x + p1 * d2.x, B = p2 * d1.y + p1 * d2.y;
+    float im = inversesqrt(max(max(dot(T, T), dot(B, B)), 1e-12));
+    vec3 Ns = normalize(mat3(T * im, B * im, N) * nl);
+    float fs = pow(1.0 - clamp(dot(Ns, V), 0.0, 1.0), 2.2);
+    float wr = clamp((dot(Ns, uKeyDir) + 0.3) / 1.3, 0.0, 1.0);
+    float sp = pow(max(dot(Ns, normalize(uKeyDir + V)), 0.0), 48.0);
+    float ts = 0.5 + 0.5 * sin(dot(Ns, vec3(1.7, 2.3, 0.9)) * 3.0 + hs * 6.28);
+    vec3 ir = mix(mix(uIriA, uIriB, ts), uIriC, smoothstep(0.55, 0.95, hs));
+    vec3 sb = uScaleCol * (0.75 + 0.5 * hs) * (0.85 + 0.3 * tx.g);
+    float edge = smoothstep(0.72, 0.96, rr);
+    float aoS = tuck * mix(0.5, 1.0, vMask) * (1.0 - 0.55 * smoothstep(0.95, 1.0, rr));
+    col = sb * (hemi * 1.6 + uKeyCol * wr) * aoS;
+    col += uKeyCol * sp * (0.35 + 0.5 * edge) * aoS;
+    col += ir * (fs * 0.22 + edge * 0.05) * uRim * aoS;
+  }
   col *= 1.0 + 0.45 * vMuzK;
   col += uMGlowCol * uMGlowAmt * vMK * vMK * (0.25 + 0.75 * pow(L, 1.3)) * strand;
   gl_FragColor = vec4(col, a);
@@ -154,7 +250,135 @@ varying vec3 vN; varying vec3 vW; varying vec2 vUv; varying vec3 vCol;
 void main(){ vec4 w = modelMatrix * vec4(position, 1.0); vW = w.xyz; vN = normalize(mat3(modelMatrix) * normal); vUv = uv; vCol = color; gl_Position = projectionMatrix * viewMatrix * w; }`;
 const POCKET_FRAG = LID_FRAG.replace('varying vec3 vN; varying vec3 vW; varying vec2 vUv;', 'varying vec3 vN; varying vec3 vW; varying vec2 vUv; varying vec3 vCol;').replace('gl_FragColor = vec4(col, 1.0);', 'gl_FragColor = vec4(col * vCol.r * 1.7, 1.0);');
 
+// skin="carton": one opaque shell of dark corrugated board — paper fibre + washboard flutes, scuffed edges, tape over the lid, eye holes cut through
+const CARTON_FRAG = `
+uniform sampler2D uNoise;
+uniform float uEyeRad;
+uniform vec3 uEyeL, uEyeR, uTip, uSky, uGround, uKeyDir, uKeyCol, uRimDir, uIriA;
+varying vec2 vUv; varying float vLevel; varying vec3 vN; varying vec3 vW; varying float vMask;
+varying vec3 vObj; varying float vMuzK; varying float vMK;
+${MOUTH_GLSL}
+float tri(float x){ return abs(fract(x) - 0.5) * 2.0; }
+void main(){
+  if (uMCut > 0.5 && mouthD(vObj) < 0.0) discard;
+  vec3 p = vObj;
+  vec3 q = p - clamp(p, -0.93, 0.93);
+  vec3 on = dot(q, q) > 1e-10 ? normalize(q) : vec3(0.0, 0.0, 1.0);
+  vec3 an = abs(on);
+  float edg = 1.0 - max(an.x, max(an.y, an.z));
+  vec2 fuv = an.z >= max(an.x, an.y) ? p.xy : (an.x >= an.y ? p.zy : p.xz);
+  float f1 = texture2D(uNoise, fuv * vec2(0.8, 6.0) + 0.31).g;
+  float f2 = texture2D(uNoise, fuv * 2.4 + 0.17).r;
+  float f3 = texture2D(uNoise, fuv * 0.35 + 0.5).r;
+  float flute = 0.5 + 0.5 * sin(fuv.x * 82.0);
+  vec3 board = vec3(0.022, 0.021, 0.02) * (0.84 + 0.22 * f1 + 0.1 * f2) * (0.9 + 0.18 * f3) * (0.965 + 0.06 * flute);
+  float wn = texture2D(uNoise, fuv * 3.3 + on.zx * 0.7).r;
+  float wear = smoothstep(0.02, 0.2, edg) * smoothstep(0.35, 0.8, wn + 0.35 * smoothstep(0.08, 0.28, edg));
+  board = mix(board, vec3(0.072, 0.066, 0.06) * (0.8 + 0.4 * f1), wear * 0.8);
+  float tw = 0.17, ty = 0.6 + 0.016 * tri(p.x * 18.0);
+  float tapeM = (1.0 - smoothstep(tw - 0.003, tw, abs(p.x))) * smoothstep(ty - 0.002, ty + 0.002, p.y);
+  float tapeE = smoothstep(tw - 0.014, tw - 0.004, abs(p.x)) * tapeM;
+  float wr = texture2D(uNoise, vec2(p.x * 7.0, (p.y + p.z) * 0.6)).r;
+  vec3 tape = vec3(0.011, 0.011, 0.013) * (0.9 + 0.2 * wr);
+  float seam = (1.0 - smoothstep(0.0, 0.007, abs(p.x))) * smoothstep(0.7, 0.9, an.y) * step(0.0, p.y);
+  float frontK = smoothstep(0.5, 0.8, on.z) * step(0.0, p.z);
+  float rl = sqrt(max(1.1449 * uEyeRad * uEyeRad - 0.0049, 1e-4));
+  float de = min(distance(p.xy, uEyeL.xy), distance(p.xy, uEyeR.xy)) - rl;
+  float holeK = frontK * (1.0 - smoothstep(0.004, 0.007, de));
+  float cutK = frontK * smoothstep(0.004, 0.007, de) * (1.0 - smoothstep(0.017, 0.021, de));
+  float aoE = 1.0 - frontK * 0.5 * (1.0 - smoothstep(0.0, 0.1, de));
+  vec3 N = normalize(vN);
+  vec3 V = normalize(cameraPosition - vW);
+  float fres = pow(1.0 - clamp(dot(N, V), 0.0, 1.0), 3.0);
+  vec3 hemi = mix(uGround, uSky, N.y * 0.5 + 0.5);
+  hemi = mix(hemi, vec3(dot(hemi, vec3(0.3333))), 0.65);
+  float ndl = dot(N, uKeyDir);
+  float wrap = clamp((ndl + 0.15) / 1.15, 0.0, 1.0);
+  float nh = max(dot(N, normalize(uKeyDir + V)), 0.0);
+  vec3 light = hemi * 2.4 + uKeyCol * wrap;
+  light = mix(light, vec3(dot(light, vec3(0.3333))), 0.55);
+  vec3 base = mix(board, tape, tapeM) * (1.0 - 0.55 * seam * tapeM);
+  vec3 col = base * light * aoE;
+  col += uKeyCol * mix(0.01 * (0.6 + 0.8 * f1) * pow(nh, 9.0), 0.16 * (0.7 + 0.6 * wr) * pow(nh, 60.0), tapeM) * aoE;
+  col += uKeyCol * tapeE * 0.035 * pow(nh, 6.0);
+  col += mix(uIriA, uTip, 0.5) * pow(clamp(dot(N, uRimDir), 0.0, 1.0), 1.5) * fres * 0.035;
+  col = mix(col, vec3(0.0015, 0.0012, 0.0015), holeK);
+  col = mix(col, vec3(0.1, 0.082, 0.064) * (0.75 + 0.5 * f2) * light, cutK);
+  gl_FragColor = vec4(col, 1.0);
+  #include <tonemapping_fragment>
+  #include <colorspace_fragment>
+}`;
+
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+
+// skin="lidbox": paper-wrapped rigid box with a telescoping lid (two meshes, one material; aBox = inner half-extents + centre y)
+const BOX_VERT = `
+attribute vec4 aBox;
+varying vec3 vObj; varying vec3 vN; varying vec3 vW; varying vec4 vBox;
+void main(){ vObj = position; vBox = aBox; vec4 w = modelMatrix * vec4(position, 1.0); vW = w.xyz; vN = normalize(mat3(modelMatrix) * normal); gl_Position = projectionMatrix * viewMatrix * w; }`;
+const BOX_FRAG = `
+uniform sampler2D uNoise;
+uniform float uEyeRad, uFleck, uLidY;
+uniform vec3 uEyeL, uEyeR, uSky, uGround, uKeyDir, uKeyCol, uBoxCol, uCutCol;
+varying vec3 vObj; varying vec3 vN; varying vec3 vW; varying vec4 vBox;
+${MOUTH_GLSL}
+void main(){
+  bool lid = vBox.w > 0.0;
+  if (!lid && uMCut > 0.5 && mouthD(vObj) < 0.0) discard;
+  vec3 p = vObj, c = vec3(0.0, vBox.w, 0.0);
+  vec3 q = (p - c) - clamp(p - c, -vBox.xyz, vBox.xyz);
+  vec3 on = dot(q, q) > 1e-10 ? normalize(q) : vec3(0.0, 0.0, 1.0);
+  vec3 an = abs(on);
+  float edg = 1.0 - max(an.x, max(an.y, an.z));
+  vec2 fuv = an.z >= max(an.x, an.y) ? p.xy : (an.x >= an.y ? p.zy : p.xz);
+  float m1 = texture2D(uNoise, fuv * 0.3 + 0.5).r;
+  float m2 = texture2D(uNoise, fuv * 1.1 + 0.2).r;
+  float fib = texture2D(uNoise, fuv * vec2(1.2, 6.0) + 0.37).g;
+  vec4 sn = texture2D(uNoise, fuv * 1.6 + 0.13);
+  float sp = smoothstep(0.8, 0.95, sn.r) * step(0.55, sn.g);
+  vec3 alb = uBoxCol * (0.92 + 0.12 * m1 + 0.05 * m2) * (0.97 + 0.06 * fib);
+  alb *= (1.0 + uFleck * sp) * (1.0 + 0.14 * smoothstep(0.05, 0.25, edg));
+  float ao = 1.0;
+  if (!lid) ao = 1.0 - 0.6 * (1.0 - smoothstep(0.0, 0.11, uLidY - p.y));
+  float frontK = lid ? 0.0 : smoothstep(0.5, 0.8, on.z) * step(0.0, p.z);
+  float rl = sqrt(max(1.1449 * uEyeRad * uEyeRad - 0.0049, 1e-4));
+  float de = min(distance(p.xy, uEyeL.xy), distance(p.xy, uEyeR.xy)) - rl;
+  float holeK = frontK * (1.0 - smoothstep(0.004, 0.007, de));
+  float cutK = frontK * smoothstep(0.004, 0.007, de) * (1.0 - smoothstep(0.015, 0.019, de));
+  ao *= 1.0 - frontK * 0.4 * (1.0 - smoothstep(0.0, 0.09, de));
+  vec3 N = normalize(vN);
+  vec3 V = normalize(cameraPosition - vW);
+  vec3 hemi = mix(uGround, uSky, N.y * 0.5 + 0.5);
+  float wrap = clamp((dot(N, uKeyDir) + 0.2) / 1.2, 0.0, 1.0);
+  vec3 light = hemi * 2.4 + uKeyCol * wrap;
+  light = mix(light, vec3(dot(light, vec3(0.3333))), 0.6);
+  float nh = max(dot(N, normalize(uKeyDir + V)), 0.0);
+  vec3 col = alb * light * ao;
+  col += uKeyCol * 0.018 * pow(nh, 8.0) * ao;
+  col += vec3(dot(light, vec3(0.3333))) * pow(1.0 - clamp(dot(N, V), 0.0, 1.0), 4.0) * 0.03;
+  col = mix(col, vec3(0.0015), holeK);
+  col = mix(col, uCutCol * light, cutK);
+  gl_FragColor = vec4(col, 1.0);
+  #include <tonemapping_fragment>
+  #include <colorspace_fragment>
+}`;
+function paperBox(THREE, hx, hy, hz, r, seg, cy) {
+  const g = new THREE.BoxGeometry(2 * hx, 2 * hy, 2 * hz, seg, seg, seg);
+  const pos = g.attributes.position, nor = g.attributes.normal, H = [hx, hy, hz], I = H.map(h => h - r);
+  const fb = (v, k) => { const t = Math.abs(v) / H[k]; return Math.sign(v) * (t <= 0.5 ? t * 2 * I[k] : I[k] + (t - 0.5) * 2 * r); };
+  const p = new THREE.Vector3(), c = new THREE.Vector3(), n = new THREE.Vector3(), box = new Float32Array(pos.count * 4);
+  for (let i = 0; i < pos.count; i++) {
+    p.set(fb(pos.getX(i), 0), fb(pos.getY(i), 1), fb(pos.getZ(i), 2));
+    c.set(clamp(p.x, -I[0], I[0]), clamp(p.y, -I[1], I[1]), clamp(p.z, -I[2], I[2]));
+    n.subVectors(p, c); if (n.lengthSq() < 1e-12) n.fromBufferAttribute(nor, i); else n.normalize();
+    p.copy(c).addScaledVector(n, r);
+    pos.setXYZ(i, p.x, p.y + cy, p.z); nor.setXYZ(i, n.x, n.y, n.z);
+    box.set([I[0], I[1], I[2], cy], i * 4);
+  }
+  g.setAttribute('aBox', new THREE.BufferAttribute(box, 4));
+  g.computeBoundingSphere();
+  return g;
+}
 const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
 const ease = (c, t, k, dt) => c + (t - c) * (1 - Math.exp(-k * dt));
 const loadThree = () => window.__THREE160 ? Promise.resolve(window.__THREE160)
@@ -181,12 +405,14 @@ function makeNoise(THREE) {
   return tex;
 }
 
-function roundedCube(THREE, r, seg) {
+function roundedCube(THREE, r, seg, edgeBias) {
   const g = new THREE.BoxGeometry(2, 2, 2, seg, seg, seg);
   const pos = g.attributes.position, nor = g.attributes.normal, inner = 1 - r;
+  const fb = (v) => { const t = Math.abs(v); return Math.sign(v) * (t <= 0.5 ? t * 2 * inner : inner + (t - 0.5) * 2 * r); }; // half the grid goes to the bend → crisp, smooth edges
   const p = new THREE.Vector3(), c = new THREE.Vector3(), n = new THREE.Vector3();
   for (let i = 0; i < pos.count; i++) {
     p.fromBufferAttribute(pos, i);
+    if (edgeBias) p.set(fb(p.x), fb(p.y), fb(p.z));
     c.set(clamp(p.x, -inner, inner), clamp(p.y, -inner, inner), clamp(p.z, -inner, inner));
     n.subVectors(p, c).normalize();
     p.copy(c).addScaledVector(n, r);
@@ -217,20 +443,25 @@ class FurMonsterDock extends HTMLElement {
     if (!this.getAttribute('label') && this.hasAttribute('label')) label.style.display = 'none';
     const shadow = this.shadow = document.createElement('div');
     shadow.style.cssText = 'position:absolute;left:0;top:0;width:100px;height:20px;border-radius:50%;pointer-events:none;opacity:0;transform-origin:50% 50%;will-change:transform,opacity;background:radial-gradient(50% 50% at 50% 50%, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 36%, rgba(170,160,255,0.07) 64%, rgba(170,160,255,0) 100%);';
+    if ((this.getAttribute('render') || '').toLowerCase() === 'ink') {
+      const ic = this.getAttribute('ink-color') || this.getAttribute('inkcolor') || '#15120E';
+      shadow.style.background = `repeating-linear-gradient(118deg, ${ic} 0 1px, transparent 1px 3.2px)`;
+      shadow.style.webkitMaskImage = shadow.style.maskImage = 'radial-gradient(50% 50% at 50% 50%, #000 0%, #000 42%, transparent 74%)';
+    }
     layer.append(shadow, canvas, label);
     // DOM hit area over the creature: taps never depend on WebGL raycasting or on what sits underneath
     const hit = this.hit = document.createElement('button');
-    hit.type = 'button'; hit.setAttribute('aria-label', 'Poke the black box');
+    hit.type = 'button'; hit.setAttribute('aria-label', this.hasAttribute('chat') ? 'Poke the black box · double-click to chat' : 'Poke the black box');
     hit.style.cssText = 'position:absolute;left:0;top:0;width:60px;height:60px;margin:0;padding:0;border:0;border-radius:32%;background:transparent;pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;outline-offset:2px;will-change:transform;';
     layer.append(hit);
     if (this.hasAttribute('thoughts') && !['off', 'false'].includes(this.getAttribute('thoughts'))) {
       const bub = this.bubble = document.createElement('div');
-      const dot = (sz, l, b) => `<div data-d style="position:absolute;width:${sz}px;height:${sz}px;border-radius:50%;background:#FCFBF8;border:2px solid #1A1814;box-shadow:2px 2px 0 #1A1814;left:${l}px;bottom:${b}px;opacity:0;box-sizing:border-box;"></div>`;
+      const dot = (sz, l, b) => `<div data-d style="position:absolute;width:${sz}px;height:${sz}px;border-radius:50%;background:#FFFFFF;border:1.2px solid #1A1814;box-shadow:1px 1px 0 #1A1814;left:${l}px;bottom:${b}px;opacity:0;box-sizing:border-box;"></div>`;
       bub.style.cssText = 'position:absolute;left:0;top:0;pointer-events:none;opacity:0;padding-bottom:34px;will-change:transform,opacity;';
-      bub.innerHTML = `<div data-c style="transform-origin:18px 100%;padding:10px 16px 11px;background:#FCFBF8;border:2px solid #1A1814;border-radius:46% 54% 50% 50% / 60% 52% 48% 40%;box-shadow:3px 3px 0 #1A1814;font:500 12.5px/1.2 'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:0.03em;color:#1A1814;white-space:nowrap;opacity:0;"><span data-t></span><div data-chips style="display:none;flex-wrap:wrap;gap:0 4px;margin:2px -1px -9px;pointer-events:auto;">` + [['recruiter', 'recruiter'], ['founder', 'founder'], ['just_looking', 'just looking']].map(([v, l]) => `<button type="button" data-v="${v}" style="appearance:none;-webkit-appearance:none;background:none;border:0;margin:0;padding:9px 1px;cursor:pointer;font:inherit;color:inherit;-webkit-tap-highlight-color:transparent;touch-action:manipulation;"><span style="display:inline-block;padding:3px 8px 4px;border:1.5px solid #1A1814;border-radius:999px;background:#fff;font-size:11px;letter-spacing:0.04em;white-space:nowrap;">${l}</span></button>`).join('') + `</div></div>` + dot(7, 4, 0) + dot(12, 12, 12);
+      bub.innerHTML = `<div data-c style="transform-origin:18px 100%;padding:10px 16px 11px;background:#FFFFFF;border:1.2px solid #1A1814;border-radius:46% 54% 50% 50% / 60% 52% 48% 40%;box-shadow:1.5px 1.5px 0 #1A1814;font:500 12.5px/1.2 'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:0.03em;color:#1A1814;white-space:nowrap;opacity:0;"><span data-t></span><div data-chips style="display:none;flex-wrap:wrap;gap:0 4px;margin:2px -1px -9px;pointer-events:auto;">` + [['recruiter', 'recruiter'], ['founder', 'founder'], ['just_looking', 'just looking']].map(([v, l]) => `<button type="button" data-v="${v}" style="appearance:none;-webkit-appearance:none;background:none;border:0;margin:0;padding:9px 1px;cursor:pointer;font:inherit;color:inherit;-webkit-tap-highlight-color:transparent;touch-action:manipulation;"><span style="display:inline-block;padding:3px 8px 4px;border:1.5px solid #1A1814;border-radius:999px;background:#fff;font-size:11px;letter-spacing:0.04em;white-space:nowrap;">${l}</span></button>`).join('') + `</div></div>` + dot(7, 4, 0) + dot(12, 12, 12);
       layer.append(bub);
       if (this.getAttribute('thoughts') === 'annoying') {
-        if (!document.getElementById('bb-annoy-css')) { const st = document.createElement('style'); st.id = 'bb-annoy-css'; st.textContent = '@keyframes bbJit{0%,100%{transform:translate(0,0)}25%{transform:translate(1px,-1px)}50%{transform:translate(-1px,1px)}75%{transform:translate(1px,1px)}}[data-bb-g]{color:#FF7A3D;display:inline-block;animation:bbJit .12s steps(1) infinite}@media (prefers-reduced-motion:reduce){[data-bb-g]{animation:none}}'; document.head.appendChild(st); }
+        if (!document.getElementById('bb-annoy-css')) { const st = document.createElement('style'); st.id = 'bb-annoy-css'; st.textContent = '@keyframes bbJit{0%,100%{transform:translate(0,0)}25%{transform:translate(1px,-1px)}50%{transform:translate(-1px,1px)}75%{transform:translate(1px,1px)}}[data-bb-g]{color:#E7573E;display:inline-block;animation:bbJit .12s steps(1) infinite}@media (prefers-reduced-motion:reduce){[data-bb-g]{animation:none}}'; document.head.appendChild(st); }
         const c = bub.firstElementChild; c.style.whiteSpace = 'normal'; c.style.padding = '12px 22px 13px'; c.style.borderRadius = '30px 34px 32px 28px / 28px 32px 30px 34px'; c.style.width = 'max-content'; c.style.maxWidth = '200px'; c.style.setProperty('text-wrap', 'balance');
       }
     }
@@ -272,15 +503,39 @@ class FurMonsterDock extends HTMLElement {
     const anchor = (this.getAttribute('anchor') && document.querySelector(this.getAttribute('anchor'))) || this.parentElement || this;
     let renderer;
     try {
-      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'default' });
       if (!renderer.capabilities.isWebGL2) throw new Error('WebGL2 required');
     } catch (e) { return this.fail(e); }
     renderer.setClearColor(0x000000, 0);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.1;
+    let INK = null;
+    if ((this.getAttribute('render') || '').toLowerCase() === 'ink') {
+      const hex3 = (h, d) => { const m = /^#?([0-9a-f]{6})$/i.exec(String(h || '').trim()) || /^#?([0-9a-f]{6})$/i.exec(d); const c = parseInt(m[1], 16); return new THREE.Vector3((c >> 16 & 255) / 255, (c >> 8 & 255) / 255, (c & 255) / 255); };
+      const IU = { tCol: { value: null }, uRes: { value: new THREE.Vector2(1, 1) }, uStep: { value: 0 }, uDpr: { value: 1 }, uExp: { value: 1.1 }, uSp: { value: this.num('hatch', 3.6) }, uHR: { value: 2.6 }, uST: { value: this.num('strands', 0.014) },
+        uInk: { value: hex3(this.getAttribute('ink-color') || this.getAttribute('inkcolor'), '#15120E') }, uPaper: { value: hex3(this.getAttribute('paper-color') || this.getAttribute('papercolor'), '#F3ECD8') } };
+      const rt = new THREE.WebGLRenderTarget(4, 4, { type: THREE.HalfFloatType, samples: 4 });
+      IU.tCol.value = rt.texture; IU.boost = this.num('ink-exposure', 1.45);
+      const iScene = new THREE.Scene(), iCam = new THREE.Camera();
+      const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({ uniforms: IU, vertexShader: INK_VERT, fragmentShader: INK_FRAG, depthTest: false, depthWrite: false, blending: THREE.NoBlending }));
+      quad.frustumCulled = false; iScene.add(quad);
+      const v = new THREE.Vector2();
+      INK = (scene, camera) => {
+        renderer.getDrawingBufferSize(v);
+        if (rt.width !== v.x || rt.height !== v.y) rt.setSize(v.x, v.y);
+        renderer.setRenderTarget(rt); renderer.render(scene, camera); renderer.setRenderTarget(null);
+        IU.uRes.value.copy(v); IU.uDpr.value = renderer.getPixelRatio(); IU.uExp.value = renderer.toneMappingExposure * IU.boost;
+        IU.uStep.value = host.isReduced() ? 0 : Math.floor(performance.now() / 110) % 3;
+        renderer.render(iScene, iCam);
+      };
+    }
 
     const mobile = matchMedia('(pointer: coarse)').matches || window.innerWidth < 760;
     let shells = mobile ? 14 : 32;
+    const SKIN = (this.getAttribute('skin') || '').toLowerCase(), CARTON = SKIN === 'carton', BOX = SKIN === 'lidbox', BR = CARTON ? 0.07 : BOX ? 0.025 : clamp(this.num('corner', 0.38), 0.06, 0.45);
+    const DRAGON = (this.getAttribute('coat') || '') === 'dragon';
+    if (CARTON || BOX || DRAGON) shells = 1;
+    const CROP = CARTON || BOX ? 2.5 : BR < 0.3 ? 2.2 : 1.9; // sharp corners + lid reach further than the furry round box when it tilts/stretches → bigger canvas
 
     const scene = new THREE.Scene();
     const TAN = Math.tan(THREE.MathUtils.degToRad(14));
@@ -288,7 +543,7 @@ class FurMonsterDock extends HTMLElement {
     camera.position.set(0, 0.35, CROP / TAN); camera.lookAt(0, 0, 0);
     camera.updateMatrixWorld(true);
     let FOOTR = 1.02; // lowest on-screen point of the resting box, in units of r
-    { const v = new THREE.Vector3(); let m = 0; for (let i = 0; i <= 32; i++) { const a = i / 32 * Math.PI / 2, rr = 0.38 + 0.03; v.set(0, -0.62 - rr * Math.sin(a), 0.62 + rr * Math.cos(a)).project(camera); m = Math.max(m, -v.y * CROP); } FOOTR = m; }
+    { const v = new THREE.Vector3(); let m = 0; for (let i = 0; i <= 32; i++) { const a = i / 32 * Math.PI / 2, rr = BR + (CARTON || BOX ? 0 : 0.03); v.set(0, -(1 - BR) - rr * Math.sin(a), (1 - BR) + rr * Math.cos(a)).project(camera); m = Math.max(m, -v.y * CROP); } FOOTR = m; }
     const hemi = new THREE.HemisphereLight(0x8f86c9, 0x0b0a10, 0.7); scene.add(hemi);
     const key = new THREE.DirectionalLight(0xffd6ae, 2.2); key.position.set(-3, 4, 5); scene.add(key);
     const back = new THREE.DirectionalLight(0x9d90ff, 1.6); back.position.set(3, 2, -4); scene.add(back);
@@ -308,20 +563,30 @@ class FurMonsterDock extends HTMLElement {
       uKeyDir: { value: new THREE.Vector3(-0.55, 0.7, 0.55).normalize() }, uKeyCol: { value: C('#ffd2a8').multiplyScalar(1.5) },
       uRimDir: { value: new THREE.Vector3(0.6, 0.5, -0.6).normalize() },
       uIriA: { value: C('#8a7dff') }, uIriB: { value: C('#4fd1dc') }, uIriC: { value: C('#e083d6') },
+      uCow: { value: (this.getAttribute('coat') || '') === 'cow' ? 1 : 0 }, uCowSeed: { value: this.num('cow-seed', 3.2) }, uWhite: { value: C('#f1eee6') }, uDragon: { value: DRAGON ? 1 : 0 }, uGinger: { value: (this.getAttribute('coat') || '') === 'ginger' ? 1 : 0 }, uGinA: { value: C('#d9822f') }, uGinB: { value: C('#9a4f1c') }, uGinC: { value: C('#f6d2a0') }, uScaleN: { value: this.num('scale-count', 7) }, uScaleCol: { value: C(this.getAttribute('scale-color') || this.getAttribute('scalecolor') || '#1c2622') },
     };
+    if ((this.getAttribute('key-light') || this.getAttribute('keylight')) === 'front') { U.uKeyDir.value.set(-0.22, 0.42, 0.88).normalize(); key.position.set(-1.2, 2.4, 6.5); } // opt-in: key light mostly from the camera side
+    { const fl = parseFloat(this.getAttribute('fur-length') || this.getAttribute('furlength')); if (fl > 0) U.uLen.value *= fl; } // opt-in: shorter fur = thinner fuzzy outline
     U.uNoise.value.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
     const creature = new THREE.Group(); creature.rotation.order = 'YXZ'; scene.add(creature);
     // blended shells with alpha accumulation → body stays fully opaque on light backgrounds
-    const furMat = new THREE.ShaderMaterial({ uniforms: U, vertexShader: FUR_VERT, fragmentShader: FUR_FRAG,
+    const furMat = new THREE.ShaderMaterial({ uniforms: U, vertexShader: FUR_VERT, fragmentShader: CARTON ? CARTON_FRAG : FUR_FRAG,
       blending: THREE.CustomBlending, blendEquation: THREE.AddEquation,
       blendSrc: THREE.SrcAlphaFactor, blendDst: THREE.OneMinusSrcAlphaFactor,
       blendSrcAlpha: THREE.OneFactor, blendDstAlpha: THREE.OneMinusSrcAlphaFactor });
-    const fur = new THREE.InstancedMesh(roundedCube(THREE, 0.38, mobile ? 32 : 52), furMat, 64);
+    const fur = new THREE.InstancedMesh(CARTON ? roundedCube(THREE, BR, 32, true) : roundedCube(THREE, BOX ? 0.38 : BR, BOX ? 2 : mobile ? 32 : 52), furMat, 64);
     const I = new THREE.Matrix4(); for (let i = 0; i < 64; i++) fur.setMatrixAt(i, I);
     fur.count = shells; fur.frustumCulled = false; creature.add(fur);
+    if (BOX) {
+      const kraft = (this.getAttribute('box-color') || '').toLowerCase() === 'kraft';
+      Object.assign(U, { uBoxCol: { value: kraft ? C('#A88566') : new THREE.Color(0.016, 0.0155, 0.015) }, uCutCol: { value: kraft ? C('#7E6248') : new THREE.Color(0.06, 0.055, 0.05) }, uFleck: { value: kraft ? -0.35 : 1.2 }, uLidY: { value: 0.56 } });
+      fur.visible = false;
+      const boxMat = new THREE.ShaderMaterial({ uniforms: U, vertexShader: BOX_VERT, fragmentShader: BOX_FRAG });
+      creature.add(new THREE.Mesh(paperBox(THREE, 1, 1, 1, BR, 16, 0), boxMat), new THREE.Mesh(paperBox(THREE, 1.04, 0.245, 1.04, BR + 0.005, 16, 0.805), boxMat));
+    }
     const setShells = (n) => { shells = clamp(n | 0, 4, 64); fur.count = shells; U.uShells.value = shells; };
-    const proxy = new THREE.Mesh(roundedCube(THREE, 0.38, 8), new THREE.MeshBasicMaterial({ visible: false }));
+    const proxy = new THREE.Mesh(roundedCube(THREE, BR, 8), new THREE.MeshBasicMaterial({ visible: false }));
     creature.add(proxy);
     const touchRay = new THREE.Raycaster(), touchHits = [];
 
@@ -694,6 +959,7 @@ class FurMonsterDock extends HTMLElement {
       const tanH = TAN * 2, k = small ? this.num('scale-small', this.num('scale', 1)) : this.num('scale', 1);
       const d = (small ? Math.max(2.3 / (0.62 * tanH * aspect), 2.3 / (0.32 * tanH)) : Math.max(2.3 / (0.52 * tanH), 2.3 / (0.34 * tanH * aspect))) / k;
       S.hero.r = Number.isFinite(h / (d * tanH)) ? h / (d * tanH) : 120;
+      { const knee = this.num('max-r', 0); if (!small && knee > 0 && S.hero.r > knee) S.hero.r = knee + (S.hero.r - knee) * this.num('max-r-soft', 0.3); } // soft cap: big screens grow the box slower
       S.hero.fx = small ? this.num('x-small', 0.5) : this.num('x', 0.72);
       S.hero.fy = small ? this.num('y-small', 0.76) : this.num('y', 0.53);
       S.hero.docTop = hr.top + window.scrollY; S.hero.h = h;
@@ -778,7 +1044,7 @@ class FurMonsterDock extends HTMLElement {
       const l = draw(AN.key); return l ? { text: l, gib: false } : { text: gibber(), gib: true };
     };
     const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    const bubK = () => { let k = S.W < 760 ? clamp(S.r / 56, 1.05, this.num('bubble-small', 1.3)) : clamp(S.r / 42, 1.7, 2.7); if ((S.heelA || 0) > 0.001 && S.heelFs) k += (S.heelFs / 12.5 - k) * S.heelA; return TH.chips ? Math.min(k, 1.3) : k; }; // chips stay card-sized; by Yaga: same type size as her bubble
+    const bubK = () => { let k = S.W < 760 ? clamp(S.r / 64, 0.95, this.num('bubble-small', 1.3) * 0.88) : clamp(S.r / 60, 1.2, 1.9); if ((S.heelA || 0) > 0.001 && S.heelFs) k += (S.heelFs / 12.5 - k) * S.heelA; return TH.chips ? Math.min(k, 1.3) : k; }; // chips stay card-sized; by Yaga: same type size as her bubble
     const fitBub = (cl) => { const K = bubK(); cl.style.maxWidth = (quiet() ? Math.min(220, S.W * 0.7 / K) : Math.max(110, Math.min(200, (S.W - 32) / K - 36))).toFixed(0) + 'px'; };
     const annoyTick = (t, drawY) => {
       const now = nowR(), q = quiet();
@@ -922,10 +1188,14 @@ class FurMonsterDock extends HTMLElement {
       let fe = 0;
       if (footerEl && !small) { const fr = footerEl.getBoundingClientRect(); const f = smooth(0.2, 0.7, (S.H - fr.top) / S.H); fe = f * f * (3 - 2 * f); }
       S.foot = fe;
-      const D = smooth(0.8, 1, p) * (1 - fe); // 1 = grounded at the bottom edge
+      // chat mode (double-click): flies to the page's chat seat and faces the viewer
+      const chatOn = !!this._chat;
+      S.chatA = R ? (chatOn ? 1 : 0) : ease(S.chatA || 0, chatOn ? 1 : 0, chatOn ? 4 : 5, dt);
+      const CH = S.chatA;
+      const D = smooth(0.8, 1, p) * (1 - fe) * (1 - CH); // 1 = grounded at the bottom edge
       // heelTarget (set by the page): {x, y: ground, hx, hy: head, side}. Hops along the bottom to sit by her; jumps up at her while she's out of reach
       const hz = typeof this.heelTarget === 'function' ? this.heelTarget() : this.heelTarget;
-      const heelOn = !!hz && p > 0.985 && fe < 0.02 && !G.on;
+      const heelOn = !!hz && p > 0.985 && fe < 0.02 && !G.on && !chatOn;
       S.heelA = R ? (heelOn ? 1 : 0) : ease(S.heelA || 0, heelOn ? 1 : 0, heelOn ? 2.5 : 1.6, dt);
       let heelX = null;
       if (heelOn) {
@@ -935,10 +1205,10 @@ class FurMonsterDock extends HTMLElement {
         S.heelFs = hz.fs || null;
       } else S.heelGap = 0;
       if (this._cheer && (!heelOn || !(hopOn && !R))) { this._cheer = false; if (heelOn && !R) S.puffV += 4; }
-      S.lit = ease(S.lit ?? 0, smooth(0.15, 0.9, p) * (1 - fe), 6, dt); applyLight(S.lit); // footer zoom returns to the hero light
+      S.lit = this.getAttribute('light') === 'hero' ? 0 : ease(S.lit ?? 0, smooth(0.15, 0.9, p) * (1 - fe), 6, dt); applyLight(S.lit); // footer zoom returns to the hero light; light="hero" locks it
       // ── hopping along the bottom edge ──
       let hopY = 0, hopSq = 0, hopTilt = 0; S.hopping = false;
-      if (hopOn && !R) {
+      if (hopOn && !R && !chatOn) {
         const hp = S.hop || (S.hop = { x: dx, from: dx, to: dx, t0: -9, dur: 0.6, h: 0, ant: 0.13, dir: 0, next: t + 0.8, landed: true });
         if (p > 0.985 && fe < 0.02) {
           // goal: cursor (roam: anywhere · right/left: only over the footer) → else home dock; roam wanders when idle
@@ -1006,6 +1276,13 @@ class FurMonsterDock extends HTMLElement {
         const fx = S.W * this.num('foot-x', 0.65), fy = S.H * this.num('foot-y', 0.66), frr = Math.max(dr, S.hero.r * this.num('foot-scale', 0.85));
         tx += (fx - tx) * fe; ty += (fy - ty) * fe; tr += (frr - tr) * fe;
       }
+      if (chatOn) {
+        const seat = this._seat && this._seat.isConnected ? this._seat : (this._seat = document.querySelector(this.getAttribute('chat-seat') || this.getAttribute('chatseat') || '#bb-chat-seat'));
+        const sr = seat && seat.getBoundingClientRect();
+        if (sr && sr.height > 20) { tx = sr.left + sr.width / 2; ty = sr.top + sr.height / 2; tr = Math.max(40, Math.min(sr.height / 2.45, sr.width / 2.8)); }
+        else { tx = S.W / 2; ty = S.H * 0.25; tr = Math.max(40, Math.min(S.H * 0.1, S.W * 0.2)); }
+        if (this._chatKick) { this._chatKick = false; if (!R) S.puffV += 6; S.blinkStart = t; S.lastPtrT = t; }
+      }
       if (!S.init || R) { S.px = tx; S.py = ty; S.r = tr; S.vx = S.vy = 0; S.init = true; }
       else {
         const K = 70, D = 12.5;
@@ -1013,7 +1290,7 @@ class FurMonsterDock extends HTMLElement {
         S.px += S.vx * dt; S.py += S.vy * dt;
         S.r = ease(S.r, tr, 9, dt);
       }
-      if (p > 0.985 && fe < 0.02 && S.py > ty) { S.py = ty; if (S.vy > 0) S.vy = 0; } // never sink below the floor
+      if (p > 0.985 && fe < 0.02 && !chatOn && S.py > ty) { S.py = ty; if (S.vy > 0) S.vy = 0; } // never sink below the floor
       // scroll activity → trotting bob while docked
       const sv = (sc - S.lastScroll) / Math.max(dt, 1 / 240); S.lastScroll = sc;
       S.scrollVel = ease(S.scrollVel, sv, 10, dt);
@@ -1045,12 +1322,15 @@ class FurMonsterDock extends HTMLElement {
         this.hit.style.transform = `translate(${(S.px - S.hitW / 2).toFixed(1)}px, ${top.toFixed(1)}px)`;
       }
       const lb = this.label;
-      lb.style.transform = `translate(${S.px.toFixed(1)}px, ${(drawY + S.r * 1.3).toFixed(1)}px) translateX(-50%)`;
+      lb.style.transform = `translate(${S.px.toFixed(1)}px, ${(drawY + S.r * 1.3 + (S.W < 760 ? this.num('label-drop-small', 0) : 0)).toFixed(1)}px) translateX(-50%)`;
       const lw = lb.offsetWidth / 2; // keep the caption on screen; the connector line stays under the creature
       lb.lastElementChild.style.transform = `translateX(${(clamp(S.px, lw + 8, S.W - lw - 8) - S.px).toFixed(1)}px)`;
-      lb.style.opacity = String(1 - smooth(0.02, 0.18, p));
+      lb.style.opacity = String((1 - smooth(0.02, 0.18, p)) * (1 - CH));
       const inkNow = this.getAttribute('label-ink') || this.getAttribute('labelink'); if (inkNow && lb.style.color !== inkNow && lb._ink !== inkNow) { lb.style.color = inkNow; lb._ink = inkNow; }
-      if (this.bubble) think(t, drawY);
+      if (this.bubble) {
+        if (chatOn || CH > 0.4) { AN.queue.length = 0; AN.cut = false; AN.chipsLive = false; TH.t0 = -99; if (this.bubble.style.opacity !== '0') this.bubble.style.opacity = '0'; }
+        else think(t, drawY);
+      }
       if (this.shadow) {
         const lift = Math.max(0, S.H - FOOTR * S.r - drawY), k = 1 / (1 + lift / Math.max(S.r * 1.6, 1));
         const sx = S.r * 2.3 * k * (1 + Math.max(0, -hopSq) * 0.6) / 100, sy = S.r * 0.34 * k / 20;
@@ -1081,6 +1361,7 @@ class FurMonsterDock extends HTMLElement {
       const rk = 1 - D; // docked: upright, facing the viewer
       S.lean5 = ease(S.lean5 || 0, S.hopping && !R ? S.hopDir : 0, S.hopping ? 8 : 12, dt);
       creature.rotation.set((-S.lean.y * 0.13 - pf * 0.06) * rk, (BASE_YAW * (1 - e * 0.5) + S.idleYaw + S.lean.x * 0.3 + S.walk * 0.5 + (S.hopping ? S.hopDir * 0.25 : 0)) * rk, (-S.lean.x * 0.04 - tilt - (S.hopTilt || 0)) * rk - S.lean5 * 0.087 * D); // ≤5° lean into travel
+      if (CH > 0.001) { creature.rotation.x *= 1 - CH * 0.6; creature.rotation.y += (S.lean.x * 0.14 - creature.rotation.y) * CH; creature.rotation.z *= 1 - CH * 0.7; } // chat: square to the viewer
       if (S.hopSq) { const q = S.hopSq; creature.scale.x *= 1 - q * 0.55; creature.scale.z *= 1 - q * 0.55; creature.scale.y *= 1 + q; }
       { const pk = (t - (S.pokeAt ?? -9)) / 0.25; // poke: squash then stretch, ~250ms
         if (pk >= 0 && pk < 1 && !R) { const q = Math.sin(pk * Math.PI * 2) * (1 - pk) * 0.24; creature.scale.y *= 1 - q; creature.scale.x *= 1 + q * 0.55; creature.scale.z *= 1 + q * 0.55; } }
@@ -1179,7 +1460,7 @@ class FurMonsterDock extends HTMLElement {
       else if (bored) target.copy(S.glanceTarget);
       else if (ptrActive || looking) { ray.setFromCamera(ptrToCanvas(), camera); if (!ray.ray.intersectPlane(plane, target)) target.set(0, 0, 3); }
       else target.set(-2.4 + Math.sin(t * 0.27) * 1.8, 0.2 + Math.sin(t * 0.41 + 1) * 0.9 + e * 1.2, 3.5);
-      const ft = typeof this.fearTarget === 'function' ? this.fearTarget() : this.fearTarget;
+      const ft = chatOn ? null : typeof this.fearTarget === 'function' ? this.fearTarget() : this.fearTarget;
       S.fearA = ease(S.fearA || 0, ft ? 1 : 0, ft ? 2.4 : 1.6, dt);
       if (ft && !startled) {
         const R2 = S.r * (S.Hs || CROP), cyc = drawY - (S.cyW || 0) * S.r;
@@ -1193,9 +1474,20 @@ class FurMonsterDock extends HTMLElement {
         ray.setFromCamera(ptrC, camera); if (!ray.ray.intersectPlane(plane, target)) target.set(-3, 2, 2);
       }
 
+      if (chatOn && !startled && !looking) { // chat: page-set look target (input, thinking) > fresh pointer > the viewer
+        const la = typeof this.chatLookAt === 'function' ? this.chatLookAt() : this.chatLookAt;
+        const fresh = S.hasPtr && !S.touch && !S.ptrOut && performance.now() / 1000 - S.lastMoveReal < 0.9;
+        if (la && (la.hard || !fresh)) {
+          const R2 = S.r * (S.Hs || CROP), cyc = drawY - (S.cyW || 0) * S.r;
+          ptrC.set((la.x - (S.px - R2)) / (2 * R2) * 2 - 1, 1 - (la.y - (cyc - R2)) / (2 * R2) * 2);
+          ray.setFromCamera(ptrC, camera); if (!ray.ray.intersectPlane(plane, target)) target.copy(camera.position);
+        } else if (fresh) { ray.setFromCamera(ptrToCanvas(), camera); if (!ray.ray.intersectPlane(plane, target)) target.copy(camera.position); }
+        else target.copy(camera.position);
+      }
       const pokeN = (S.pokes || []).filter(p => t - p < 5).length, riled = t - (S.pokeAt ?? -99) < 3.5; // repeated pokes: grumpy at 3, snarl at 6; calms after 3.5s
       const mood = riled && pokeN >= 6 ? 'snarl' : riled && pokeN >= 3 ? 'grumpy' : null;
-      const exW = readExpr() === 'beak' ? 'beak' : G.mad ? 'snarl' : ((S.heelA || 0) > 0.5 ? 'smile' : (mood || readExpr()));
+      const talkOn = performance.now() < (this._talkUntil || 0);
+      const exW = readExpr() === 'beak' ? 'beak' : G.mad ? 'snarl' : chatOn ? (talkOn ? 'oh' : 'smile') : ((S.heelA || 0) > 0.5 ? 'smile' : (mood || readExpr()));
       if (exW !== EX.want) { EX.want = exW; S.lastPtrT = t; if (!R) S.puffV += 2.5; }
       const exT = EX.cur === EX.want ? 1 : 0;
       if (R) { EX.amt = exT; EX.v = 0; }
@@ -1206,7 +1498,8 @@ class FurMonsterDock extends HTMLElement {
       EX.eyeY = ease(EX.eyeY, F.eyeY, 9, dt);
       U.uEyeL.value.y = U.uEyeR.value.y = EX.eyeY;
       const pop = startled && !R ? 1 + 0.12 * Math.sin(since / 0.75 * Math.PI) : 1;
-      const ma = Math.max(EX.amt * pop, 0.001);
+      let ma = Math.max(EX.amt * pop, 0.001);
+      if (talkOn && EX.cur === 'oh' && !R) { ma *= 0.7 + 0.45 * Math.abs(Math.sin(t * 15.5)) * (0.6 + 0.4 * Math.sin(t * 4.1)); S.lastPtrT = t; } // chat: mouth chatters while the reply types out
       U.uMouthAmt.value = ma;
       if (MOUTHS[EX.cur]) MOUTHS[EX.cur].g.scale.set(ma, ma, 1);
       else beak.scale.setScalar(0.4 * ma);
@@ -1269,7 +1562,7 @@ class FurMonsterDock extends HTMLElement {
         wattles.forEach((w, i) => { w.rotation.x = BK.jig * 0.9 - o * 0.4; w.rotation.z = (i ? 1 : -1) * (0.08 + BK.jig * 0.25); });
         beak.rotation.x = -S.lean.y * 0.05;
       }
-      renderer.render(scene, camera);
+      if (INK) INK(scene, camera); else renderer.render(scene, camera);
 
       S.fpsAcc += dt; S.fpsN++;
       if (S.fpsAcc >= 0.5) {
@@ -1303,8 +1596,14 @@ class FurMonsterDock extends HTMLElement {
     };
     const hit = this.hit;
     const buzz = (ms) => { try { if (typeof navigator.vibrate === 'function') navigator.vibrate(ms); } catch (_) {} }; // no-op on iOS
+    const chatOK = () => this.hasAttribute('chat') && !['off', 'false'].includes(this.getAttribute('chat'));
     const poke = () => {
       const t = clock.elapsedTime;
+      if (chatOK() && !this._chat) { // double-click / double-tap → chat
+        const n = performance.now();
+        if (n - (S.pokeMs || -1e9) < 450) { S.pokeMs = -1e9; S.pokeAt = t; buzz(15); this.setChat(true); return; }
+        S.pokeMs = n;
+      }
       S.startleAt = t; S.sBlink = true; S.blinkStart = t; S.pokeAt = t; S.glanceUntil = 0; S.lastPtrT = t;
       S.nextBlink = t + 3.2 + Math.random() * 3;
       S.pokes = (S.pokes || []).filter(p => t - p < 5); S.pokes.push(t);
@@ -1415,10 +1714,19 @@ class FurMonsterDock extends HTMLElement {
       window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerdown', onDown); document.removeEventListener('pointerout', onOut); window.removeEventListener('blur', onBlur);
       document.removeEventListener('visibilitychange', update); document.removeEventListener('visibilitychange', onVisA);
       cursorEl.style.cursor = '';
-      renderer.dispose();
+      renderer.dispose(); renderer.forceContextLoss();
     };
   }
   cheer() { this._cheer = true; }
+  setChat(on) {
+    on = !!on; if (on === !!this._chat) return;
+    this._chat = on;
+    if (on) this._chatKick = true; else { this.chatLookAt = null; this._talkUntil = 0; }
+    clearTimeout(this._chatZ);
+    if (this.layer) { if (on) this.layer.style.zIndex = '65'; else this._chatZ = setTimeout(() => { if (!this._chat && this.layer) this.layer.style.zIndex = '45'; }, 700); }
+    window.dispatchEvent(new CustomEvent('blackbox:chat', { detail: { open: on } }));
+  }
+  talk(sec) { this._talkUntil = performance.now() + Math.max(0, sec) * 1000; }
 }
 customElements.define('black-box-faces', FurMonsterDock);
 })();

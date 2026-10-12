@@ -75,7 +75,7 @@ class XinheeEvolve extends HTMLElement {
   _teardown() {
     this._token = null; cancelAnimationFrame(this._raf);
     this._ro?.disconnect(); this._io?.disconnect(); this._controls?.dispose();
-    if (this._renderer) { this._renderer.dispose(); this._renderer.domElement.remove(); }
+    if (this._renderer) { this._renderer.dispose(); this._renderer.forceContextLoss(); this._renderer.domElement.remove(); }
     this._renderer = this._controls = this._fac = null;
   }
 
@@ -101,10 +101,10 @@ class XinheeEvolve extends HTMLElement {
     scene.add(sun, sun.target, fill);
     const ground = new THREE.Mesh(new THREE.PlaneGeometry(300, 300), new THREE.ShadowMaterial({ opacity: 0.5 }));
     ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
-    const disc = new THREE.Mesh(new THREE.CircleGeometry(9.3, 128), new THREE.MeshStandardMaterial({ color: 0x121117, roughness: 1, metalness: 0 }));
+    const disc = new THREE.Mesh(new THREE.CircleGeometry(9.3, 128), new THREE.MeshStandardMaterial({ color: this.getAttribute('theme') === 'light' ? 0xE4E4E1 : 0x121117, roughness: 1, metalness: 0 }));
     disc.rotation.x = -Math.PI / 2; disc.scale.set(8.2 / 9.3, 6.4 / 9.3, 1); disc.position.y = -0.01; disc.receiveShadow = true; scene.add(disc);
     const rimPts = []; for (let i = 0; i <= 160; i++) { const t = i / 160 * Math.PI * 2; rimPts.push(new THREE.Vector3(Math.cos(t) * 8.2, -0.005, Math.sin(t) * 6.4)); }
-    scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(rimPts), new THREE.LineBasicMaterial({ color: 0x3A3842, transparent: true, opacity: 0.8 })));
+    scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(rimPts), new THREE.LineBasicMaterial({ color: this.getAttribute('theme') === 'light' ? 0xC9C9C5 : 0x3A3842, transparent: true, opacity: 0.8 })));
 
     const ctl = this._controls = new OrbitControls(cam, r.domElement);
     Object.assign(ctl, { enableDamping: true, dampingFactor: 0.08, rotateSpeed: 0.7, zoomSpeed: 0.8, maxPolarAngle: Math.PI * 0.48, screenSpacePanning: true, autoRotateSpeed: 0.4 });
@@ -115,7 +115,7 @@ class XinheeEvolve extends HTMLElement {
 
     const fit = () => {
       const w = this.clientWidth || 1, H = this.clientHeight || 1;
-      const hh = bool(this._v('hud'), true) ? 150 : 0, h = Math.max(1, H - hh);
+      const hh = bool(this._v('hud'), true) ? 150 : 0, hg = hh ? (parseFloat(this.getAttribute('hud-gap')) || 0) : 0, h = Math.max(1, H - hh - hg);
       r.setSize(w, h, false); r.domElement.style.height = h + 'px'; cam.aspect = w / h; cam.updateProjectionMatrix();
       if (this._fr && Math.abs((this._frA || 0) - cam.aspect) > 0.05) this._frame(...this._fr);
       const d = Math.min(devicePixelRatio || 1, 2); this._hud.width = w * d; this._hud.height = hh * d; this._hud.style.height = hh + 'px'; this._hudScale = d;
@@ -188,12 +188,12 @@ class XinheeEvolve extends HTMLElement {
       const glass = GLASS.test(name), op = st.opacity ?? (glass ? 0.22 : 1);
       const L = {};
       // ghost
-      if (isFac && !memb) L.ghost = { m: mat('vcg', () => new THREE.MeshStandardMaterial({ color: 0xffffff, vertexColors: true, roughness: 0.55, metalness: 0, side: THREE.DoubleSide })), cast: true, recv: false };
+      if (isFac && !memb) L.ghost = { m: mat('vcg', () => new THREE.MeshStandardMaterial({ color: 0xffffff, vertexColors: true, roughness: 0.55, metalness: 0, side: THREE.DoubleSide })), cast: false, recv: false };
       else if (memb) L.ghost = { m: mat('gm', () => new THREE.MeshStandardMaterial({ color: DEEP, transparent: true, opacity: 0.1, depthWrite: false, side: THREE.DoubleSide })), cast: false, recv: false };
       else L.ghost = { m: mat(land ? 'gl' : 'gs', () => new THREE.MeshStandardMaterial({ color: land ? 0x6E6B77 : 0x9C99A6, transparent: true, opacity: land ? 0.14 : 0.2, roughness: 0.9, depthWrite: false, side: THREE.DoubleSide })), cast: false, recv: false };
       // colour
       if (memb) L.color = { m: mat('memb', () => new THREE.MeshStandardMaterial({ color: 0xF6F5F1, emissive: 0x3a3936, transparent: true, opacity: 0.6, roughness: 0.55, metalness: 0, depthWrite: false, side: THREE.DoubleSide })), cast: false, recv: false, ro: 2 };
-      else if (isFac && op === 1) L.color = { m: mat('vc', () => new THREE.MeshStandardMaterial({ color: 0xffffff, vertexColors: true, roughness: 0.7, metalness: 0, side: THREE.DoubleSide })), cast: true, recv: true };
+      else if (isFac && op === 1) L.color = { m: mat('vc', () => new THREE.MeshStandardMaterial({ color: 0xffffff, vertexColors: true, roughness: 0.7, metalness: 0, side: THREE.DoubleSide })), cast: false, recv: true };
       else if (op < 1) L.color = { m: mat('g' + col.getHexString() + op, () => new THREE.MeshStandardMaterial({ color: col, transparent: true, opacity: op, roughness: 0.2, metalness: 0.05, depthWrite: false, side: THREE.DoubleSide })), cast: op > 0.5, recv: true };
       else L.color = { m: mat('m' + col.getHexString(), () => new THREE.MeshStandardMaterial({ color: col, roughness: 0.82, metalness: 0, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 })), cast: !glass, recv: true };
       o.userData.L = L; this._objs.push(o);
@@ -345,6 +345,7 @@ class XinheeEvolve extends HTMLElement {
 
   _drawHud() {
     const cv = this._hud, ctx = cv.getContext('2d'), s = this._hudScale || 1;
+    const lt = this.getAttribute('theme') === 'light', INK = lt ? '#161617' : '#F4F2F7', MUTED = lt ? '#6E6E73' : '#7E7B89', FAINT = lt ? 'rgba(22,22,23,0.1)' : 'rgba(244,242,247,0.08)', TW = lt ? '22,22,23' : '244,242,247', ORANGE = lt ? '#E7573E' : '#FF7A3D', OR = lt ? '231,87,62' : '255,122,61';
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
     if (!this._fac || !bool(this._v('hud'), true)) return;
     ctx.setTransform(s, 0, 0, s, 0, 0);
@@ -368,7 +369,7 @@ class XinheeEvolve extends HTMLElement {
     band('best', 'min', 'rgba(255,122,61,0.14)'); band('q1', 'q3', 'rgba(255,122,61,0.34)');
     ctx.beginPath(); hs.forEach((h, i) => (i ? ctx.lineTo(X(i), Y(h.best)) : ctx.moveTo(X(i), Y(h.best))));
     ctx.strokeStyle = ORANGE; ctx.lineWidth = 1.6; ctx.stroke();
-    const gx = X(hs.length - 1); ctx.fillStyle = 'rgba(244,242,247,0.14)'; ctx.fillRect(gx - 3, y0, 6, ch);
+    const gx = X(hs.length - 1); ctx.fillStyle = `rgba(${TW},0.14)`; ctx.fillRect(gx - 3, y0, 6, ch);
     ctx.fillStyle = MUTED; ctx.font = `400 9px ${MONO}`;
     for (let g = 0; g < MAXGEN; g += 5) ctx.fillText(String(g), X(g) - 3, y0 + ch + 14);
     if (!mid) return;
@@ -377,7 +378,7 @@ class XinheeEvolve extends HTMLElement {
     ctx.beginPath(); ctx.moveTo(mx + pw / 2, y0); ctx.lineTo(mx + pw / 2, y0 + ms); ctx.moveTo(mx, y0 + ms / 2); ctx.lineTo(mx + pw, y0 + ms / 2); ctx.stroke();
     const P = (v, L) => Math.max(0, Math.min(1, (v + 1.2) / 2.4)) * L;
     evo.scored.forEach((sc, i) => {
-      ctx.fillStyle = i === 0 ? ORANGE : 'rgba(244,242,247,0.55)';
+      ctx.fillStyle = i === 0 ? ORANGE : `rgba(${TW},0.55)`;
       ctx.beginPath(); ctx.arc(mx + P(sc.g[0], pw), y0 + ms - P(sc.g[1], ms), i === 0 ? 3 : 1.8, 0, Math.PI * 2); ctx.fill();
     });
     ctx.fillStyle = MUTED; ctx.fillText('POPULATION', mx, y0 + ch + 14);
@@ -386,9 +387,9 @@ class XinheeEvolve extends HTMLElement {
     evo.scored.slice(0, rows).forEach((sc, i) => {
       const y = y0 + i * rh + rh / 2;
       ctx.fillStyle = i === 0 ? INK : MUTED; ctx.font = `400 10px ${MONO}`; ctx.fillText(sc.f.toFixed(6), lx, y + 3.5);
-      const tx = lx + 70; ctx.strokeStyle = 'rgba(244,242,247,0.18)'; ctx.lineWidth = 1;
+      const tx = lx + 70; ctx.strokeStyle = `rgba(${TW},0.18)`; ctx.lineWidth = 1;
       ctx.beginPath(); ctx.roundRect ? ctx.roundRect(tx, y - 4.5, tw, 9, 4.5) : ctx.rect(tx, y - 4.5, tw, 9); ctx.stroke();
-      ctx.fillStyle = i === 0 ? ORANGE : 'rgba(255,122,61,0.55)';
+      ctx.fillStyle = i === 0 ? ORANGE : `rgba(${OR},0.55)`;
       sc.g.forEach((v) => ctx.fillRect(tx + 4 + Math.max(0, Math.min(1, (v + 1) / 2)) * (tw - 9), y - 3, 1.5, 6));
     });
     ctx.fillStyle = MUTED; ctx.font = `400 9px ${MONO}`; ctx.fillText('GENOMES', lx, y0 + ch + 14);

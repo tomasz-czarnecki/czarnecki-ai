@@ -81,8 +81,8 @@ class LoopTrack extends HTMLElement {
     this.root.querySelectorAll('[data-step]').forEach((el) => {
       const on = this.reduce || +el.dataset.step === active;
       el.style.opacity = '1';
-      el.querySelectorAll('[data-step-title]').forEach((t) => { t.style.color = on ? accent : '#f4f2f7'; t.style.transition = 'color 0.4s ease'; });
-      el.querySelectorAll('[data-step-dot]').forEach((d) => { d.style.background = on ? accent : '#3A3845'; d.style.boxShadow = on ? `0 0 0 5px ${accent}33, 0 0 24px ${accent}88` : 'none'; });
+      el.querySelectorAll('[data-step-title]').forEach((t) => { t.style.color = on ? accent : (this.getAttribute('title-ink') || this.getAttribute('titleink') || '#f4f2f7'); t.style.transition = 'color 0.4s ease'; });
+      el.querySelectorAll('[data-step-dot]').forEach((d) => { d.style.background = on ? accent : (this.getAttribute('dot-off') || this.getAttribute('dotoff') || '#3A3845'); d.style.boxShadow = on ? `0 0 0 5px ${accent}33, 0 0 24px ${accent}88` : 'none'; });
     });
   }
   frame(now) {

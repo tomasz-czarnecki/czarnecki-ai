@@ -17,7 +17,7 @@
 <meta name="twitter:title" content="Smart Flighting · Case Study | Tomasz Czarnecki">
 <meta name="twitter:description" content="A flighting simulator for testing campaign timing with AI response models: from an Excel workbook to an interactive platform, targeting +1–1.5% of net revenue.">
 <meta name="twitter:image" content="https://czarnecki.ai/assets/og-card.jpg?v=2">
-<meta name="theme-color" content="#08070b">
+<meta name="theme-color" content="#ffffff">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=2">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=2">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=2">
@@ -29,446 +29,461 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Inter:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;family=Newsreader:ital,opsz,wght@1,6..72,500&amp;display=swap" rel="stylesheet">
 <style>
   *{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
-  body{ margin:0; background:#08070b; }
-  ::selection{ background:#FF7A3D; color:#08070b; }
-  a{ color:#f4f2f7; }
-  a:hover{ opacity:0.9; }
-  @media (max-width:920px){
-    #cs-overview-grid, #cs-role-grid, #cs-shipped-grid, #cs-impact-grid, #cs-problem-grid{ grid-template-columns:1fr !important; }
-  }
-  @media (max-width:780px){
-    #cs-decisions > div{ grid-template-columns:1fr !important; gap:8px !important; }
-    #cs-decisions > div > div:last-child{ text-align:left !important; }
-    #cs-impact-head{ flex-direction:column !important; align-items:flex-start !important; }
-  }
+  body{ margin:0; background:#FFFFFF; }
+  ::selection{ background:#E7573E; color:#FFFFFF; }
+  a{ color:#161617; }
+  a:hover{ opacity:0.85; }
+  @media (max-width:1140px){ [data-nav-case]{ display:none !important; } }
+
 </style>
 </helmet>
-<div style="background:#08070b; color:#f4f2f7; font-family:'Geist',system-ui,sans-serif; -webkit-font-smoothing:antialiased; overflow-x:clip;" data-om-label="Body">
-  <div aria-hidden="true" style="position:fixed; inset:0; z-index:40; pointer-events:none; opacity:0.07; background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22180%22 height=%22180%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%222%22 stitchTiles=%22stitch%22/%3E%3CfeColorMatrix values=%220 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E');"></div>
+<div style="background:#FFFFFF; color:#161617; font-family:'Geist',system-ui,sans-serif; -webkit-font-smoothing:antialiased; overflow-x:clip;" data-om-label="Body">
 
-  <header style="position:sticky; top:0; z-index:50; background:rgba(8,7,11,0.86); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border-bottom:1px solid #1F1E26;">
-    <div style="max-width:1320px; margin:0 auto; padding:18px clamp(20px,4.5vw,48px); display:flex; align-items:center; justify-content:space-between; gap:24px;">
-      <div style="display:flex; align-items:center; gap:16px;">
-        <a href="index.html#top" style="display:flex; align-items:center; gap:7px; text-decoration:none; color:#f4f2f7;">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" style="display:block; flex:none;"><rect x="1" y="1" width="16" height="16" rx="5" fill="#FF7A3D"></rect></svg>
-          <span style="font-size:15.5px; font-weight:500; letter-spacing:-0.01em;">Tomasz Czarnecki</span>
-        </a>
-        <span style="width:1px; height:18px; background:#2A2932; flex:none;"></span>
-        <a href="index.html#case-studies" style="font-size:13.5px; font-weight:500; color:#A09DAA; text-decoration:none;">← All work</a>
-      </div>
-      <a href="allocation-ai.html" style="display:inline-flex; align-items:center; padding:10px 20px; border-radius:8px; background:#FF7A3D; color:#08070b; font-size:13px; font-weight:500; letter-spacing:0.01em; text-decoration:none;" style-hover="background:#FF9A66; opacity:1;">Next case →</a>
+  <header style="position:fixed; top:12px; left:0; right:0; z-index:50; pointer-events:none;">
+    <div style="max-width:1440px; margin:0 auto; padding:0 clamp(12px,4vw,56px); display:flex; justify-content:center;">
+      <nav aria-label="Main" style="pointer-events:auto; display:inline-flex; align-items:center; gap:clamp(0px,0.4vw,6px); max-width:100%; padding:5px; border-radius:999px; background:rgba(255,255,255,0.9); -webkit-backdrop-filter:saturate(180%) blur(18px); backdrop-filter:saturate(180%) blur(18px); box-shadow:0 18px 44px -14px rgba(0,0,0,0.16), 0 2px 8px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.035);">
+        <a href="index.html#top" style="display:flex; align-items:center; gap:9px; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:600; letter-spacing:-0.015em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;"><span style="width:10px; height:10px; border-radius:3px; background:#E7573E; flex:none;"></span>Tomasz Czarnecki</a>
+        <span data-nav-case="" style="width:1px; height:18px; background:#E3E3E0; margin:0 4px; flex:none;"></span>
+        <a href="allocation-ai.html" data-nav-case="" style="display:flex; align-items:center; gap:8px; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;">Allocation AI</a>
+        <a href="promo-advisor.html" data-nav-case="" style="display:flex; align-items:center; gap:8px; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;">Promo Advisor</a>
+        <a href="smart-flighting.html" data-nav-case="" aria-current="page" style="display:flex; align-items:center; gap:8px; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease; background:#F2F2F0;" style-hover="background:#EBEBE8; opacity:1;"><span style="width:7px; height:7px; border-radius:2px; background:#1F9A86; flex:none;"></span>Smart Flighting</a>
+        <a href="#contact" style="display:flex; align-items:center; gap:8px; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;">Get in touch</a>
+        <a href="CV_TomaszCzarnecki_Latest.pdf" target="_blank" rel="noopener" style="display:block; padding:8px 16px; border-radius:999px; background:#161617; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#FFFFFF; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#3A3A3D; opacity:1;">Download CV ↓</a>
+      </nav>
     </div>
   </header>
+  <main style="width:100%; background-color:#FFFFFF; background-image:radial-gradient(circle, rgba(22,22,23,0.09) 0.96px, transparent 1.44px); background-size:25px 25px; background-position:12px 12px;">
 
-  <main style="width:100%;">
-
-    <section style="position:relative; overflow:hidden; background:#0B181C; border-bottom:1px solid rgba(255,255,255,0.12);" data-om-label="Case Study Hero" data-screen-label="Hero">
-      <x-import component-from-global-scope="grad-plate" from="./grad-canvases.js" colors="#080C0E,#0B181C,#10282D,#1C454A" bg="#0B181C" ink="#4F7D80" art="{{ heroArt }}" art-x="0.78" art-y="0.5" art-r="0.4" grain="0.5" seed="flight" time-live="" speed="1" hint-size="100%,560px" style="position:absolute; inset:0;"></x-import>
-      <div style="position:relative; z-index:2; max-width:1320px; margin:0 auto; padding:clamp(72px,10vh,128px) clamp(20px,4.5vw,48px) 48px; display:flex; flex-direction:column; min-height:min(640px, calc(100svh - 72px));">
-        <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
-          <span style="display:inline-flex; align-items:center; gap:10px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(244,242,247,0.7);"><span style="width:8px; height:8px; border-radius:2px; background:#86CFCF;"></span><span style="color:#86CFCF;">03</span> / 03 · Case study · Heineken</span>
+    <section id="top" style="position:relative; padding:clamp(120px,13vw,168px) 0 clamp(40px,5vw,72px);" data-om-label="Case Study Hero" data-screen-label="Hero">
+      <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
+        <div style="display:flex; align-items:center; gap:10px 16px; flex-wrap:wrap; font-size:14px; font-weight:500; color:#6E6E73;"><a href="index.html#the-loop" style="color:#6E6E73; text-decoration:none;" style-hover="color:#161617; opacity:1;">← All work</a><span style="width:1px; height:14px; background:#D6D6D3; flex:none;"></span><span>03 / 03 · Media execution · Heineken</span></div>
+        <div style="display:flex; align-items:center; gap:clamp(18px,2.2vw,32px); margin-top:clamp(28px,3.4vw,44px);">
+          <span style="display:block; flex:none; width:clamp(84px,10.4vw,160px); aspect-ratio:1; border-radius:23%; overflow:hidden; background:#1F9A86; box-shadow:0 16px 30px -16px rgba(0,0,0,0.5);"><img src="assets/agents/flight-metronome-v2.webp" alt="" style="width:100%; height:100%; display:block; object-fit:cover;"></span>
+          <div style="min-width:0;">
+            <h1 style="font-weight:600; font-size:clamp(46px,7.4vw,120px); line-height:0.95; letter-spacing:-0.048em; margin:0; color:#161617; text-wrap:balance;">Smart Flighting</h1>
+            <div style="font-size:clamp(20px,2vw,30px); font-weight:500; letter-spacing:-0.02em; color:#137565; margin-top:clamp(8px,1vw,14px);">When to spend.</div>
+          </div>
         </div>
-        <h1 style="font-weight:500; font-size:clamp(52px,7.4vw,124px); line-height:0.92; letter-spacing:-0.052em; margin:28px 0 0 0; color:#f4f2f7;">Smart Flighting</h1>
-        <p style="font-size:clamp(1.02rem,1.35vw,1.2rem); line-height:1.65; color:rgba(244,242,247,0.78); max-width:56ch; margin:24px 0 0 0;">Convincing media teams that spending in fewer weeks would beat spreading the budget evenly. An interactive timing optimizer that replaced Excel, targeting a <strong style="color:#08070b; background:#86CFCF; padding:1px 6px; border-radius:4px; font-weight:500;">+1–1.5% net-revenue uplift from timing alone</strong>, without spending a euro more.</p>
-        <div style="display:flex; flex-wrap:wrap; gap:clamp(28px,5vw,64px); margin:clamp(36px,5vh,56px) 0 36px 0;">
-          <div><div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:rgba(244,242,247,0.55);">Role</div><div style="font-size:14.5px; font-weight:600; color:#f4f2f7; margin-top:7px;">Product lead</div></div>
-          <div><div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:rgba(244,242,247,0.55);">Context</div><div style="font-size:14.5px; font-weight:600; color:#f4f2f7; margin-top:7px;">Heineken · 2021 – 2026</div></div>
-          <div><div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:rgba(244,242,247,0.55);">Domain</div><div style="font-size:14.5px; font-weight:600; color:#f4f2f7; margin-top:7px;">Media planning</div></div>
-          <div><div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:rgba(244,242,247,0.55);">Approach</div><div style="font-size:14.5px; font-weight:600; color:#f4f2f7; margin-top:7px;">Response curves · saturation</div></div>
-        </div>
-      </div>
-    </section>
-
-    <section style="padding:clamp(48px,6vw,72px) 0 0;" data-om-label="Hero visual" data-screen-label="Hero visual"><div style="max-width:1320px; margin:0 auto; padding:0 clamp(20px,4.5vw,48px);">
-        <div style="color:#1A1814; font-family:'Inter',system-ui,sans-serif;"><div style="background:#FFFFFF; border:1px solid #E9E5DB; border-radius:14px; box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06); overflow:hidden;">
-      <div style="padding:22px 26px 18px; border-bottom:1px solid #E9E5DB;">
-        <div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#8B8578; margin-bottom:6px;">Flighting plan 2025 · Meridia</div>
+        <p style="font-size:clamp(19px,1.7vw,26px); line-height:1.45; letter-spacing:-0.015em; color:#161617; max-width:52ch; margin:clamp(28px,3.4vw,44px) 0 0 0; text-wrap:pretty;">Convincing media teams that spending in fewer weeks would beat spreading the budget evenly. <span style="color:#6E6E73;">An interactive timing optimizer that replaced Excel, targeting a <span style="color:#161617; border-bottom:2px solid #137565; padding-bottom:1px;">+1–1.5% net-revenue uplift from timing alone</span>, without spending a euro more.</span></p>
+        <dl style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr)); gap:20px 32px; margin:clamp(36px,4.4vw,56px) 0 0 0; padding-top:24px; border-top:1px solid #E3E3E0; max-width:1180px;">
+          <div style="min-width:0;"><dt style="font-size:13px; font-weight:500; color:#6E6E73;">Role</dt><dd style="margin:6px 0 0 0; font-size:17px; font-weight:600; letter-spacing:-0.015em; color:#161617;">Product lead</dd></div>
+          <div style="min-width:0;"><dt style="font-size:13px; font-weight:500; color:#6E6E73;">Context</dt><dd style="margin:6px 0 0 0; font-size:17px; font-weight:600; letter-spacing:-0.015em; color:#161617;">Heineken · 2021 – 2026</dd></div>
+          <div style="min-width:0;"><dt style="font-size:13px; font-weight:500; color:#6E6E73;">Domain</dt><dd style="margin:6px 0 0 0; font-size:17px; font-weight:600; letter-spacing:-0.015em; color:#161617;">Media planning</dd></div>
+          <div style="min-width:0;"><dt style="font-size:13px; font-weight:500; color:#6E6E73;">Approach</dt><dd style="margin:6px 0 0 0; font-size:17px; font-weight:600; letter-spacing:-0.015em; color:#161617;">Response curves · saturation</dd></div>
+        </dl>
+        
+        <figure style="margin:clamp(40px,5vw,64px) 0 0 0; padding:clamp(12px,2.2vw,32px); border-radius:32px; background:#F5F5F3; box-shadow:0 0 0 1px rgba(0,0,0,0.035); min-width:0;">
+          
+          <div style="color:#161617; font-family:'Geist',system-ui,sans-serif;"><div style="background:#FFFFFF; border:1px solid #E6E6E3; border-radius:20px; box-shadow:0 30px 60px -34px rgba(0,0,0,0.24); overflow:hidden;">
+      <div style="padding:22px 26px 18px; border-bottom:1px solid #E6E6E3;">
+        <div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#6E6E73; margin-bottom:6px;">Flighting plan 2025 · Meridia</div>
         <h2 style="margin:0 0 5px; font-size:21px; font-weight:600; letter-spacing:-.01em;">Every campaign and touchpoint, across the year</h2>
-        <div style="color:#8B8578; font-size:13px; max-width:560px; line-height:1.5;">Brands break into campaigns, campaigns into touchpoints. Each bar is when that channel is on air, so overlaps and gaps read at a glance before anything is booked.</div>
+        <div style="color:#6E6E73; font-size:13px; max-width:560px; line-height:1.5;">Brands break into campaigns, campaigns into touchpoints. Each bar is when that channel is on air, so overlaps and gaps read at a glance before anything is booked.</div>
       </div>
       <div style="padding:8px 26px 6px;">
         <div style="display:grid; grid-template-columns:212px minmax(360px,1fr) 78px; align-items:center; min-width:650px; padding:8px 0;">
           <div></div>
           <div style="display:grid; grid-template-columns:repeat(12,1fr);">
             <sc-for list="{{ months }}" as="m" hint-placeholder-count="12">
-              <span style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:10px; color:#8B8578; text-align:center; letter-spacing:.02em;">{{ m }}</span>
+              <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; color:#6E6E73; text-align:center; letter-spacing:.02em;">{{ m }}</span>
             </sc-for>
           </div>
-          <div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; color:#8B8578; text-align:right; padding-right:26px;">ROI</div>
+          <div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; color:#6E6E73; text-align:right; padding-right:26px;">ROI</div>
         </div>
         <sc-for list="{{ tlRows }}" as="r" hint-placeholder-count="18">
           <div style="display:grid; grid-template-columns:212px minmax(360px,1fr) 78px; align-items:center; min-width:650px; height:{{ r.rowH }}; border-top:{{ r.borderTop }};">
-            <div style="{{ r.lblStyle }}"><sc-if value="{{ r.isBrand }}" hint-placeholder-val="{{ true }}"><span style="width:7px; height:7px; border-radius:2px; background:#466969; flex:none;"></span></sc-if>{{ r.n }}</div>
-            <div style="position:relative; height:{{ r.trackH }}; background:repeating-linear-gradient(to right,transparent 0,transparent calc(100%/12 - 1px),#F0EDE5 calc(100%/12 - 1px),#F0EDE5 calc(100%/12));">
+            <div style="{{ r.lblStyle }}"><sc-if value="{{ r.isBrand }}" hint-placeholder-val="{{ true }}"><span style="width:7px; height:7px; border-radius:2px; background:#137565; flex:none;"></span></sc-if>{{ r.n }}</div>
+            <div style="position:relative; height:{{ r.trackH }}; background:repeating-linear-gradient(to right,transparent 0,transparent calc(100%/12 - 1px),#F5F5F3 calc(100%/12 - 1px),#F5F5F3 calc(100%/12));">
               <sc-for list="{{ r.blocks }}" as="b" hint-placeholder-count="2">
                 <div style="position:absolute; top:50%; transform:translateY(-50%); border-radius:3px; left:{{ b.left }}%; width:{{ b.width }}%; height:{{ b.height }}px; background:{{ b.bg }};"></div>
               </sc-for>
             </div>
-            <div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:12px; text-align:right; padding-right:26px; color:{{ r.roiColor }}; font-weight:{{ r.roiWeight }};">{{ r.roi }}</div>
+            <div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:12px; text-align:right; padding-right:26px; color:{{ r.roiColor }}; font-weight:{{ r.roiWeight }};">{{ r.roi }}</div>
           </div>
         </sc-for>
       </div>
-      <div style="display:flex; gap:16px; flex-wrap:wrap; padding:14px 26px 18px; border-top:1px solid #E9E5DB;">
-        <span style="display:flex; align-items:center; gap:8px; font-size:11.5px; color:#8B8578;"><span style="width:16px; height:11px; border-radius:3px; flex:none; background:#466969;"></span>Brand, full year</span>
-        <span style="display:flex; align-items:center; gap:8px; font-size:11.5px; color:#8B8578;"><span style="width:16px; height:11px; border-radius:3px; flex:none; background:#759999;"></span>Campaign flight</span>
-        <span style="display:flex; align-items:center; gap:8px; font-size:11.5px; color:#8B8578;"><span style="width:16px; height:11px; border-radius:3px; flex:none; background:#BDCFD0;"></span>Touchpoint on air</span>
+      <div style="display:flex; gap:16px; flex-wrap:wrap; padding:14px 26px 18px; border-top:1px solid #E6E6E3;">
+        <span style="display:flex; align-items:center; gap:8px; font-size:11.5px; color:#6E6E73;"><span style="width:16px; height:11px; border-radius:3px; flex:none; background:#137565;"></span>Brand, full year</span>
+        <span style="display:flex; align-items:center; gap:8px; font-size:11.5px; color:#6E6E73;"><span style="width:16px; height:11px; border-radius:3px; flex:none; background:#1F9A86;"></span>Campaign flight</span>
+        <span style="display:flex; align-items:center; gap:8px; font-size:11.5px; color:#6E6E73;"><span style="width:16px; height:11px; border-radius:3px; flex:none; background:#BFE3DC;"></span>Touchpoint on air</span>
       </div>
-      <div style="padding:14px 26px; border-top:1px solid #E9E5DB; font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; letter-spacing:.04em; color:#8B8578; display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;">
+      <div style="padding:14px 26px; border-top:1px solid #E6E6E3; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; letter-spacing:.04em; color:#6E6E73; display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;">
         <span>Illustrative concept, not the actual product.</span><span>Fictional brands and data.</span>
       </div>
     </div></div>
-        <p style="font-size:13.5px; line-height:1.65; color:#8A8795; margin:16px 0 0 0; max-width:82ch;">The product in one screen. Every brand's campaigns and the touchpoints under them, laid out across the year, so overlaps, gaps and commitments read at a glance instead of across a dozen spreadsheets. <span style="color:#5E5B68;">Illustrative concept · fictional brands and data.</span></p>
+          <figcaption style="padding:clamp(18px,2vw,26px) clamp(4px,0.6vw,8px) clamp(4px,0.6vw,8px); font-size:15px; line-height:1.6; color:#5E5E63; max-width:80ch; text-wrap:pretty;"><span style="color:#161617; font-weight:500;">The product in one screen.</span> Every brand's campaigns and the touchpoints under them, laid out across the year, so overlaps, gaps and commitments read at a glance instead of across a dozen spreadsheets.</figcaption>
+        </figure>
       </div>
     </section>
 
-    <section style="padding:clamp(48px,6vw,72px) 0 0;" data-om-label="Impact" data-screen-label="Impact"><div style="max-width:1320px; margin:0 auto; padding:0 clamp(20px,4.5vw,48px);">
-        <div style="border:1px solid #24232C; border-radius:20px; background:#0E0D13; padding:clamp(28px,4vw,48px);">
-          <div id="cs-impact-head" style="display:flex; align-items:flex-end; justify-content:space-between; gap:clamp(20px,3vw,40px); flex-wrap:wrap;">
-            <div style="display:flex; align-items:flex-end; gap:clamp(18px,2.5vw,32px); flex-wrap:wrap;">
-              <div style="font-weight:500; font-size:clamp(56px,7.5vw,110px); line-height:0.84; letter-spacing:-0.05em; color:#86CFCF;">+1 – 1.5%</div>
-              <div style="font-size:12.5px; letter-spacing:0.02em; color:#8A8795; max-width:26ch; line-height:1.6; margin-bottom:4px;">Net-revenue uplift from timing alone: same budget, better weeks.</div>
+    <section id="impact" style="position:relative; padding:clamp(40px,5vw,72px) 0; scroll-margin-top:96px;" data-om-label="Impact" data-screen-label="Impact">
+      <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
+        <div style="border-radius:32px; background:#F5F5F3; padding:clamp(28px,4vw,56px); box-shadow:0 0 0 1px rgba(0,0,0,0.035);">
+          <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:20px 40px; flex-wrap:wrap;">
+            <div style="display:flex; align-items:flex-end; gap:16px clamp(20px,2.6vw,36px); flex-wrap:wrap; min-width:0;">
+              <div style="font-weight:600; font-size:clamp(64px,9vw,144px); line-height:0.9; letter-spacing:-0.05em; color:#137565; font-variant-numeric:tabular-nums; white-space:nowrap;">+1–1.5%</div>
+              <div style="font-size:17px; line-height:1.5; color:#5E5E63; max-width:28ch; margin-bottom:6px; text-wrap:pretty;">Net-revenue uplift from timing alone: same budget, better weeks.</div>
             </div>
-            <div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#7E7B89; margin-bottom:4px;">Targeted · internal</div>
+            <span style="font-size:14px; font-weight:500; color:#6E6E73; margin-bottom:6px;">Targeted · internal</span>
           </div>
-          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:clamp(20px,2.5vw,32px); margin-top:clamp(28px,3.5vw,40px);">
-            <div style="border-top:1px solid #24232C; padding-top:18px;"><div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#86CFCF;">Delivery</div><div style="font-size:16px; font-weight:600; letter-spacing:-0.01em; margin-top:8px;">Excel → interactive toolkit</div><div style="font-size:13.5px; line-height:1.6; color:#A09DAA; margin-top:6px;">A manual, fragile spreadsheet process replaced by a fact-based planning tool teams actually use.</div></div>
-            <div style="border-top:1px solid #24232C; padding-top:18px;"><div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#E8A07A;">Behaviour change</div><div style="font-size:16px; font-weight:600; letter-spacing:-0.01em; margin-top:8px;">Front-loaded → retimed</div><div style="font-size:13.5px; line-height:1.6; color:#A09DAA; margin-top:6px;">Planners moved from always-on habit to concentrating pressure in the weeks that still respond.</div></div>
-            <div style="border-top:1px solid #24232C; padding-top:18px;"><div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#D9B878;">Approach</div><div style="font-size:16px; font-weight:600; letter-spacing:-0.01em; margin-top:8px;">Saturation, made visible</div><div style="font-size:13.5px; line-height:1.6; color:#A09DAA; margin-top:6px;">Response and ad-stock curves surface the week each audience stops responding to more pressure.</div></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section style="padding:clamp(72px,9vw,112px) 0 0;" data-om-label="Overview" data-screen-label="Overview"><div style="max-width:1320px; margin:0 auto; padding:0 clamp(20px,4.5vw,48px);">
-        <div style="height:1px; background:linear-gradient(90deg,#2A2932,rgba(42,41,50,0)); margin-bottom:clamp(44px,5.5vw,64px);"></div>
-        <div id="cs-overview-grid" style="display:grid; grid-template-columns:0.9fr 1.1fr; gap:clamp(32px,5vw,80px); align-items:start;">
-          <div><div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#7E7B89;"><span style="width:10px; height:10px; border-radius:3px; background:#86CFCF; flex:none;"></span><span style="color:#f4f2f7;">01</span><span>Overview</span></div><h2 style="font-weight:500; font-size:clamp(34px,4.2vw,64px); line-height:1; letter-spacing:-0.045em; text-wrap:balance; margin:20px 0 0 0; color:#f4f2f7; max-width:18ch;">What Smart Flighting does</h2></div>
-          <div style="display:flex; flex-direction:column; gap:20px; max-width:60ch;">
-            <p style="font-size:16px; line-height:1.7; color:#A09DAA; margin:0;">Allocation AI decides <em>where</em> each brand and channel gets it. Smart Flighting decides <em>when</em> to spend it, turning a static, usually front-loaded budget into a dynamic, week-by-week execution plan.</p>
-            <p style="font-size:16px; line-height:1.7; color:#A09DAA; margin:0;">Media teams draft a <strong style="color:#f4f2f7; font-weight:500; border-bottom:1.5px solid #86CFCF; padding-bottom:1px;">flighting plan</strong> (a weekly laydown of campaigns per brand and touchpoint) and test it against AI response curves. The tool projects the uplift of each schedule, flags campaign overlap, and shows the week an audience becomes <strong style="color:#f4f2f7; font-weight:500; border-bottom:1.5px solid #86CFCF; padding-bottom:1px;">saturated</strong> by consecutive pressure.</p>
-            <p style="font-size:16px; line-height:1.7; color:#A09DAA; margin:0;">Built under the "Win with Execution" initiative, it grew from an Excel proof of concept into an interactive toolkit that runs alongside the same allocation system the budget was set with.</p>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); gap:24px clamp(24px,3vw,40px); margin-top:clamp(32px,4vw,48px);">
+            <div style="border-top:1px solid #E3E3E0; padding-top:20px; min-width:0;"><div style="font-size:13px; font-weight:500; color:#6E6E73;">Delivery</div><div style="font-weight:600; font-size:clamp(20px,1.7vw,24px); line-height:1.2; letter-spacing:-0.025em; margin-top:8px; color:#161617;">Excel → interactive toolkit</div><div style="font-size:15px; line-height:1.55; color:#5E5E63; margin-top:8px; text-wrap:pretty;">A manual, fragile spreadsheet process replaced by a fact-based planning tool teams actually use.</div></div>
+            <div style="border-top:1px solid #E3E3E0; padding-top:20px; min-width:0;"><div style="font-size:13px; font-weight:500; color:#6E6E73;">Behaviour change</div><div style="font-weight:600; font-size:clamp(20px,1.7vw,24px); line-height:1.2; letter-spacing:-0.025em; margin-top:8px; color:#161617;">Front-loaded → retimed</div><div style="font-size:15px; line-height:1.55; color:#5E5E63; margin-top:8px; text-wrap:pretty;">Planners moved from always-on habit to concentrating pressure in the weeks that still respond.</div></div>
+            <div style="border-top:1px solid #E3E3E0; padding-top:20px; min-width:0;"><div style="font-size:13px; font-weight:500; color:#6E6E73;">Approach</div><div style="font-weight:600; font-size:clamp(20px,1.7vw,24px); line-height:1.2; letter-spacing:-0.025em; margin-top:8px; color:#161617;">Saturation, made visible</div><div style="font-size:15px; line-height:1.55; color:#5E5E63; margin-top:8px; text-wrap:pretty;">Response and ad-stock curves surface the week each audience stops responding to more pressure.</div></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section style="padding:clamp(72px,9vw,112px) 0 0;" data-om-label="The Problem" data-screen-label="The Problem"><div style="max-width:1320px; margin:0 auto; padding:0 clamp(20px,4.5vw,48px);">
-        <div style="height:1px; background:linear-gradient(90deg,#2A2932,rgba(42,41,50,0)); margin-bottom:clamp(44px,5.5vw,64px);"></div>
-        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#7E7B89;"><span style="width:10px; height:10px; border-radius:3px; background:#86CFCF; flex:none;"></span><span style="color:#f4f2f7;">02</span><span>The problem</span></div>
-        <h2 style="font-weight:500; font-size:clamp(40px,5.2vw,88px); line-height:0.95; letter-spacing:-0.048em; text-wrap:balance; margin:18px 0 0 0; color:#f4f2f7; max-width:24ch;">Going dark feels like underspending.</h2>
-        <div id="cs-problem-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,5vw,64px); margin-top:clamp(32px,4vw,44px); align-items:start;">
-          <p style="font-size:16px; line-height:1.7; color:#A09DAA; margin:0;">Media budgets were laid down statically, usually front-loaded, and planned in a spreadsheet, week by week, on experience. But audiences saturate: past a point, another week of pressure adds cost, not sales, because the message is already absorbed (ad-stock). The data science could model response and saturation per brand and touchpoint. That was not the hard part.</p>
-          <p style="font-size:16px; line-height:1.7; color:#A09DAA; margin:0;">The hard part was a belief. Telling a media team that going dark in some weeks, and concentrating pressure in others, earns more from the same money runs against the instinct to be "always on." A plan with gaps looks like under-spending to the people who run it. <strong style="color:#f4f2f7; font-weight:500; border-bottom:1.5px solid #86CFCF; padding-bottom:1px;">The blocker was never the model; it was persuading planners to accept a schedule that felt wrong.</strong></p>
-        </div>
-        <div style="margin-top:clamp(40px,5vw,60px);"><div style="color:#1A1814; font-family:'Inter',system-ui,sans-serif;"><div style="background:#FFFFFF; border:1px solid #E9E5DB; border-radius:14px; box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06); overflow:hidden;">
-      <div style="padding:22px 26px 18px; border-bottom:1px solid #E9E5DB;">
-        <div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#8B8578; margin-bottom:6px;">Nordlys Pilsner · Online video · Meridia</div>
+    <section id="overview" style="position:relative; padding:clamp(40px,5vw,72px) 0; scroll-margin-top:96px;" data-om-label="Overview" data-screen-label="Overview">
+      <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
+        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#1F9A86; flex:none;"></span><span style="color:#161617;">01</span><span>Overview</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
+        <h2 style="font-weight:600; font-size:clamp(40px,5.2vw,80px); line-height:1.02; letter-spacing:-0.038em; margin:18px 0 0 0; color:#161617; text-wrap:balance; max-width:20ch;">What Smart Flighting does.</h2>
+        <p style="font-size:clamp(19px,1.7vw,26px); line-height:1.45; letter-spacing:-0.015em; color:#161617; max-width:50ch; margin:clamp(22px,2.6vw,32px) 0 0 0; text-wrap:pretty;">Allocation AI decides <em>where</em> each brand and channel gets it. Smart Flighting decides <em>when</em> to spend it, turning a static, usually front-loaded budget into a dynamic, week-by-week execution plan.</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); gap:20px clamp(28px,4vw,64px); margin-top:clamp(24px,3vw,36px); max-width:1180px;"><p style="font-size:17px; line-height:1.65; color:#5E5E63; margin:0; text-wrap:pretty;">Media teams draft a <strong style="color:#161617; font-weight:500; border-bottom:1.5px solid #137565; padding-bottom:1px;">flighting plan</strong> (a weekly laydown of campaigns per brand and touchpoint) and test it against AI response curves. The tool projects the uplift of each schedule, flags campaign overlap, and shows the week an audience becomes <strong style="color:#161617; font-weight:500; border-bottom:1.5px solid #137565; padding-bottom:1px;">saturated</strong> by consecutive pressure.</p><p style="font-size:17px; line-height:1.65; color:#5E5E63; margin:0; text-wrap:pretty;">Built under the "Win with Execution" initiative, it grew from an Excel proof of concept into an interactive toolkit that runs alongside the same allocation system the budget was set with.</p></div>
+      </div>
+    </section>
+
+    <section id="problem" style="position:relative; padding:clamp(40px,5vw,72px) 0; scroll-margin-top:96px;" data-om-label="The Problem" data-screen-label="The Problem">
+      <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
+        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#1F9A86; flex:none;"></span><span style="color:#161617;">02</span><span>The problem</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
+        <h2 style="font-weight:600; font-size:clamp(40px,5.2vw,80px); line-height:1.02; letter-spacing:-0.038em; margin:18px 0 0 0; color:#161617; text-wrap:balance; max-width:20ch;">Going dark feels like underspending.</h2>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); gap:20px clamp(28px,4vw,64px); margin-top:clamp(24px,3vw,36px); max-width:1180px;"><p style="font-size:17px; line-height:1.65; color:#5E5E63; margin:0; text-wrap:pretty;">Media budgets were laid down statically, usually front-loaded, and planned in a spreadsheet, week by week, on experience. But audiences saturate: past a point, another week of pressure adds cost, not sales, because the message is already absorbed (ad-stock). The data science could model response and saturation per brand and touchpoint. That was not the hard part.</p><p style="font-size:17px; line-height:1.65; color:#5E5E63; margin:0; text-wrap:pretty;">The hard part was a belief. Telling a media team that going dark in some weeks, and concentrating pressure in others, earns more from the same money runs against the instinct to be "always on." A plan with gaps looks like under-spending to the people who run it. <strong style="color:#161617; font-weight:500; border-bottom:1.5px solid #137565; padding-bottom:1px;">The blocker was never the model; it was persuading planners to accept a schedule that felt wrong.</strong></p></div>
+        
+        <figure style="margin:clamp(36px,4.4vw,56px) 0 0 0; padding:clamp(12px,2.2vw,32px); border-radius:32px; background:#F5F5F3; box-shadow:0 0 0 1px rgba(0,0,0,0.035); min-width:0;">
+          
+          <div style="color:#161617; font-family:'Geist',system-ui,sans-serif;"><div style="background:#FFFFFF; border:1px solid #E6E6E3; border-radius:20px; box-shadow:0 30px 60px -34px rgba(0,0,0,0.24); overflow:hidden;">
+      <div style="padding:22px 26px 18px; border-bottom:1px solid #E6E6E3;">
+        <div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#6E6E73; margin-bottom:6px;">Nordlys Pilsner · Online video · Meridia</div>
         <h2 style="margin:0 0 5px; font-size:21px; font-weight:600; letter-spacing:-.01em;">Where the next euro of pressure stops paying</h2>
-        <div style="color:#8B8578; font-size:13px; max-width:560px; line-height:1.5;">Modeled response per week of advertising pressure. The curve bends because audiences saturate: past the point where the line flattens, another GRP costs full price and returns almost nothing.</div>
+        <div style="color:#6E6E73; font-size:13px; max-width:560px; line-height:1.5;">Modeled response per week of advertising pressure. The curve bends because audiences saturate: past the point where the line flattens, another GRP costs full price and returns almost nothing.</div>
       </div>
-      <div style="display:flex; gap:0; border-bottom:1px solid #E9E5DB;">
-        <div style="flex:1; padding:16px 26px; border-right:1px solid #E9E5DB;"><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.09em; text-transform:uppercase; color:#8B8578;">Weeks past saturation</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:22px; font-weight:600; letter-spacing:-.01em; margin-top:7px; color:#B36656;">5 <span style="font-size:12px; color:#8B8578;">of 16</span></div></div>
-        <div style="flex:1; padding:16px 26px; border-right:1px solid #E9E5DB;"><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.09em; text-transform:uppercase; color:#8B8578;">First 560 GRPs buy</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:22px; font-weight:600; letter-spacing:-.01em; margin-top:7px; color:#466969;">79%</div></div>
-        <div style="flex:1; padding:16px 26px;"><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.09em; text-transform:uppercase; color:#8B8578;">Next 450 GRPs buy</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:22px; font-weight:600; letter-spacing:-.01em; margin-top:7px; color:#B36656;">18%</div></div>
+      <div style="display:flex; gap:0; border-bottom:1px solid #E6E6E3;">
+        <div style="flex:1; padding:16px 26px; border-right:1px solid #E6E6E3;"><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.09em; text-transform:uppercase; color:#6E6E73;">Weeks past saturation</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:22px; font-weight:600; letter-spacing:-.01em; margin-top:7px; color:#3A3A3D;">5 <span style="font-size:12px; color:#6E6E73;">of 16</span></div></div>
+        <div style="flex:1; padding:16px 26px; border-right:1px solid #E6E6E3;"><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.09em; text-transform:uppercase; color:#6E6E73;">First 560 GRPs buy</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:22px; font-weight:600; letter-spacing:-.01em; margin-top:7px; color:#137565;">79%</div></div>
+        <div style="flex:1; padding:16px 26px;"><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.09em; text-transform:uppercase; color:#6E6E73;">Next 450 GRPs buy</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:22px; font-weight:600; letter-spacing:-.01em; margin-top:7px; color:#3A3A3D;">18%</div></div>
       </div>
       <div style="padding:18px 20px 8px;">
         <svg viewBox="0 0 800 340" role="img" aria-label="Advertising response curve showing diminishing returns past a saturation point" style="display:block; width:100%; height:auto;">
           <sc-for list="{{ curveGrid }}" as="g" hint-placeholder-count="4">
-            <line x1="64" y1="{{ g.y }}" x2="772" y2="{{ g.y }}" stroke="#F0EDE5" stroke-width="1"></line>
+            <line x1="64" y1="{{ g.y }}" x2="772" y2="{{ g.y }}" stroke="#F5F5F3" stroke-width="1"></line>
           </sc-for>
-          <rect x="{{ curve.bandX }}" y="{{ curve.bandY }}" width="{{ curve.bandW }}" height="{{ curve.bandH }}" fill="#B36656" opacity="0.05"></rect>
-          <path d="{{ curveArea }}" fill="#466969" opacity="0.06"></path>
-          <path d="{{ curveLine }}" fill="none" stroke="#466969" stroke-width="1.6" stroke-linejoin="round"></path>
-          <line x1="{{ curve.satX }}" y1="42" x2="{{ curve.satX }}" y2="280" stroke="#B36656" stroke-width="1.4" stroke-dasharray="4 4" opacity="0.85"></line>
-          <text x="{{ curve.satLabX }}" y="204" font-family="Inter" font-size="10.5" letter-spacing="1" fill="#B36656">SATURATION POINT</text>
-          <text x="{{ curve.satLabX }}" y="219" font-family="Inter" font-size="9.5" fill="#8B8578">pressure stops paying back</text>
-          <line x1="{{ curve.arrX1 }}" y1="{{ curve.arrY1 }}" x2="{{ curve.arrX2 }}" y2="{{ curve.arrY2 }}" stroke="#8B8578" stroke-width="1.4" stroke-dasharray="3 3"></line>
-          <path d="{{ curve.headPath }}" fill="#8B8578"></path>
-          <text x="{{ curve.arrMidX }}" y="{{ curve.arrMidY }}" text-anchor="middle" font-family="Inter" font-size="10" fill="#8B8578">same total pressure, retimed</text>
-          <circle cx="{{ curve.flX }}" cy="{{ curve.flY }}" r="5.5" fill="#B36656" stroke="#FFFFFF" stroke-width="2"></circle>
-          <text x="{{ curve.flNameX }}" y="{{ curve.flNameY }}" text-anchor="end" font-family="Inter" font-size="11.5" font-weight="600" fill="#1A1814">Front-loaded plan</text>
-          <text x="{{ curve.flDetX }}" y="{{ curve.flDetY }}" text-anchor="start" font-family="Inter" font-size="10" fill="#8B8578">~1000 GRPs/wk</text>
-          <circle cx="{{ curve.rtX }}" cy="{{ curve.rtY }}" r="5.5" fill="#466969" stroke="#FFFFFF" stroke-width="2"></circle>
-          <text x="{{ curve.rtNameX }}" y="{{ curve.rtNameY }}" text-anchor="end" font-family="Inter" font-size="11.5" font-weight="600" fill="#1A1814">Retimed plan</text>
-          <text x="{{ curve.rtDetX }}" y="{{ curve.rtDetY }}" text-anchor="end" font-family="Inter" font-size="10" fill="#8B8578">~560 GRPs/wk</text>
-          <text x="64" y="20" font-family="Inter" font-size="10" letter-spacing="1" fill="#8B8578">MODELED NET-REVENUE RESPONSE</text>
-          <text x="772" y="310" text-anchor="end" font-family="Inter" font-size="10" letter-spacing="1" fill="#8B8578">WEEKLY PRESSURE (GRPs) →</text>
-          <line x1="64" y1="280" x2="772" y2="280" stroke="#CFC8B8" stroke-width="1.2"></line>
+          <rect x="{{ curve.bandX }}" y="{{ curve.bandY }}" width="{{ curve.bandW }}" height="{{ curve.bandH }}" fill="#3A3A3D" opacity="0.05"></rect>
+          <path d="{{ curveArea }}" fill="#137565" opacity="0.06"></path>
+          <path d="{{ curveLine }}" fill="none" stroke="#137565" stroke-width="1.6" stroke-linejoin="round"></path>
+          <line x1="{{ curve.satX }}" y1="42" x2="{{ curve.satX }}" y2="280" stroke="#3A3A3D" stroke-width="1.4" stroke-dasharray="4 4" opacity="0.85"></line>
+          <text x="{{ curve.satLabX }}" y="204" font-family="Geist" font-size="10.5" letter-spacing="1" fill="#3A3A3D">SATURATION POINT</text>
+          <text x="{{ curve.satLabX }}" y="219" font-family="Geist" font-size="9.5" fill="#6E6E73">pressure stops paying back</text>
+          <line x1="{{ curve.arrX1 }}" y1="{{ curve.arrY1 }}" x2="{{ curve.arrX2 }}" y2="{{ curve.arrY2 }}" stroke="#6E6E73" stroke-width="1.4" stroke-dasharray="3 3"></line>
+          <path d="{{ curve.headPath }}" fill="#6E6E73"></path>
+          <text x="{{ curve.arrMidX }}" y="{{ curve.arrMidY }}" text-anchor="middle" font-family="Geist" font-size="10" fill="#6E6E73">same total pressure, retimed</text>
+          <circle cx="{{ curve.flX }}" cy="{{ curve.flY }}" r="5.5" fill="#3A3A3D" stroke="#FFFFFF" stroke-width="2"></circle>
+          <text x="{{ curve.flNameX }}" y="{{ curve.flNameY }}" text-anchor="end" font-family="Geist" font-size="11.5" font-weight="600" fill="#161617">Front-loaded plan</text>
+          <text x="{{ curve.flDetX }}" y="{{ curve.flDetY }}" text-anchor="start" font-family="Geist" font-size="10" fill="#6E6E73">~1000 GRPs/wk</text>
+          <circle cx="{{ curve.rtX }}" cy="{{ curve.rtY }}" r="5.5" fill="#137565" stroke="#FFFFFF" stroke-width="2"></circle>
+          <text x="{{ curve.rtNameX }}" y="{{ curve.rtNameY }}" text-anchor="end" font-family="Geist" font-size="11.5" font-weight="600" fill="#161617">Retimed plan</text>
+          <text x="{{ curve.rtDetX }}" y="{{ curve.rtDetY }}" text-anchor="end" font-family="Geist" font-size="10" fill="#6E6E73">~560 GRPs/wk</text>
+          <text x="64" y="20" font-family="Geist" font-size="10" letter-spacing="1" fill="#6E6E73">MODELED NET-REVENUE RESPONSE</text>
+          <text x="772" y="310" text-anchor="end" font-family="Geist" font-size="10" letter-spacing="1" fill="#6E6E73">WEEKLY PRESSURE (GRPs) →</text>
+          <line x1="64" y1="280" x2="772" y2="280" stroke="#C7C7CC" stroke-width="1.2"></line>
         </svg>
       </div>
       <div style="display:flex; gap:18px; flex-wrap:wrap; padding:6px 26px 18px;">
-        <span style="display:flex; align-items:center; gap:8px; font-size:12px; color:#8B8578;"><span style="width:15px; height:0; border-top:2.5px solid #466969; flex:none;"></span>Modeled response</span>
-        <span style="display:flex; align-items:center; gap:8px; font-size:12px; color:#8B8578;"><span style="width:13px; height:13px; border-radius:3px; flex:none; background:#466969;"></span>Retimed plan, at the frontier</span>
-        <span style="display:flex; align-items:center; gap:8px; font-size:12px; color:#8B8578;"><span style="width:13px; height:13px; border-radius:3px; flex:none; background:#B36656;"></span>Front-loaded plan, past saturation</span>
+        <span style="display:flex; align-items:center; gap:8px; font-size:12px; color:#6E6E73;"><span style="width:15px; height:0; border-top:2.5px solid #137565; flex:none;"></span>Modeled response</span>
+        <span style="display:flex; align-items:center; gap:8px; font-size:12px; color:#6E6E73;"><span style="width:13px; height:13px; border-radius:3px; flex:none; background:#137565;"></span>Retimed plan, at the frontier</span>
+        <span style="display:flex; align-items:center; gap:8px; font-size:12px; color:#6E6E73;"><span style="width:13px; height:13px; border-radius:3px; flex:none; background:#3A3A3D;"></span>Front-loaded plan, past saturation</span>
       </div>
-      <div style="padding:14px 26px; border-top:1px solid #E9E5DB; font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; letter-spacing:.04em; color:#8B8578; display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;">
+      <div style="padding:14px 26px; border-top:1px solid #E6E6E3; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; letter-spacing:.04em; color:#6E6E73; display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;">
         <span>Illustrative concept, not the actual product.</span><span>Fictional brands and data.</span>
       </div>
-    </div></div><p style="font-size:13.5px; line-height:1.65; color:#8A8795; margin:16px 0 0 0; max-width:82ch;">Why the plan goes dark some weeks. Every touchpoint saturates: the first ~560 GRPs buy most of the response, the next 450 buy almost none. Made legible so a planner can choose to move money off the flat part of the curve. <span style="color:#5E5B68;">Illustrative concept · fictional brands and data.</span></p></div>
+    </div></div>
+          <figcaption style="padding:clamp(18px,2vw,26px) clamp(4px,0.6vw,8px) clamp(4px,0.6vw,8px); font-size:15px; line-height:1.6; color:#5E5E63; max-width:80ch; text-wrap:pretty;"><span style="color:#161617; font-weight:500;">Why the plan goes dark some weeks.</span> Every touchpoint saturates: the first ~560 GRPs buy most of the response, the next 450 buy almost none. Made legible so a planner can choose to move money off the flat part of the curve.</figcaption>
+        </figure>
       </div>
     </section>
 
-    <section style="padding:clamp(72px,9vw,112px) 0 0;" data-om-label="My Role" data-screen-label="My Role"><div style="max-width:1320px; margin:0 auto; padding:0 clamp(20px,4.5vw,48px);">
-        <div style="height:1px; background:linear-gradient(90deg,#2A2932,rgba(42,41,50,0)); margin-bottom:clamp(44px,5.5vw,64px);"></div>
-        <div id="cs-role-grid" style="display:grid; grid-template-columns:0.9fr 1.1fr; gap:clamp(32px,5vw,80px); align-items:start;">
-          <div><div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#7E7B89;"><span style="width:10px; height:10px; border-radius:3px; background:#86CFCF; flex:none;"></span><span style="color:#f4f2f7;">03</span><span>My role &amp; ownership</span></div><h2 style="font-weight:500; font-size:clamp(34px,4.2vw,64px); line-height:1; letter-spacing:-0.045em; text-wrap:balance; margin:20px 0 0 0; color:#f4f2f7; max-width:18ch;">Accountable for whether planners actually changed the plan.</h2></div>
-          <div style="display:flex; flex-direction:column; gap:20px; max-width:60ch;">
-            <p style="font-size:16px; line-height:1.7; color:#A09DAA; margin:0;">I led discovery and owned the move from a manual Excel toolkit to an interactive product. I was the standing bridge between the data scientists building the response and saturation curves and the media planners who had to change their laydowns.</p>
-            <p style="font-size:16px; line-height:1.7; color:#A09DAA; margin:0;">I was accountable for whether planners <strong style="color:#f4f2f7; font-weight:500; border-bottom:1.5px solid #86CFCF; padding-bottom:1px;">actually built plans differently</strong>, not just whether a tool existed.</p>
+    <section id="role" style="position:relative; padding:clamp(40px,5vw,72px) 0; scroll-margin-top:96px;" data-om-label="My Role" data-screen-label="My Role">
+      <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
+        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#1F9A86; flex:none;"></span><span style="color:#161617;">03</span><span>My role &amp; ownership</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
+        <h2 style="font-weight:600; font-size:clamp(40px,5.2vw,80px); line-height:1.02; letter-spacing:-0.038em; margin:18px 0 0 0; color:#161617; text-wrap:balance; max-width:20ch;">Accountable for whether planners actually changed the plan.</h2>
+        <p style="font-size:clamp(19px,1.7vw,26px); line-height:1.45; letter-spacing:-0.015em; color:#161617; max-width:50ch; margin:clamp(22px,2.6vw,32px) 0 0 0; text-wrap:pretty;">I led discovery and owned the move from a manual Excel toolkit to an interactive product. I was the standing bridge between the data scientists building the response and saturation curves and the media planners who had to change their laydowns.</p>
+        <p style="font-size:17px; line-height:1.65; color:#5E5E63; margin:0; text-wrap:pretty; max-width:64ch; margin-top:clamp(20px,2.4vw,28px);">I was accountable for whether planners <strong style="color:#161617; font-weight:500; border-bottom:1.5px solid #137565; padding-bottom:1px;">actually built plans differently</strong>, not just whether a tool existed.</p>
+      </div>
+    </section>
+
+    <section id="decisions" style="position:relative; padding:clamp(40px,5vw,72px) 0; scroll-margin-top:96px;" data-om-label="Key Decisions" data-screen-label="Key Decisions">
+      <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
+        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#1F9A86; flex:none;"></span><span style="color:#161617;">04</span><span>Key decisions</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
+        <h2 style="font-weight:600; font-size:clamp(40px,5.2vw,80px); line-height:1.02; letter-spacing:-0.038em; margin:18px 0 0 0; color:#161617; text-wrap:balance; max-width:20ch;">Three product bets that earned belief.</h2>
+        <p style="font-size:clamp(19px,1.7vw,26px); line-height:1.45; letter-spacing:-0.015em; color:#161617; max-width:50ch; margin:clamp(22px,2.6vw,32px) 0 0 0; text-wrap:pretty;">Each one traded the fastest route to an optimum for a plan media teams would actually run.</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr)); gap:16px; margin-top:clamp(36px,4.4vw,56px);">
+          <div data-om-label="Decision 1" style="display:flex; flex-direction:column; gap:14px; padding:clamp(24px,2.6vw,36px); border-radius:28px; background:#F5F5F3; min-width:0;">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;"><div style="display:flex; align-items:center; gap:10px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.16em; color:#6E6E73;"><span style="width:8px; height:8px; border-radius:2px; background:#1F9A86; flex:none;"></span><span style="color:#161617;">01</span></div><span style="font-size:13px; font-weight:500; color:#137565;">Driven, not handed</span></div>
+            <h3 style="font-weight:600; font-size:clamp(22px,1.9vw,28px); line-height:1.15; letter-spacing:-0.025em; margin:clamp(12px,2vw,24px) 0 0 0; color:#161617; text-wrap:pretty;">A simulator planners drive, not an optimizer that hands them a plan.</h3>
+            <p style="font-size:16px; line-height:1.6; color:#5E5E63; margin:0; text-wrap:pretty;">The impressive path was a one-click "here is your optimal schedule." I rejected it. A media team won't accept a plan that goes dark in weeks they always run, unless they can test their own laydown and watch the model show them the waste. So the tool lets them drive, and surfaces saturation as they go.</p>
+            <div style="margin-top:auto; padding-top:16px; border-top:1px solid #E3E3E0; font-size:15px; line-height:1.5; color:#161617; text-wrap:pretty;"><span style="display:block; font-size:13px; font-weight:500; color:#6E6E73; margin-bottom:6px;">The tradeoff</span>A slower route to the mathematically optimal plan, in exchange for one planners trust enough to use.</div>
+          </div>
+          <div data-om-label="Decision 2" style="display:flex; flex-direction:column; gap:14px; padding:clamp(24px,2.6vw,36px); border-radius:28px; background:#F5F5F3; min-width:0;">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;"><div style="display:flex; align-items:center; gap:10px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.16em; color:#6E6E73;"><span style="width:8px; height:8px; border-radius:2px; background:#1F9A86; flex:none;"></span><span style="color:#161617;">02</span></div><span style="font-size:13px; font-weight:500; color:#137565;">Visible over black-box</span></div>
+            <h3 style="font-weight:600; font-size:clamp(22px,1.9vw,28px); line-height:1.15; letter-spacing:-0.025em; margin:clamp(12px,2vw,24px) 0 0 0; color:#161617; text-wrap:pretty;">Made wasted pressure visible per week, not just a recommendation.</h3>
+            <p style="font-size:16px; line-height:1.6; color:#5E5E63; margin:0; text-wrap:pretty;">Rather than a black-box "better plan," the tool shows where each extra week of pressure stops paying back. Exposing the model's logic to scrutiny is the point: a planner who can see the saturation is a planner who will move the money.</p>
+            <div style="margin-top:auto; padding-top:16px; border-top:1px solid #E3E3E0; font-size:15px; line-height:1.5; color:#161617; text-wrap:pretty;"><span style="display:block; font-size:13px; font-weight:500; color:#6E6E73; margin-bottom:6px;">The tradeoff</span>The model has to defend itself on screen, every week.</div>
+          </div>
+          <div data-om-label="Decision 3" style="display:flex; flex-direction:column; gap:14px; padding:clamp(24px,2.6vw,36px); border-radius:28px; background:#F5F5F3; min-width:0;">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;"><div style="display:flex; align-items:center; gap:10px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.16em; color:#6E6E73;"><span style="width:8px; height:8px; border-radius:2px; background:#1F9A86; flex:none;"></span><span style="color:#161617;">03</span></div><span style="font-size:13px; font-weight:500; color:#137565;">Ship over build</span></div>
+            <h3 style="font-weight:600; font-size:clamp(22px,1.9vw,28px); line-height:1.15; letter-spacing:-0.025em; margin:clamp(12px,2vw,24px) 0 0 0; color:#161617; text-wrap:pretty;">Shipped a lightweight tool to replace Excel, not a platform.</h3>
+            <p style="font-size:16px; line-height:1.6; color:#5E5E63; margin:0; text-wrap:pretty;">It started as an Excel proof of concept, itself the cheap validation that timing alone moved the number. I said no to over-building: get planners off spreadsheets and into a fact-based toolkit fast, prove the timing value, and leave deeper integration for later.</p>
+            <div style="margin-top:auto; padding-top:16px; border-top:1px solid #E3E3E0; font-size:15px; line-height:1.5; color:#161617; text-wrap:pretty;"><span style="display:block; font-size:13px; font-weight:500; color:#6E6E73; margin-bottom:6px;">The tradeoff</span>An interim tool rather than the fully integrated end state.</div>
           </div>
         </div>
       </div>
     </section>
 
-    <section style="padding:clamp(72px,9vw,112px) 0 0;" data-om-label="Key Decisions" data-screen-label="Key Decisions"><div style="max-width:1320px; margin:0 auto; padding:0 clamp(20px,4.5vw,48px);">
-        <div style="height:1px; background:linear-gradient(90deg,#2A2932,rgba(42,41,50,0)); margin-bottom:clamp(44px,5.5vw,64px);"></div>
-        <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:28px; flex-wrap:wrap; margin-bottom:clamp(32px,4vw,44px);">
-          <div><div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#7E7B89;"><span style="width:10px; height:10px; border-radius:3px; background:#86CFCF; flex:none;"></span><span style="color:#f4f2f7;">04</span><span>Key decisions</span></div><h2 style="font-weight:500; font-size:clamp(40px,5.2vw,88px); line-height:0.95; letter-spacing:-0.048em; text-wrap:balance; margin:18px 0 0 0; color:#f4f2f7;">Three product bets that earned belief</h2></div>
-          <p style="font-size:15px; line-height:1.62; color:#A09DAA; margin:0 0 6px 0; max-width:42ch;">Each one traded the fastest route to an optimum for a plan media teams would actually run.</p>
-        </div>
-        <div id="cs-decisions">
-          <div style="display:grid; grid-template-columns:clamp(44px,5vw,72px) 1fr minmax(150px,220px); align-items:start; gap:clamp(16px,3vw,32px); padding:clamp(22px,2.8vw,30px) 0; border-top:1px solid #24232C;"><div style="font-size:13px; font-weight:600; color:#7E7B89; letter-spacing:0.08em;">01</div><div><div style="font-weight:600; font-size:clamp(1.1rem,1.6vw,1.35rem); letter-spacing:-0.02em; color:#f4f2f7;">A simulator planners drive, not an optimizer that hands them a plan.</div><div style="font-size:14.5px; line-height:1.62; color:#A09DAA; margin-top:8px; max-width:66ch;">The impressive path was a one-click "here is your optimal schedule." I rejected it. A media team won't accept a plan that goes dark in weeks they always run, unless they can test their own laydown and watch the model show them the waste. So the tool lets them drive, and surfaces saturation as they go.</div><div style="font-size:14px; line-height:1.55; color:#A09DAA; margin-top:14px; padding-top:12px; border-top:1px solid #17161D; max-width:66ch;"><span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#86CFCF; margin-right:10px;">The tradeoff</span>A slower route to the mathematically optimal plan, in exchange for one planners trust enough to use.</div></div><div style="font-family:'Geist Mono',ui-monospace,monospace; text-align:right; font-size:11px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#7E7B89; padding-top:4px;">Driven, not handed</div></div>
-          <div style="display:grid; grid-template-columns:clamp(44px,5vw,72px) 1fr minmax(150px,220px); align-items:start; gap:clamp(16px,3vw,32px); padding:clamp(22px,2.8vw,30px) 0; border-top:1px solid #24232C;"><div style="font-size:13px; font-weight:600; color:#7E7B89; letter-spacing:0.08em;">02</div><div><div style="font-weight:600; font-size:clamp(1.1rem,1.6vw,1.35rem); letter-spacing:-0.02em; color:#f4f2f7;">Made wasted pressure visible per week, not just a recommendation.</div><div style="font-size:14.5px; line-height:1.62; color:#A09DAA; margin-top:8px; max-width:66ch;">Rather than a black-box "better plan," the tool shows where each extra week of pressure stops paying back. Exposing the model's logic to scrutiny is the point: a planner who can see the saturation is a planner who will move the money.</div><div style="font-size:14px; line-height:1.55; color:#A09DAA; margin-top:14px; padding-top:12px; border-top:1px solid #17161D; max-width:66ch;"><span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#86CFCF; margin-right:10px;">The tradeoff</span>The model has to defend itself on screen, every week.</div></div><div style="font-family:'Geist Mono',ui-monospace,monospace; text-align:right; font-size:11px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#7E7B89; padding-top:4px;">Visible over black-box</div></div>
-          <div style="display:grid; grid-template-columns:clamp(44px,5vw,72px) 1fr minmax(150px,220px); align-items:start; gap:clamp(16px,3vw,32px); padding:clamp(22px,2.8vw,30px) 0; border-top:1px solid #24232C; border-bottom:1px solid #24232C;"><div style="font-size:13px; font-weight:600; color:#7E7B89; letter-spacing:0.08em;">03</div><div><div style="font-weight:600; font-size:clamp(1.1rem,1.6vw,1.35rem); letter-spacing:-0.02em; color:#f4f2f7;">Shipped a lightweight tool to replace Excel, not a platform.</div><div style="font-size:14.5px; line-height:1.62; color:#A09DAA; margin-top:8px; max-width:66ch;">It started as an Excel proof of concept, itself the cheap validation that timing alone moved the number. I said no to over-building: get planners off spreadsheets and into a fact-based toolkit fast, prove the timing value, and leave deeper integration for later.</div><div style="font-size:14px; line-height:1.55; color:#A09DAA; margin-top:14px; padding-top:12px; border-top:1px solid #17161D; max-width:66ch;"><span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#86CFCF; margin-right:10px;">The tradeoff</span>An interim tool rather than the fully integrated end state.</div></div><div style="font-family:'Geist Mono',ui-monospace,monospace; text-align:right; font-size:11px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#7E7B89; padding-top:4px;">Ship over build</div></div>
-        </div>
-      </div>
-    </section>
-
-    <section style="padding:clamp(72px,9vw,112px) 0 0;" data-om-label="What Shipped" data-screen-label="What Shipped"><div style="max-width:1320px; margin:0 auto; padding:0 clamp(20px,4.5vw,48px);">
-        <div style="height:1px; background:linear-gradient(90deg,#2A2932,rgba(42,41,50,0)); margin-bottom:clamp(44px,5.5vw,64px);"></div>
-        <div id="cs-shipped-grid" style="display:grid; grid-template-columns:0.9fr 1.1fr; gap:clamp(32px,5vw,80px); align-items:start; margin-bottom:clamp(40px,5vw,56px);">
-          <div><div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#7E7B89;"><span style="width:10px; height:10px; border-radius:3px; background:#86CFCF; flex:none;"></span><span style="color:#f4f2f7;">05</span><span>What shipped</span></div><h2 style="font-weight:500; font-size:clamp(34px,4.2vw,64px); line-height:1; letter-spacing:-0.045em; text-wrap:balance; margin:20px 0 0 0; color:#f4f2f7; max-width:18ch;">A simulator planners drive, alongside the planning cycle.</h2></div>
-          <div style="max-width:60ch;"><p style="font-size:16px; line-height:1.7; color:#A09DAA; margin:0;">An interactive simulator and optimizer under "Win with Execution." Planners build a full-year plan across brands, campaigns and touchpoints, then test any laydown against AI response curves, seeing projected uplift, campaign overlap, and where the audience saturates, week by week. It replaced a manual Excel process and runs alongside the yearly allocation system.</p><div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10.5px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#7E7B89; margin-top:22px;">Response curves · Ad-stock &amp; saturation modelling · Interactive simulator + optimizer · Allocation AI architecture</div></div>
-        </div>
-        <div><div style="color:#1A1814; font-family:'Inter',system-ui,sans-serif;"><div style="background:#FFFFFF; border:1px solid #E9E5DB; border-radius:14px; box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06); overflow:hidden;">
+    <section id="shipped" style="position:relative; padding:clamp(40px,5vw,72px) 0; scroll-margin-top:96px;" data-om-label="What Shipped" data-screen-label="What Shipped">
+      <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
+        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#1F9A86; flex:none;"></span><span style="color:#161617;">05</span><span>What shipped</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
+        <h2 style="font-weight:600; font-size:clamp(40px,5.2vw,80px); line-height:1.02; letter-spacing:-0.038em; margin:18px 0 0 0; color:#161617; text-wrap:balance; max-width:20ch;">A simulator planners drive, alongside the planning cycle.</h2>
+        <p style="font-size:17px; line-height:1.65; color:#5E5E63; margin:0; text-wrap:pretty; max-width:64ch; margin-top:clamp(20px,2.4vw,28px);">An interactive simulator and optimizer under "Win with Execution." Planners build a full-year plan across brands, campaigns and touchpoints, then test any laydown against AI response curves, seeing projected uplift, campaign overlap, and where the audience saturates, week by week. It replaced a manual Excel process and runs alongside the yearly allocation system.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:24px;"><span style="padding:8px 14px; border-radius:999px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #D6D6D3; font-size:13.5px; font-weight:500; color:#161617; white-space:nowrap;">Response curves</span><span style="padding:8px 14px; border-radius:999px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #D6D6D3; font-size:13.5px; font-weight:500; color:#161617; white-space:nowrap;">Ad-stock &amp; saturation modelling</span><span style="padding:8px 14px; border-radius:999px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #D6D6D3; font-size:13.5px; font-weight:500; color:#161617; white-space:nowrap;">Interactive simulator + optimizer</span><span style="padding:8px 14px; border-radius:999px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #D6D6D3; font-size:13.5px; font-weight:500; color:#161617; white-space:nowrap;">Allocation AI architecture</span></div>
+        
+        <figure style="margin:clamp(36px,4.4vw,56px) 0 0 0; padding:clamp(12px,2.2vw,32px); border-radius:32px; background:#F5F5F3; box-shadow:0 0 0 1px rgba(0,0,0,0.035); min-width:0;">
+          
+          <div style="color:#161617; font-family:'Geist',system-ui,sans-serif;"><div style="background:#FFFFFF; border:1px solid #E6E6E3; border-radius:20px; box-shadow:0 30px 60px -34px rgba(0,0,0,0.24); overflow:hidden;">
       <div style="padding:20px 26px 14px; display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;">
         <div>
-          <div style="display:flex; align-items:center; gap:10px;"><span style="color:#8B8578; font-size:18px; line-height:1;">←</span><h2 style="margin:0; font-size:19px; font-weight:600; letter-spacing:-.01em; white-space:nowrap;">Nordlys <span style="color:#E9E5DB; font-weight:400; margin:0 4px;">|</span> Coastal Nordlys</h2></div>
-          <div style="color:#8B8578; font-size:12.5px; margin:5px 0 0 28px;">Summer campaign, Meridia, across TV and social.</div>
+          <div style="display:flex; align-items:center; gap:10px;"><span style="color:#6E6E73; font-size:18px; line-height:1;">←</span><h2 style="margin:0; font-size:19px; font-weight:600; letter-spacing:-.01em; white-space:nowrap;">Nordlys <span style="color:#E6E6E3; font-weight:400; margin:0 4px;">|</span> Coastal Nordlys</h2></div>
+          <div style="color:#6E6E73; font-size:12.5px; margin:5px 0 0 28px;">Summer campaign, Meridia, across TV and social.</div>
         </div>
         <div style="display:flex; gap:8px; align-items:center;">
-          <span style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:11px; background:#1A1814; color:#fff; border-radius:8px; padding:7px 11px;">Draft ▾</span>
-          <span style="font-size:12px; color:#1A1814; border:1px solid #E9E5DB; border-radius:8px; padding:7px 12px; background:#fff;">Compare scenarios</span>
+          <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; background:#161617; color:#fff; border-radius:8px; padding:7px 11px;">Draft ▾</span>
+          <span style="font-size:12px; color:#161617; border:1px solid #E6E6E3; border-radius:8px; padding:7px 12px; background:#fff;">Compare scenarios</span>
         </div>
       </div>
-      <div style="display:flex; gap:26px; padding:0 26px; border-bottom:1px solid #E9E5DB;">
-        <span style="font-size:13px; color:#8B8578; padding:10px 0; display:flex; align-items:center; gap:6px;">Scenario 1 <span style="color:#B39A6B;">★</span></span>
-        <span style="font-size:13px; color:#1A1814; font-weight:600; box-shadow:inset 0 -2px 0 #1A1814; padding:10px 0; display:flex; align-items:center; gap:6px;">Scenario 2</span>
-        <span style="font-size:13px; color:#8B8578; padding:10px 0;">Scenario 3</span>
-        <span style="font-size:13px; color:#8B8578; padding:10px 0;">Scenario 4</span>
+      <div style="display:flex; gap:26px; padding:0 26px; border-bottom:1px solid #E6E6E3;">
+        <span style="font-size:13px; color:#6E6E73; padding:10px 0; display:flex; align-items:center; gap:6px;">Scenario 1 <span style="color:#8E8E93;">★</span></span>
+        <span style="font-size:13px; color:#161617; font-weight:600; box-shadow:inset 0 -2px 0 #161617; padding:10px 0; display:flex; align-items:center; gap:6px;">Scenario 2</span>
+        <span style="font-size:13px; color:#6E6E73; padding:10px 0;">Scenario 3</span>
+        <span style="font-size:13px; color:#6E6E73; padding:10px 0;">Scenario 4</span>
       </div>
       <div style="display:flex; justify-content:space-between; align-items:center; gap:14px; padding:16px 26px 4px; flex-wrap:wrap;">
-        <div style="display:flex; align-items:center; gap:10px;"><h3 style="margin:0; font-size:15px; font-weight:600;">More weight on social</h3><span style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.04em; background:#DCE7E7; color:#466969; border-radius:999px; padding:3px 9px;">✦ Optimized</span></div>
-        <span style="font-size:12px; color:#1A1814; border:1px solid #E9E5DB; border-radius:8px; padding:7px 12px; background:#fff;">Edit scenario</span>
+        <div style="display:flex; align-items:center; gap:10px;"><h3 style="margin:0; font-size:15px; font-weight:600;">More weight on social</h3><span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.04em; background:#E3F2EF; color:#137565; border-radius:999px; padding:3px 9px;">✦ Optimized</span></div>
+        <span style="font-size:12px; color:#161617; border:1px solid #E6E6E3; border-radius:8px; padding:7px 12px; background:#fff;">Edit scenario</span>
       </div>
-      <div style="color:#8B8578; font-size:12px; margin:2px 0 0 0; padding:0 26px 8px;">Shift budget off saturated TV weeks into social, and concentrate the spend into fewer bursts.</div>
-      <div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#8B8578; padding:16px 26px 10px;">Campaign KPIs</div>
-      <div style="display:flex; margin:0 26px; border:1px solid #E9E5DB; border-radius:12px; overflow:hidden;">
-        <div style="flex:1; padding:14px 20px; border-right:1px solid #E9E5DB;">
-          <div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.09em; text-transform:uppercase; color:#8B8578; margin-bottom:11px;">Cost &amp; activation</div>
+      <div style="color:#6E6E73; font-size:12px; margin:2px 0 0 0; padding:0 26px 8px;">Shift budget off saturated TV weeks into social, and concentrate the spend into fewer bursts.</div>
+      <div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#6E6E73; padding:16px 26px 10px;">Campaign KPIs</div>
+      <div style="display:flex; margin:0 26px; border:1px solid #E6E6E3; border-radius:12px; overflow:hidden;">
+        <div style="flex:1; padding:14px 20px; border-right:1px solid #E6E6E3;">
+          <div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.09em; text-transform:uppercase; color:#6E6E73; margin-bottom:11px;">Cost &amp; activation</div>
           <div style="display:flex; gap:18px; flex-wrap:wrap;">
-            <div><div style="font-size:9.5px; color:#8B8578;">Cost</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">€9.2M</div></div>
-            <div><div style="font-size:9.5px; color:#8B8578;">GRPs (norm. 30s)</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">7.1K</div></div>
-            <div><div style="font-size:9.5px; color:#8B8578;">Impressions</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">1.3B</div></div>
-            <div><div style="font-size:9.5px; color:#8B8578;">AP adherence</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">84%</div></div>
+            <div><div style="font-size:9.5px; color:#6E6E73;">Cost</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">€9.2M</div></div>
+            <div><div style="font-size:9.5px; color:#6E6E73;">GRPs (norm. 30s)</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">7.1K</div></div>
+            <div><div style="font-size:9.5px; color:#6E6E73;">Impressions</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">1.3B</div></div>
+            <div><div style="font-size:9.5px; color:#6E6E73;">AP adherence</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">84%</div></div>
           </div>
         </div>
-        <div style="flex:1; padding:14px 20px; border-right:1px solid #E9E5DB;">
-          <div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.09em; text-transform:uppercase; color:#8B8578; margin-bottom:11px;">Flighting assessment</div>
+        <div style="flex:1; padding:14px 20px; border-right:1px solid #E6E6E3;">
+          <div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.09em; text-transform:uppercase; color:#6E6E73; margin-bottom:11px;">Flighting assessment</div>
           <div style="display:flex; gap:18px; flex-wrap:wrap;">
-            <div><div style="font-size:9.5px; color:#8B8578;">Sell-out ROI</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">1.38</div></div>
-            <div><div style="font-size:9.5px; color:#8B8578;">Optimal timing</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">47%</div></div>
-            <div><div style="font-size:9.5px; color:#8B8578;">Optimal start</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">45%</div></div>
-            <div><div style="font-size:9.5px; color:#8B8578;">Overlaps</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">0</div></div>
+            <div><div style="font-size:9.5px; color:#6E6E73;">Sell-out ROI</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">1.38</div></div>
+            <div><div style="font-size:9.5px; color:#6E6E73;">Optimal timing</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">47%</div></div>
+            <div><div style="font-size:9.5px; color:#6E6E73;">Optimal start</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">45%</div></div>
+            <div><div style="font-size:9.5px; color:#6E6E73;">Overlaps</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">0</div></div>
           </div>
         </div>
         <div style="flex:1; padding:14px 20px;">
-          <div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.09em; text-transform:uppercase; color:#8B8578; margin-bottom:11px;">Volume</div>
+          <div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.09em; text-transform:uppercase; color:#6E6E73; margin-bottom:11px;">Volume</div>
           <div style="display:flex; gap:18px; flex-wrap:wrap;">
-            <div><div style="font-size:9.5px; color:#8B8578;">Net revenue</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">€6.8M</div></div>
-            <div><div style="font-size:9.5px; color:#8B8578;">Gross profit</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">€3.0M</div></div>
-            <div><div style="font-size:9.5px; color:#8B8578;">Incr. volume</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">4.6M hL</div></div>
+            <div><div style="font-size:9.5px; color:#6E6E73;">Net revenue</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">€6.8M</div></div>
+            <div><div style="font-size:9.5px; color:#6E6E73;">Gross profit</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">€3.0M</div></div>
+            <div><div style="font-size:9.5px; color:#6E6E73;">Incr. volume</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">4.6M hL</div></div>
           </div>
         </div>
       </div>
-      <div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#8B8578; padding:16px 26px 10px;">Touchpoint breakdown</div>
-      <div style="margin:6px 26px 0; border:1px solid #E9E5DB; border-radius:12px; overflow:hidden;">
-        <div style="display:flex; align-items:center; gap:10px; padding:13px 20px; border-bottom:1px solid #F0EDE5;">
-          <span style="font-size:13.5px; font-weight:600; color:#466969;">Open TV</span>
-          <span style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.04em; background:#DCE7E7; color:#466969; border-radius:999px; padding:3px 9px;">✦ Optimized</span>
+      <div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#6E6E73; padding:16px 26px 10px;">Touchpoint breakdown</div>
+      <div style="margin:6px 26px 0; border:1px solid #E6E6E3; border-radius:12px; overflow:hidden;">
+        <div style="display:flex; align-items:center; gap:10px; padding:13px 20px; border-bottom:1px solid #F5F5F3;">
+          <span style="font-size:13.5px; font-weight:600; color:#137565;">Open TV</span>
+          <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.04em; background:#E3F2EF; color:#137565; border-radius:999px; padding:3px 9px;">✦ Optimized</span>
         </div>
         <div style="display:flex; gap:26px; flex-wrap:wrap; padding:13px 20px 6px;">
-          <div><div style="font-size:9.5px; color:#8B8578;">Cost</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">€4.1M</div></div>
-          <div><div style="font-size:9.5px; color:#8B8578;">GRPs (norm. 30s)</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">3.2K</div></div>
-          <div><div style="font-size:9.5px; color:#8B8578;">Impressions</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">0.6B</div></div>
-          <div><div style="font-size:9.5px; color:#8B8578;">Sell-out ROI</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">1.42</div></div>
-          <div><div style="font-size:9.5px; color:#8B8578;">Weeks on air</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">11</div></div>
+          <div><div style="font-size:9.5px; color:#6E6E73;">Cost</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">€4.1M</div></div>
+          <div><div style="font-size:9.5px; color:#6E6E73;">GRPs (norm. 30s)</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">3.2K</div></div>
+          <div><div style="font-size:9.5px; color:#6E6E73;">Impressions</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">0.6B</div></div>
+          <div><div style="font-size:9.5px; color:#6E6E73;">Sell-out ROI</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">1.42</div></div>
+          <div><div style="font-size:9.5px; color:#6E6E73;">Weeks on air</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; margin-top:3px; letter-spacing:-.01em;">11</div></div>
         </div>
         <div style="padding:6px 14px 10px;">
           <svg viewBox="0 0 900 312" role="img" aria-label="Impressions delivered per week for one touchpoint, against the responsive capacity band" style="display:block; width:100%; height:auto;">
             <sc-for list="{{ impGrid }}" as="g" hint-placeholder-count="6">
-              <line x1="70" y1="{{ g.y }}" x2="884" y2="{{ g.y }}" stroke="#F0EDE5" stroke-width="1"></line>
-              <text x="62" y="{{ g.labY }}" text-anchor="end" font-family="Inter" font-size="10" fill="#8B8578">{{ g.lab }}</text>
+              <line x1="70" y1="{{ g.y }}" x2="884" y2="{{ g.y }}" stroke="#F5F5F3" stroke-width="1"></line>
+              <text x="62" y="{{ g.labY }}" text-anchor="end" font-family="Geist" font-size="10" fill="#6E6E73">{{ g.lab }}</text>
             </sc-for>
-            <path d="{{ impBand }}" fill="#BDCFD0" opacity="0.55"></path>
+            <path d="{{ impBand }}" fill="#BFE3DC" opacity="0.55"></path>
             <sc-for list="{{ impMonths }}" as="m" hint-placeholder-count="8">
-              <line x1="{{ m.x }}" y1="22" x2="{{ m.x }}" y2="248" stroke="#ECE8DE" stroke-width="1"></line>
-              <text x="{{ m.labX }}" y="282" font-family="Inter" font-size="10" fill="#8B8578">{{ m.lab }}</text>
+              <line x1="{{ m.x }}" y1="22" x2="{{ m.x }}" y2="248" stroke="#F2F2F0" stroke-width="1"></line>
+              <text x="{{ m.labX }}" y="282" font-family="Geist" font-size="10" fill="#6E6E73">{{ m.lab }}</text>
             </sc-for>
             <sc-for list="{{ impWeeks }}" as="w" hint-placeholder-count="34">
-              <text x="{{ w.x }}" y="264" text-anchor="middle" font-family="Inter" font-size="8" fill="#A19B8D">{{ w.wk }}</text>
+              <text x="{{ w.x }}" y="264" text-anchor="middle" font-family="Geist" font-size="8" fill="#8E8E93">{{ w.wk }}</text>
             </sc-for>
-            <path d="{{ impLine }}" fill="none" stroke="#466969" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"></path>
+            <path d="{{ impLine }}" fill="none" stroke="#137565" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"></path>
             <sc-for list="{{ impDots }}" as="d" hint-placeholder-count="20">
-              <circle cx="{{ d.x }}" cy="{{ d.y }}" r="3.4" fill="#fff" stroke="#466969" stroke-width="1.8"></circle>
+              <circle cx="{{ d.x }}" cy="{{ d.y }}" r="3.4" fill="#fff" stroke="#137565" stroke-width="1.8"></circle>
             </sc-for>
-            <text x="{{ impPeak.x }}" y="{{ impPeak.y }}" text-anchor="middle" font-family="Inter" font-size="10" fill="#466969">5.0M</text>
-            <text x="70" y="14" font-family="Inter" font-size="10" letter-spacing="1" fill="#8B8578">IMPRESSIONS</text>
-            <text x="{{ impMidX }}" y="298" text-anchor="middle" font-family="Inter" font-size="9.5" letter-spacing="1" fill="#A19B8D">WEEK NUMBER (ISO)</text>
-            <line x1="70" y1="248" x2="884" y2="248" stroke="#CFC8B8" stroke-width="1.2"></line>
+            <text x="{{ impPeak.x }}" y="{{ impPeak.y }}" text-anchor="middle" font-family="Geist" font-size="10" fill="#137565">5.0M</text>
+            <text x="70" y="14" font-family="Geist" font-size="10" letter-spacing="1" fill="#6E6E73">IMPRESSIONS</text>
+            <text x="{{ impMidX }}" y="298" text-anchor="middle" font-family="Geist" font-size="9.5" letter-spacing="1" fill="#8E8E93">WEEK NUMBER (ISO)</text>
+            <line x1="70" y1="248" x2="884" y2="248" stroke="#C7C7CC" stroke-width="1.2"></line>
           </svg>
         </div>
       </div>
       <div style="display:flex; gap:18px; flex-wrap:wrap; padding:8px 26px 16px;">
-        <span style="display:flex; align-items:center; gap:8px; font-size:11.5px; color:#8B8578;"><span style="width:15px; height:12px; border-radius:3px; flex:none; background:#BDCFD0;"></span>Responsive capacity (still pays)</span>
-        <span style="display:flex; align-items:center; gap:8px; font-size:11.5px; color:#8B8578;"><span style="width:15px; height:0; border-top:2.5px solid #466969; flex:none;"></span>Impressions delivered per week</span>
+        <span style="display:flex; align-items:center; gap:8px; font-size:11.5px; color:#6E6E73;"><span style="width:15px; height:12px; border-radius:3px; flex:none; background:#BFE3DC;"></span>Responsive capacity (still pays)</span>
+        <span style="display:flex; align-items:center; gap:8px; font-size:11.5px; color:#6E6E73;"><span style="width:15px; height:0; border-top:2.5px solid #137565; flex:none;"></span>Impressions delivered per week</span>
       </div>
-      <div style="padding:14px 26px; border-top:1px solid #E9E5DB; font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; letter-spacing:.04em; color:#8B8578; display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;">
+      <div style="padding:14px 26px; border-top:1px solid #E6E6E3; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; letter-spacing:.04em; color:#6E6E73; display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;">
         <span>Illustrative concept, not the actual product.</span><span>Fictional brands and data.</span>
       </div>
-    </div></div><p style="font-size:13.5px; line-height:1.65; color:#8A8795; margin:16px 0 0 0; max-width:82ch;">How a planner tests a call before committing. Each scenario is a saved what-if (here, more weight on social) scored on the same KPIs, with delivered impressions plotted against the responsive ceiling. <span style="color:#5E5B68;">Illustrative concept · fictional brands and data.</span></p></div>
+    </div></div>
+          <figcaption style="padding:clamp(18px,2vw,26px) clamp(4px,0.6vw,8px) clamp(4px,0.6vw,8px); font-size:15px; line-height:1.6; color:#5E5E63; max-width:80ch; text-wrap:pretty;"><span style="color:#161617; font-weight:500;">How a planner tests a call before committing.</span> Each scenario is a saved what-if (here, more weight on social) scored on the same KPIs, with delivered impressions plotted against the responsive ceiling.</figcaption>
+        </figure>
       </div>
     </section>
 
-    <section style="padding:clamp(72px,9vw,112px) 0 0;" data-om-label="Impact detail" data-screen-label="Impact detail"><div style="max-width:1320px; margin:0 auto; padding:0 clamp(20px,4.5vw,48px);">
-        <div style="height:1px; background:linear-gradient(90deg,#2A2932,rgba(42,41,50,0)); margin-bottom:clamp(44px,5.5vw,64px);"></div>
-        <div id="cs-impact-grid" style="display:grid; grid-template-columns:0.9fr 1.1fr; gap:clamp(32px,5vw,80px); align-items:start; margin-bottom:clamp(40px,5vw,56px);">
-          <div><div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#7E7B89;"><span style="width:10px; height:10px; border-radius:3px; background:#86CFCF; flex:none;"></span><span style="color:#f4f2f7;">06</span><span>Impact</span></div><h2 style="font-weight:500; font-size:clamp(34px,4.2vw,64px); line-height:1; letter-spacing:-0.045em; text-wrap:balance; margin:20px 0 0 0; color:#f4f2f7; max-width:18ch;">Timing alone, worth 1–1.5% of net revenue.</h2></div>
-          <div style="max-width:60ch;"><p style="font-size:16px; line-height:1.7; color:#A09DAA; margin:0;">The real proof wasn't the model's accuracy: it was the behaviour change. Planners moved from defaulting to front-loaded, always-on plans to testing laydowns against saturation and redistributing pressure to the weeks that still respond. Targets are labelled as targets.</p></div>
-        </div>
-        <div><div style="color:#1A1814; font-family:'Inter',system-ui,sans-serif;"><div style="background:#FFFFFF; border:1px solid #E9E5DB; border-radius:14px; box-shadow:0 40px 90px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06); overflow:hidden;">
-      <div style="padding:22px 26px 18px; border-bottom:1px solid #E9E5DB;">
-        <div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#8B8578; margin-bottom:6px;">Fewer, bigger events · Nordlys Pilsner · Meridia</div>
+    <section id="impact-detail" style="position:relative; padding:clamp(40px,5vw,72px) 0; scroll-margin-top:96px;" data-om-label="Impact detail" data-screen-label="Impact detail">
+      <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
+        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#1F9A86; flex:none;"></span><span style="color:#161617;">06</span><span>Impact</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
+        <h2 style="font-weight:600; font-size:clamp(40px,5.2vw,80px); line-height:1.02; letter-spacing:-0.038em; margin:18px 0 0 0; color:#161617; text-wrap:balance; max-width:20ch;">Timing alone, worth 1–1.5% of net revenue.</h2>
+        <p style="font-size:17px; line-height:1.65; color:#5E5E63; margin:0; text-wrap:pretty; max-width:64ch; margin-top:clamp(20px,2.4vw,28px);">The real proof wasn't the model's accuracy: it was the behaviour change. Planners moved from defaulting to front-loaded, always-on plans to testing laydowns against saturation and redistributing pressure to the weeks that still respond. Targets are labelled as targets.</p>
+        
+        <figure style="margin:clamp(36px,4.4vw,56px) 0 0 0; padding:clamp(12px,2.2vw,32px); border-radius:32px; background:#F5F5F3; box-shadow:0 0 0 1px rgba(0,0,0,0.035); min-width:0;">
+          
+          <div style="color:#161617; font-family:'Geist',system-ui,sans-serif;"><div style="background:#FFFFFF; border:1px solid #E6E6E3; border-radius:20px; box-shadow:0 30px 60px -34px rgba(0,0,0,0.24); overflow:hidden;">
+      <div style="padding:22px 26px 18px; border-bottom:1px solid #E6E6E3;">
+        <div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#6E6E73; margin-bottom:6px;">Fewer, bigger events · Nordlys Pilsner · Meridia</div>
         <h2 style="margin:0 0 5px; font-size:21px; font-weight:600; letter-spacing:-.01em;">Same budget, retimed</h2>
-        <div style="color:#8B8578; font-size:13px; max-width:580px; line-height:1.5;">The always-on plan the team started with, next to the one Smart Flighting proposed. Identical spend. The model pulled pressure off the weeks that had stopped paying and out of the dead tail, into fewer, fuller bursts that stay under saturation.</div>
+        <div style="color:#6E6E73; font-size:13px; max-width:580px; line-height:1.5;">The always-on plan the team started with, next to the one Smart Flighting proposed. Identical spend. The model pulled pressure off the weeks that had stopped paying and out of the dead tail, into fewer, fuller bursts that stay under saturation.</div>
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:0;">
-        <div style="padding:18px 26px 14px; border-right:1px solid #E9E5DB;">
-          <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px;"><span style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#8B8578;">Before · Front-loaded</span><span style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:11px; color:#8B8578;">16 weeks on air</span></div>
+        <div style="padding:18px 26px 14px; border-right:1px solid #E6E6E3;">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px;"><span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#6E6E73;">Before · Front-loaded</span><span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; color:#6E6E73;">16 weeks on air</span></div>
           <div style="position:relative; height:132px;">
             <div style="position:relative; display:grid; grid-template-columns:repeat(16,1fr); gap:4px; align-items:end; height:132px;">
               <sc-for list="{{ cmpBefore }}" as="b" hint-placeholder-count="16">
                 <div style="display:flex; flex-direction:column; justify-content:flex-end; height:100%;">
-                  <sc-if value="{{ b.hasOver }}" hint-placeholder-val="{{ true }}"><div style="background:#B36656; border-radius:3px 3px 0 0; margin-bottom:1px; height:{{ b.over }}px;"></div></sc-if>
-                  <sc-if value="{{ b.has }}" hint-placeholder-val="{{ true }}"><div style="background:#C8BDAE; border-radius:3px 3px 0 0; height:{{ b.base }}px;"></div></sc-if>
+                  <sc-if value="{{ b.hasOver }}" hint-placeholder-val="{{ true }}"><div style="background:#3A3A3D; border-radius:3px 3px 0 0; margin-bottom:1px; height:{{ b.over }}px;"></div></sc-if>
+                  <sc-if value="{{ b.has }}" hint-placeholder-val="{{ true }}"><div style="background:#C7C7CC; border-radius:3px 3px 0 0; height:{{ b.base }}px;"></div></sc-if>
                 </div>
               </sc-for>
             </div>
-            <div style="position:absolute; left:0; right:0; border-top:1.4px dashed #B36656; pointer-events:none; top:{{ cmpThreshTop }}px;"><span style="position:absolute; right:0; top:-15px; font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:9px; letter-spacing:.05em; text-transform:uppercase; color:#B36656;">Saturation</span></div>
+            <div style="position:absolute; left:0; right:0; border-top:1.4px dashed #3A3A3D; pointer-events:none; top:{{ cmpThreshTop }}px;"><span style="position:absolute; right:0; top:-15px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:9px; letter-spacing:.05em; text-transform:uppercase; color:#3A3A3D;">Saturation</span></div>
           </div>
           <div style="display:grid; grid-template-columns:repeat(16,1fr); gap:4px; margin-top:7px;">
-            <sc-for list="{{ cmpWeeks }}" as="w" hint-placeholder-count="16"><span style="text-align:center; font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:8.5px; color:#A19B8D;">{{ w }}</span></sc-for>
+            <sc-for list="{{ cmpWeeks }}" as="w" hint-placeholder-count="16"><span style="text-align:center; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:8.5px; color:#8E8E93;">{{ w }}</span></sc-for>
           </div>
-          <div style="margin-top:12px; font-size:12px; line-height:1.45; color:#6B665C;">5 weeks pushed <b style="font-weight:600; color:#B36656;">over saturation</b>, then a long dead tail the audience barely registers.</div>
+          <div style="margin-top:12px; font-size:12px; line-height:1.45; color:#5E5E63;">5 weeks pushed <b style="font-weight:600; color:#3A3A3D;">over saturation</b>, then a long dead tail the audience barely registers.</div>
         </div>
         <div style="padding:18px 26px 14px;">
-          <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px;"><span style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#466969;">After · Smart Flighting</span><span style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:11px; color:#8B8578;">11 weeks on air</span></div>
+          <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px;"><span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#137565;">After · Smart Flighting</span><span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; color:#6E6E73;">11 weeks on air</span></div>
           <div style="position:relative; height:132px;">
             <div style="position:relative; display:grid; grid-template-columns:repeat(16,1fr); gap:4px; align-items:end; height:132px;">
               <sc-for list="{{ cmpAfter }}" as="b" hint-placeholder-count="16">
                 <div style="display:flex; flex-direction:column; justify-content:flex-end; height:100%;">
-                  <sc-if value="{{ b.hasOver }}" hint-placeholder-val="{{ true }}"><div style="background:#B36656; border-radius:3px 3px 0 0; margin-bottom:1px; height:{{ b.over }}px;"></div></sc-if>
-                  <sc-if value="{{ b.has }}" hint-placeholder-val="{{ true }}"><div style="background:#C8BDAE; border-radius:3px 3px 0 0; height:{{ b.base }}px;"></div></sc-if>
+                  <sc-if value="{{ b.hasOver }}" hint-placeholder-val="{{ true }}"><div style="background:#3A3A3D; border-radius:3px 3px 0 0; margin-bottom:1px; height:{{ b.over }}px;"></div></sc-if>
+                  <sc-if value="{{ b.has }}" hint-placeholder-val="{{ true }}"><div style="background:#C7C7CC; border-radius:3px 3px 0 0; height:{{ b.base }}px;"></div></sc-if>
                 </div>
               </sc-for>
             </div>
-            <div style="position:absolute; left:0; right:0; border-top:1.4px dashed #B36656; pointer-events:none; top:{{ cmpThreshTop }}px;"><span style="position:absolute; right:0; top:-15px; font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:9px; letter-spacing:.05em; text-transform:uppercase; color:#B36656;">Saturation</span></div>
+            <div style="position:absolute; left:0; right:0; border-top:1.4px dashed #3A3A3D; pointer-events:none; top:{{ cmpThreshTop }}px;"><span style="position:absolute; right:0; top:-15px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:9px; letter-spacing:.05em; text-transform:uppercase; color:#3A3A3D;">Saturation</span></div>
           </div>
           <div style="display:grid; grid-template-columns:repeat(16,1fr); gap:4px; margin-top:7px;">
-            <sc-for list="{{ cmpWeeks }}" as="w" hint-placeholder-count="16"><span style="text-align:center; font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:8.5px; color:#A19B8D;">{{ w }}</span></sc-for>
+            <sc-for list="{{ cmpWeeks }}" as="w" hint-placeholder-count="16"><span style="text-align:center; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:8.5px; color:#8E8E93;">{{ w }}</span></sc-for>
           </div>
-          <div style="margin-top:12px; font-size:12px; line-height:1.45; color:#6B665C;">Every week <b style="font-weight:600; color:#466969;">capped under saturation</b>, dark in the weeks that did not respond. No wasted pressure.</div>
+          <div style="margin-top:12px; font-size:12px; line-height:1.45; color:#5E5E63;">Every week <b style="font-weight:600; color:#137565;">capped under saturation</b>, dark in the weeks that did not respond. No wasted pressure.</div>
         </div>
       </div>
       <div style="display:flex; gap:18px; flex-wrap:wrap; padding:2px 26px 16px;">
-        <span style="display:flex; align-items:center; gap:7px; font-size:11.5px; color:#8B8578;"><span style="width:12px; height:12px; border-radius:3px; flex:none; background:#C8BDAE;"></span>Planned pressure</span>
-        <span style="display:flex; align-items:center; gap:7px; font-size:11.5px; color:#8B8578;"><span style="width:12px; height:12px; border-radius:3px; flex:none; background:#B36656;"></span>Above saturation (wasted)</span>
-        <span style="display:flex; align-items:center; gap:7px; font-size:11.5px; color:#8B8578;"><span style="width:15px; height:0; border-top:1.4px dashed #B36656; flex:none;"></span>Saturation threshold</span>
+        <span style="display:flex; align-items:center; gap:7px; font-size:11.5px; color:#6E6E73;"><span style="width:12px; height:12px; border-radius:3px; flex:none; background:#C7C7CC;"></span>Planned pressure</span>
+        <span style="display:flex; align-items:center; gap:7px; font-size:11.5px; color:#6E6E73;"><span style="width:12px; height:12px; border-radius:3px; flex:none; background:#3A3A3D;"></span>Above saturation (wasted)</span>
+        <span style="display:flex; align-items:center; gap:7px; font-size:11.5px; color:#6E6E73;"><span style="width:15px; height:0; border-top:1.4px dashed #3A3A3D; flex:none;"></span>Saturation threshold</span>
       </div>
-      <div style="display:flex; border-top:1px solid #E9E5DB;">
-        <div style="flex:1; padding:16px 22px; border-right:1px solid #E9E5DB;"><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.07em; text-transform:uppercase; color:#8B8578;">Total budget</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:20px; font-weight:600; margin-top:8px; letter-spacing:-.01em;">€1.0M</div><div style="font-size:11px; color:#8B8578; margin-top:4px;">unchanged, the constraint</div></div>
-        <div style="flex:1; padding:16px 22px; border-right:1px solid #E9E5DB;"><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.07em; text-transform:uppercase; color:#8B8578;">Weeks past saturation</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:20px; font-weight:600; margin-top:8px; letter-spacing:-.01em;">5 <span style="color:#8B8578; font-weight:400;">→</span> <span style="color:#466969;">0</span></div><div style="font-size:11px; color:#8B8578; margin-top:4px;">no pressure wasted</div></div>
-        <div style="flex:1; padding:16px 22px; border-right:1px solid #E9E5DB;"><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.07em; text-transform:uppercase; color:#8B8578;">Modeled net revenue</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:20px; font-weight:600; margin-top:8px; letter-spacing:-.01em;"><span style="color:#466969;">+1.3%</span></div><div style="font-size:11px; color:#8B8578; margin-top:4px;">same spend, better timing</div></div>
-        <div style="flex:1; padding:16px 22px;"><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.07em; text-transform:uppercase; color:#8B8578;">Weeks above ROI benchmark</div><div style="font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:20px; font-weight:600; margin-top:8px; letter-spacing:-.01em;">44 <span style="color:#8B8578; font-weight:400;">→</span> <span style="color:#466969;">73%</span></div><div style="font-size:11px; color:#8B8578; margin-top:4px;">pressure lands where it pays</div></div>
+      <div style="display:flex; border-top:1px solid #E6E6E3;">
+        <div style="flex:1; padding:16px 22px; border-right:1px solid #E6E6E3;"><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.07em; text-transform:uppercase; color:#6E6E73;">Total budget</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:20px; font-weight:600; margin-top:8px; letter-spacing:-.01em;">€1.0M</div><div style="font-size:11px; color:#6E6E73; margin-top:4px;">unchanged, the constraint</div></div>
+        <div style="flex:1; padding:16px 22px; border-right:1px solid #E6E6E3;"><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.07em; text-transform:uppercase; color:#6E6E73;">Weeks past saturation</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:20px; font-weight:600; margin-top:8px; letter-spacing:-.01em;">5 <span style="color:#6E6E73; font-weight:400;">→</span> <span style="color:#137565;">0</span></div><div style="font-size:11px; color:#6E6E73; margin-top:4px;">no pressure wasted</div></div>
+        <div style="flex:1; padding:16px 22px; border-right:1px solid #E6E6E3;"><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.07em; text-transform:uppercase; color:#6E6E73;">Modeled net revenue</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:20px; font-weight:600; margin-top:8px; letter-spacing:-.01em;"><span style="color:#137565;">+1.3%</span></div><div style="font-size:11px; color:#6E6E73; margin-top:4px;">same spend, better timing</div></div>
+        <div style="flex:1; padding:16px 22px;"><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:9.5px; letter-spacing:.07em; text-transform:uppercase; color:#6E6E73;">Weeks above ROI benchmark</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:20px; font-weight:600; margin-top:8px; letter-spacing:-.01em;">44 <span style="color:#6E6E73; font-weight:400;">→</span> <span style="color:#137565;">73%</span></div><div style="font-size:11px; color:#6E6E73; margin-top:4px;">pressure lands where it pays</div></div>
       </div>
-      <div style="padding:14px 26px; border-top:1px solid #E9E5DB; font-family:'Inter',sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; letter-spacing:.04em; color:#8B8578; display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;">
+      <div style="padding:14px 26px; border-top:1px solid #E6E6E3; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; letter-spacing:.04em; color:#6E6E73; display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;">
         <span>Illustrative concept, not the actual product.</span><span>Fictional brands and data.</span>
       </div>
-    </div></div><p style="font-size:13.5px; line-height:1.65; color:#8A8795; margin:16px 0 0 0; max-width:82ch;">The payoff, on the same money. The always-on plan next to the retimed one: identical spend, pulled off the wasted weeks into fewer, fuller bursts under saturation. Weeks past saturation fall to zero and modelled net revenue rises about 1.3%. <span style="color:#5E5B68;">Illustrative concept · fictional brands and data.</span></p></div>
+    </div></div>
+          <figcaption style="padding:clamp(18px,2vw,26px) clamp(4px,0.6vw,8px) clamp(4px,0.6vw,8px); font-size:15px; line-height:1.6; color:#5E5E63; max-width:80ch; text-wrap:pretty;"><span style="color:#161617; font-weight:500;">The payoff, on the same money.</span> The always-on plan next to the retimed one: identical spend, pulled off the wasted weeks into fewer, fuller bursts under saturation. Weeks past saturation fall to zero and modelled net revenue rises about 1.3%.</figcaption>
+        </figure>
       </div>
     </section>
 
-    <section style="padding:clamp(72px,9vw,112px) 0 0;" data-om-label="The Lesson" data-screen-label="The Lesson"><div style="max-width:1320px; margin:0 auto; padding:0 clamp(20px,4.5vw,48px);">
-        <div style="height:1px; background:linear-gradient(90deg,#2A2932,rgba(42,41,50,0)); margin-bottom:clamp(44px,5.5vw,64px);"></div>
-        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#7E7B89;"><span style="width:10px; height:10px; border-radius:3px; background:#86CFCF; flex:none;"></span><span style="color:#f4f2f7;">07</span><span>The lesson</span></div>
-        <h2 style="font-weight:500; font-size:clamp(32px,4.4vw,68px); line-height:1.08; letter-spacing:-0.04em; margin:24px 0 0 0; color:#f4f2f7; max-width:30ch; text-wrap:balance;">More is not better. Timing is. <span style="color:#8A8795;">The same budget, spent when the audience can still absorb it, beats the same budget spread thin, and a media team believes that only when the tool shows them the wasted weeks.</span></h2>
+    <section id="lesson" style="position:relative; padding:clamp(40px,5vw,72px) 0; scroll-margin-top:96px;" data-om-label="The Lesson" data-screen-label="The Lesson">
+      <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
+        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#1F9A86; flex:none;"></span><span style="color:#161617;">07</span><span>The lesson</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
+        <p style="font-weight:600; font-size:clamp(30px,3.6vw,56px); line-height:1.08; letter-spacing:-0.035em; margin:clamp(24px,3vw,36px) 0 0 0; color:#161617; max-width:30ch; text-wrap:balance;">More is not better. <span style="font-family:'Newsreader',Georgia,serif; font-style:italic; font-weight:500; letter-spacing:-0.015em;">Timing</span> is. <span style="color:#8E8E93;">The same budget, spent when the audience can still absorb it, beats the same budget spread thin, and a media team believes that only when the tool shows them the wasted weeks.</span></p>
       </div>
     </section>
 
-    <section style="padding:clamp(72px,9vw,112px) 0 clamp(80px,10vw,128px);" data-om-label="In Context" data-screen-label="In Context"><div style="max-width:1320px; margin:0 auto; padding:0 clamp(20px,4.5vw,48px);">
-        <div style="height:1px; background:linear-gradient(90deg,#2A2932,rgba(42,41,50,0)); margin-bottom:clamp(44px,5.5vw,64px);"></div>
-        <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:28px; flex-wrap:wrap; margin-bottom:clamp(32px,4vw,44px);">
-          <div><div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#7E7B89;"><span style="width:10px; height:10px; border-radius:3px; background:#86CFCF; flex:none;"></span><span style="color:#f4f2f7;">08</span><span>In context</span></div><h2 style="font-weight:500; font-size:clamp(40px,5.2vw,88px); line-height:0.95; letter-spacing:-0.048em; text-wrap:balance; margin:18px 0 0 0; color:#f4f2f7; max-width:22ch;">The timing layer of a three-part system</h2></div>
-          <p style="font-size:15px; line-height:1.62; color:#A09DAA; margin:0 0 6px 0; max-width:44ch;">Smart Flighting takes the budget Allocation AI sets and stretches it across the calendar; Promo Advisor fills that calendar with offers.</p>
+    <section id="in-context" style="position:relative; padding:clamp(40px,5vw,72px) 0; scroll-margin-top:96px;" data-om-label="In Context" data-screen-label="In Context">
+      <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
+        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#1F9A86; flex:none;"></span><span style="color:#161617;">08</span><span>In context</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
+        <h2 style="font-weight:600; font-size:clamp(40px,5.2vw,80px); line-height:1.02; letter-spacing:-0.038em; margin:18px 0 0 0; color:#161617; text-wrap:balance; max-width:20ch;">The timing layer of a three-part system.</h2>
+        <p style="font-size:clamp(19px,1.7vw,26px); line-height:1.45; letter-spacing:-0.015em; color:#161617; max-width:50ch; margin:clamp(22px,2.6vw,32px) 0 0 0; text-wrap:pretty;">Smart Flighting takes the budget Allocation AI sets and stretches it across the calendar; Promo Advisor fills that calendar with offers.</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:16px; margin-top:clamp(36px,4.4vw,56px);">
+          <a href="allocation-ai.html" style="display:flex; flex-direction:column; gap:14px; padding:clamp(24px,2.6vw,32px); border-radius:28px; background:#F5F5F3; color:#161617; text-decoration:none; min-width:0; transition:transform 0.45s cubic-bezier(.2,.8,.2,1), box-shadow 0.45s ease;" style-hover="transform:translateY(-4px); box-shadow:0 26px 44px -24px rgba(0,0,0,0.3); opacity:1;">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;"><span style="font-size:14px; font-weight:500; color:#6E6E73;">01 · Where?</span></div>
+            <div style="display:flex; align-items:center; gap:16px; margin-top:8px;"><span style="display:block; flex:none; width:56px; aspect-ratio:1; border-radius:23%; overflow:hidden; background:#8A5CF6; box-shadow:0 12px 24px -14px rgba(0,0,0,0.5);"><img src="assets/agents/allocation-compass.webp" alt="" style="width:100%; height:100%; display:block; object-fit:cover;"></span><div style="min-width:0;"><div style="font-weight:600; font-size:clamp(24px,2.2vw,30px); line-height:1; letter-spacing:-0.035em; color:#161617;">Allocation AI</div><div style="font-size:16px; font-weight:500; letter-spacing:-0.01em; color:#6A3FE0; margin-top:6px;">Where to spend.</div></div></div>
+            <p style="font-size:15px; line-height:1.55; color:#5E5E63; margin:0; text-wrap:pretty;">Sets the annual budget across markets, brands and channels.</p>
+            <span style="margin-top:auto; padding-top:8px; font-size:14.5px; font-weight:500; color:#161617;">Read the case study ›</span>
+          </a>
+          <a href="promo-advisor.html" style="display:flex; flex-direction:column; gap:14px; padding:clamp(24px,2.6vw,32px); border-radius:28px; background:#F5F5F3; color:#161617; text-decoration:none; min-width:0; transition:transform 0.45s cubic-bezier(.2,.8,.2,1), box-shadow 0.45s ease;" style-hover="transform:translateY(-4px); box-shadow:0 26px 44px -24px rgba(0,0,0,0.3); opacity:1;">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;"><span style="font-size:14px; font-weight:500; color:#6E6E73;">02 · What?</span></div>
+            <div style="display:flex; align-items:center; gap:16px; margin-top:8px;"><span style="display:block; flex:none; width:56px; aspect-ratio:1; border-radius:23%; overflow:hidden; background:#407EDF; box-shadow:0 12px 24px -14px rgba(0,0,0,0.5);"><img src="assets/agents/promo-scale-blue.webp" alt="" style="width:100%; height:100%; display:block; object-fit:cover;"></span><div style="min-width:0;"><div style="font-weight:600; font-size:clamp(24px,2.2vw,30px); line-height:1; letter-spacing:-0.035em; color:#161617;">Promo Advisor</div><div style="font-size:16px; font-weight:500; letter-spacing:-0.01em; color:#2457B8; margin-top:6px;">What to promote.</div></div></div>
+            <p style="font-size:15px; line-height:1.55; color:#5E5E63; margin:0; text-wrap:pretty;">Fills the calendar with the promo mechanics that actually pay back.</p>
+            <span style="margin-top:auto; padding-top:8px; font-size:14.5px; font-weight:500; color:#161617;">Read the case study ›</span>
+          </a>
+          <div style="display:flex; flex-direction:column; gap:14px; padding:clamp(24px,2.6vw,32px); border-radius:28px; background:#FFFFFF; box-shadow:inset 0 0 0 1.5px #161617; min-width:0;">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;"><span style="font-size:14px; font-weight:500; color:#6E6E73;">03 · When?</span><span style="font-size:12.5px; font-weight:500; padding:4px 10px; border-radius:999px; background:#161617; color:#FFFFFF; white-space:nowrap;">You are here</span></div>
+            <div style="display:flex; align-items:center; gap:16px; margin-top:8px;"><span style="display:block; flex:none; width:56px; aspect-ratio:1; border-radius:23%; overflow:hidden; background:#1F9A86; box-shadow:0 12px 24px -14px rgba(0,0,0,0.5);"><img src="assets/agents/flight-metronome-v2.webp" alt="" style="width:100%; height:100%; display:block; object-fit:cover;"></span><div style="min-width:0;"><div style="font-weight:600; font-size:clamp(24px,2.2vw,30px); line-height:1; letter-spacing:-0.035em; color:#161617;">Smart Flighting</div><div style="font-size:16px; font-weight:500; letter-spacing:-0.01em; color:#137565; margin-top:6px;">When to spend.</div></div></div>
+            <p style="font-size:15px; line-height:1.55; color:#5E5E63; margin:0; text-wrap:pretty;">Times each budget week by week, so pressure lands where it still converts.</p>
+            
+          </div>
         </div>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px;">
-          <a href="allocation-ai.html" style="border:1px solid #24232C; border-radius:16px; background:#0E0D13; padding:24px; display:flex; flex-direction:column; gap:10px; text-decoration:none; color:#f4f2f7;" style-hover="box-shadow:0 12px 36px rgba(0,0,0,0.50); transition:box-shadow 0.25s;"><div style="font-family:'Geist Mono',ui-monospace,monospace; display:flex; align-items:center; gap:8px; font-size:10px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#FF9A66;"><span style="width:6px; height:6px; border-radius:999px; background:#FF8A5B;"></span>01 · Where</div><div style="font-size:16.5px; font-weight:600; letter-spacing:-0.01em; margin-top:2px;">Allocation AI</div><div style="font-size:13.5px; line-height:1.6; color:#A09DAA;">Sets the annual budget across OpCos, brands and channels.</div><div style="font-size:13px; font-weight:600; color:#f4f2f7; margin-top:auto; padding-top:10px;">Case study →</div></a>
-          <a href="promo-advisor.html" style="border:1px solid #24232C; border-radius:16px; background:#0E0D13; padding:24px; display:flex; flex-direction:column; gap:10px; text-decoration:none; color:#f4f2f7;" style-hover="box-shadow:0 12px 36px rgba(0,0,0,0.50); transition:box-shadow 0.25s;"><div style="font-family:'Geist Mono',ui-monospace,monospace; display:flex; align-items:center; gap:8px; font-size:10px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#E8A07A;"><span style="width:6px; height:6px; border-radius:999px; background:#FF9A66;"></span>02 · What</div><div style="font-size:16.5px; font-weight:600; letter-spacing:-0.01em; margin-top:2px;">Promo Advisor</div><div style="font-size:13.5px; line-height:1.6; color:#A09DAA;">Fills the calendar with the specific winning promo mechanics.</div><div style="font-size:13px; font-weight:600; color:#f4f2f7; margin-top:auto; padding-top:10px;">Case study →</div></a>
-          <div style="border:1px solid #86CFCF; border-radius:16px; background:#0E0D13; padding:24px; display:flex; flex-direction:column; gap:10px;"><div style="font-family:'Geist Mono',ui-monospace,monospace; display:flex; align-items:center; gap:8px; font-size:10px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#86CFCF;"><span style="width:6px; height:6px; border-radius:999px; background:#86CFCF;"></span>03 · When, you are here</div><div style="font-size:16.5px; font-weight:600; letter-spacing:-0.01em; margin-top:2px;">Smart Flighting</div><div style="font-size:13.5px; line-height:1.6; color:#A09DAA;">Stretches each budget across the calendar for maximum pressure.</div></div>
-        </div>
       </div>
     </section>
-
   </main>
 
-  <section style="position:relative; overflow:hidden; background:#08070b; border-top:1px solid rgba(255,255,255,0.1);" data-om-label="Footer" data-screen-label="Footer">
-    <div ref="{{ footGrain }}" aria-hidden="true" style="position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0.06; background-repeat:repeat;"></div>
-    <div style="position:relative; z-index:2; max-width:1320px; margin:0 auto; padding:clamp(100px,13vw,180px) clamp(20px,4.5vw,48px) clamp(28px,3vw,40px);">
-      <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(244,242,247,0.7);"><span style="width:10px; height:10px; border-radius:3px; background:#FF7A3D; flex:none;"></span>If this resonates, let's chat</div>
-      <h2 style="font-weight:500; font-size:clamp(48px,7.4vw,124px); line-height:0.92; letter-spacing:-0.052em; margin:clamp(24px,3vw,36px) 0 0 0; max-width:14ch; text-wrap:balance; color:#f4f2f7;">Got a media plan nobody wants to retime?</h2>
-      <p style="font-size:17px; line-height:1.62; color:rgba(244,242,247,0.78); max-width:50ch; margin:32px 0 0 0;">Tell me how flighting gets planned today. I'll tell you what I'd build first.</p>
-      <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:38px;">
-        <a href="https://www.linkedin.com/in/czarnecki-ai" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:9px; padding:14px 28px; border-radius:10px; background:#FF7A3D; color:#08070b; font-size:13.5px; font-weight:500; text-decoration:none;" style-hover="background:#FF9A66; opacity:1;">LinkedIn ↗</a>
-        <a href="mailto:tomasz@czarnecki.ai" style="display:inline-flex; align-items:center; padding:14px 28px; border-radius:10px; background:rgba(244,242,247,0.08); border:1px solid rgba(244,242,247,0.4); color:#f4f2f7; font-size:13.5px; font-weight:500; text-decoration:none;">Email</a>
+  <section id="contact" style="position:relative; overflow:hidden; scroll-margin-top:96px; background-color:#1C1C1E;" data-om-label="Footer" data-screen-label="Contact">
+    <div style="position:relative; z-index:2; max-width:1440px; margin:0 auto; padding:clamp(100px,13vw,180px) clamp(20px,4vw,56px) clamp(28px,3vw,40px);">
+      <div style="display:flex; align-items:center; gap:10px; font-size:14px; font-weight:500; color:#8E8E93;"><span style="width:8px; height:8px; border-radius:2px; background:#E7573E; flex:none;"></span><span>If this resonates, let's talk</span></div>
+      <h2 style="font-weight:600; font-size:clamp(48px,7.6vw,128px); line-height:0.95; letter-spacing:-0.048em; margin:clamp(20px,2.4vw,32px) 0 0 0; color:#FFFFFF; max-width:16ch; text-wrap:pretty;">Got a media plan nobody wants to retime?</h2>
+      <p style="font-size:clamp(17px,1.4vw,21px); line-height:1.55; color:#A1A1A6; max-width:46ch; margin:28px 0 0 0; text-wrap:pretty;">Tell me how flighting gets planned today. I'll tell you what I'd build first.</p>
+      <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:36px;">
+        <a href="https://www.linkedin.com/in/czarnecki-ai" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; padding:15px 28px; border-radius:999px; background:#FFFFFF; color:#161617; font-size:15px; font-weight:500; text-decoration:none;" style-hover="background:#E6E6E3; opacity:1;">LinkedIn ↗</a>
+        <a href="mailto:tomasz@czarnecki.ai" style="display:inline-flex; align-items:center; padding:15px 28px; border-radius:999px; background:transparent; box-shadow:inset 0 0 0 1px #48484C; color:#FFFFFF; font-size:15px; font-weight:500; text-decoration:none;" style-hover="background:#2A2A2D; opacity:1;">tomasz@czarnecki.ai</a>
       </div>
-      <div style="height:1px; background:rgba(244,242,247,0.22); margin-top:clamp(72px,9vw,120px);"></div>
-      <div style="display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; padding-top:28px;">
-        <span style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:#f4f2f7;"><span style="width:12px; height:12px; border-radius:4px; background:#FF7A3D;"></span>Tomasz Czarnecki</span>
-        <span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; font-weight:400; letter-spacing:0.14em; text-transform:uppercase; color:rgba(244,242,247,0.55);">© {{ year }} · Designed and built by me with Claude Code. · czarnecki.ai · Product visuals are illustrative concepts</span>
+      <div style="height:1px; background:#3A3A3D; margin-top:clamp(72px,9vw,120px);"></div>
+      <div style="display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:16px 24px; padding-top:24px;">
+        <a href="index.html#top" style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; color:#FFFFFF; text-decoration:none;"><span style="width:12px; height:12px; border-radius:4px; background:#E7573E; flex:none;"></span>Tomasz Czarnecki</a>
+        <a href="#top" aria-label="Back to top" title="Back to top" style="display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:999px; box-shadow:inset 0 0 0 1px #48484C; color:#FFFFFF; font-size:18px; font-weight:500; text-decoration:none; transition:background-color 0.25s ease, transform 0.3s cubic-bezier(.2,.8,.2,1);" style-hover="background:#2A2A2D; transform:translateY(-3px); opacity:1;">↑</a>
+        <span style="font-size:13px; color:#8E8E93; justify-self:end; text-align:right;">© {{ year }} · Designed and built by me with Claude Code · czarnecki.ai · Product visuals are illustrative concepts</span>
       </div>
     </div>
   </section>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{ &quot;$preview&quot;: { &quot;width&quot;: 1440, &quot;height&quot;: 1024 }, &quot;heroArt&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;waves&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;waves&quot;,&quot;rings&quot;,&quot;petals&quot;], &quot;section&quot;: &quot;Hero&quot; } }">
+<script type="text/x-dc" data-dc-script data-props="{ &quot;$preview&quot;: { &quot;width&quot;: 1440, &quot;height&quot;: 1024 } }">
 class Component extends DCLogic {
-  footGrain = React.createRef();
-  initFootGrain() {
-    const el = this.footGrain.current; if (!el) return;
-    const G = 180, c = document.createElement('canvas'); c.width = c.height = G;
-    const x = c.getContext('2d'), d = x.createImageData(G, G);
-    for (let i = 0; i < d.data.length; i += 4) { const v = Math.random() * 255 | 0; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; }
-    x.putImageData(d, 0, 0);
-    el.style.backgroundImage = `url(${c.toDataURL()})`;
-    const mq = matchMedia('(prefers-reduced-motion: reduce)');
-    this._fgT = setInterval(() => { if (mq.matches || document.hidden) return; el.style.backgroundPosition = `${Math.random() * G | 0}px ${Math.random() * G | 0}px`; }, 90);
-  }
   componentDidMount() {
-    this.initFootGrain();
     this._marked = [];
     this._fixScroll = () => {
       try {
@@ -477,7 +492,7 @@ class Component extends DCLogic {
         const root = document.querySelector('[data-om-label="Body"]') || document;
         const vw = document.documentElement.clientWidth;
         const nodes = [].slice.call(root.querySelectorAll('div, table'));
-        const over = nodes.filter((el) => el.scrollWidth - el.clientWidth > 8 && el.clientWidth >= vw - 90);
+        const over = nodes.filter((el) => el.scrollWidth - el.clientWidth > 8 && el.clientWidth >= vw - 140);
         over.forEach((el) => {
           const hasInner = over.some((d) => d !== el && el.contains(d));
           if (!hasInner) { el.style.overflowX = 'auto'; el.style.webkitOverflowScrolling = 'touch'; this._marked.push(el); }
@@ -489,7 +504,6 @@ class Component extends DCLogic {
     setTimeout(this._fixScroll, 350);
   }
   componentWillUnmount() {
-    clearInterval(this._fgT);
     if (this._fixScroll) window.removeEventListener('resize', this._fixScroll);
   }
   renderVals() {
@@ -516,21 +530,21 @@ class Component extends DCLogic {
       { t:'tp', n:'Online video', roi:'', bars:[[4.1,2.2]] },
       { t:'tp', n:'Social', roi:'', bars:[[4.2,1.4]] },
     ];
-    const tlColor = { brand:'#466969', camp:'#759999', tp:'#BDCFD0' };
+    const tlColor = { brand:'#137565', camp:'#1F9A86', tp:'#BFE3DC' };
     const tlBlkH = { brand:15, camp:13, tp:11 };
     const lblBase = 'white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding-right:10px;';
     const tlRows = tlRaw.map(function(r){
       let lbl;
       if (r.t === 'brand') lbl = lblBase + ' font-size:12.5px; font-weight:600; display:flex; align-items:center; gap:7px;';
       else if (r.t === 'camp') lbl = lblBase + ' font-size:12px; font-weight:600; padding-left:15px;';
-      else lbl = lblBase + ' font-size:11.5px; color:#6B665C; padding-left:30px;';
+      else lbl = lblBase + ' font-size:11.5px; color:#5E5E63; padding-left:30px;';
       return {
         n:r.n, roi:r.roi, isBrand: r.t === 'brand',
         rowH: r.t === 'brand' ? '33px' : '28px',
         trackH: r.t === 'brand' ? '33px' : '28px',
-        borderTop: r.t === 'brand' ? '1px solid #E9E5DB' : '1px solid #F0EDE5',
+        borderTop: r.t === 'brand' ? '1px solid #E6E6E3' : '1px solid #F5F5F3',
         lblStyle: lbl,
-        roiColor: r.t === 'brand' ? '#1A1814' : '#8B8578',
+        roiColor: r.t === 'brand' ? '#161617' : '#6E6E73',
         roiWeight: r.t === 'brand' ? 600 : 400,
         blocks: r.bars.map(function(b){
           return { left:(b[0]/12*100).toFixed(2), width:(b[1]/12*100).toFixed(2), bg:tlColor[r.t], height:tlBlkH[r.t] };
@@ -597,10 +611,7 @@ class Component extends DCLogic {
       curveGrid, curveArea, curveLine, curve,
       impGrid, impBand, impMonths, impWeeks, impLine, impDots, impPeak, impMidX,
       cmpBefore, cmpAfter, cmpThreshTop, cmpWeeks,
-    
-      heroArt: this.props.heroArt ?? 'waves',
       year: '2026',
-      footGrain: this.footGrain,
     };
   }
 }
