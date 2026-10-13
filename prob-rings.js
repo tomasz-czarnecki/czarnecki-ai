@@ -50,7 +50,7 @@
       const rot = 0.25 * Math.sin(t * 0.17);
       const tilt = 0.03 * Math.sin(t * 0.21);
       ctx.strokeStyle = this.getAttribute('ink') || '#F4F1EA';
-      ctx.lineWidth = 1.25; ctx.lineCap = 'round';
+      ctx.lineWidth = this.n('stroke', 1.25); ctx.lineCap = 'round';
       ctx.globalAlpha = this.n('alpha', 0.4);
       const spread = this.n('spread', 0), attract = this.n('attract', 0);
       // eased cursor follow: position lerps, pull strength fades in/out

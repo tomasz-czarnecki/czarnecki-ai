@@ -1000,6 +1000,7 @@ class FurMonsterDock extends HTMLElement {
       if (o.map) line = o.map(line);
       AN.queue = [{ text: line, dur: o.dur || 4 }].concat(o.then || []); AN.cut = true; return true;
     };
+    this.say = (text, dur) => fire('say', { text: text, force: true, dur: dur || 3.6 });
     // visitor type: asked on the first tap of a visit, remembered across visits
     const tryStore = (k) => { try { return window[k]; } catch (_) { return null; } };
     const kv = (k) => ({ get: (n) => { try { return tryStore(k).getItem(n); } catch (_) { return null; } }, set: (n, v) => { try { tryStore(k).setItem(n, v); } catch (_) {} } });
@@ -1179,7 +1180,7 @@ class FurMonsterDock extends HTMLElement {
       const holdSel = this.getAttribute('hold'), holdEl = holdSel && document.querySelector(holdSel);
       const holdRun = holdEl ? Math.max(0, holdEl.offsetHeight - hr.height) : 0;
       const sc = window.scrollY - holdRun;
-      let hq = holdRun ? smooth(0.08, 0.5, window.scrollY / holdRun) : 0;
+      let hq = holdRun ? smooth(this.num('hold-from', 0.08), this.num('hold-to', 0.5), window.scrollY / holdRun) : 0;
       const hX = hr.left + this.num(small ? 'hold-x-small' : 'hold-x', small ? 0.78 : 0.86) * hr.width, hY = hr.top + this.num(small ? 'hold-y-small' : 'hold-y', 0.8) * hr.height;
       const hx0 = hx + (hX - hx) * hq, hy0 = hy + (hY - hy) * hq, hR = S.hero.r * (1 + ((small ? this.num('hold-scale-small', 1) : this.num('hold-scale', 0.42)) - 1) * hq);
       S.prog = clamp(sc / Math.max(S.hero.h * 0.6, 1), 0, 1) || 0;
@@ -1312,6 +1313,7 @@ class FurMonsterDock extends HTMLElement {
       S.Hs = Hs; S.cyW = cyW;
       sizeBuffer(Rc);
       const drawY = S.py - bob - hopY - hopSq * S.r * 0.9 * (1 - D);
+      this.pose = { x: S.px, y: drawY, r: S.r };
       const ccy = drawY - cyW * S.r;
       canvas.style.transform = `translate(${(S.px - Rc).toFixed(2)}px, ${(ccy - Rc).toFixed(2)}px) scale(${(2 * Rc / S.buf).toFixed(4)})`;
       S.cx = S.px / S.W * 2 - 1; S.cy = 1 - drawY / S.H * 2; S.rPx = S.r * 1.05;
@@ -1356,12 +1358,14 @@ class FurMonsterDock extends HTMLElement {
       // squash & stretch from travel velocity + landing bob
       const st = R ? 0 : clamp(Math.abs(S.vy) / Math.max(S.r * 14, 1), 0, 0.16) - Math.abs(Math.cos(t * 11)) * 0.05 * S.activity;
       creature.scale.set((1 - br * 0.5 + pf * 0.03) * (1 - st * 0.5), (1 + br + pf * 0.035) * (1 + st), (1 - br * 0.5 + pf * 0.03) * (1 - st * 0.5));
+      S.introA = R ? clamp(this.intro || 0, 0, 1) : ease(S.introA || 0, clamp(this.intro || 0, 0, 1), 8, dt); // page-driven: look at the viewer + open wide
       creature.position.set(S.lean.x * 0.06 * (1 - D), R ? 0 : Math.sin(t * 1.35 - 0.6) * 0.012 * (1 - D), -pf * 0.08);
       const tilt = R ? 0 : clamp(S.vx / Math.max(S.r * 30, 1), -0.25, 0.25);
       const rk = 1 - D; // docked: upright, facing the viewer
       S.lean5 = ease(S.lean5 || 0, S.hopping && !R ? S.hopDir : 0, S.hopping ? 8 : 12, dt);
       creature.rotation.set((-S.lean.y * 0.13 - pf * 0.06) * rk, (BASE_YAW * (1 - e * 0.5) + S.idleYaw + S.lean.x * 0.3 + S.walk * 0.5 + (S.hopping ? S.hopDir * 0.25 : 0)) * rk, (-S.lean.x * 0.04 - tilt - (S.hopTilt || 0)) * rk - S.lean5 * 0.087 * D); // ≤5° lean into travel
       if (CH > 0.001) { creature.rotation.x *= 1 - CH * 0.6; creature.rotation.y += (S.lean.x * 0.14 - creature.rotation.y) * CH; creature.rotation.z *= 1 - CH * 0.7; } // chat: square to the viewer
+      if ((S.introA || 0) > 0.001) { const q = 1 - S.introA; creature.rotation.x *= q; creature.rotation.y *= q; creature.rotation.z *= q; } // intro: square to the viewer
       if (S.hopSq) { const q = S.hopSq; creature.scale.x *= 1 - q * 0.55; creature.scale.z *= 1 - q * 0.55; creature.scale.y *= 1 + q; }
       { const pk = (t - (S.pokeAt ?? -9)) / 0.25; // poke: squash then stretch, ~250ms
         if (pk >= 0 && pk < 1 && !R) { const q = Math.sin(pk * Math.PI * 2) * (1 - pk) * 0.24; creature.scale.y *= 1 - q; creature.scale.x *= 1 + q * 0.55; creature.scale.z *= 1 + q * 0.55; } }
@@ -1484,6 +1488,7 @@ class FurMonsterDock extends HTMLElement {
         } else if (fresh) { ray.setFromCamera(ptrToCanvas(), camera); if (!ray.ray.intersectPlane(plane, target)) target.copy(camera.position); }
         else target.copy(camera.position);
       }
+      if ((S.introA || 0) > 0.3 && !startled) target.copy(camera.position);
       const pokeN = (S.pokes || []).filter(p => t - p < 5).length, riled = t - (S.pokeAt ?? -99) < 3.5; // repeated pokes: grumpy at 3, snarl at 6; calms after 3.5s
       const mood = riled && pokeN >= 6 ? 'snarl' : riled && pokeN >= 3 ? 'grumpy' : null;
       const talkOn = performance.now() < (this._talkUntil || 0);
@@ -1512,6 +1517,7 @@ class FurMonsterDock extends HTMLElement {
       if (angr > 0.02) { up += (0.04 - up) * angr * 0.85; lo += (-0.42 - lo) * angr * 0.6; }
       if (startled) { up = 0.88; lo = -0.82; } else if (looking) { up = 0.04; lo = -0.34; }
       if (S.fearA > 0.02 && !startled) { up += (0.82 - up) * S.fearA; lo += (-0.76 - lo) * S.fearA; }
+      if ((S.introA || 0) > 0.001) { up += (0.9 - up) * S.introA; lo += (-0.86 - lo) * S.introA; }
       if (!S.sBlink && since > 0.75) { S.blinkStart = t; S.sBlink = true; }
       if (t > S.nextBlink) {
         if (!startled) S.blinkStart = t;
@@ -1562,6 +1568,7 @@ class FurMonsterDock extends HTMLElement {
         wattles.forEach((w, i) => { w.rotation.x = BK.jig * 0.9 - o * 0.4; w.rotation.z = (i ? 1 : -1) * (0.08 + BK.jig * 0.25); });
         beak.rotation.x = -S.lean.y * 0.05;
       }
+      { const fv = S._fv || (S._fv = new THREE.Vector3()); creature.updateMatrixWorld(); const eL = eyes.find((e) => e.side < 0) || eyes[0]; eL.socket.getWorldPosition(fv); fv.z += eyeR * (S.eyeScale || 1); fv.project(camera); this.facePt = { x: S.px - Rc + (fv.x + 1) * Rc, y: ccy - Rc + (1 - fv.y) * Rc }; } // front of the screen-left eye (pupil), in viewport px
       if (INK) INK(scene, camera); else renderer.render(scene, camera);
 
       S.fpsAcc += dt; S.fpsN++;
@@ -1680,6 +1687,7 @@ class FurMonsterDock extends HTMLElement {
 
     const ro = new ResizeObserver(() => layout()); ro.observe(anchor); ro.observe(layer);
     const kick = () => { if (gen !== this._gen) return; layout(); tick(true); };
+    this.snapshot = () => { tick(true); const c = document.createElement('canvas'); c.width = canvas.width; c.height = canvas.height; try { c.getContext('2d').drawImage(canvas, 0, 0); } catch (_) {} c.style.cssText = canvas.style.cssText; return c; }; // still frame of the box, same placement as the live canvas
     kick(); requestAnimationFrame(kick); setTimeout(kick, 250); setTimeout(kick, 1000);
     const onScroll = () => {
       if (!running) tick(true);
