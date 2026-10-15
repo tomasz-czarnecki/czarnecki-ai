@@ -48,9 +48,12 @@ class LoopTrack extends HTMLElement {
   measure() {
     const me = this.getBoundingClientRect();
     const nodes = [...this.box.querySelectorAll('[data-node]')].sort((a, b) => a.dataset.node - b.dataset.node)
-      .map((el) => { const r = el.getBoundingClientRect(); return { x: r.left + r.width / 2 - me.left, y: r.top + r.height / 2 - me.top }; });
+      .map((el) => { const r = el.getBoundingClientRect(); return { x: r.left + r.width / 2 - me.left, y: r.top + r.height / 2 - me.top, r: Math.max(r.width, r.height) / 2 }; });
+    const acc0 = this.getAttribute('accent') || '#FF7A3D';
+    this.colors = nodes.map((n, i) => { const s = this.box.querySelector('[data-step="' + i + '"]'); return (s && s.dataset.color) || acc0; });
     this.masks = [...this.box.querySelectorAll('[data-track-mask]')].map((el) => { const r = el.getBoundingClientRect(); return { x: r.left - me.left, y: r.top - me.top, w: r.width, h: r.height }; });
     if (nodes.length < 3 || !this.W) { this.pts = null; return; }
+    this.nodes = nodes;
     const key = JSON.stringify(nodes.map((n) => [n.x | 0, n.y | 0])) + '|' + (this.W | 0);
     if (key === this.key) return; this.key = key;
     const n0 = nodes[0], nL = nodes[nodes.length - 1], n2 = nodes[Math.min(2, nodes.length - 2)], pad = this.num('pad', 6);
@@ -79,10 +82,11 @@ class LoopTrack extends HTMLElement {
   sync(active) {
     const accent = this.getAttribute('accent') || '#FF7A3D';
     this.root.querySelectorAll('[data-step]').forEach((el) => {
-      const on = this.reduce || +el.dataset.step === active;
+      const on = this.reduce || +el.dataset.step === active, col = el.dataset.color || accent;
       el.style.opacity = '1';
-      el.querySelectorAll('[data-step-title]').forEach((t) => { t.style.color = on ? accent : (this.getAttribute('title-ink') || this.getAttribute('titleink') || '#f4f2f7'); t.style.transition = 'color 0.4s ease'; });
-      el.querySelectorAll('[data-step-dot]').forEach((d) => { d.style.background = on ? accent : (this.getAttribute('dot-off') || this.getAttribute('dotoff') || '#3A3845'); d.style.boxShadow = on ? `0 0 0 5px ${accent}33, 0 0 24px ${accent}88` : 'none'; });
+      el.querySelectorAll('[data-step-icon]').forEach((d) => { d.style.boxShadow = on ? `0 0 0 4px ${col}2E, 0 0 28px ${col}99, 0 12px 22px -14px rgba(0,0,0,0.5)` : '0 12px 22px -14px rgba(0,0,0,0.45)'; });
+      el.querySelectorAll('[data-step-title]').forEach((t) => { t.style.color = on ? col : (this.getAttribute('title-ink') || this.getAttribute('titleink') || '#f4f2f7'); t.style.transition = 'color 0.4s ease'; });
+      el.querySelectorAll('[data-step-dot]:not([data-step-icon])').forEach((d) => { d.style.background = on ? accent : (this.getAttribute('dot-off') || this.getAttribute('dotoff') || '#3A3845'); d.style.boxShadow = on ? `0 0 0 5px ${accent}33, 0 0 24px ${accent}88` : 'none'; });
     });
   }
   frame(now) {
@@ -101,14 +105,16 @@ class LoopTrack extends HTMLElement {
       if (this.next != null) {
         const dur = Math.max(0.7, Math.min(2.4, this.dist / speed)), u = Math.min(1, (now - this.t0) / dur);
         this.pos = this.from + this.dist * ease(u);
-        if (u >= 1) { this.cur = this.next; this.next = null; this.dwellT = 0; this.pulses.push({ i: this.cur, t: now }); this.sync(this.cur); }
+        this.mixU = ease(u);
+        if (u >= 1) { this.mixU = 0; this.cur = this.next; this.next = null; this.dwellT = 0; this.pulses.push({ i: this.cur, t: now }); this.sync(this.cur); }
       }
     } else this.pos = S[0];
     this.draw(now);
   }
   draw(now) {
     const { ctx, W, H, pts } = this; if (!ctx) return;
-    const [ar, ag, ab] = rgb(this.getAttribute('accent') || '#FF7A3D'), [ir, ig, ib] = rgb(this.getAttribute('ink') || '#f4f2f7');
+    const C = this.colors || [], ca = rgb(C[this.cur] || this.getAttribute('accent') || '#FF7A3D'), cb = rgb(this.next != null ? C[this.next] || this.getAttribute('accent') : C[this.cur] || this.getAttribute('accent') || '#FF7A3D'), mu = this.next != null ? (this.mixU || 0) : 0;
+    const ar = Math.round(ca[0] + (cb[0] - ca[0]) * mu), ag = Math.round(ca[1] + (cb[1] - ca[1]) * mu), ab = Math.round(ca[2] + (cb[2] - ca[2]) * mu), [ir, ig, ib] = rgb(this.getAttribute('ink') || '#f4f2f7');
     const ink = (a) => `rgba(${ir},${ig},${ib},${a})`, acc = (a) => `rgba(${ar},${ag},${ab},${a})`;
     ctx.clearRect(0, 0, W, H);
     ctx.lineWidth = 1; ctx.strokeStyle = ink(0.2); ctx.beginPath();
@@ -124,7 +130,7 @@ class LoopTrack extends HTMLElement {
     }
     ctx.save(); ctx.globalCompositeOperation = 'destination-out'; ctx.fillStyle = '#000';
     (this.masks || []).forEach((m) => ctx.fillRect(m.x - 14, m.y - 8, m.w + 28, m.h + 16));
-    this.nodes.forEach((n) => { ctx.beginPath(); ctx.arc(n.x, n.y, 16, 0, 7); ctx.fill(); });
+    this.nodes.forEach((n) => { ctx.beginPath(); ctx.arc(n.x, n.y, Math.max(16, (n.r || 0) + 8), 0, 7); ctx.fill(); });
     ctx.restore();
     if (this.waiting) return;
     // comet trail
@@ -138,11 +144,12 @@ class LoopTrack extends HTMLElement {
     ctx.lineWidth = 1;
     for (const p of this.pulses) {
       const u = (now - p.t) / 1.4, n = this.nodes[p.i]; if (!n) continue;
-      ctx.strokeStyle = acc(0.5 * (1 - u)); ctx.beginPath(); ctx.arc(n.x, n.y, 10 + u * 50, 0, 7); ctx.stroke();
+      const pc = rgb((this.colors || [])[p.i] || this.getAttribute('accent') || '#FF7A3D');
+      ctx.strokeStyle = `rgba(${pc[0]},${pc[1]},${pc[2]},${0.5 * (1 - u)})`; ctx.beginPath(); ctx.arc(n.x, n.y, Math.max(10, (n.r || 0) + 2) + u * 50, 0, 7); ctx.stroke();
     }
     const h = this.at(this.pos), g = ctx.createRadialGradient(h[0], h[1], 0, h[0], h[1], 22);
     g.addColorStop(0, acc(0.8)); g.addColorStop(1, acc(0)); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(h[0], h[1], 22, 0, 7); ctx.fill();
-    ctx.fillStyle = '#FFE6D8'; ctx.beginPath(); ctx.arc(h[0], h[1], 2.8, 0, 7); ctx.fill();
+    ctx.fillStyle = '#FFFFFF'; ctx.beginPath(); ctx.arc(h[0], h[1], 2.8, 0, 7); ctx.fill();
   }
 }
 customElements.define('loop-track', LoopTrack);

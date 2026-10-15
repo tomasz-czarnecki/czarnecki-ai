@@ -44,9 +44,9 @@
   }
   @media (max-width:920px){
     #v3-track-grid{ grid-template-columns:minmax(0,1fr) !important; gap:40px !important; }
-    #v3-track-grid > div{ display:grid !important; grid-template-columns:14px minmax(0,1fr); column-gap:20px; align-items:start; }
-    #v3-track-grid > div > div{ margin-top:0 !important; }
-    #v3-track-grid > div > span{ margin-top:4px; }
+    #v3-track-grid > a{ display:grid !important; grid-template-columns:64px minmax(0,1fr); column-gap:20px; align-items:start; }
+    #v3-track-grid > a > div{ margin-top:0 !important; min-width:0; }
+    #v3-track-grid > a > span{ margin-top:0; }
     #v3-cases > a{ position:relative !important; top:auto !important; grid-template-columns:minmax(0,1fr) !important; min-height:0 !important; }
     #hx-bento{ grid-template-columns:minmax(0,1fr) !important; }
     #hx-bento > div{ grid-column:auto !important; grid-row:auto !important; }
@@ -61,7 +61,7 @@
   @media (max-width:760px){
     #hx-hero-inner{ justify-content:flex-start !important; padding-top:104px !important; }
     #v2-hero-copy{ max-width:none !important; }
-    #v2-hero-title{ font-size:clamp(40px,12vw,64px) !important; white-space:normal !important; } #v2-hero-note{ margin-left:1.6em !important; }
+    #v2-hero-title{ font-size:clamp(40px,12vw,64px) !important; white-space:normal !important; } #v2-hero-note{ font-size:0.68em !important; margin-left:auto !important; margin-right:0 !important; margin-top:0.08em !important; transform-origin:right center !important; } div:has(> #hx-avatar){ margin-top:52px !important; }
     [data-nav-full]{ display:none !important; }
     [data-nav-short]{ display:inline !important; }
     [data-esc-hint]{ display:none !important; }
@@ -69,7 +69,7 @@
     [data-vid-extra]{ display:none !important; }
     header nav{ display:flex !important; width:100% !important; justify-content:space-between !important; }
     #hx-dock-sep{ display:none !important; }
-    #probabilities{ bottom:30% !important; padding-top:24px !important; padding-bottom:24px !important; }
+    #probabilities{ padding-top:24px !important; padding-bottom:24px !important; }
   }
   @keyframes pbFill{ from{ width:0; } to{ width:100%; } }
   #pb-reel > [role="button"]:focus{ outline:none; }
@@ -94,9 +94,9 @@
       <nav style="pointer-events:auto; display:inline-flex; align-items:center; gap:clamp(0px,0.4vw,6px); max-width:100%; padding:5px; border-radius:999px; background:rgba(255,255,255,0.9); -webkit-backdrop-filter:saturate(180%) blur(18px); backdrop-filter:saturate(180%) blur(18px); box-shadow:0 18px 44px -14px rgba(0,0,0,0.16), 0 2px 8px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.035);">
         <a href="#top" onClick="{{ toTop }}" style="display:flex; align-items:center; gap:9px; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:600; letter-spacing:-0.015em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;"><span style="width:10px; height:10px; border-radius:3px; background:#E7573E; flex:none;"></span><span data-nav-full="">Tomasz Czarnecki</span><span data-nav-short="" style="display:none;">TC</span></a>
         <a href="#highlights" data-nav-opt="" style="display:block; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;">Intro</a>
-        <a href="#the-loop" data-nav-opt="" style="display:block; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;">Case studies</a>
+        <a href="#case-studies" data-nav-opt="" style="display:block; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;">Built</a>
         <a href="#yaga" data-nav-opt="" style="display:block; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;">Yaga Labs</a>
-        <a href="#contact" style="display:block; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;">Get in touch</a>
+        <a href="#buildings-deep-dive" style="display:block; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;">China</a>
         <a href="CV_TomaszCzarnecki_Latest.pdf" target="_blank" rel="noopener" style="display:block; padding:8px 16px; border-radius:999px; background:#161617; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#FFFFFF; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#3A3A3D; opacity:1;">Download CV ↓</a>
       </nav>
     </div>
@@ -169,13 +169,13 @@
     <section id="v2-hero" style="position:relative; overflow:clip; background:transparent;" data-om-label="Hero" data-screen-label="Hero">
       <div id="v2-hero-frame" style="position: relative; height: 100svh; min-height: 600px; background: transparent; overflow: hidden">
         <sc-if value="{{ bbFur }}" hint-placeholder-val="{{ true }}">
-        <x-import component-from-global-scope="black-box-faces" from="./black-box-faces.js" mouth-style="crater" lip-scale="0.75" lip-color="pink" dish="0.11" dish-floor="0.2" expression="{{ bbFace }}" chat="on" anchor="#v2-hero-frame" hold="#intro-pin" footer="#contact" foot-x="0.84" foot-y="0.73" foot-scale="0.58" dock="{{ dockMode }}" hop="{{ hopAttr }}" thoughts="annoying" light="hero" key-light="front" x="0.72" y="0.49" x-small="0.8" y-small="0.73" hold-x-small="0.5" hold-y-small="0.8" scale-small="0.67" label-drop-small="22" scale="0.9" max-r="200" max-r-soft="0.3" bubble-small="1.05" label="Mr Whybox.ai · double-click to chat" label-ink="#6E6E73" grain="0.042" hint-size="100%,100%" style="position:absolute; inset:0; z-index:1; pointer-events:none;"></x-import>
+        <x-import component-from-global-scope="black-box-faces" from="./black-box-faces.js" mouth-style="crater" lip-scale="0.75" lip-color="pink" dish="0.11" dish-floor="0.2" expression="{{ bbFace }}" chat="on" anchor="#v2-hero-frame" hold="#intro-pin" footer="#contact" foot-x="0.84" foot-y="0.73" foot-scale="0.58" dock="{{ dockMode }}" hop="{{ hopAttr }}" thoughts="annoying" light="hero" key-light="front" x="0.72" y="0.49" x-small="0.5" y-small="0.77" hold-x-small="0.5" hold-y-small="0.8" scale-small="0.67" label-drop-small="22" scale="0.9" max-r="200" max-r-soft="0.3" bubble-small="1.05" label="Mr Whybox.ai · double-click to chat" label-ink="#6E6E73" grain="0.042" hint-size="100%,100%" style="position:absolute; inset:0; z-index:1; pointer-events:none;"></x-import>
         </sc-if>
         <sc-if value="{{ bbInk }}" hint-placeholder-val="{{ false }}">
-        <x-import component-from-global-scope="black-box-faces" from="./black-box-faces.js" render="ink" mouth-style="crater" lip-scale="0.75" lip-color="white" dish="0.11" dish-floor="0.2" expression="{{ bbFace }}" chat="on" anchor="#v2-hero-frame" hold="#intro-pin" footer="#contact" foot-x="0.84" foot-y="0.73" foot-scale="0.58" dock="{{ dockMode }}" hop="{{ hopAttr }}" thoughts="annoying" light="hero" key-light="front" x="0.72" y="0.49" x-small="0.8" y-small="0.73" hold-x-small="0.5" hold-y-small="0.8" scale-small="0.67" label-drop-small="22" scale="0.9" max-r="200" max-r-soft="0.3" bubble-small="1.05" label="Mr Whybox.ai · double-click to chat" label-ink="#6E6E73" grain="0.042" hint-size="100%,100%" style="position:absolute; inset:0; z-index:1; pointer-events:none;"></x-import>
+        <x-import component-from-global-scope="black-box-faces" from="./black-box-faces.js" render="ink" mouth-style="crater" lip-scale="0.75" lip-color="white" dish="0.11" dish-floor="0.2" expression="{{ bbFace }}" chat="on" anchor="#v2-hero-frame" hold="#intro-pin" footer="#contact" foot-x="0.84" foot-y="0.73" foot-scale="0.58" dock="{{ dockMode }}" hop="{{ hopAttr }}" thoughts="annoying" light="hero" key-light="front" x="0.72" y="0.49" x-small="0.5" y-small="0.77" hold-x-small="0.5" hold-y-small="0.8" scale-small="0.67" label-drop-small="22" scale="0.9" max-r="200" max-r-soft="0.3" bubble-small="1.05" label="Mr Whybox.ai · double-click to chat" label-ink="#6E6E73" grain="0.042" hint-size="100%,100%" style="position:absolute; inset:0; z-index:1; pointer-events:none;"></x-import>
         </sc-if>
         <sc-if value="{{ bbCarton }}" hint-placeholder-val="{{ false }}">
-        <x-import component-from-global-scope="black-box-faces" from="./black-box-faces.js" skin="carton" mouth-style="crater" lip-scale="0.75" lip-color="pink" dish="0.11" dish-floor="0.2" expression="{{ bbFace }}" chat="on" anchor="#v2-hero-frame" hold="#intro-pin" footer="#contact" foot-x="0.84" foot-y="0.73" foot-scale="0.58" dock="{{ dockMode }}" hop="{{ hopAttr }}" thoughts="annoying" light="hero" key-light="front" x="0.72" y="0.49" x-small="0.8" y-small="0.73" hold-x-small="0.5" hold-y-small="0.8" scale-small="0.67" label-drop-small="22" scale="0.9" max-r="200" max-r-soft="0.3" bubble-small="1.05" label="Mr Whybox.ai · double-click to chat" label-ink="#6E6E73" grain="0.042" hint-size="100%,100%" style="position:absolute; inset:0; z-index:1; pointer-events:none;"></x-import>
+        <x-import component-from-global-scope="black-box-faces" from="./black-box-faces.js" skin="carton" mouth-style="crater" lip-scale="0.75" lip-color="pink" dish="0.11" dish-floor="0.2" expression="{{ bbFace }}" chat="on" anchor="#v2-hero-frame" hold="#intro-pin" footer="#contact" foot-x="0.84" foot-y="0.73" foot-scale="0.58" dock="{{ dockMode }}" hop="{{ hopAttr }}" thoughts="annoying" light="hero" key-light="front" x="0.72" y="0.49" x-small="0.5" y-small="0.77" hold-x-small="0.5" hold-y-small="0.8" scale-small="0.67" label-drop-small="22" scale="0.9" max-r="200" max-r-soft="0.3" bubble-small="1.05" label="Mr Whybox.ai · double-click to chat" label-ink="#6E6E73" grain="0.042" hint-size="100%,100%" style="position:absolute; inset:0; z-index:1; pointer-events:none;"></x-import>
         </sc-if>
         <div id="hx-arrow" aria-hidden="true" style="position:absolute; inset:0; z-index:2; pointer-events:none; display:none; opacity:0;">
           <svg width="100%" height="100%" style="position:absolute; inset:0; overflow:visible;"><path id="hx-arrow-path" ref="{{ arrowPath }}" d="M0 0" fill="none" stroke="#E7573E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path><path ref="{{ arrowHead }}" d="M0 0" fill="none" stroke="#E7573E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path><text ref="{{ arrowLabel }}" dy="-12" style="font-family:'Caveat',cursive; font-weight:600; font-size:clamp(24px,2vw,32px); fill:#E7573E; opacity:0; transition:opacity 0.5s ease 0.6s;"><textPath href="#hx-arrow-path" startOffset="50%" text-anchor="middle">this is a black box</textPath></text></svg>
@@ -192,12 +192,12 @@
               <div id="hx-id-text" style="min-width:0; display:flex; flex-direction:column; gap:3px;">
               <div style="font-weight:600; font-size:clamp(17px,1.3vw,19px); line-height:1.1; letter-spacing:-0.015em; color:#161617;">Tomasz Czarnecki</div>
               <div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:clamp(12px,1vw,13px); font-weight:500; line-height:1.1; letter-spacing:0.12em; text-transform:uppercase; color:#161617;">AI Product Manager &amp; Builder</div>
-              <p id="hx-hero-body" style="font-family:'Newsreader',Georgia,serif; font-style:italic; font-weight:400; font-size:clamp(15px,1.1vw,16px); line-height:1.15; letter-spacing:-0.005em; color:#86868B; max-width:46ch; margin:0; text-wrap:pretty;">First product person at Heineken’s AI Hub. Three production decision systems, built for a ~€2.9B budget.</p>
+              <p id="hx-hero-body" style="font-family:'Newsreader',Georgia,serif; font-style:italic; font-weight:400; font-size:clamp(15px,1.1vw,16px); line-height:1.15; letter-spacing:-0.005em; color:#86868B; max-width:46ch; margin:0; text-wrap:pretty;">Ex-Heineken · AI adoption</p>
               </div>
             </div>
             <div style="display:flex; flex-wrap:wrap; align-items:center; gap:14px 24px; margin-top:clamp(24px,2.8vw,36px);">
               <a href="#contact" style="display:inline-flex; align-items:center; padding:14px 26px; border-radius:999px; background:#E7573E; color:#FFFFFF; font-size:15px; font-weight:500; text-decoration:none; white-space:nowrap;" style-hover="background:#C9452E; opacity:1;">Get in touch</a>
-              <a href="#highlights" style="display:inline-flex; align-items:center; gap:10px; font-size:15px; font-weight:500; color:#161617; text-decoration:none; white-space:nowrap;"><span style="width:30px; height:30px; border-radius:999px; border:1.5px solid #161617; display:flex; align-items:center; justify-content:center; flex:none;"><span style="display:block; width:0; height:0; border-style:solid; border-width:5px 0 5px 8px; border-color:transparent transparent transparent #161617; margin-left:2px;"></span></span>Watch the intro · 90 sec</a>
+              <button type="button" onClick="{{ openChat }}" aria-label="Argue with it: open the Mr Whybox chat" style="display:inline-flex; align-items:center; gap:8px; padding:13px 24px; border-radius:999px; background:transparent; border:1px solid #D2D2D7; color:#161617; font-family:inherit; font-size:15px; font-weight:500; cursor:pointer; white-space:nowrap; transition:border-color 0.2s ease, background-color 0.2s ease;" style-hover="border-color:#161617; background:#F5F5F3;">Argue with it <span aria-hidden="true">→</span></button>
             </div>
           </div>
         </div>
@@ -207,7 +207,7 @@
     <section id="probabilities" style="position:absolute; inset:0; z-index:2; opacity:0; pointer-events:none; overflow:hidden; display:flex; align-items:center; justify-content:center; padding:clamp(96px,12vw,160px) clamp(20px,4vw,56px); background:#161617;" data-om-label="It's all probabilities" data-screen-label="Probabilities">
       <x-import component-from-global-scope="prob-rings" from="./prob-rings.js" ink="#8E7FD6" alpha="0.55" stroke="2.6" rings="5" size="0.2" stretch="1.6" hint-size="100%,100%" style="position:absolute; inset:0; z-index:0; pointer-events:none;"></x-import>
       <div id="prob-copy" style="position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:clamp(18px,2.2vw,28px); text-align:center; max-width:1100px; will-change:opacity,transform;">
-        <div style="font-family:'Caveat',cursive; font-weight:600; font-size:clamp(32px,2.8vw,44px); line-height:1; color:#A89DDB;">inside the box</div>
+        <div style="font-family:'Caveat',cursive; font-weight:600; font-size:clamp(32px,2.8vw,44px); line-height:1; color:#A89DDB;">Inside the box:</div>
         <h2 style="margin:0; font-weight:600; font-size:clamp(44px,7.4vw,120px); line-height:0.96; letter-spacing:-0.045em; color:#FFFFFF; text-wrap:pretty;">It's all <span style="font-family:'Newsreader',Georgia,serif; font-style:italic; font-weight:500; letter-spacing:-0.02em;">probabilities</span>.</h2>
         <p style="margin:0; font-size:clamp(17px,1.4vw,21px); line-height:1.55; color:#A1A1A6; max-width:58ch; text-wrap:pretty;">The model gives a range.<br>People want an answer.<br>I build what sits in between.</p>
       </div>
@@ -217,11 +217,11 @@
 
     <div id="mid-dots" data-dots="" style="background-color:#FFFFFF; background-image:radial-gradient(circle, rgba(22,22,23,0.09) 0.96px, transparent 1.44px); background-size:25px 25px; background-position:12px 12px;">
 
-    <section id="highlights" style="padding:clamp(40px,4.5vw,64px) 0; scroll-margin-top: 96px" data-om-label="Highlights" data-screen-label="Highlights">
+    <section id="highlights" style="padding:clamp(40px,4.5vw,64px) 0; margin-top:clamp(24px,2.5vw,32px); scroll-margin-top: 96px" data-om-label="Highlights" data-screen-label="Highlights">
       <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
         <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#E7573E; flex:none;"></span><span style="color:#161617;">01</span><span>Highlights</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
         <h2 data-reveal="" style="font-weight:600; font-size:clamp(40px,5.2vw,80px); line-height:1.02; letter-spacing:-0.038em; margin:18px 0 0 0; color:#161617; text-wrap:pretty;">First person in, three times.</h2>
-        <p data-reveal="" style="font-size:clamp(17px,1.4vw,21px); line-height:1.55; letter-spacing:-0.01em; color:#5E5E63; max-width:58ch; margin:clamp(18px,2vw,26px) 0 0 0; text-wrap:pretty;">The first hire at a Chinese architecture firm's European office, set up in Poland from zero. One of two founding members of MAD Architects' parametric design group in Beijing. The first product person in Heineken's Global Analytics &amp; AI Hub. The fourth time, it's mine: <a href="#yaga" style="color:#161617; text-decoration:none; border-bottom:1.5px solid #E7573E; padding-bottom:1px;">Yaga Labs</a>.</p>
+        <p data-reveal="" style="font-size:clamp(17px,1.4vw,21px); line-height:1.55; letter-spacing:-0.01em; color:#5E5E63; max-width:58ch; margin:clamp(18px,2vw,26px) 0 0 0; text-wrap:pretty;">The first hire at a Chinese architecture firm’s European office, set up in Poland from zero. One of two founding members of MAD Architects’ parametric design group in Beijing. The first product person in Heineken’s Global Analytics &amp; AI Hub. Each time, the hard part wasn’t building the thing. It was getting people to use it. The fourth time, it’s mine: <a href="#yaga" style="color:#161617; text-decoration:none; border-bottom:1.5px solid #E7573E; padding-bottom:1px;">Yaga Labs</a>.</p>
 
         <div id="hx-bento" data-reveal="" style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; margin-top:clamp(40px,5vw,64px);">
           <div id="hx-video" data-om-label="Intro video" style="grid-column:1 / -1; position:relative; aspect-ratio:16 / 10; border-radius:28px; overflow:hidden; background:#1C1C1E;">
@@ -251,7 +251,7 @@
       <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
         <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#E7573E; flex:none;"></span><span style="color:#161617;">02</span><span>Playbook</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
         <h2 data-reveal="" style="font-weight:600; font-size:clamp(40px,5.2vw,80px); line-height:1.02; letter-spacing:-0.038em; margin:18px 0 0 0; color:#161617; text-wrap:pretty;">Nobody acts on a black-box answer.</h2>
-        <p data-reveal="" style="font-size:clamp(17px,1.4vw,21px); line-height:1.5; color:#5E5E63; max-width:56ch; margin:clamp(14px,1.6vw,20px) 0 0 0; text-wrap:pretty;">What worked for us at Heineken, and how I build agents now: the model proposes, the rules check it, and the people who use it can see why.</p>
+        <p data-reveal="" style="font-size:clamp(17px,1.4vw,21px); line-height:1.5; color:#5E5E63; max-width:56ch; margin:clamp(14px,1.6vw,20px) 0 0 0; text-wrap:pretty;">Everybody uses AI for the small stuff. Nobody bets a real decision on an answer they can’t question. Four steps that worked at Heineken, and that I use with agents now.</p>
         <div data-reveal="" data-om-label="Playbook reel" style="margin-top:clamp(24px,2.8vw,36px);">
           <div id="pb-reel" onMouseLeave="{{ reelLeave }}" style="display:flex; gap:12px; height:clamp(420px,42vw,560px);">
             <sc-for list="{{ reel }}" as="s" hint-placeholder-count="0">
@@ -277,8 +277,8 @@
       </div>
     </section>
 
-    <section id="logos" style="background: #161617" data-om-label="Logos">
-      <div style="max-width:1440px; margin:0 auto; padding:clamp(28px,3.4vw,44px) clamp(20px,4vw,56px); display:flex; align-items:center; gap:24px clamp(32px,4vw,64px); flex-wrap:wrap;">
+    <section id="logos" style="background: #161617; margin:clamp(24px,2.5vw,32px) 0;" data-om-label="Logos">
+      <div style="max-width:1440px; margin:0 auto; padding:clamp(40px,4.5vw,64px) clamp(20px,4vw,56px); display:flex; align-items:center; gap:24px clamp(32px,4vw,64px); flex-wrap:wrap;">
         <div style="flex:none; display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#A1A1A6;"><span>Worked at and built for</span></div>
         <div style="flex:1; display:flex; align-items:center; justify-content:space-between; gap:28px clamp(28px,3.6vw,56px); flex-wrap:wrap; min-width:min(100%,520px);">
           <img src="assets/heineken-logo.svg" alt="Heineken" style="height:30px; width:auto; display:block; filter:brightness(0) invert(1); opacity:0.78;">
@@ -294,10 +294,10 @@
 
     <section id="case-studies" style="position:relative; padding:clamp(40px,4.5vw,64px) 0; scroll-margin-top:96px;" data-om-label="Heineken spend" data-screen-label="Case Studies">
       <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
-        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#E7573E; flex:none;"></span><span style="color:#161617;">03</span><span>Case studies</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
+        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#E7573E; flex:none;"></span><span style="color:#161617;">03</span><span>The stakes</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
         <h2 data-reveal="" style="font-weight:600; font-size:clamp(40px,5.6vw,92px); line-height:1; letter-spacing:-0.042em; margin:18px 0 0 0; color:#161617; text-wrap:pretty;">Heineken spends €7.9 million on marketing and sales a day.</h2>
-        <p data-reveal="" style="font-size:clamp(17px,1.4vw,21px); line-height:1.5; color:#5E5E63; max-width:56ch; margin:clamp(14px,1.6vw,20px) 0 0 0; text-wrap:pretty;">Someone decides where every one of those euros goes.<br>Before the hub, that was spreadsheets and gut feel.</p>
-        <div data-reveal="" data-om-label="Spend counter card" style="margin-top:clamp(36px,4.4vw,56px); display:flex; flex-direction:column; padding:clamp(28px,4vw,56px); border-radius:32px; background:#F5F5F3; box-shadow:0 0 0 1px rgba(0,0,0,0.035); min-width:0;">
+        <p data-reveal="" style="font-size:clamp(17px,1.4vw,21px); line-height:1.5; color:#5E5E63; max-width:56ch; margin:clamp(14px,1.6vw,20px) 0 0 0; text-wrap:pretty;">Someone decides where every one of those euros goes. The models were ready early. The people deciding still trusted their spreadsheets more.</p>
+        <div data-reveal="" data-om-label="Spend counter card" style="margin-top:clamp(36px,4.4vw,56px); display:flex; flex-direction:column; padding:clamp(28px,4vw,56px); border-radius:32px; background:#F5F5F3; box-shadow:0 0 0 1px rgba(0,0,0,0.04), 0 0 48px -20px rgba(0,0,0,0.16); min-width:0;">
           <span style="font-size:14px; font-weight:500; color:#6E6E73;">Today so far · since midnight, your time</span>
           <div aria-live="off" style="margin-top:clamp(12px,1.4vw,20px); font-weight:600; font-size:clamp(44px,12vw,180px); line-height:0.92; letter-spacing:-0.05em; color:#E7573E; font-variant-numeric:tabular-nums; font-feature-settings:'tnum' 1; white-space:nowrap; max-width:100%;"><span ref="{{ todayTicker }}">€0</span></div>
           <span style="margin-top:clamp(14px,1.6vw,20px); font-size:13.5px; color:#6E6E73;">€2.9B a year ÷ 365 · FY2024 marketing &amp; selling · <a href="https://www.theheinekencompany.com/newsroom/heineken-nv-reports-2024-full-year-results/" target="_blank" rel="noopener" style="color:#161617; text-decoration:none; border-bottom:1px solid #E7573E;">Source ↗</a></span>
@@ -308,53 +308,18 @@
 
     <section id="the-loop" style="position:relative; padding:clamp(40px,4.5vw,64px) 0; scroll-margin-top:96px;" data-om-label="The loop" data-screen-label="The Loop">
       <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
-        <h2 data-reveal="" style="font-weight:600; font-size:clamp(40px,5.6vw,92px); line-height:1; letter-spacing:-0.042em; margin:0; color:#161617; text-wrap:pretty;">We asked 3 questions, in 1 loop.</h2>
-        <div data-track="" style="position:relative; margin-top:clamp(56px,6vw,80px); padding:0 clamp(6px,1vw,12px);">
-          <x-import component-from-global-scope="loop-track" from="./loop-track.js" accent="#E7573E" ink="#161617" title-ink="#161617" dot-off="#D6D6D3" dwell="{{ orbitDwell }}" pad="46" wait="handoff" hint-size="100%,100%" style="position:absolute; inset:-40px;"></x-import>
-          <div id="v3-track-grid" style="position:relative; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(24px,3vw,56px); padding:0 clamp(28px,4vw,64px);">
-            <div data-step="0" style="display:flex; flex-direction:column; opacity:1; transition:opacity 0.5s ease; cursor:default;">
-              <span data-node="0" data-step-dot="" style="width:14px; height:14px; border-radius:4px; background:#D6D6D3; transition:background 0.4s ease, box-shadow 0.4s ease;"></span>
-              <div style="margin-top:clamp(28px,3.4vw,44px); padding-bottom:8px;">
-                <div style="font-size:14px; font-weight:500; color:#6E6E73;">01 · Allocation AI</div>
-                <div style="font-weight:600; font-size:clamp(40px,4.6vw,76px); line-height:0.98; letter-spacing:-0.045em; margin-top:12px; color:#161617;" data-step-title="">Where?</div>
-                <div style="font-size:16px; line-height:1.6; color:#5E5E63; margin-top:16px; max-width:30ch; text-wrap:pretty;">Wherever the response curve says the next euro pays back best, by OpCo, brand and channel.</div>
-              </div>
-            </div>
-            <div data-step="1" style="display:flex; flex-direction:column; opacity:1; transition:opacity 0.5s ease; cursor:default;">
-              <span data-node="1" data-step-dot="" style="width:14px; height:14px; border-radius:4px; background:#D6D6D3; transition:background 0.4s ease, box-shadow 0.4s ease;"></span>
-              <div style="margin-top:clamp(28px,3.4vw,44px); padding-bottom:8px;">
-                <div style="font-size:14px; font-weight:500; color:#6E6E73;">02 · Promo Advisor</div>
-                <div style="font-weight:600; font-size:clamp(40px,4.6vw,76px); line-height:0.98; letter-spacing:-0.045em; margin-top:12px; color:#161617;" data-step-title="">What?</div>
-                <div style="font-size:16px; line-height:1.6; color:#5E5E63; margin-top:16px; max-width:30ch; text-wrap:pretty;">Whichever offer, mechanic and price simulate the best lift, tested before they ever launch.</div>
-              </div>
-            </div>
-            <div data-step="2" style="display:flex; flex-direction:column; opacity:1; transition:opacity 0.5s ease; cursor:default;">
-              <span data-node="2" data-step-dot="" style="width:14px; height:14px; border-radius:4px; background:#D6D6D3; transition:background 0.4s ease, box-shadow 0.4s ease;"></span>
-              <div style="margin-top:clamp(28px,3.4vw,44px); padding-bottom:8px;">
-                <div style="font-size:14px; font-weight:500; color:#6E6E73;">03 · Smart Flighting</div>
-                <div style="font-weight:600; font-size:clamp(40px,4.6vw,76px); line-height:0.98; letter-spacing:-0.045em; margin-top:12px; color:#161617;" data-step-title="">When?</div>
-                <div style="font-size:16px; line-height:1.6; color:#5E5E63; margin-top:16px; max-width:30ch; text-wrap:pretty;">Whenever the AI response curve says that spend actually converts, week by week.</div>
-              </div>
-            </div>
-          </div>
-          <div style="position:relative; display:flex; justify-content:center; margin-top:clamp(48px,6vw,80px);">
-            <div data-step="3" data-track-mask="" style="display:flex; align-items:center; gap:14px; flex-wrap:wrap; justify-content:center; opacity:1; transition:opacity 0.5s ease; cursor:default;">
-              <span data-node="3" data-step-dot="" style="width:14px; height:14px; border-radius:4px; background:#D6D6D3; flex:none; transition:background 0.4s ease, box-shadow 0.4s ease;"></span>
-              <span style="font-size:clamp(19px,1.7vw,24px); font-weight:600; letter-spacing:-0.02em; color:#161617;" data-step-title="">Measured lift, fed back</span>
-              <span style="font-size:14px; font-weight:500; color:#6E6E73;">04 · next year's plan starts here</span>
-            </div>
-          </div>
-        </div>
-        <div id="v3-cases" style="display:flex; flex-direction:column; gap:28px; margin-top:clamp(64px,8vw,112px);">
+        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#E7573E; flex:none;"></span><span style="color:#161617;">04</span><span>What we built</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
+        <h2 data-reveal="" style="font-weight:600; font-size:clamp(32px,4.4vw,68px); line-height:1.22; letter-spacing:-0.035em; margin:22px 0 0 0; max-width:1180px; color:#161617; text-wrap:pretty;"><a href="#case-alloc" onClick="{{ goAlloc }}" style="display:inline-flex; align-items:center; gap:0.2em; padding:0.08em 0.34em 0.08em 0.15em; border-radius:0.37em; vertical-align:-0.06em; line-height:1; background:#EEE8FE; color:#6A3FE0; text-decoration:none; transition:background-color 0.25s ease;" style-hover="background:#DDD1FD; opacity:1;"><span style="display:block; flex:none; width:0.86em; height:0.86em; border-radius:0.22em; overflow:hidden; background:#8A5CF6;"><img src="assets/agents/allocation-compass.webp" alt="" style="width:100%; height:100%; display:block; object-fit:cover;"></span>Allocation AI</a> decides where the budget goes. <a href="#case-promo" onClick="{{ goPromo }}" style="display:inline-flex; align-items:center; gap:0.2em; padding:0.08em 0.34em 0.08em 0.15em; border-radius:0.37em; vertical-align:-0.06em; line-height:1; background:#E2EBFA; color:#2457B8; text-decoration:none; transition:background-color 0.25s ease;" style-hover="background:#CCDCF6; opacity:1;"><span style="display:block; flex:none; width:0.86em; height:0.86em; border-radius:0.22em; overflow:hidden; background:#407EDF;"><img src="assets/agents/promo-scale-blue.webp" alt="" style="width:100%; height:100%; display:block; object-fit:cover;"></span>Promo Advisor</a> decides what to promote. <a href="#case-flight" onClick="{{ goFlight }}" style="display:inline-flex; align-items:center; gap:0.2em; padding:0.08em 0.34em 0.08em 0.15em; border-radius:0.37em; vertical-align:-0.06em; line-height:1; background:#DCF0EB; color:#137565; text-decoration:none; transition:background-color 0.25s ease;" style-hover="background:#C4E6DE; opacity:1;"><span style="display:block; flex:none; width:0.86em; height:0.86em; border-radius:0.22em; overflow:hidden; background:#1F9A86;"><img src="assets/agents/flight-metronome-v2.webp" alt="" style="width:100%; height:100%; display:block; object-fit:cover;"></span>Smart Flighting</a> decides when it runs. Then the <span style="color:#C2412B;">measured lift ↺</span> decides next year’s budget.</h2>
+        <p data-reveal="" style="font-size:clamp(17px,1.4vw,21px); line-height:1.5; color:#5E5E63; max-width:56ch; margin:clamp(16px,1.8vw,24px) 0 0 0; text-wrap:pretty;">Three tools from Heineken’s AI Hub, joined so each year’s results plan the next.</p>
+        <div id="v3-cases" style="display:flex; flex-direction:column; gap:28px; margin-top:clamp(36px,4.4vw,56px);">
 
-          <a id="case-alloc" href="allocation-ai.html" style="position:sticky; top:100px; display:grid; grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr); gap:clamp(28px,4vw,64px); min-height:min(700px, calc(100svh - 132px)); padding:clamp(28px,4vw,56px); border-radius:32px; background:#F5F5F3; color:#161617; text-decoration:none; overflow:hidden; scroll-margin-top:100px; box-shadow:0 -20px 50px -24px rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.035);" style-hover="opacity:1;">
+          <a id="case-alloc" href="allocation-ai.html" style="position:sticky; top:100px; display:grid; grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr); gap:clamp(28px,4vw,64px); min-height:min(700px, calc(100svh - 132px)); padding:clamp(28px,4vw,56px); border-radius:32px; background:#F5F5F3; color:#161617; text-decoration:none; overflow:hidden; scroll-margin-top:100px; box-shadow:0 0 0 1px rgba(0,0,0,0.04), 0 0 48px -20px rgba(0,0,0,0.16);" style-hover="opacity:1;">
             <div style="display:flex; flex-direction:column; min-width:0;">
-              <div style="font-size:14px; font-weight:500; color:#6E6E73;">01 / 03 · Marketing mix</div>
-              <div style="display:flex; align-items:center; gap:clamp(16px,1.8vw,24px); margin-top:24px;">
+              <div style="display:flex; align-items:center; gap:clamp(16px,1.8vw,24px); margin-top:0;">
                 <span style="display:block; flex:none; width:clamp(72px,6.4vw,96px); aspect-ratio:1; border-radius:23%; overflow:hidden; background:#8A5CF6; box-shadow:0 16px 30px -16px rgba(0,0,0,0.5);"><img src="assets/agents/allocation-compass.webp" alt="" style="width:100%; height:100%; display:block; object-fit:cover;"></span>
                 <div style="min-width:0;">
-                  <h3 style="font-weight:600; font-size:clamp(32px,3.6vw,56px); line-height:1; letter-spacing:-0.04em; margin:0;">Allocation AI</h3>
-                  <div style="font-size:clamp(18px,1.5vw,22px); font-weight:500; color:#6A3FE0; margin-top:8px; letter-spacing:-0.015em;">Where to spend.</div>
+                  <h3 style="font-weight:600; font-size:clamp(32px,3.6vw,56px); line-height:1; letter-spacing:-0.04em; margin:0; color:#6A3FE0;">Allocation AI</h3>
+                  <div style="font-size:clamp(18px,1.5vw,22px); font-weight:500; color:#161617; margin-top:8px; letter-spacing:-0.015em;">Where? To spend the marketing budget.</div>
                 </div>
               </div>
               <p style="font-size:17px; line-height:1.6; color:#5E5E63; margin:24px 0 0 0; max-width:44ch; text-wrap:pretty;">Bayesian budget allocation across markets, brands and channels. Heineken reports that markets following it spend more profitably, with incremental gross profit in Mexico, Brazil and the Netherlands.</p>
@@ -373,14 +338,13 @@
             </div>
           </a>
 
-          <a id="case-promo" href="promo-advisor.html" style="position:sticky; top:118px; display:grid; grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr); gap:clamp(28px,4vw,64px); min-height:min(700px, calc(100svh - 150px)); padding:clamp(28px,4vw,56px); border-radius:32px; background:#F5F5F3; color:#161617; text-decoration:none; overflow:hidden; scroll-margin-top:118px; box-shadow:0 -20px 50px -24px rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.035);" style-hover="opacity:1;">
+          <a id="case-promo" href="promo-advisor.html" style="position:sticky; top:118px; display:grid; grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr); gap:clamp(28px,4vw,64px); min-height:min(700px, calc(100svh - 150px)); padding:clamp(28px,4vw,56px); border-radius:32px; background:#F5F5F3; color:#161617; text-decoration:none; overflow:hidden; scroll-margin-top:118px; box-shadow:0 0 0 1px rgba(0,0,0,0.04), 0 0 48px -20px rgba(0,0,0,0.16);" style-hover="opacity:1;">
             <div style="display:flex; flex-direction:column; min-width:0;">
-              <div style="font-size:14px; font-weight:500; color:#6E6E73;">02 / 03 · Revenue management</div>
-              <div style="display:flex; align-items:center; gap:clamp(16px,1.8vw,24px); margin-top:24px;">
+              <div style="display:flex; align-items:center; gap:clamp(16px,1.8vw,24px); margin-top:0;">
                 <span style="display:block; flex:none; width:clamp(72px,6.4vw,96px); aspect-ratio:1; border-radius:23%; overflow:hidden; background:#407EDF; box-shadow:0 16px 30px -16px rgba(0,0,0,0.5);"><img src="assets/agents/promo-scale-blue.webp" alt="" style="width:100%; height:100%; display:block; object-fit:cover;"></span>
                 <div style="min-width:0;">
-                  <h3 style="font-weight:600; font-size:clamp(32px,3.6vw,56px); line-height:1; letter-spacing:-0.04em; margin:0;">Promo Advisor</h3>
-                  <div style="font-size:clamp(18px,1.5vw,22px); font-weight:500; color:#2457B8; margin-top:8px; letter-spacing:-0.015em;">What to promote.</div>
+                  <h3 style="font-weight:600; font-size:clamp(32px,3.6vw,56px); line-height:1; letter-spacing:-0.04em; margin:0; color:#2457B8;">Promo Advisor</h3>
+                  <div style="font-size:clamp(18px,1.5vw,22px); font-weight:500; color:#161617; margin-top:8px; letter-spacing:-0.015em;">What? To promote, and how.</div>
                 </div>
               </div>
               <p style="font-size:17px; line-height:1.6; color:#5E5E63; margin:24px 0 0 0; max-width:44ch; text-wrap:pretty;">Diagnostics, scenario simulation and calendar optimisation, so every promotion is tested before it launches. Nine tails, nine scenarios.</p>
@@ -399,14 +363,13 @@
             </div>
           </a>
 
-          <a id="case-flight" href="smart-flighting.html" style="position:sticky; top:136px; display:grid; grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr); gap:clamp(28px,4vw,64px); min-height:min(700px, calc(100svh - 168px)); padding:clamp(28px,4vw,56px); border-radius:32px; background:#F5F5F3; color:#161617; text-decoration:none; overflow:hidden; scroll-margin-top:136px; box-shadow:0 -20px 50px -24px rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.035);" style-hover="opacity:1;">
+          <a id="case-flight" href="smart-flighting.html" style="position:sticky; top:136px; display:grid; grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr); gap:clamp(28px,4vw,64px); min-height:min(700px, calc(100svh - 168px)); padding:clamp(28px,4vw,56px); border-radius:32px; background:#F5F5F3; color:#161617; text-decoration:none; overflow:hidden; scroll-margin-top:136px; box-shadow:0 0 0 1px rgba(0,0,0,0.04), 0 0 48px -20px rgba(0,0,0,0.16);" style-hover="opacity:1;">
             <div style="display:flex; flex-direction:column; min-width:0;">
-              <div style="font-size:14px; font-weight:500; color:#6E6E73;">03 / 03 · Media execution</div>
-              <div style="display:flex; align-items:center; gap:clamp(16px,1.8vw,24px); margin-top:24px;">
+              <div style="display:flex; align-items:center; gap:clamp(16px,1.8vw,24px); margin-top:0;">
                 <span style="display:block; flex:none; width:clamp(72px,6.4vw,96px); aspect-ratio:1; border-radius:23%; overflow:hidden; background:#1F9A86; box-shadow:0 16px 30px -16px rgba(0,0,0,0.5);"><img src="assets/agents/flight-metronome-v2.webp" alt="" style="width:100%; height:100%; display:block; object-fit:cover;"></span>
                 <div style="min-width:0;">
-                  <h3 style="font-weight:600; font-size:clamp(32px,3.6vw,56px); line-height:1; letter-spacing:-0.04em; margin:0;">Smart Flighting</h3>
-                  <div style="font-size:clamp(18px,1.5vw,22px); font-weight:500; color:#137565; margin-top:8px; letter-spacing:-0.015em;">When to spend.</div>
+                  <h3 style="font-weight:600; font-size:clamp(32px,3.6vw,56px); line-height:1; letter-spacing:-0.04em; margin:0; color:#137565;">Smart Flighting</h3>
+                  <div style="font-size:clamp(18px,1.5vw,22px); font-weight:500; color:#161617; margin-top:8px; letter-spacing:-0.015em;">When? To run campaigns, week by week.</div>
                 </div>
               </div>
               <p style="font-size:17px; line-height:1.6; color:#5E5E63; margin:24px 0 0 0; max-width:44ch; text-wrap:pretty;">Tests campaign timing against AI response curves, week by week. Replaced an Excel process with a simulator media teams plan in. The lynx waits, then pounces.</p>
@@ -430,9 +393,9 @@
     </section>
 
 
-    <section id="yaga" ref="{{ yagaSec }}" style="position:relative; padding:clamp(40px,4.5vw,64px) 0; scroll-margin-top:96px; overflow:clip; background:#161617;" data-om-label="Yaga Labs" data-screen-label="Yaga Labs">
+    <section id="yaga" ref="{{ yagaSec }}" style="position:relative; padding:clamp(40px,4.5vw,64px) 0; margin:clamp(24px,2.5vw,32px) 0; scroll-margin-top:96px; overflow:clip; background:#161617;" data-om-label="Yaga Labs" data-screen-label="Yaga Labs">
       <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
-        <div style="position:relative; z-index:2; display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#8E8E93; margin-bottom:clamp(24px,3vw,40px);"><span style="width:10px; height:10px; border-radius:3px; background:#E7573E; flex:none;"></span><span style="color:#FFFFFF;">04</span><span>Yaga Labs</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#3A3A3D,rgba(58,58,61,0));"></span></div>
+        <div style="position:relative; z-index:2; display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#8E8E93; margin-bottom:clamp(24px,3vw,40px);"><span style="width:10px; height:10px; border-radius:3px; background:#E7573E; flex:none;"></span><span style="color:#FFFFFF;">05</span><span>Yaga Labs</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#3A3A3D,rgba(58,58,61,0));"></span></div>
         <div id="v2-yaga-grid" style="position:relative; display:grid; grid-template-columns:minmax(0,0.82fr) minmax(0,1.18fr); gap:clamp(32px,5vw,80px); align-items:center;">
           <div id="v2-yaga-fig" style="position:relative; z-index:2; align-self:end; display:flex; justify-content:center; align-items:flex-end; padding-top:clamp(20px,2.5vw,36px);">
             <div ref="{{ yagaRise }}" id="v2-yaga-box" style="position:relative; height:clamp(520px,52vw,760px); aspect-ratio:900 / 1831;">
@@ -463,7 +426,7 @@
 
     <section id="buildings-deep-dive" style="position:relative; padding:clamp(40px,4.5vw,64px) 0; scroll-margin-top:96px;" data-om-label="Buildings that were programs" data-screen-label="Deep dive">
       <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
-        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#E7573E; flex:none;"></span><span style="color:#161617;">05</span><span>Deep dive</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
+        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#E7573E; flex:none;"></span><span style="color:#161617;">06</span><span>Deep dive</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
         <h2 data-reveal="" style="font-weight:600; font-size:clamp(40px,5.2vw,80px); line-height:1.02; letter-spacing:-0.038em; margin:18px 0 0 0; color:#161617; text-wrap:pretty;">Back in China,<br>the fitness function was the eval.</h2>
         <p data-reveal="" style="font-size:clamp(17px,1.4vw,21px); line-height:1.55; letter-spacing:-0.01em; color:#5E5E63; max-width:58ch; margin:clamp(18px,2vw,26px) 0 0 0; text-wrap:pretty;"><span style="color:#161617; font-weight:500;">Five years working in China, back and forth ever since.</span> I wrote the scripts behind a facade and an opera house interior at MAD, and competition wins at AREP. A decade before "AI agent" was a phrase, I was building evolutionary solvers that bred building geometry from a fitness function.</p>
         <div data-reveal="" data-om-label="China polaroids" style="display:flex; flex-direction:column; gap:clamp(8px,1.2vw,14px); margin-top:clamp(28px,3.4vw,44px);">
@@ -481,7 +444,7 @@
             </button>
           </div>
         </div>
-        <div data-om-label="Xinhee card" style="position:relative; display:flex; flex-direction:column; gap:clamp(20px,2.4vw,32px); margin-top:clamp(16px,2vw,28px); padding:clamp(28px,4vw,56px); border-radius:32px; background:#F5F5F3; color:#161617; overflow:hidden; box-shadow:0 0 0 1px rgba(0,0,0,0.035);">
+        <div data-om-label="Xinhee card" style="position:relative; display:flex; flex-direction:column; gap:clamp(20px,2.4vw,32px); margin-top:clamp(16px,2vw,28px); padding:clamp(28px,4vw,56px); border-radius:32px; background:#F5F5F3; color:#161617; overflow:hidden; box-shadow:0 0 0 1px rgba(0,0,0,0.04), 0 0 48px -20px rgba(0,0,0,0.16);">
           <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); align-items:start; gap:28px clamp(32px,4vw,64px);">
             <div style="min-width:0; max-width:56ch;">
               <div style="font-size:14px; font-weight:500; color:#6E6E73;">MAD Architects · Xiamen, 2015–2016</div>
@@ -502,13 +465,13 @@
         </div>
         <p data-reveal="" style="font-weight:600; font-size:clamp(30px,3.4vw,52px); line-height:1.05; letter-spacing:-0.035em; margin:clamp(56px,7vw,96px) 0 0 0; color:#161617; text-align:center; text-wrap:balance;">Optimal was easy. <span style="font-family:'Newsreader',Georgia,serif; font-style:italic; font-weight:500; letter-spacing:-0.015em;">Buildable</span> was the job.</p>
         <div data-reveal="" data-om-label="Other buildings" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); gap:20px; margin-top:clamp(40px,5vw,64px);">
-          <div data-om-label="Harbin Opera House card" style="display:flex; flex-direction:column; gap:12px; padding:clamp(24px,2.6vw,36px); border-radius:28px; background:#F5F5F3; min-width:0;">
+          <div data-om-label="Harbin Opera House card" style="display:flex; flex-direction:column; gap:12px; padding:clamp(24px,2.6vw,36px); border-radius:28px; background:#F5F5F3; box-shadow:0 0 0 1px rgba(0,0,0,0.04), 0 0 48px -20px rgba(0,0,0,0.16); min-width:0;">
             <div style="display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; font-size:14px; font-weight:500; color:#6E6E73;"><span>MAD Architects · Harbin</span><span>2015</span></div>
             <h3 style="font-weight:600; font-size:clamp(26px,2.6vw,38px); line-height:1.05; letter-spacing:-0.035em; margin:4px 0 0 0; color:#161617; text-wrap:balance;">Harbin Opera House</h3>
             <p style="font-size:16px; line-height:1.55; color:#5E5E63; margin:0; text-wrap:pretty;"><span style="color:#161617; font-weight:500;">My part:</span> parametric timber interior, detailed down to fabrication.</p>
             <img src="assets/harbin/harbin-aerial.webp" alt="Harbin Opera House from above, curving along the Songhua River wetlands" loading="lazy" style="width:100%; aspect-ratio:3/2; object-fit:cover; border-radius:16px; display:block; margin-top:auto;">
           </div>
-          <div data-om-label="Gangxia North hub card" style="display:flex; flex-direction:column; gap:12px; padding:clamp(24px,2.6vw,36px); border-radius:28px; background:#F5F5F3; min-width:0;">
+          <div data-om-label="Gangxia North hub card" style="display:flex; flex-direction:column; gap:12px; padding:clamp(24px,2.6vw,36px); border-radius:28px; background:#F5F5F3; box-shadow:0 0 0 1px rgba(0,0,0,0.04), 0 0 48px -20px rgba(0,0,0,0.16); min-width:0;">
             <div style="display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; font-size:14px; font-weight:500; color:#6E6E73;"><span>AREP · Shenzhen</span><span>2016–2017</span></div>
             <h3 style="font-weight:600; font-size:clamp(26px,2.6vw,38px); line-height:1.05; letter-spacing:-0.035em; margin:4px 0 0 0; color:#161617; text-wrap:balance;">Gangxia North hub</h3>
             <p style="font-size:16px; line-height:1.55; color:#5E5E63; margin:0; text-wrap:pretty;"><span style="color:#161617; font-weight:500;">My part:</span> parametric skylights and entrances for the competition win.</p>
@@ -521,8 +484,8 @@
    </div>
   </main>
 
-  <section id="contact" style="position:relative; overflow:hidden; scroll-margin-top:96px; background-color:#1C1C1E;" data-om-label="Footer" data-screen-label="Contact">
-    <div style="position:relative; z-index:2; max-width:1440px; margin:0 auto; padding:clamp(100px,13vw,180px) clamp(20px,4vw,56px) clamp(28px,3vw,40px);">
+  <section id="contact" style="position:relative; overflow:hidden; margin-top:clamp(24px,2.5vw,32px); scroll-margin-top:96px; background-color:#1C1C1E;" data-om-label="Footer" data-screen-label="Contact">
+    <div style="position:relative; z-index:2; max-width:1440px; margin:0 auto; padding:clamp(40px,4.5vw,64px) clamp(20px,4vw,56px) clamp(28px,3vw,40px);">
       <div style="display:flex; align-items:center; gap:10px; font-size:14px; font-weight:500; color:#8E8E93;"><span style="width:8px; height:8px; border-radius:2px; background:#E7573E; flex:none;"></span><span>If this resonates, let's talk</span></div>
       <h2 style="font-weight:600; font-size:clamp(52px,8.4vw,140px); line-height:0.95; letter-spacing:-0.048em; margin:clamp(20px,2.4vw,32px) 0 0 0; color:#FFFFFF; text-wrap:pretty;">Got a black box nobody uses?</h2>
       <p style="font-size:clamp(17px,1.4vw,21px); line-height:1.55; color:#A1A1A6; max-width:46ch; margin:28px 0 0 0; text-wrap:pretty;">Tell me what it predicts and who ignores it. I'll tell you what I'd build first.</p>
@@ -567,10 +530,10 @@ class Component extends DCLogic {
     window.addEventListener('keydown', this._onLbKey);
   }
   REEL = [
-    { n: '01', t: 'Sit with the people before the model.', b: 'Three months of workshops across markets before anyone opened Figma.', short: 'Sit with the people', img: 'assets/playbook/step-1-trumpet.webp', tint: '#F0A438', pos: '80% 50%' },
-    { n: '02', t: 'Prototype on real data, not slides.', b: 'Figma screens wired to a command-line model on real Heineken data. People trust what they can poke.', short: 'Prototype on real data', img: 'assets/playbook/step-2-prototype.webp', tint: '#E44584', pos: '28% 40%' },
+    { n: '01', t: 'Sit with the people before the model.', b: 'Three months of workshops across markets before anyone drew a screen.', short: 'Sit with the people', img: 'assets/playbook/step-1-trumpet.webp', tint: '#F0A438', pos: '80% 50%' },
+    { n: '02', t: 'Prototype on real data, not slides.', b: 'Clickable screens wired to a command-line model on real Heineken data. People trust what they can poke.', short: 'Prototype on real data', img: 'assets/playbook/step-2-prototype.webp', tint: '#E44584', pos: '28% 40%' },
     { n: '03', t: 'Show the range, not the number.', b: 'Revenue managers with 20 years of Excel habits ran the scenario, saw the confidence, then decided.', short: 'Show the range', img: 'assets/playbook/step-3-scroll.webp', tint: '#7EAE46', pos: '72% 55%' },
-    { n: '04', t: 'Kill the old spreadsheet.', b: 'Adoption isn\u2019t logins; it\u2019s the day the Excel process dies. Smart Flighting replaced one, and the consultancy\u2019s product was switched off.', short: 'Kill the old spreadsheet', img: 'assets/playbook/step-4-tombstone.webp', tint: '#E05038', pos: '40% 45%' },
+    { n: '04', t: 'Kill the old spreadsheet.', b: 'Adoption isn\u2019t logins; it\u2019s the day the Excel process dies. Smart Flighting replaced one, and the consultancy\u2019s product was switched off. With agents, same test: four weeks later, is the old way gone?', short: 'Kill the old spreadsheet', img: 'assets/playbook/step-4-tombstone.webp', tint: '#E05038', pos: '40% 45%' },
   ];
   reelVals() {
     const S = this.REEL, a = this.state.reelA || 0, cyc = this.state.reelCycle || 0, hov = !!this.state.reelHover;
@@ -742,6 +705,17 @@ class Component extends DCLogic {
       const i = this.chatInput.current; if (i) i.blur();
       this.setState({ chatOpen: false });
     }
+  }
+  openChat() { const m = this.bb(); if (m && m.setChat) { m.setChat(true); setTimeout(() => { if (!this.state.chatOpen) this.chatUI(true); }, 60); } else this.chatUI(true); }
+  goCase(e, id) {
+    const el = document.getElementById(id); if (!el) return;
+    if (e && e.preventDefault) e.preventDefault();
+    const cs = getComputedStyle(el), sticky = cs.position === 'sticky', off = sticky ? parseFloat(cs.top) || 100 : 96;
+    const pp = el.style.position; el.style.position = 'static';
+    const y = el.getBoundingClientRect().top + window.scrollY - off;
+    el.style.position = pp;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: Math.max(0, y), behavior: reduce ? 'auto' : 'smooth' });
   }
   closeChat() { const m = this.bb(); if (m && m.setChat && m._chat) m.setChat(false); this.chatUI(false); }
   chatLookInput() {
@@ -996,7 +970,7 @@ class Component extends DCLogic {
     const swIn = (k) => () => { if (this.state.cardSwap !== k) this.setState({ cardSwap: k }); };
     const galP = this.state.galPalette || 'ghost', galOn = (k) => galP === k;
     const mono = this.props.portraitMono ?? true;
-    return { avSize,
+    return { avSize, goAlloc: (e) => this.goCase(e, 'case-alloc'), goPromo: (e) => this.goCase(e, 'case-promo'), goFlight: (e) => this.goCase(e, 'case-flight'), openChat: () => this.openChat(),
       ...this.chatVals(),
       ...this.reelVals(),
       arrowPath: this.arrowPath, arrowHead: this.arrowHead, arrowLabel: this.arrowLabel,
