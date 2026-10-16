@@ -66,11 +66,13 @@ class XinheeEvolve extends HTMLElement {
       Object.assign(this._hud.style, { position: 'absolute', left: '0', right: '0', bottom: '0', width: '100%', pointerEvents: 'none' });
       this.append(this._hud, this._status);
     }
-    this._init();
+    if (this._near) { this._init(); return; }
+    this._nearIO = new IntersectionObserver((es) => { if (!es.some((e) => e.isIntersecting)) return; this._nearIO.disconnect(); this._near = true; this._init(); }, { rootMargin: '900px 0px' });
+    this._nearIO.observe(this);
   }
-  disconnectedCallback() { this._teardown(); }
+  disconnectedCallback() { this._nearIO?.disconnect(); this._teardown(); }
   _say(t) { this._status.textContent = t; this._status.style.opacity = t ? '1' : '0'; }
-  _reload() { if (this.isConnected) { this._teardown(); this._init(); } }
+  _reload() { if (this.isConnected && this._near) { this._teardown(); this._init(); } }
   _opts() { if (this._controls) this._controls.autoRotate = bool(this._v('spin'), true); this._fit?.(); }
   _teardown() {
     this._token = null; cancelAnimationFrame(this._raf);

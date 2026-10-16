@@ -2,7 +2,7 @@
 // mouth-style="cut|crater|pocket|parting|muzzle|lips" (read once). skin="carton|lidbox" (read once): dark cardboard box / paper box with lift-off lid (box-color="black|kraft") instead of fur. attrs: anchor (selector of hero frame) · x, y, x-small, y-small (0–1 position inside anchor) · label · label-ink · grain · dock (right|left|roam) · reduced-motion
 (() => {
 if (customElements.get('black-box-faces')) return;
-const THREE_URL = 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+const THREE_URL = 'https://cdn.jsdelivr.net/npm/three@0.160.0/+esm';
 // render="ink": the lit 3D frame goes through a screen-space pen-and-ink pass (posterised tones → hatching, solid blacks, cream highlights, ~9fps line boil)
 const INK_VERT = `varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }`;
 const INK_FRAG = `
