@@ -47,7 +47,7 @@
     #v3-track-grid > a{ display:grid !important; grid-template-columns:64px minmax(0,1fr); column-gap:20px; align-items:start; }
     #v3-track-grid > a > div{ margin-top:0 !important; min-width:0; }
     #v3-track-grid > a > span{ margin-top:0; }
-    #v3-cases > a{ position:relative !important; top:auto !important; grid-template-columns:minmax(0,1fr) !important; min-height:0 !important; }
+    #v3-cases > a{ position:relative !important; top:auto !important; grid-template-columns:minmax(0,1fr) !important; min-height:0 !important; } #v3-cases > a{ row-gap:0 !important; } #v3-cases > a > div:first-child{ display:contents !important; } #v3-cases > a > div:first-child > div:last-child{ order:1; } #v3-cases > a > div:last-child{ margin-top:clamp(28px,4vw,64px) !important; }
     #hx-bento{ grid-template-columns:minmax(0,1fr) !important; }
     #hx-bento > div{ grid-column:auto !important; grid-row:auto !important; }
     #hx-video{ min-height:0 !important; aspect-ratio:16/10; }
@@ -62,14 +62,13 @@
     #hx-hero-inner{ justify-content:flex-start !important; padding-top:104px !important; }
     #v2-hero-copy{ max-width:none !important; }
     #v2-hero-title{ font-size:clamp(40px,12vw,64px) !important; white-space:normal !important; } #v2-hero-note{ font-size:0.68em !important; margin-left:auto !important; margin-right:0 !important; margin-top:0.08em !important; transform-origin:right center !important; } div:has(> #hx-avatar){ margin-top:52px !important; }
-    [data-nav-full]{ display:none !important; }
-    [data-nav-short]{ display:inline !important; }
+    button[aria-label^="Argue with it"]{ display:none !important; }
     [data-esc-hint]{ display:none !important; }
     #hx-arrow{ display:none !important; }
     [data-vid-extra]{ display:none !important; }
     header nav{ display:flex !important; width:100% !important; justify-content:space-between !important; }
     #hx-dock-sep{ display:none !important; }
-    #probabilities{ padding-top:24px !important; padding-bottom:24px !important; }
+    #probabilities{ padding-top:56px !important; padding-bottom:30svh !important; } #probabilities > div:first-child{ bottom:calc(30svh - 56px) !important; }
   }
   @keyframes pbFill{ from{ width:0; } to{ width:100%; } }
   #pb-reel > [role="button"]:focus{ outline:none; }
@@ -83,6 +82,7 @@
     #pb-reel [data-reel-card]{ min-width:0 !important; width:calc(100% - 36px) !important; }
   }
   @media (prefers-reduced-motion: reduce){ #pb-reel *, #pb-reel{ transition:none !important; } }
+  @media (max-width:359px){ header nav a{ padding-left:11px !important; padding-right:11px !important; } }  /* 320px phones: name + Download CV fit inside the pill */
 </style>
 <script src="./black-box-thoughts.js"></script>
 <script src="./whybox-brain.js"></script>
@@ -96,7 +96,7 @@
         <a href="#highlights" data-nav-opt="" style="display:block; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;">Intro</a>
         <a href="#case-studies" data-nav-opt="" style="display:block; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;">Heineken</a>
         <a href="#yaga" data-nav-opt="" style="display:block; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;">Yaga Labs</a>
-        <a href="#buildings-deep-dive" style="display:block; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;">China</a>
+        <a href="#buildings-deep-dive" data-nav-opt="" style="display:block; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;">China</a>
         <a href="CV_TomaszCzarnecki_Latest.pdf" target="_blank" rel="noopener" style="display:block; padding:8px 16px; border-radius:999px; background:#161617; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#FFFFFF; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#3A3A3D; opacity:1;">Download CV ↓</a>
       </nav>
     </div>
