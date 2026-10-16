@@ -1005,6 +1005,7 @@ class FurMonsterDock extends HTMLElement {
     const tryStore = (k) => { try { return window[k]; } catch (_) { return null; } };
     const kv = (k) => ({ get: (n) => { try { return tryStore(k).getItem(n); } catch (_) { return null; } }, set: (n, v) => { try { tryStore(k).setItem(n, v); } catch (_) {} } });
     const store = kv('localStorage'), sess = kv('sessionStorage');
+    S.parkX = (() => { const v = parseFloat(sess.get('bb_park_x')); if (!Number.isFinite(v) || (this.getAttribute('dock') === 'margin' && v > 0.78)) return null; return clamp(v, 0, 1); })(); // drag-to-park spot (fraction of width); margin mode: right side = back to wandering
     const VT_KEY = 'bb_visitor_type', VT_SEEN = 'bb_chips_seen';
     const ANS = { recruiter: 'updating... 100% recruiter. hire him, he\'s fine.', founder: 'updating... a founder. got a black box nobody trusts?', just_looking: 'updating... a tourist. fine. poke me again.' };
     const NOUN = { recruiter: 'recruiter', founder: 'founder', just_looking: 'tourist' };
@@ -1169,6 +1170,8 @@ class FurMonsterDock extends HTMLElement {
       const margin = Math.max(18, S.W * 0.03) + dr * 1.05;
       const mode = this.getAttribute('dock') || 'right';
       let dx = mode === 'left' ? margin : S.W - margin;
+      let zLo = margin, zHi = S.W - margin; // wander bounds
+      if (mode === 'margin') { const cw = Math.min(S.W, this.num('content-width', 1440)), cr = (S.W + cw) / 2 - clamp(S.W * 0.04, 20, 56); zLo = small ? S.W * 0.55 : clamp(cr - dr * 0.2, margin, zHi - dr * 2.4); } // right gutter, overlapping the content a little
       if (mode === 'roam') {
         if (S.dockX == null) S.dockX = S.W - margin;
         const aim = S.hasPtr && !S.touch && (t - S.lastPtrT) < 6 ? clamp((S.ptr.x + 1) / 2 * S.W, margin, S.W - margin) : S.dockX;
@@ -1207,14 +1210,20 @@ class FurMonsterDock extends HTMLElement {
       } else S.heelGap = 0;
       if (this._cheer && (!heelOn || !(hopOn && !R))) { this._cheer = false; if (heelOn && !R) S.puffV += 4; }
       S.lit = this.getAttribute('light') === 'hero' ? 0 : ease(S.lit ?? 0, smooth(0.15, 0.9, p) * (1 - fe), 6, dt); applyLight(S.lit); // footer zoom returns to the hero light; light="hero" locks it
+      // ── drag to park: hold + drag it along the bottom; it stays where dropped (snaps to an edge when close) ──
+      const parkable = p > 0.985 && fe < 0.02 && !chatOn, parked = S.parkX != null;
+      S.dragOn = !!(G.on && G.drag && parkable);
+      if (S.dragOn) dx = clamp(G.lx - G.offX, margin, S.W - margin);
+      else if (parked) dx = clamp(S.parkX * S.W, margin, S.W - margin);
+      { const hc = S.dragOn ? 'grabbing' : parkable ? 'grab' : 'pointer'; if (hc !== S.hitCur && this.hit) { S.hitCur = hc; this.hit.style.cursor = hc; this.hit.style.touchAction = parkable ? 'none' : 'manipulation'; } }
       // ── hopping along the bottom edge ──
       let hopY = 0, hopSq = 0, hopTilt = 0; S.hopping = false;
       if (hopOn && !R && !chatOn) {
         const hp = S.hop || (S.hop = { x: dx, from: dx, to: dx, t0: -9, dur: 0.6, h: 0, ant: 0.13, dir: 0, next: t + 0.8, landed: true });
-        if (p > 0.985 && fe < 0.02) {
+        if (p > 0.985 && fe < 0.02 && !S.dragOn) {
           // goal: cursor (roam: anywhere · right/left: only over the footer) → else home dock; roam wanders when idle
           // follows the cursor's x anywhere on the page (lagging, stops a little short); home after 6s idle / pointer gone
-          const live = S.hasPtr && !S.touch && !S.ptrOut && (t - S.lastPtrT) < 6 && !((S.fearA || 0) > 0.2) && heelX == null;
+          const live = S.hasPtr && !S.touch && !S.ptrOut && (t - S.lastPtrT) < 6 && !((S.fearA || 0) > 0.2) && heelX == null && !parked && mode !== 'margin';
           let goal = null;
           if (live) {
             const gx = clamp((S.ptr.x + 1) / 2 * S.W, margin, S.W - margin);
@@ -1223,7 +1232,8 @@ class FurMonsterDock extends HTMLElement {
             goal = clamp(Math.abs(g) > stop ? S.ptrXs - Math.sign(g) * stop : hp.x, margin, S.W - margin);
           } else S.ptrXs = null;
           if (heelX != null) goal = heelX;
-          const wander = goal == null && mode === 'roam';
+          if (goal == null && mode === 'margin' && !parked && (hp.x < zLo - 2 || hp.x > zHi + 2)) goal = clamp(hp.x, zLo, zHi); // wandered off (e.g. after heel) → back into the gutter
+          const wander = goal == null && (mode === 'roam' || mode === 'margin') && !parked;
           if (goal == null && !wander) goal = dx;
           const gap = goal == null ? 0 : goal - hp.x, far = Math.abs(gap) > dr * 0.5;
           if (t - hp.t0 > hp.ant + hp.dur && hp.landed && (far ? t > hp.next - 0.35 : wander && t > hp.next)) {
@@ -1231,9 +1241,9 @@ class FurMonsterDock extends HTMLElement {
             hp.from = hp.x;
             if (far) hp.to = hp.x + Math.sign(gap) * Math.min(Math.abs(gap), maxHop);
             else {
-              let dir = Math.random() < 0.5 ? -1 : 1; const dist = (60 + Math.random() * 160) * (small ? 0.55 : 1);
-              if (hp.x + dir * dist > S.W - margin || hp.x + dir * dist < margin) dir = -dir;
-              hp.to = hp.x + dir * dist;
+              let dir = Math.random() < 0.5 ? -1 : 1; const dist = Math.min((60 + Math.random() * 160) * (small ? 0.55 : 1), Math.max(dr, (zHi - zLo) * 0.75));
+              if (hp.x + dir * dist > zHi || hp.x + dir * dist < zLo) dir = -dir;
+              hp.to = clamp(hp.x + dir * dist, zLo, zHi);
             }
             hp.to = clamp(hp.to, margin, S.W - margin);
             hp.dir = Math.sign(hp.to - hp.from) || 1; hp.t0 = t; hp.landed = false; hp.ant = 0.16;
@@ -1258,7 +1268,7 @@ class FurMonsterDock extends HTMLElement {
             S.hopping = true;
           } else if (!hp.landed) {
             hp.landed = true; hp.x = hp.to; S.landV = -3.2; S.puffV += 3.5;
-            hp.next = hp.reach ? t + 0.3 + Math.random() * 0.8 : t + (far ? 0.1 : (Math.random() < 0.35 ? 0.12 : 0.45 + Math.random() * 1.6)) / (1 + S.activity * 2.5);
+            hp.next = hp.reach ? t + 0.3 + Math.random() * 0.8 : t + (far ? 0.1 : (Math.random() < 0.35 ? 0.12 : 0.45 + Math.random() * 1.6)) / (1 + S.activity * 2.5) + (mode === 'margin' && !far ? 0.8 + Math.random() * 2.2 : 0);
           }
         } else { hp.x = dx; hp.landed = true; hp.next = t + 0.5; }
         hp.x = clamp(hp.x, margin, S.W - margin);
@@ -1272,6 +1282,7 @@ class FurMonsterDock extends HTMLElement {
       // arc: dips below the straight line mid-flight so it feels like it drops, not slides
       let tx = hx0 + (dx - hx0) * e;
       let ty = hy0 + (ddy - hy0) * e + Math.sin(e * Math.PI) * S.H * 0.06;
+      if (S.dragOn && !R) ty -= dr * 0.55; // picked up
       let tr = hR + (dr - hR) * Math.pow(e, 0.7);
       if (fe > 0) {
         const fx = S.W * this.num('foot-x', 0.65), fy = S.H * this.num('foot-y', 0.66), frr = Math.max(dr, S.hero.r * this.num('foot-scale', 0.85));
@@ -1292,6 +1303,7 @@ class FurMonsterDock extends HTMLElement {
         S.r = ease(S.r, tr, 9, dt);
       }
       if (p > 0.985 && fe < 0.02 && !chatOn && S.py > ty) { S.py = ty; if (S.vy > 0) S.vy = 0; } // never sink below the floor
+      if (S.dropping && !S.dragOn && S.py >= ty - 2) { S.dropping = false; if (!R) { S.landV = -3.2; S.puffV += 3.5; } } // dropped: land with a squash
       // scroll activity → trotting bob while docked
       const sv = (sc - S.lastScroll) / Math.max(dt, 1 / 240); S.lastScroll = sc;
       S.scrollVel = ease(S.scrollVel, sv, 10, dt);
@@ -1344,7 +1356,7 @@ class FurMonsterDock extends HTMLElement {
       const ptrActive = S.hasPtr && !S.ptrOut && (t - S.lastPtrT) < (S.touch ? 3.5 : 7);
       const distPx = Math.hypot((S.ptr.x - S.cx) * S.W / 2, (S.ptr.y - S.cy) * S.H / 2);
       S.near = ease(S.near, ptrActive && !S.touch ? 1 - smooth(S.rPx * 0.9, S.rPx * 2.0, distPx) : 0, 5, dt);
-      const cur = ptrActive && !S.touch && distPx < S.rPx * 1.35 && hitBody() ? 'pointer' : '';
+      const cur = S.dragOn ? 'grabbing' : ptrActive && !S.touch && distPx < S.rPx * 1.35 && hitBody() ? (p > 0.985 ? 'grab' : 'pointer') : '';
       if (cur !== S.cursor) { S.cursor = cur; cursorEl.style.cursor = cur; }
 
       let lx = 0, ly = 0;
@@ -1384,7 +1396,8 @@ class FurMonsterDock extends HTMLElement {
         creature.rotation.y += Math.sin(t * 14 + 0.6) * 0.07 * wag;
       }
       { // grab & drag: rubber-band follow + squish; holding / tugging makes it cross
-        if (G.on) { S.lastPtrT = t; G.anger = Math.min(1.3, G.anger + dt * (0.32 + Math.min(G.speed, 3000) / 2200)); G.speed *= Math.exp(-6 * dt); }
+        if (G.on && S.dragOn) { S.lastPtrT = t; G.anger = Math.max(0, G.anger - dt * 1.5); G.speed *= Math.exp(-6 * dt); } // being carried: calm, no shake
+        else if (G.on) { S.lastPtrT = t; G.anger = Math.min(1.3, G.anger + dt * (0.32 + Math.min(G.speed, 3000) / 2200)); G.speed *= Math.exp(-6 * dt); }
         else G.anger = Math.max(0, G.anger - dt * 0.3);
         if (G.anger > 0.6) G.mad = true; else if (G.anger < 0.22) G.mad = false;
         const rb = (d) => Math.sign(d) * (1 - Math.exp(-Math.abs(d) / Math.max(S.r * 1.4, 1))) * 0.42;
@@ -1645,7 +1658,7 @@ class FurMonsterDock extends HTMLElement {
     const onHitDown = (e) => {
       if (e.button > 0) return;
       toNdc(e); lpCancel(); LP.id = e.pointerId; LP.x = e.clientX; LP.y = e.clientY;
-      Object.assign(G, { on: true, id: e.pointerId, x0: e.clientX, y0: e.clientY, dx: 0, dy: 0, lx: e.clientX, ly: e.clientY, lt: performance.now(), t0: clock.elapsedTime, moved: 0, speed: 0 });
+      Object.assign(G, { on: true, id: e.pointerId, x0: e.clientX, y0: e.clientY, dx: 0, dy: 0, lx: e.clientX, ly: e.clientY, lt: performance.now(), t0: clock.elapsedTime, moved: 0, speed: 0, drag: false, offX: e.clientX - S.px });
       S.lastPtrT = clock.elapsedTime; if (!this.isReduced()) S.puffV += 1.5;
       try { hit.setPointerCapture(e.pointerId); } catch (_) {}
       if (annoy) LP.timer = setTimeout(longPress, 600);
@@ -1656,11 +1669,14 @@ class FurMonsterDock extends HTMLElement {
         G.speed = G.speed * 0.6 + (d / Math.max((now - G.lt) / 1000, 1 / 240)) * 0.4;
         G.moved += d; G.lx = e.clientX; G.ly = e.clientY; G.lt = now;
         G.dx = e.clientX - G.x0; G.dy = e.clientY - G.y0;
+        if (!G.drag && G.moved > 14) G.drag = true;
+        if (S.dragOn) { G.dx = (e.clientX - G.offX) - S.px; G.dy = 0; } // lean into the drag: lag behind the hand
       }
       if (e.pointerId === LP.id && Math.hypot(e.clientX - LP.x, e.clientY - LP.y) > 14) lpCancel();
     };
     const letGo = () => {
       const t = clock.elapsedTime; S.lastPtrT = t; S.blinkStart = t;
+      if (S.dragOn) { const f = clamp(G.lx - G.offX, 0, S.W) / Math.max(S.W, 1); S.parkX = f < 0.22 ? 0 : f > 0.78 ? 1 : clamp(f, 0, 1); if (this.getAttribute('dock') === 'margin' && f > 0.78) S.parkX = null; sess.set('bb_park_x', S.parkX == null ? '' : String(S.parkX)); S.dragOn = false; G.anger = 0; G.mad = false; G.dx = G.dy = 0; S.dropping = true; S.vy = Math.max(S.vy, 0) + S.r * 6; if (S.hop) { S.hop.x = S.hop.from = S.hop.to = clamp(S.parkX * S.W, 0, S.W); S.hop.landed = true; } }
       if (!this.isReduced()) S.puffV += 3 + G.anger * 5;
     };
     const onHitUp = (e) => {
@@ -1681,6 +1697,8 @@ class FurMonsterDock extends HTMLElement {
     }
     window.addEventListener('pointermove', onMove, { passive: true });
     window.addEventListener('pointerdown', onDown, { passive: true });
+    const endGrab = (e) => { if (G.on && e.pointerId === G.id) { G.on = false; G.id = null; lpCancel(); letGo(); } }; // release even if the up lands off the hit area / capture is lost
+    window.addEventListener('pointerup', endGrab); window.addEventListener('pointercancel', endGrab); if (hit) hit.addEventListener('lostpointercapture', endGrab);
     const onOut = (e) => { if (!e.relatedTarget) S.ptrOut = true; };
     const onBlur = () => { S.ptrOut = true; };
     document.addEventListener('pointerout', onOut); window.addEventListener('blur', onBlur);
@@ -1719,7 +1737,7 @@ class FurMonsterDock extends HTMLElement {
     this.cleanup = () => {
       renderer.setAnimationLoop(null); ro.disconnect(); clearTimeout(LP.timer);
       window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', kick);
-      window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerdown', onDown); document.removeEventListener('pointerout', onOut); window.removeEventListener('blur', onBlur);
+      window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerdown', onDown); window.removeEventListener('pointerup', endGrab); window.removeEventListener('pointercancel', endGrab); document.removeEventListener('pointerout', onOut); window.removeEventListener('blur', onBlur);
       document.removeEventListener('visibilitychange', update); document.removeEventListener('visibilitychange', onVisA);
       cursorEl.style.cursor = '';
       renderer.dispose(); renderer.forceContextLoss();
