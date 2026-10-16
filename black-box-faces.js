@@ -1203,7 +1203,7 @@ class FurMonsterDock extends HTMLElement {
       S.heelA = R ? (heelOn ? 1 : 0) : ease(S.heelA || 0, heelOn ? 1 : 0, heelOn ? 2.5 : 1.6, dt);
       let heelX = null;
       if (heelOn) {
-        heelX = S.heelX = clamp(hz.x + (hz.side || 1) * dr * 1.15, margin, S.W - margin);
+        heelX = S.heelX = clamp(hz.x + (hz.side || 1) * dr * 1.15, mode === 'margin' && !small ? zLo : margin, S.W - margin); // margin mode: cheer her from the gutter, never cross the content
         S.heelGap = (hasLegs ? S.H - 2 : S.H) - hz.y; // how far above the bottom edge her feet are
         S.heelHead = hz.hx != null ? { x: hz.hx, y: hz.hy } : null;
         S.heelFs = hz.fs || null;
