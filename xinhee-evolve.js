@@ -96,14 +96,14 @@ class XinheeEvolve extends HTMLElement {
     const scene = this._scene = new THREE.Scene();
     const cam = this._cam = new THREE.PerspectiveCamera(30, 1, 0.05, 600);
     scene.add(new THREE.HemisphereLight(0xffffff, 0x3a3640, 1.15));
-    const sun = new THREE.DirectionalLight(0xfff3e6, 2.4); sun.position.set(11, 18, 8); sun.castShadow = true;
+    const sun = new THREE.DirectionalLight(this.getAttribute('land') ? 0xffffff : 0xfff3e6, 2.4); sun.position.set(11, 18, 8); sun.castShadow = true;
     Object.assign(sun.shadow.camera, { left: -11, right: 11, top: 11, bottom: -11, near: 0.5, far: 70 });
     sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.03;
     const fill = new THREE.DirectionalLight(0xc9d3ff, 0.55); fill.position.set(-14, 7, -10);
     scene.add(sun, sun.target, fill);
     const ground = new THREE.Mesh(new THREE.PlaneGeometry(300, 300), new THREE.ShadowMaterial({ opacity: 0.5 }));
     ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
-    const disc = new THREE.Mesh(new THREE.CircleGeometry(9.3, 128), new THREE.MeshStandardMaterial({ color: this.getAttribute('theme') === 'light' ? 0xE4E4E1 : 0x121117, roughness: 1, metalness: 0 }));
+    const disc = new THREE.Mesh(new THREE.CircleGeometry(9.3, 128), new THREE.MeshStandardMaterial({ color: this.getAttribute('land') ? new THREE.Color(this.getAttribute('land')) : (this.getAttribute('theme') === 'light' ? 0xE4E4E1 : 0x121117), roughness: 1, metalness: 0 }));
     disc.rotation.x = -Math.PI / 2; disc.scale.set(8.2 / 9.3, 6.4 / 9.3, 1); disc.position.y = -0.01; disc.receiveShadow = true; scene.add(disc);
     const rimPts = []; for (let i = 0; i <= 160; i++) { const t = i / 160 * Math.PI * 2; rimPts.push(new THREE.Vector3(Math.cos(t) * 8.2, -0.005, Math.sin(t) * 6.4)); }
     scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(rimPts), new THREE.LineBasicMaterial({ color: this.getAttribute('theme') === 'light' ? 0xC9C9C5 : 0x3A3842, transparent: true, opacity: 0.8 })));
@@ -117,10 +117,12 @@ class XinheeEvolve extends HTMLElement {
 
     const fit = () => {
       const w = this.clientWidth || 1, H = this.clientHeight || 1;
-      const hh = bool(this._v('hud'), true) ? 150 : 0, hg = hh ? (parseFloat(this.getAttribute('hud-gap')) || 0) : 0, h = Math.max(1, H - hh - hg);
+      const hh = bool(this._v('hud'), true) ? 150 : 0, hg = hh ? (parseFloat(this.getAttribute('hud-gap') ?? this.getAttribute('hudgap')) || 0) : 0;
+      const pad = hh ? Math.min(parseFloat(this.getAttribute('hud-inset') ?? this.getAttribute('hudinset')) || 0, w * 0.06) : 0, hw = Math.max(1, w - pad * 2), h = Math.max(1, H - hh - hg - pad);
       r.setSize(w, h, false); r.domElement.style.height = h + 'px'; cam.aspect = w / h; cam.updateProjectionMatrix();
       if (this._fr && Math.abs((this._frA || 0) - cam.aspect) > 0.05) this._frame(...this._fr);
-      const d = Math.min(devicePixelRatio || 1, 2); this._hud.width = w * d; this._hud.height = hh * d; this._hud.style.height = hh + 'px'; this._hudScale = d;
+      const d = Math.min(devicePixelRatio || 1, 2); this._hud.width = hw * d; this._hud.height = hh * d; this._hud.style.height = hh + 'px'; this._hudScale = d;
+      Object.assign(this._hud.style, { left: pad + 'px', right: 'auto', bottom: pad + 'px', width: hw + 'px' });
     };
     this._fit = fit;
     this._ro = new ResizeObserver(fit); this._ro.observe(this); fit();
@@ -192,7 +194,7 @@ class XinheeEvolve extends HTMLElement {
       // ghost
       if (isFac && !memb) L.ghost = { m: mat('vcg', () => new THREE.MeshStandardMaterial({ color: 0xffffff, vertexColors: true, roughness: 0.55, metalness: 0, side: THREE.DoubleSide })), cast: false, recv: false };
       else if (memb) L.ghost = { m: mat('gm', () => new THREE.MeshStandardMaterial({ color: DEEP, transparent: true, opacity: 0.1, depthWrite: false, side: THREE.DoubleSide })), cast: false, recv: false };
-      else L.ghost = { m: mat(land ? 'gl' : 'gs', () => new THREE.MeshStandardMaterial({ color: land ? 0x6E6B77 : 0x9C99A6, transparent: true, opacity: land ? 0.14 : 0.2, roughness: 0.9, depthWrite: false, side: THREE.DoubleSide })), cast: false, recv: false };
+      else L.ghost = { m: mat(land ? 'gl' : 'gs', () => new THREE.MeshStandardMaterial({ color: land ? (this.getAttribute('land') ? 0xA4AEB9 : 0x6E6B77) : 0x9C99A6, transparent: true, opacity: land ? (this.getAttribute('land') ? 0.08 : 0.14) : 0.2, roughness: 0.9, depthWrite: false, side: THREE.DoubleSide })), cast: false, recv: false };
       // colour
       if (memb) L.color = { m: mat('memb', () => new THREE.MeshStandardMaterial({ color: 0xF6F5F1, emissive: 0x3a3936, transparent: true, opacity: 0.6, roughness: 0.55, metalness: 0, depthWrite: false, side: THREE.DoubleSide })), cast: false, recv: false, ro: 2 };
       else if (isFac && op === 1) L.color = { m: mat('vc', () => new THREE.MeshStandardMaterial({ color: 0xffffff, vertexColors: true, roughness: 0.7, metalness: 0, side: THREE.DoubleSide })), cast: false, recv: true };

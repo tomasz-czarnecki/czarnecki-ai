@@ -29,989 +29,419 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;family=Newsreader:ital,opsz,wght@1,6..72,500&amp;family=Caveat:wght@500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
 <style>
   *{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
   body{ margin:0; background:#FFFFFF; }
   ::selection{ background:#E7573E; color:#FFFFFF; }
   a{ color:#161617; }
-  a:hover{ opacity:0.85; }
-  @media (max-width:1020px){
-    [data-nav-opt]{ display:none !important; }
-  }
-  @media (max-width:600px){
-  }
-  @media (max-width:920px){
-    #v3-track-grid{ grid-template-columns:minmax(0,1fr) !important; gap:40px !important; }
-    #v3-track-grid > a{ display:grid !important; grid-template-columns:64px minmax(0,1fr); column-gap:20px; align-items:start; }
-    #v3-track-grid > a > div{ margin-top:0 !important; min-width:0; }
-    #v3-track-grid > a > span{ margin-top:0; }
-    #v3-cases > a{ position:relative !important; top:auto !important; grid-template-columns:minmax(0,1fr) !important; min-height:0 !important; } #v3-cases > a{ row-gap:0 !important; } #v3-cases > a > div:first-child{ display:contents !important; } #v3-cases > a > div:first-child > div:last-child{ order:1; } #v3-cases > a > div:last-child{ margin-top:clamp(28px,4vw,64px) !important; }
-    #hx-bento{ grid-template-columns:minmax(0,1fr) !important; }
-    #hx-bento > div{ grid-column:auto !important; grid-row:auto !important; }
-    #hx-video{ min-height:0 !important; aspect-ratio:16/10; }
-    #hx-agents{ grid-template-columns:minmax(0,1fr) !important; }
-    #v2-yaga-grid{ grid-template-columns:minmax(0,1fr) !important; gap:36px !important; }
-    #v2-yaga-fig{ order:2; justify-content:flex-start !important; padding-top:84px !important; padding-left:4% !important; }
-    #v2-yaga-box{ height:min(420px, 110vw) !important; }
-    #v2-yaga-bubble{ left:72% !important; bottom:82% !important; max-width:min(200px, 44vw) !important; }
-    #v2-yaga-copy{ padding-bottom:0 !important; }
-  }
-  @media (max-width:760px){
-    #hx-hero-inner{ justify-content:flex-start !important; padding-top:104px !important; }
-    #v2-hero-copy{ max-width:none !important; }
-    #v2-hero-title{ font-size:clamp(40px,12vw,64px) !important; white-space:normal !important; } #v2-hero-note{ font-size:0.68em !important; margin-left:auto !important; margin-right:0 !important; margin-top:0.08em !important; transform-origin:right center !important; } div:has(> #hx-avatar){ margin-top:52px !important; }
-    button[aria-label^="Argue with it"]{ display:none !important; }
-    [data-esc-hint]{ display:none !important; }
-    #hx-arrow{ display:none !important; }
-    [data-vid-extra]{ display:none !important; }
-    header nav{ display:flex !important; width:100% !important; justify-content:space-between !important; }
-    #hx-dock-sep{ display:none !important; }
-    #probabilities{ padding-top:56px !important; padding-bottom:30svh !important; } #probabilities > div:first-child{ bottom:calc(30svh - 56px) !important; }
-  }
-  @keyframes pbFill{ from{ width:0; } to{ width:100%; } }
-  #pb-reel > [role="button"]:focus{ outline:none; }
-  #pb-reel > [role="button"]:focus-visible{ outline:2px solid #E7573E; outline-offset:4px; }
-  @media (max-width:760px){
-    #pb-reel{ flex-direction:column !important; height:auto !important; }
-    #pb-reel > [role="button"]{ flex:none !important; height:76px; }
-    #pb-reel > [data-on="true"]{ height:min(460px,120vw); }
-    #pb-reel [data-reel-lab]{ flex-direction:row !important; align-items:center !important; justify-content:flex-start !important; gap:8px; bottom:auto !important; }
-    #pb-reel [data-reel-title]{ writing-mode:horizontal-tb !important; transform:none !important; padding:7px 14px !important; }
-    #pb-reel [data-reel-card]{ min-width:0 !important; width:calc(100% - 36px) !important; }
-  }
-  @media (prefers-reduced-motion: reduce){ #pb-reel *, #pb-reel{ transition:none !important; } }
-  @media (max-width:359px){ header nav a{ padding-left:11px !important; padding-right:11px !important; } }  /* 320px phones: name + Download CV fit inside the pill */
+  a:hover{ color:#E7573E; }
+  @media (max-width:1020px){ [data-nav-opt]{ display:none !important; } }
+  @media (max-width:760px){ [data-nav-full]{ display:none !important; } [data-nav-short]{ display:inline !important; } header nav{ display:flex !important; width:100% !important; justify-content:space-between !important; } }
+  @media (max-width:1040px){ #v20-steps{ grid-template-columns:repeat(2,minmax(0,1fr)) !important; } }
+  @media (max-width:860px){ #v20-builds{ grid-template-columns:minmax(0,1fr) !important; } }
+  @media (max-width:720px){ #v21-projects{ grid-template-columns:minmax(0,1fr) !important; } }
+  @media (max-width:560px){ #v20-steps{ grid-template-columns:minmax(0,1fr) !important; } }
+  @media (max-width:560px){ [data-side-lbl]{ left:0 !important; right:auto !important; top:16px !important; transform:translateX(-50%) !important; text-align:center !important; max-width:28vw !important; } [data-lbl-up]{ top:auto !important; bottom:16px !important; } }
 </style>
-<script src="./black-box-thoughts.js"></script>
-<script src="./whybox-brain.js"></script>
 </helmet>
 <div style="background:#FFFFFF; color:#161617; font-family:'Geist',system-ui,sans-serif; -webkit-font-smoothing:antialiased; overflow-x:clip;" data-om-label="Body">
 
-  <header style="position:fixed; top:12px; left:0; right:0; z-index:50; pointer-events:none;">
-    <div style="max-width:1440px; margin:0 auto; padding:0 clamp(12px,4vw,56px); display:flex; justify-content:center;">
-      <nav style="pointer-events:auto; display:inline-flex; align-items:center; gap:clamp(0px,0.4vw,6px); max-width:100%; padding:5px; border-radius:999px; background:rgba(255,255,255,0.9); -webkit-backdrop-filter:saturate(180%) blur(18px); backdrop-filter:saturate(180%) blur(18px); box-shadow:0 18px 44px -14px rgba(0,0,0,0.16), 0 2px 8px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.035);">
-        <a href="#top" onClick="{{ toTop }}" style="display:flex; align-items:center; gap:9px; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:600; letter-spacing:-0.015em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;"><span style="width:10px; height:10px; border-radius:3px; background:#E7573E; flex:none;"></span><span data-nav-full="">Tomasz Czarnecki</span><span data-nav-short="" style="display:none;">TC</span></a>
-        <a href="#highlights" data-nav-opt="" style="display:block; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;">Intro</a>
-        <a href="#case-studies" data-nav-opt="" style="display:block; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;">Heineken</a>
-        <a href="#yaga" data-nav-opt="" style="display:block; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;">Yaga Labs</a>
-        <a href="#buildings-deep-dive" data-nav-opt="" style="display:block; padding:8px 15px; border-radius:999px; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#161617; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0; opacity:1;">China</a>
-        <a href="CV_TomaszCzarnecki_Latest.pdf" target="_blank" rel="noopener" style="display:block; padding:8px 16px; border-radius:999px; background:#161617; font-size:14px; font-weight:500; letter-spacing:-0.01em; color:#FFFFFF; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#3A3A3D; opacity:1;">Download CV ↓</a>
+  <header style="position:fixed; top:14px; left:0; right:0; z-index:50; pointer-events:none;">
+    <div style="max-width:1200px; margin:0 auto; padding:0 clamp(12px,4vw,40px); display:flex; justify-content:center;">
+      <nav style="pointer-events:auto; display:inline-flex; align-items:center; gap:2px; max-width:100%; padding:4px 4px 4px 6px; border-radius:999px; background:rgba(255,255,255,0.86); -webkit-backdrop-filter:saturate(160%) blur(14px); backdrop-filter:saturate(160%) blur(14px); box-shadow:inset 0 0 0 1px #E5E5E2;">
+        <a href="#top" onClick="{{ toTop }}" style="display:flex; align-items:center; gap:9px; padding:8px 12px; font-size:14px; font-weight:600; letter-spacing:-0.015em; color:#161617; text-decoration:none; white-space:nowrap;" style-hover="color:#161617;"><span style="width:8px; height:8px; border-radius:2px; background:#E7573E; flex:none;"></span><span data-nav-full="">Tomasz Czarnecki</span><span data-nav-short="" style="display:none;">TC</span></a>
+        <span data-nav-opt="" style="width:1px; height:16px; background:#E5E5E2; margin:0 6px; flex:none;"></span>
+        <a href="#about" data-nav-opt="" style="display:block; padding:8px 12px; font-size:14px; color:#6E6E73; text-decoration:none; white-space:nowrap; transition:color 0.2s ease;" style-hover="color:#161617;">About</a>
+        <a href="#heineken" data-nav-opt="" style="display:block; padding:8px 12px; font-size:14px; color:#6E6E73; text-decoration:none; white-space:nowrap; transition:color 0.2s ease;" style-hover="color:#161617;">Heineken</a>
+        <a href="#yaga" data-nav-opt="" style="display:block; padding:8px 12px; font-size:14px; color:#6E6E73; text-decoration:none; white-space:nowrap; transition:color 0.2s ease;" style-hover="color:#161617;">Yaga Labs</a>
+        <a href="#architecture" style="display:block; padding:8px 12px; font-size:14px; color:#6E6E73; text-decoration:none; white-space:nowrap; transition:color 0.2s ease;" style-hover="color:#161617;">China</a>
+        <a href="CV_TomaszCzarnecki_Latest.pdf" target="_blank" rel="noopener" style="display:block; margin-left:6px; padding:7px 14px; border-radius:999px; box-shadow:inset 0 0 0 1px #D6D6D3; font-size:14px; color:#161617; text-decoration:none; white-space:nowrap; transition:box-shadow 0.2s ease;" style-hover="box-shadow:inset 0 0 0 1px #161617; color:#161617;">CV ↓</a>
       </nav>
     </div>
   </header>
 
-  <div id="bb-chat" onClick="{{ chatBgClick }}" data-chat-bg="" role="dialog" aria-modal="true" aria-label="Chat with Mr Whybox" aria-hidden="{{ chatHidden }}" data-om-label="Whybox chat" style="position: fixed; inset: 0; z-index: 60; background: rgba(255,255,255,0.86); -webkit-backdrop-filter: blur(16px) saturate(140%); backdrop-filter: blur(16px) saturate(140%); opacity: {{ chatOp }}; visibility: {{ chatVis }}; pointer-events: {{ chatPE }}; transition: opacity 0.4s ease, visibility 0.4s">
-    <div data-chat-bg="" style="height:100%; max-width:680px; margin:0 auto; padding:16px clamp(16px,3vw,24px) clamp(14px,2vw,22px); display:flex; flex-direction:column; transform:{{ chatShift }}; transition:transform 0.55s cubic-bezier(.2,.8,.2,1);">
-      <div style="flex:none; display:flex; align-items:center; justify-content:space-between; gap:12px;">
-        <div style="display:flex; align-items:center; gap:10px; min-width:0; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#6E6E73;"><span style="width:7px; height:7px; border-radius:2px; background:#E7573E; flex:none;"></span><span>Mr Whybox.ai</span></div>
-        <button type="button" onClick="{{ closeChat }}" aria-label="Close chat" style="appearance:none; border:0; cursor:pointer; flex:none; display:inline-flex; align-items:center; gap:10px; padding:8px 8px 8px 16px; border-radius:999px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #D6D6D3; font-family:inherit; font-size:14px; font-weight:500; color:#161617; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0;">Close<span data-esc-hint="" style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10px; letter-spacing:0.08em; padding:4px 7px; border-radius:999px; background:#F2F2F0; color:#6E6E73;">ESC</span></button>
+  <main id="top">
+
+    <section data-om-label="Hero" data-screen-label="Hero" style="position:relative; isolation:isolate; overflow:hidden; min-height:100svh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; background:#FFFFFF; padding:clamp(104px,14vh,150px) clamp(20px,4vw,40px) 28px;">
+      <sc-if value="{{ pond }}" hint-placeholder-val="{{ true }}">
+        <div data-om-label="Koi pond" aria-hidden="true" style="position:absolute; inset:0; z-index:-1; pointer-events:none;">
+          <x-import component-from-global-scope="koi-pond" from="./koi-pond.js?v=4" ink="#161617" bg="#FFFFFF" fish="{{ pondFish }}" alpha="{{ pondAlpha }}" hint-size="100%,100%" style="position:absolute; inset:0; pointer-events:none;"></x-import>
+        </div>
+      </sc-if>
+      <div style="flex:1; min-height:0;"></div>
+      <div style="width:clamp(150px,15vw,200px); aspect-ratio:1; border-radius:50%; overflow:hidden; background:#E7573E; flex:none;"><img src="assets/tomasz_hoodie.webp" alt="Tomasz Czarnecki" style="display:block; width:100%; height:100%; object-fit:cover; filter:grayscale(1) brightness(1.3) contrast(0.88);"></div>
+      <h1 style="margin:clamp(32px,4vw,48px) 0 0 0; font-weight:500; font-size:clamp(36px,4.8vw,68px); line-height:1.05; letter-spacing:-0.04em; color:#161617; text-wrap:balance; max-width:16ch;">Dots, <span style="color:#E7573E;">connected.</span></h1>
+      <p style="margin:clamp(18px,2vw,24px) 0 0 0; font-size:clamp(16px,1.3vw,19px); line-height:1.5; color:#6E6E73; text-wrap:balance;">AI Product Manager &amp; Builder. Three AI systems, €2.9B budget. A decade in China.</p>
+      <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:clamp(28px,3vw,40px);">
+        <a href="#contact" style="display:inline-flex; align-items:center; padding:13px 24px; border-radius:999px; background:#161617; color:#FFFFFF; font-size:15px; font-weight:500; text-decoration:none;" style-hover="background:#3A3A3D; color:#FFFFFF;">Let’s talk</a>
+        <a href="https://github.com/tomasz-czarnecki" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:9px; padding:13px 24px; border-radius:999px; box-shadow:inset 0 0 0 1px #D6D6D3; color:#161617; font-size:15px; font-weight:500; text-decoration:none;" style-hover="box-shadow:inset 0 0 0 1px #161617; color:#161617;"><svg width="17" height="17" viewBox="0 0 16 16" aria-hidden="true" style="display:block; flex:none;"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.590 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.950 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z"></path></svg>My GitHub</a>
       </div>
-      <div id="bb-chat-seat" data-chat-bg="" style="flex:none; height:clamp(140px,27vh,260px);"></div>
-      <div ref="{{ chatLog }}" style="flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain; display:flex; flex-direction:column; gap:14px; padding:20px 4px 18px; -webkit-mask-image:linear-gradient(180deg, transparent 0, #000 22px); mask-image:linear-gradient(180deg, transparent 0, #000 22px);">
-        <div style="margin-top:auto;"></div>
-        <sc-for list="{{ chatMsgs }}" as="m" hint-placeholder-count="0">
-          <sc-if value="{{ m.bot }}" hint-placeholder-val="{{ false }}">
-            <div style="display:flex; flex-direction:column; align-items:flex-start; gap:10px; max-width:min(88%, 560px);">
-              <div style="padding:13px 18px 14px; background:#FFFFFF; border:1.2px solid #1A1814; border-radius:20px 22px 22px 6px; box-shadow:2px 2px 0 #1A1814; font-family:'Geist Mono',ui-monospace,monospace; font-weight:500; font-size:13.5px; line-height:1.6; letter-spacing:0.01em; color:#1A1814; text-wrap:pretty;">{{ m.shown }}</div>
-              <sc-if value="{{ m.hasLinks }}" hint-placeholder-val="{{ false }}">
-                <div style="display:flex; flex-wrap:wrap; gap:8px;">
-                  <sc-for list="{{ m.links }}" as="l" hint-placeholder-count="0">
-                    <a href="{{ l.href }}" target="{{ l.target }}" rel="noopener" onClick="{{ l.go }}" style="display:inline-flex; align-items:center; padding:9px 15px; border-radius:999px; background:#161617; color:#FFFFFF; font-size:13.5px; font-weight:500; text-decoration:none; white-space:nowrap; transition:background-color 0.25s ease;" style-hover="background:#3A3A3D; opacity:1;">{{ l.label }}</a>
-                  </sc-for>
-                </div>
-              </sc-if>
-            </div>
+      <div style="flex:1; min-height:40px;"></div>
+      <a href="#about" style="display:flex; flex-direction:column; align-items:center; gap:10px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#8E8E93; text-decoration:none;" style-hover="color:#161617;">Scroll<span style="width:1px; height:28px; background:#D6D6D3;"></span></a>
+    </section>
+
+
+    <section id="about" data-om-label="About" data-screen-label="About" style="padding:clamp(80px,10vw,150px) clamp(20px,4vw,40px); scroll-margin-top:88px; border-top:1px solid #EDEDEA;">
+      <div style="max-width:1200px; margin:0 auto; display:flex; flex-direction:column; align-items:center; text-align:center;">
+        <div style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:#6E6E73;"><span style="width:6px; height:6px; border-radius:1px; background:#E7573E;"></span>About</div>
+        <h2 data-reveal="" style="margin:20px 0 0 0; font-weight:500; font-size:clamp(34px,4.2vw,58px); line-height:1.08; letter-spacing:-0.035em; text-wrap:balance; max-width:20ch;">First person in, three times.</h2>
+        <p data-reveal="" style="margin:24px 0 0 0; font-size:clamp(16px,1.25vw,18px); line-height:1.65; color:#6E6E73; max-width:62ch; text-wrap:pretty;">The first hire at a Chinese architecture firm’s European office, set up in Poland from zero. One of two founding members of <strong style="color:#161617; font-weight:600;">MAD Architects</strong>’ parametric design group in Beijing. The first product person in <strong style="color:#161617; font-weight:600;">Heineken</strong>’s Global Analytics &amp; AI Hub. Each time, the hard part wasn’t building the thing. It was getting people to use it.</p>
+        <div data-reveal="" data-om-label="Intro video" style="position:relative; width:100%; max-width:960px; aspect-ratio:16 / 10; margin-top:clamp(48px,6vw,80px); border-radius:16px; overflow:hidden; background:#1C1C1E;">
+          <sc-if value="{{ introPlaying }}" hint-placeholder-val="{{ false }}">
+            <iframe src="{{ embedUrl }}" title="Tomasz Czarnecki: introduction" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="" style="position:absolute; inset:0; width:100%; height:100%; border:0;"></iframe>
           </sc-if>
-          <sc-if value="{{ m.me }}" hint-placeholder-val="{{ false }}">
-            <div style="align-self:flex-end; max-width:min(80%, 480px); padding:11px 17px 12px; background:#161617; color:#FFFFFF; border-radius:20px 20px 6px 20px; font-size:15px; line-height:1.45; letter-spacing:-0.005em; text-wrap:pretty;">{{ m.text }}</div>
+          <sc-if value="{{ introIdle }}" hint-placeholder-val="{{ true }}">
+            <button type="button" onClick="{{ playIntro }}" aria-label="Play the 90-second introduction" style="position:absolute; inset:0; width:100%; height:100%; margin:0; padding:0; border:0; cursor:pointer; background:transparent; display:block; font:inherit;">
+              <img loading="lazy" src="https://i.ytimg.com/vi/y4ujczQ-hPs/maxresdefault.jpg?v=20261012" alt="Introduction video thumbnail" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
+              <span style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); pointer-events:none; width:72px; height:72px; border-radius:999px; background:rgba(255,255,255,0.95); display:flex; align-items:center; justify-content:center;"><span style="display:block; width:0; height:0; border-style:solid; border-width:11px 0 11px 18px; border-color:transparent transparent transparent #161617; margin-left:4px;"></span></span>
+            </button>
           </sc-if>
-        </sc-for>
-      </div>
-      <div style="flex:none; display:flex; flex-direction:column; gap:12px;">
-        <sc-if value="{{ chatHasChips }}" hint-placeholder-val="{{ false }}">
-          <div style="display:flex; flex-wrap:wrap; gap:8px;">
-            <sc-for list="{{ chatChips }}" as="c" hint-placeholder-count="0">
-              <button type="button" onClick="{{ c.go }}" style="appearance:none; border:0; cursor:pointer; padding:9px 15px; border-radius:999px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #D6D6D3; font-family:inherit; font-size:13.5px; font-weight:500; color:#161617; text-align:left; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0;">{{ c.label }}</button>
-            </sc-for>
-          </div>
-        </sc-if>
-        <form onSubmit="{{ chatSubmit }}" style="display:flex; align-items:center; gap:8px; padding:6px 6px 6px 22px; border-radius:999px; background:#FFFFFF; box-shadow:0 18px 44px -14px rgba(0,0,0,0.16), 0 0 0 1px #D6D6D3;">
-          <input ref="{{ chatInput }}" value="{{ chatDraft }}" onChange="{{ chatType }}" onFocus="{{ chatFocus }}" onBlur="{{ chatBlur }}" placeholder="Ask me anything…" aria-label="Ask Mr Whybox a question" autocomplete="off" maxlength="240" style="flex:1; min-width:0; border:0; outline:none; background:transparent; font-family:inherit; font-size:16px; color:#161617; padding:10px 0;">
-          <button type="submit" disabled="{{ chatCantSend }}" aria-label="Send" style="appearance:none; border:0; flex:none; width:44px; height:44px; border-radius:999px; background:{{ chatSendBg }}; color:#FFFFFF; cursor:pointer; display:flex; align-items:center; justify-content:center; font-family:inherit; font-size:19px; font-weight:500; transition:background-color 0.25s ease;">↑</button>
-        </form>
-        <div style="font-size:12.5px; line-height:1.4; color:#6E6E73; text-align:center; text-wrap:balance;">Answers come from what Tomasz has taught me. No language model yet.</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="pol-lb" onClick="{{ lbBgClick }}" data-lb-bg="" role="dialog" aria-modal="true" aria-label="Photos from China" aria-hidden="{{ lbHidden }}" data-om-label="Photo carousel" style="position:fixed; inset:0; z-index:70; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(20px,3vh,32px); padding:clamp(72px,9vh,96px) clamp(16px,4vw,56px) clamp(20px,4vh,40px); background:rgba(255,255,255,0.9); -webkit-backdrop-filter:blur(16px) saturate(140%); backdrop-filter:blur(16px) saturate(140%); opacity:{{ lbOp }}; visibility:{{ lbVis }}; pointer-events:{{ lbPE }}; transition:opacity 0.35s ease, visibility 0.35s;">
-    <button type="button" onClick="{{ lbClose }}" aria-label="Close photos" style="position:absolute; top:16px; right:clamp(16px,3vw,24px); appearance:none; border:0; cursor:pointer; display:inline-flex; align-items:center; gap:10px; padding:8px 8px 8px 16px; border-radius:999px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #D6D6D3; font-family:inherit; font-size:14px; font-weight:500; color:#161617; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0;">Close<span data-esc-hint="" style="font-family:'Geist Mono',ui-monospace,monospace; font-size:10px; letter-spacing:0.08em; padding:4px 7px; border-radius:999px; background:#F2F2F0; color:#6E6E73;">ESC</span></button>
-    <figure style="margin:0; min-width:0; max-width:min(880px, 100%); display:flex; flex-direction:column; padding:clamp(10px,1.4vw,18px) clamp(10px,1.4vw,18px) 0; background:#FFFFFF; box-shadow:0 2px 4px rgba(0,0,0,0.06), 0 40px 80px -30px rgba(0,0,0,0.4); transform:{{ lbTilt }}; transition:transform 0.55s cubic-bezier(.2,.8,.2,1);">
-      <img ref="{{ lbImg }}" alt="{{ lbAlt }}" style="display:block; max-width:100%; max-height:58vh; width:auto; height:auto; object-fit:contain; background:#EDEDEA;">
-      <figcaption style="display:flex; flex-direction:column; gap:4px; max-width:48ch; padding:clamp(14px,1.6vw,20px) 6px clamp(20px,2.4vw,30px);">
-        <span style="font-family:'Caveat',cursive; font-weight:600; font-size:clamp(28px,2.6vw,36px); line-height:1.02; color:#1E1E20;">{{ lbTitle }}</span>
-        <span style="font-family:'Caveat',cursive; font-weight:500; font-size:clamp(21px,1.8vw,25px); line-height:1.2; color:#4A4A4E; text-wrap:pretty;">{{ lbText }}</span>
-      </figcaption>
-    </figure>
-    <div data-lb-bg="" style="display:flex; align-items:center; gap:18px;">
-      <button type="button" onClick="{{ lbPrev }}" aria-label="Previous photo" style="appearance:none; border:0; cursor:pointer; flex:none; width:48px; height:48px; border-radius:999px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #D6D6D3; color:#161617; font-family:inherit; font-size:18px; display:flex; align-items:center; justify-content:center; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0;">←</button>
-      <span style="min-width:64px; text-align:center; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.16em; color:#6E6E73;">{{ lbCount }}</span>
-      <button type="button" onClick="{{ lbNext }}" aria-label="Next photo" style="appearance:none; border:0; cursor:pointer; flex:none; width:48px; height:48px; border-radius:999px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #D6D6D3; color:#161617; font-family:inherit; font-size:18px; display:flex; align-items:center; justify-content:center; transition:background-color 0.25s ease;" style-hover="background:#F2F2F0;">→</button>
-    </div>
-  </div>
-
-  <main id="top" style="width: 100%; background: #FFFFFF">
-
-    <div id="intro-pin" style="position:relative; height:calc(100svh + 110vh); min-height:calc(600px + 110vh);">
-    <div id="intro-stick" style="position:sticky; top:0; height:100svh; min-height:600px; overflow:hidden; background-color:#FFFFFF;">
-    <section id="v2-hero" style="position:relative; overflow:clip; background:transparent;" data-om-label="Hero" data-screen-label="Hero">
-      <div id="v2-hero-frame" style="position: relative; height: 100svh; min-height: 600px; background: transparent; overflow: hidden">
-        <sc-if value="{{ bbFur }}" hint-placeholder-val="{{ true }}">
-        <x-import component-from-global-scope="black-box-faces" from="./black-box-faces.js" mouth-style="crater" lip-scale="0.75" lip-color="pink" dish="0.11" dish-floor="0.2" expression="{{ bbFace }}" chat="on" anchor="#v2-hero-frame" hold="#intro-pin" footer="#contact" foot-x="0.84" foot-y="0.73" foot-scale="0.58" dock="{{ dockMode }}" hop="{{ hopAttr }}" thoughts="annoying" light="hero" key-light="front" x="0.72" y="0.49" x-small="0.5" y-small="0.77" hold-x-small="0.5" hold-y-small="0.8" scale-small="0.67" label-drop-small="22" scale="0.9" max-r="200" max-r-soft="0.3" bubble-small="1.05" label="Mr Whybox.ai · double-click to chat" label-ink="#6E6E73" grain="0.042" hint-size="100%,100%" style="position:absolute; inset:0; z-index:1; pointer-events:none;"></x-import>
-        </sc-if>
-        <sc-if value="{{ bbInk }}" hint-placeholder-val="{{ false }}">
-        <x-import component-from-global-scope="black-box-faces" from="./black-box-faces.js" render="ink" mouth-style="crater" lip-scale="0.75" lip-color="white" dish="0.11" dish-floor="0.2" expression="{{ bbFace }}" chat="on" anchor="#v2-hero-frame" hold="#intro-pin" footer="#contact" foot-x="0.84" foot-y="0.73" foot-scale="0.58" dock="{{ dockMode }}" hop="{{ hopAttr }}" thoughts="annoying" light="hero" key-light="front" x="0.72" y="0.49" x-small="0.5" y-small="0.77" hold-x-small="0.5" hold-y-small="0.8" scale-small="0.67" label-drop-small="22" scale="0.9" max-r="200" max-r-soft="0.3" bubble-small="1.05" label="Mr Whybox.ai · double-click to chat" label-ink="#6E6E73" grain="0.042" hint-size="100%,100%" style="position:absolute; inset:0; z-index:1; pointer-events:none;"></x-import>
-        </sc-if>
-        <sc-if value="{{ bbCarton }}" hint-placeholder-val="{{ false }}">
-        <x-import component-from-global-scope="black-box-faces" from="./black-box-faces.js" skin="carton" mouth-style="crater" lip-scale="0.75" lip-color="pink" dish="0.11" dish-floor="0.2" expression="{{ bbFace }}" chat="on" anchor="#v2-hero-frame" hold="#intro-pin" footer="#contact" foot-x="0.84" foot-y="0.73" foot-scale="0.58" dock="{{ dockMode }}" hop="{{ hopAttr }}" thoughts="annoying" light="hero" key-light="front" x="0.72" y="0.49" x-small="0.5" y-small="0.77" hold-x-small="0.5" hold-y-small="0.8" scale-small="0.67" label-drop-small="22" scale="0.9" max-r="200" max-r-soft="0.3" bubble-small="1.05" label="Mr Whybox.ai · double-click to chat" label-ink="#6E6E73" grain="0.042" hint-size="100%,100%" style="position:absolute; inset:0; z-index:1; pointer-events:none;"></x-import>
-        </sc-if>
-        <div id="hx-arrow" aria-hidden="true" style="position:absolute; inset:0; z-index:2; pointer-events:none; display:none; opacity:0;">
-          <svg width="100%" height="100%" style="position:absolute; inset:0; overflow:visible;"><path id="hx-arrow-path" ref="{{ arrowPath }}" d="M0 0" fill="none" stroke="#E7573E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path><path ref="{{ arrowHead }}" d="M0 0" fill="none" stroke="#E7573E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path><text ref="{{ arrowLabel }}" dy="-12" style="font-family:'Caveat',cursive; font-weight:600; font-size:clamp(24px,2vw,32px); fill:#E7573E; opacity:0; transition:opacity 0.5s ease 0.6s;"><textPath href="#hx-arrow-path" startOffset="50%" text-anchor="middle">this is a black box</textPath></text></svg>
         </div>
-        <div id="hx-hero-inner" data-hero-fade="" style="position: relative; z-index: 3; height: 100%; max-width: 1440px; margin: 0 auto; padding: clamp(32px,4vw,64px) clamp(20px,4vw,56px); display: flex; flex-direction: column; justify-content: center; pointer-events: none; will-change: opacity,transform">
-          <div id="v2-hero-copy" style="min-width:0; max-width:min(64%, 920px); pointer-events:auto;">
-            
-            <div style="display: none; align-items: center; gap: 10px; font-family: 'Geist Mono',ui-monospace,monospace; font-size: clamp(11px,1vw,12.5px); letter-spacing: 0.14em; text-transform: uppercase; color: #6E6E73; margin: 0 0 clamp(26px,3vw,44px) 0"><span style="width: 7px; height: 7px; border-radius: 2px; background: #E7573E; flex: none; display: none"></span><span>Uncertainty → Trust → Adoption</span></div><h1 id="v2-hero-title" style="font-family:'Newsreader',Georgia,serif; font-style:italic; font-weight:500; font-size:clamp(52px,6.6vw,120px); line-height:0.98; letter-spacing:-0.02em; margin:0; color:#161617; white-space:nowrap;">Everybody uses<br>a <span style="font-family:'Geist',system-ui,sans-serif; font-style:normal; font-weight:600; letter-spacing:-0.045em; white-space:nowrap;">black box.</span><span id="v2-hero-note" style="display:block; width:max-content; font-family:'Caveat',cursive; font-style:normal; font-weight:600; font-size:0.5em; line-height:1; letter-spacing:0.01em; color:#E7573E; transform:rotate(-4deg); transform-origin:left center; margin:0.32em 0 0 5.6em;">Nobody argues with it.</span></h1>
-            <div style="display:flex; align-items:center; gap:10px; margin-top:clamp(28px,3.2vw,44px);">
-              <div id="hx-avatar" style="flex:none; width:{{ avSize }}; height:{{ avSize }}; aspect-ratio:1; border-radius:999px; overflow:hidden; background:#E04E3C;">
-                <sc-if value="{{ portraitMono }}" hint-placeholder-val="{{ true }}"><img src="assets/tomasz_orange_sm.webp" alt="Tomasz Czarnecki" style="width:100%; height:100%; object-fit:cover; object-position:50% 50%; display:block;"></sc-if>
-                <sc-if value="{{ portraitColor }}" hint-placeholder-val="{{ false }}"><img src="assets/tomasz_orange_sm.webp" alt="Tomasz Czarnecki" style="width:100%; height:100%; object-fit:cover; object-position:50% 50%; display:block;"></sc-if>
-              </div>
-              <div id="hx-id-text" style="min-width:0; display:flex; flex-direction:column; gap:3px;">
-              <div style="font-weight:600; font-size:clamp(17px,1.3vw,19px); line-height:1.1; letter-spacing:-0.015em; color:#161617;">Tomasz Czarnecki</div>
-              <div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:clamp(12px,1vw,13px); font-weight:500; line-height:1.1; letter-spacing:0.12em; text-transform:uppercase; color:#161617;">AI Product Manager &amp; Builder</div>
-              <p id="hx-hero-body" style="font-family:'Newsreader',Georgia,serif; font-style:italic; font-weight:400; font-size:clamp(15px,1.1vw,16px); line-height:1.15; letter-spacing:-0.005em; color:#86868B; max-width:46ch; margin:0; text-wrap:pretty;">Ex-Heineken · AI adoption</p>
-              </div>
-            </div>
-            <div style="display:flex; flex-wrap:wrap; align-items:center; gap:14px 24px; margin-top:clamp(24px,2.8vw,36px);">
-              <a href="#contact" style="display:inline-flex; align-items:center; padding:14px 26px; border-radius:999px; background:#E7573E; color:#FFFFFF; font-size:15px; font-weight:500; text-decoration:none; white-space:nowrap;" style-hover="background:#C9452E; opacity:1;">Get in touch</a>
-              <button type="button" onClick="{{ openChat }}" aria-label="Argue with it: open the Mr Whybox chat" style="display:inline-flex; align-items:center; gap:8px; padding:13px 24px; border-radius:999px; background:transparent; border:1px solid #D2D2D7; color:#161617; font-family:inherit; font-size:15px; font-weight:500; cursor:pointer; white-space:nowrap; transition:border-color 0.2s ease, background-color 0.2s ease;" style-hover="border-color:#161617; background:#F5F5F3;">Argue with it <span aria-hidden="true">→</span></button>
-            </div>
+        <div style="margin-top:16px; font-size:14px; color:#8E8E93;">Ninety seconds, in person.</div>
+        <div data-reveal="" data-om-label="Logos" style="width:100%; margin-top:clamp(64px,8vw,112px); padding-top:clamp(40px,5vw,56px); border-top:1px solid #EDEDEA; display:flex; flex-direction:column; align-items:center; gap:clamp(28px,3vw,40px);">
+          <span style="font-size:13px; color:#8E8E93;">Worked at and built for</span>
+          <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:28px clamp(32px,4.4vw,64px); max-width:1040px;">
+            <img loading="lazy" src="assets/heineken-logo.svg" alt="Heineken" style="height:26px; width:auto; display:block; filter:brightness(0); opacity:0.55; transition:opacity 0.25s ease;" style-hover="opacity:0.9;">
+            <img loading="lazy" src="assets/mad-logo.svg" alt="MAD Architects" style="height:26px; width:auto; display:block; filter:brightness(0); opacity:0.55; transition:opacity 0.25s ease;" style-hover="opacity:0.9;">
+            <img loading="lazy" src="assets/arep-logo.svg" alt="AREP" style="height:26px; width:auto; display:block; filter:brightness(0); opacity:0.55; transition:opacity 0.25s ease;" style-hover="opacity:0.9;">
+            <img loading="lazy" src="assets/macopedia-logo.svg" alt="Macopedia" style="height:19px; width:auto; display:block; filter:brightness(0); opacity:0.55; transition:opacity 0.25s ease;" style-hover="opacity:0.9;">
+            <img loading="lazy" src="assets/pearson-logo.svg" alt="Pearson" style="height:21px; width:auto; display:block; filter:brightness(0); opacity:0.55; transition:opacity 0.25s ease;" style-hover="opacity:0.9;">
+            <img loading="lazy" src="assets/macmillan-logo.svg" alt="Macmillan Education" style="height:23px; width:auto; display:block; filter:brightness(0); opacity:0.55; transition:opacity 0.25s ease;" style-hover="opacity:0.9;">
+            <img loading="lazy" src="assets/raben-logo.svg" alt="Raben" style="height:19px; width:auto; display:block; filter:brightness(0); opacity:0.55; transition:opacity 0.25s ease;" style-hover="opacity:0.9;">
           </div>
         </div>
       </div>
     </section>
 
-    <section id="probabilities" style="position:absolute; inset:0; z-index:2; opacity:0; pointer-events:none; overflow:hidden; display:flex; align-items:center; justify-content:center; padding:clamp(96px,12vw,160px) clamp(20px,4vw,56px); background:#161617;" data-om-label="It's all probabilities" data-screen-label="Probabilities">
-      <x-import component-from-global-scope="prob-rings" from="./prob-rings.js" ink="#8E7FD6" alpha="0.55" stroke="2.6" rings="5" size="0.2" stretch="1.6" hint-size="100%,100%" style="position:absolute; inset:0; z-index:0; pointer-events:none;"></x-import>
-      <div id="prob-copy" style="position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:clamp(18px,2.2vw,28px); text-align:center; max-width:1100px; will-change:opacity,transform;">
-        <div style="font-family:'Caveat',cursive; font-weight:600; font-size:clamp(32px,2.8vw,44px); line-height:1; color:#A89DDB;">Inside the box:</div>
-        <h2 style="margin:0; font-weight:600; font-size:clamp(44px,7.4vw,120px); line-height:0.96; letter-spacing:-0.045em; color:#FFFFFF; text-wrap:pretty;">It's all <span style="font-family:'Newsreader',Georgia,serif; font-style:italic; font-weight:500; letter-spacing:-0.02em;">probabilities</span>.</h2>
-        <p style="margin:0; font-size:clamp(17px,1.4vw,21px); line-height:1.55; color:#A1A1A6; max-width:58ch; text-wrap:pretty;">The model gives a range.<br>People want an answer.<br>I build what sits in between.</p>
-      </div>
-    </section>
-    </div>
-    </div>
-
-    <div id="mid-dots" data-dots="" style="background-color:#FFFFFF; background-image:radial-gradient(circle, rgba(22,22,23,0.09) 0.96px, transparent 1.44px); background-size:25px 25px; background-position:12px 12px;">
-
-    <section id="highlights" style="padding:clamp(40px,4.5vw,64px) 0; margin-top:clamp(24px,2.5vw,32px); scroll-margin-top: 96px" data-om-label="Highlights" data-screen-label="Highlights">
-      <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
-        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#E7573E; flex:none;"></span><span style="color:#161617;">01</span><span>Highlights</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
-        <h2 data-reveal="" style="font-weight:600; font-size:clamp(40px,5.2vw,80px); line-height:1.02; letter-spacing:-0.038em; margin:18px 0 0 0; color:#161617; text-wrap:pretty;">First person in, three times.</h2>
-        <p data-reveal="" style="font-size:clamp(17px,1.4vw,21px); line-height:1.55; letter-spacing:-0.01em; color:#5E5E63; max-width:58ch; margin:clamp(18px,2vw,26px) 0 0 0; text-wrap:pretty;">The first hire at a Chinese architecture firm’s European office, set up in Poland from zero. One of two founding members of MAD Architects’ parametric design group in Beijing. The first product person in Heineken’s Global Analytics &amp; AI Hub. Each time, the hard part wasn’t building the thing. It was getting people to use it. The fourth time, it’s mine: <a href="#yaga" style="color:#161617; text-decoration:none; border-bottom:1.5px solid #E7573E; padding-bottom:1px;">Yaga Labs</a>.</p>
-
-        <div id="hx-bento" data-reveal="" style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; margin-top:clamp(40px,5vw,64px);">
-          <div id="hx-video" data-om-label="Intro video" style="grid-column:1 / -1; position:relative; aspect-ratio:16 / 10; border-radius:28px; overflow:hidden; background:#1C1C1E;">
-            <sc-if value="{{ introPlaying }}" hint-placeholder-val="{{ false }}">
-              <iframe src="{{ embedUrl }}" title="Tomasz Czarnecki: introduction" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="" style="position:absolute; inset:0; width:100%; height:100%; border:0;"></iframe>
-            </sc-if>
-            <sc-if value="{{ introIdle }}" hint-placeholder-val="{{ true }}">
-              <button onClick="{{ playIntro }}" aria-label="Play the 90-second introduction" style="position:absolute; inset:0; width:100%; height:100%; margin:0; padding:0; border:0; cursor:pointer; background:transparent; display:block; font:inherit; color:inherit; text-align:left;" style-hover="filter:brightness(1.05);">
-                <img loading="lazy" src="https://i.ytimg.com/vi/y4ujczQ-hPs/maxresdefault.jpg?v=20261012" alt="Tomasz Czarnecki: introduction video thumbnail" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 50%; display:block;">
-                <span style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0) 38%, rgba(0,0,0,0.72) 100%);"></span>
-                <span style="position:absolute; left:clamp(24px,3vw,40px); right:clamp(24px,3vw,40px); bottom:clamp(24px,3vw,36px); display:flex; flex-direction:column; gap:8px;">
-                  <span style="width:clamp(56px,5vw,72px); height:clamp(56px,5vw,72px); margin-bottom:clamp(10px,1.2vw,16px); border-radius:999px; background:rgba(255,255,255,0.94); display:flex; align-items:center; justify-content:center; box-shadow:0 18px 40px rgba(0,0,0,0.28);">
-                    <span style="display:block; width:0; height:0; border-style:solid; border-width:11px 0 11px 18px; border-color:transparent transparent transparent #161617; margin-left:4px;"></span>
-                  </span>
-                  <span data-vid-extra="" style="font-size:13.5px; font-weight:500; color:rgba(255,255,255,0.86);">Intro · 90 seconds</span>
-                  <span style="font-weight:600; font-size:clamp(26px,2.6vw,40px); line-height:1.08; letter-spacing:-0.03em; color:#FFFFFF;">Ninety seconds, in person.</span>
-                  <span data-vid-extra="" style="font-size:16px; line-height:1.5; color:rgba(255,255,255,0.9); max-width:48ch; text-wrap:pretty;">What I built at Heineken, what I learned about getting people to trust a model, and what I'm building now.</span>
-                </span>
-              </button>
-            </sc-if>
+    <section id="heineken" data-om-label="Heineken" data-screen-label="Heineken" style="padding:clamp(80px,10vw,150px) clamp(20px,4vw,40px); scroll-margin-top:88px; background:#FAFAF8; border-top:1px solid #EDEDEA; border-bottom:1px solid #EDEDEA;">
+      <div style="max-width:1200px; margin:0 auto;">
+        <div style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+          <div style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:#6E6E73;"><span style="width:6px; height:6px; border-radius:1px; background:#E7573E;"></span>Heineken · Global Analytics &amp; AI Hub</div>
+          <h2 data-reveal="" style="margin:20px 0 0 0; font-weight:500; font-size:clamp(34px,4.2vw,58px); line-height:1.08; letter-spacing:-0.035em; text-wrap:balance; max-width:20ch;">Decision tools people actually use</h2>
+          <p data-reveal="" style="margin:24px 0 0 0; font-size:clamp(16px,1.25vw,18px); line-height:1.65; color:#6E6E73; max-width:58ch; text-wrap:pretty;">Heineken spends about €7.9 million on marketing and sales a day. Someone decides where every one of those euros goes. The models were ready early. The people deciding still trusted their spreadsheets more.</p>
+          <div data-reveal="" data-om-label="Spend counter" style="margin-top:clamp(40px,5vw,64px); display:flex; flex-direction:column; align-items:center; gap:12px;">
+            <span style="font-size:13px; color:#8E8E93;">Spent since midnight, your time</span>
+            <div aria-live="off" style="font-weight:500; font-size:clamp(44px,7vw,96px); line-height:1; letter-spacing:-0.045em; color:#E7573E; font-variant-numeric:tabular-nums; white-space:nowrap;"><span ref="{{ todayTicker }}">€0</span></div>
+            <span style="font-size:13px; color:#8E8E93;">€2.9B a year ÷ 365 · FY2024 marketing &amp; selling · <a href="https://www.theheinekencompany.com/newsroom/heineken-nv-reports-2024-full-year-results/" target="_blank" rel="noopener" style="color:#6E6E73;">Source</a></span>
           </div>
         </div>
-      </div>
-    </section>
 
-    <section id="playbook" style="position:relative; padding:clamp(40px,4.5vw,64px) 0; scroll-margin-top:96px;" data-om-label="How I get a team to use AI" data-screen-label="Playbook">
-      <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
-        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#E7573E; flex:none;"></span><span style="color:#161617;">02</span><span>Playbook</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
-        <h2 data-reveal="" style="font-weight:600; font-size:clamp(40px,5.2vw,80px); line-height:1.02; letter-spacing:-0.038em; margin:18px 0 0 0; color:#161617; text-wrap:pretty;">Nobody acts on a black-box answer.</h2>
-        <p data-reveal="" style="font-size:clamp(17px,1.4vw,21px); line-height:1.5; color:#5E5E63; max-width:56ch; margin:clamp(14px,1.6vw,20px) 0 0 0; text-wrap:pretty;">Everybody uses AI for the small stuff. Nobody bets a real decision on an answer they can’t question. Four steps that worked at Heineken, and that I use with agents now.</p>
-        <div data-reveal="" data-om-label="Playbook reel" style="margin-top:clamp(24px,2.8vw,36px);">
-          <div id="pb-reel" onMouseLeave="{{ reelLeave }}" style="display:flex; gap:12px; height:clamp(420px,42vw,560px);">
-            <sc-for list="{{ reel }}" as="s" hint-placeholder-count="0">
-              <div role="button" tabIndex="0" data-on="{{ s.exp }}" aria-expanded="{{ s.exp }}" aria-label="{{ s.aria }}" onMouseEnter="{{ s.enter }}" onFocus="{{ s.enter }}" onClick="{{ s.enter }}" style="position:relative; flex-grow:{{ s.grow }}; flex-basis:0; min-width:0; border-radius:28px; overflow:hidden; background-color:{{ s.tint }}; cursor:pointer; transition:flex-grow 0.7s cubic-bezier(0.22,1,0.36,1), height 0.6s cubic-bezier(0.22,1,0.36,1);">
-                <div aria-hidden="true" style="position:absolute; inset:0; background-image:{{ s.bg }}; background-size:cover; background-repeat:no-repeat; background-position:{{ s.pos }}; transform:{{ s.zoom }}; transition:transform 1.4s cubic-bezier(0.22,1,0.36,1), background-position 0.7s ease;"></div>
-                <div data-reel-lab="" style="position:absolute; left:16px; top:16px; bottom:16px; display:flex; flex-direction:column; justify-content:space-between; align-items:flex-start; opacity:{{ s.labO }}; transition:opacity 0.3s ease;">
-                  <span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.08em; background:#FFFFFF; color:#161617; padding:6px 10px; border-radius:999px;">{{ s.n }}</span>
-                  <span data-reel-title="" style="writing-mode:vertical-rl; transform:rotate(180deg); background:#FFFFFF; color:#161617; padding:16px 9px; border-radius:999px; font-size:15px; font-weight:600; letter-spacing:-0.01em; white-space:nowrap;">{{ s.short }}</span>
-                </div>
-                <div data-reel-card="" style="position:absolute; left:18px; bottom:18px; width:min(420px, calc(100% - 36px)); min-width:300px; padding:20px 22px 22px; border-radius:20px; background:#FFFFFF; opacity:{{ s.cardO }}; transform:{{ s.cardT }}; transition:{{ s.cardTr }};">
-                  <div style="font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.16em; color:#6E6E73;">STEP <span style="color:#161617;">{{ s.n }}</span></div>
-                  <div style="margin-top:8px; font-weight:600; font-size:clamp(22px,1.9vw,26px); line-height:1.12; letter-spacing:-0.025em; color:#161617; text-wrap:pretty;">{{ s.t }}</div>
-                  <div style="margin-top:8px; font-size:15px; line-height:1.5; color:#6E6E73; text-wrap:pretty;">{{ s.b }}</div>
-                </div>
-              </div>
-            </sc-for>
-          </div>
-          <div style="margin-top:18px; display:flex; align-items:center; gap:20px;">
-            <div style="flex:1;">{{ reelRail }}</div>
-            <span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#6E6E73; white-space:nowrap;">{{ reelHint }}</span>
-          </div>
-        </div>
-      </div>
-    </section>
+        <div style="display:flex; align-items:center; gap:14px; margin-top:clamp(56px,7vw,96px); font-size:14px; font-weight:500; color:#6E6E73;"><span style="flex:1; height:1px; background:#E5E5E2;"></span><span>Case studies</span><span style="flex:1; height:1px; background:#E5E5E2;"></span></div>
+        <div style="display:flex; flex-direction:column; gap:20px; margin-top:20px;">
 
-    <section id="logos" style="background: #161617; margin:clamp(24px,2.5vw,32px) 0;" data-om-label="Logos">
-      <div style="max-width:1440px; margin:0 auto; padding:clamp(40px,4.5vw,64px) clamp(20px,4vw,56px); display:flex; align-items:center; gap:24px clamp(32px,4vw,64px); flex-wrap:wrap;">
-        <div style="flex:none; display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#A1A1A6;"><span>Worked at and built for</span></div>
-        <div style="flex:1; display:flex; align-items:center; justify-content:space-between; gap:28px clamp(28px,3.6vw,56px); flex-wrap:wrap; min-width:min(100%,520px);">
-          <img loading="lazy" src="assets/heineken-logo.svg" alt="Heineken" style="height:30px; width:auto; display:block; filter:brightness(0) invert(1); opacity:0.78;">
-          <img loading="lazy" src="assets/mad-logo.svg" alt="MAD Architects" style="height:30px; width:auto; display:block; filter:brightness(0) invert(1); opacity:0.78;">
-          <img loading="lazy" src="assets/arep-logo.svg" alt="AREP" style="height:30px; width:auto; display:block; filter:brightness(0) invert(1); opacity:0.78;">
-          <img loading="lazy" src="assets/macopedia-logo.svg" alt="Macopedia" style="height:22px; width:auto; display:block; filter:brightness(0) invert(1); opacity:0.78;">
-          <img loading="lazy" src="assets/pearson-logo.svg" alt="Pearson" style="height:24px; width:auto; display:block; filter:brightness(0) invert(1); opacity:0.78;">
-          <img loading="lazy" src="assets/macmillan-logo.svg" alt="Macmillan Education" style="height:26px; width:auto; display:block; filter:brightness(0) invert(1); opacity:0.78;">
-          <img loading="lazy" src="assets/raben-logo.svg" alt="Raben" style="height:22px; width:auto; display:block; filter:brightness(0) invert(1); opacity:0.78;">
-        </div>
-      </div>
-    </section>
-
-    <section id="case-studies" style="position:relative; padding:clamp(40px,4.5vw,64px) 0; scroll-margin-top:96px;" data-om-label="Heineken spend" data-screen-label="Case Studies">
-      <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
-        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#E7573E; flex:none;"></span><span style="color:#161617;">03</span><span>The stakes</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
-        <h2 data-reveal="" style="font-weight:600; font-size:clamp(40px,5.6vw,92px); line-height:1; letter-spacing:-0.042em; margin:18px 0 0 0; color:#161617; text-wrap:pretty;">Heineken spends €7.9 million on marketing and sales a day.</h2>
-        <p data-reveal="" style="font-size:clamp(17px,1.4vw,21px); line-height:1.5; color:#5E5E63; max-width:56ch; margin:clamp(14px,1.6vw,20px) 0 0 0; text-wrap:pretty;">Someone decides where every one of those euros goes. The models were ready early. The people deciding still trusted their spreadsheets more.</p>
-        <div data-reveal="" data-om-label="Spend counter card" style="margin-top:clamp(36px,4.4vw,56px); display:flex; flex-direction:column; padding:clamp(28px,4vw,56px); border-radius:32px; background:#F5F5F3; box-shadow:0 0 0 1px rgba(0,0,0,0.04), 0 0 48px -20px rgba(0,0,0,0.16); min-width:0;">
-          <span style="font-size:14px; font-weight:500; color:#6E6E73;">Today so far · since midnight, your time</span>
-          <div aria-live="off" style="margin-top:clamp(12px,1.4vw,20px); font-weight:600; font-size:clamp(44px,12vw,180px); line-height:0.92; letter-spacing:-0.05em; color:#E7573E; font-variant-numeric:tabular-nums; font-feature-settings:'tnum' 1; white-space:nowrap; max-width:100%;"><span ref="{{ todayTicker }}">€0</span></div>
-          <span style="margin-top:clamp(14px,1.6vw,20px); font-size:13.5px; color:#6E6E73;">€2.9B a year ÷ 365 · FY2024 marketing &amp; selling · <a href="https://www.theheinekencompany.com/newsroom/heineken-nv-reports-2024-full-year-results/" target="_blank" rel="noopener" style="color:#161617; text-decoration:none; border-bottom:1px solid #E7573E;">Source ↗</a></span>
-        </div>
-      </div>
-    </section>
-
-
-    <section id="the-loop" style="position:relative; padding:clamp(40px,4.5vw,64px) 0; scroll-margin-top:96px;" data-om-label="The loop" data-screen-label="The Loop">
-      <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
-        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#E7573E; flex:none;"></span><span style="color:#161617;">04</span><span>What we built</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
-        <h2 data-reveal="" style="font-weight:600; font-size:clamp(32px,4.4vw,68px); line-height:1.22; letter-spacing:-0.035em; margin:22px 0 0 0; max-width:1180px; color:#161617; text-wrap:pretty;"><a href="#case-alloc" onClick="{{ goAlloc }}" style="display:inline-flex; align-items:center; gap:0.2em; padding:0.08em 0.34em 0.08em 0.15em; border-radius:0.37em; vertical-align:-0.06em; line-height:1; background:#EEE8FE; color:#6A3FE0; text-decoration:none; transition:background-color 0.25s ease;" style-hover="background:#DDD1FD; opacity:1;"><span style="display:block; flex:none; width:0.86em; height:0.86em; border-radius:0.22em; overflow:hidden; background:#8A5CF6;"><img loading="lazy" src="assets/agents/allocation-compass.webp" alt="" style="width:100%; height:100%; display:block; object-fit:cover;"></span>Allocation AI</a> decides where the budget goes. <a href="#case-promo" onClick="{{ goPromo }}" style="display:inline-flex; align-items:center; gap:0.2em; padding:0.08em 0.34em 0.08em 0.15em; border-radius:0.37em; vertical-align:-0.06em; line-height:1; background:#E2EBFA; color:#2457B8; text-decoration:none; transition:background-color 0.25s ease;" style-hover="background:#CCDCF6; opacity:1;"><span style="display:block; flex:none; width:0.86em; height:0.86em; border-radius:0.22em; overflow:hidden; background:#407EDF;"><img loading="lazy" src="assets/agents/promo-scale-blue.webp" alt="" style="width:100%; height:100%; display:block; object-fit:cover;"></span>Promo Advisor</a> decides what to promote. <a href="#case-flight" onClick="{{ goFlight }}" style="display:inline-flex; align-items:center; gap:0.2em; padding:0.08em 0.34em 0.08em 0.15em; border-radius:0.37em; vertical-align:-0.06em; line-height:1; background:#DCF0EB; color:#137565; text-decoration:none; transition:background-color 0.25s ease;" style-hover="background:#C4E6DE; opacity:1;"><span style="display:block; flex:none; width:0.86em; height:0.86em; border-radius:0.22em; overflow:hidden; background:#1F9A86;"><img loading="lazy" src="assets/agents/flight-metronome-v2.webp" alt="" style="width:100%; height:100%; display:block; object-fit:cover;"></span>Smart Flighting</a> decides when it runs. Then the <span style="color:#C2412B;">measured lift ↺</span> decides next year’s budget.</h2>
-        <p data-reveal="" style="font-size:clamp(17px,1.4vw,21px); line-height:1.5; color:#5E5E63; max-width:56ch; margin:clamp(16px,1.8vw,24px) 0 0 0; text-wrap:pretty;">Three tools from Heineken’s AI Hub, joined so each year’s results plan the next.</p>
-        <div id="v3-cases" style="display:flex; flex-direction:column; gap:28px; margin-top:clamp(36px,4.4vw,56px);">
-
-          <a id="case-alloc" href="allocation-ai.html" style="position:sticky; top:100px; display:grid; grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr); gap:clamp(28px,4vw,64px); min-height:min(700px, calc(100svh - 132px)); padding:clamp(28px,4vw,56px); border-radius:32px; background:#F5F2FE; color:#161617; text-decoration:none; overflow:hidden; scroll-margin-top:100px; box-shadow:0 0 0 1px rgba(0,0,0,0.04), 0 0 48px -20px rgba(0,0,0,0.16);" style-hover="opacity:1;">
+          <a href="allocation-ai.html" data-reveal="" data-om-label="Allocation AI" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); gap:clamp(28px,4vw,56px); align-items:center; padding:clamp(24px,3.5vw,48px); border-radius:20px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #E5E5E2; color:#161617; text-decoration:none; transition:box-shadow 0.25s ease;" style-hover="box-shadow:inset 0 0 0 1px #161617; color:#161617;">
             <div style="display:flex; flex-direction:column; min-width:0;">
-              <div style="display:flex; align-items:center; gap:clamp(16px,1.8vw,24px); margin-top:0;">
-                <span style="display:block; flex:none; width:clamp(72px,6.4vw,96px); aspect-ratio:1; border-radius:23%; overflow:hidden; background:#8A5CF6; box-shadow:0 16px 30px -16px rgba(0,0,0,0.5);"><img loading="lazy" src="assets/agents/allocation-compass.webp" alt="" style="width:100%; height:100%; display:block; object-fit:cover;"></span>
-                <div style="min-width:0;">
-                  <h3 style="font-weight:600; font-size:clamp(32px,3.6vw,56px); line-height:1; letter-spacing:-0.04em; margin:0; color:#6A3FE0;">Allocation AI</h3>
-                  <div style="font-size:clamp(18px,1.5vw,22px); font-weight:500; color:#161617; margin-top:8px; letter-spacing:-0.015em;">Where? To spend the marketing budget.</div>
-                </div>
-              </div>
-              <p style="font-size:17px; line-height:1.6; color:#5E5E63; margin:24px 0 0 0; max-width:44ch; text-wrap:pretty;">Bayesian budget allocation across markets, brands and channels. Heineken reports that markets following it spend more profitably, with incremental gross profit in Mexico, Brazil and the Netherlands.</p>
+              <span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#E7573E;">Where</span>
+              <h3 style="margin:14px 0 0 0; font-weight:500; font-size:clamp(28px,2.8vw,40px); line-height:1.05; letter-spacing:-0.035em;">Allocation AI</h3>
+              <p style="margin:10px 0 0 0; font-size:18px; line-height:1.45; color:#161617;">Where to spend the marketing budget.</p>
+              <ul style="list-style:none; margin:24px 0 0 0; padding:0; display:flex; flex-direction:column; gap:12px;">
+                <li style="font-size:15.5px; line-height:1.55; color:#6E6E73;"><strong style="color:#161617; font-weight:600;">Bayesian allocation</strong> across markets, brands and channels.</li>
+                <li style="font-size:15.5px; line-height:1.55; color:#6E6E73;"><strong style="color:#161617; font-weight:600;">More profitable spend</strong> with incremental gross profit reported in Mexico, Brazil and the Netherlands.</li>
+              </ul>
               <sc-if value="{{ showMetrics }}" hint-placeholder-val="{{ true }}">
-                <div style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin-top:32px; border-top:1px solid #E3E3E0; padding-top:20px;">
-                  <div style="padding-right:16px;"><div style="font-weight:600; font-size:clamp(24px,2.2vw,34px); letter-spacing:-0.035em;">36%</div><div style="font-size:13px; line-height:1.4; color:#6E6E73; margin-top:6px;">ROI improvement, per Heineken</div></div>
-                  <div style="padding:0 16px; border-left:1px solid #E3E3E0;"><div style="font-weight:600; font-size:clamp(24px,2.2vw,34px); letter-spacing:-0.035em;">3</div><div style="font-size:13px; line-height:1.4; color:#6E6E73; margin-top:6px;">Markets reporting gross-profit lift</div></div>
-                  <div style="padding-left:16px; border-left:1px solid #E3E3E0;"><div style="font-weight:600; font-size:clamp(24px,2.2vw,34px); letter-spacing:-0.035em;">Bayesian</div><div style="font-size:13px; line-height:1.4; color:#6E6E73; margin-top:6px;">Response-curve model</div></div>
+                <div style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:28px;">
+                  <div style="padding:14px 16px; border-radius:12px; background:#F5F5F3;"><div style="font-weight:500; font-size:22px; letter-spacing:-0.03em;">36%</div><div style="font-size:12.5px; line-height:1.4; color:#6E6E73; margin-top:4px;">ROI improvement, per Heineken</div></div>
+                  <div style="padding:14px 16px; border-radius:12px; background:#F5F5F3;"><div style="font-weight:500; font-size:22px; letter-spacing:-0.03em;">3</div><div style="font-size:12.5px; line-height:1.4; color:#6E6E73; margin-top:4px;">Markets with gross-profit lift</div></div>
+                  <div style="padding:14px 16px; border-radius:12px; background:#F5F5F3;"><div style="font-weight:500; font-size:22px; letter-spacing:-0.03em;">Bayesian</div><div style="font-size:12.5px; line-height:1.4; color:#6E6E73; margin-top:4px;">Response-curve model</div></div>
                 </div>
               </sc-if>
-              <div style="margin-top:auto; padding-top:36px;"><span style="display:inline-flex; align-items:center; padding:12px 22px; border-radius:999px; background:#161617; color:#FFFFFF; font-size:14.5px; font-weight:500; white-space:nowrap;">Read the case study ›</span></div>
+              <span style="margin-top:28px; font-size:15px; font-weight:500; color:#161617;">Read the case study →</span>
             </div>
-            <div onMouseLeave="{{ swapOut }}" style="position:relative; min-height:clamp(260px,34vw,480px);">
-              <img loading="lazy" onMouseEnter="{{ allocFront }}" src="assets/allocation-ai/cs-heatmap.webp?v=2" alt="" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; z-index:{{ alloc.backZ }}; opacity:{{ alloc.backOp }}; transform:{{ alloc.backT }}; transition:opacity 0.5s ease, transform 0.6s cubic-bezier(.2,.8,.2,1); box-shadow:0 24px 50px -20px rgba(0,0,0,0.28), 0 0 0 1px rgba(0,0,0,0.06);">
-              <img loading="lazy" onMouseEnter="{{ swapOut }}" src="assets/allocation-ai/cs-curve.webp?v=2" alt="Allocation AI response-curve view: current spend sits past the point of peak ROI." style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; z-index:1; opacity:{{ alloc.frontOp }}; transform:{{ alloc.frontT }}; transition:opacity 0.5s ease, transform 0.6s cubic-bezier(.2,.8,.2,1); box-shadow:0 34px 70px -24px rgba(0,0,0,0.34), 0 0 0 1px rgba(0,0,0,0.06);">
-            </div>
+            <img loading="lazy" src="assets/allocation-ai/cs-curve.webp?v=2" alt="Allocation AI response-curve view: current spend sits past the point of peak ROI." style="display:block; width:100%; height:auto; border-radius:12px; min-width:0; filter:grayscale(1);">
           </a>
 
-          <a id="case-promo" href="promo-advisor.html" style="position:sticky; top:118px; display:grid; grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr); gap:clamp(28px,4vw,64px); min-height:min(700px, calc(100svh - 150px)); padding:clamp(28px,4vw,56px); border-radius:32px; background:#F0F4FC; color:#161617; text-decoration:none; overflow:hidden; scroll-margin-top:118px; box-shadow:0 0 0 1px rgba(0,0,0,0.04), 0 0 48px -20px rgba(0,0,0,0.16);" style-hover="opacity:1;">
+          <a href="promo-advisor.html" data-reveal="" data-om-label="Promo Advisor" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); gap:clamp(28px,4vw,56px); align-items:center; padding:clamp(24px,3.5vw,48px); border-radius:20px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #E5E5E2; color:#161617; text-decoration:none; transition:box-shadow 0.25s ease;" style-hover="box-shadow:inset 0 0 0 1px #161617; color:#161617;">
             <div style="display:flex; flex-direction:column; min-width:0;">
-              <div style="display:flex; align-items:center; gap:clamp(16px,1.8vw,24px); margin-top:0;">
-                <span style="display:block; flex:none; width:clamp(72px,6.4vw,96px); aspect-ratio:1; border-radius:23%; overflow:hidden; background:#407EDF; box-shadow:0 16px 30px -16px rgba(0,0,0,0.5);"><img loading="lazy" src="assets/agents/promo-scale-blue.webp" alt="" style="width:100%; height:100%; display:block; object-fit:cover;"></span>
-                <div style="min-width:0;">
-                  <h3 style="font-weight:600; font-size:clamp(32px,3.6vw,56px); line-height:1; letter-spacing:-0.04em; margin:0; color:#2457B8;">Promo Advisor</h3>
-                  <div style="font-size:clamp(18px,1.5vw,22px); font-weight:500; color:#161617; margin-top:8px; letter-spacing:-0.015em;">What? To promote, and how.</div>
-                </div>
-              </div>
-              <p style="font-size:17px; line-height:1.6; color:#5E5E63; margin:24px 0 0 0; max-width:44ch; text-wrap:pretty;">Diagnostics, scenario simulation and calendar optimisation, so every promotion is tested before it launches. Nine tails, nine scenarios.</p>
+              <span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#E7573E;">What</span>
+              <h3 style="margin:14px 0 0 0; font-weight:500; font-size:clamp(28px,2.8vw,40px); line-height:1.05; letter-spacing:-0.035em;">Promo Advisor</h3>
+              <p style="margin:10px 0 0 0; font-size:18px; line-height:1.45; color:#161617;">What to promote, and how.</p>
+              <ul style="list-style:none; margin:24px 0 0 0; padding:0; display:flex; flex-direction:column; gap:12px;">
+                <li style="font-size:15.5px; line-height:1.55; color:#6E6E73;"><strong style="color:#161617; font-weight:600;">Diagnostics and simulation</strong> so every promotion is tested before it launches.</li>
+                <li style="font-size:15.5px; line-height:1.55; color:#6E6E73;"><strong style="color:#161617; font-weight:600;">Calendar optimisation</strong> across the year, scored on whether each promotion pays back.</li>
+              </ul>
               <sc-if value="{{ showMetrics }}" hint-placeholder-val="{{ true }}">
-                <div style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin-top:32px; border-top:1px solid #E3E3E0; padding-top:20px;">
-                  <div style="padding-right:16px;"><div style="font-weight:600; font-size:clamp(24px,2.2vw,34px); letter-spacing:-0.035em;">17</div><div style="font-size:13px; line-height:1.4; color:#6E6E73; margin-top:6px;">Markets shipped</div></div>
-                  <div style="padding:0 16px; border-left:1px solid #E3E3E0;"><div style="font-weight:600; font-size:clamp(24px,2.2vw,34px); letter-spacing:-0.035em;">30–40%</div><div style="font-size:13px; line-height:1.4; color:#6E6E73; margin-top:6px;">Less planning time</div></div>
-                  <div style="padding-left:16px; border-left:1px solid #E3E3E0;"><div style="font-weight:600; font-size:clamp(24px,2.2vw,34px); letter-spacing:-0.035em;">~15%</div><div style="font-size:13px; line-height:1.4; color:#6E6E73; margin-top:6px;">Less cannibalisation</div></div>
+                <div style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:28px;">
+                  <div style="padding:14px 16px; border-radius:12px; background:#F5F5F3;"><div style="font-weight:500; font-size:22px; letter-spacing:-0.03em;">17</div><div style="font-size:12.5px; line-height:1.4; color:#6E6E73; margin-top:4px;">Markets shipped</div></div>
+                  <div style="padding:14px 16px; border-radius:12px; background:#F5F5F3;"><div style="font-weight:500; font-size:22px; letter-spacing:-0.03em;">30–40%</div><div style="font-size:12.5px; line-height:1.4; color:#6E6E73; margin-top:4px;">Less planning time</div></div>
+                  <div style="padding:14px 16px; border-radius:12px; background:#F5F5F3;"><div style="font-weight:500; font-size:22px; letter-spacing:-0.03em;">~15%</div><div style="font-size:12.5px; line-height:1.4; color:#6E6E73; margin-top:4px;">Less cannibalisation</div></div>
                 </div>
               </sc-if>
-              <div style="margin-top:auto; padding-top:36px;"><span style="display:inline-flex; align-items:center; padding:12px 22px; border-radius:999px; background:#161617; color:#FFFFFF; font-size:14.5px; font-weight:500; white-space:nowrap;">Read the case study ›</span></div>
+              <span style="margin-top:28px; font-size:15px; font-weight:500; color:#161617;">Read the case study →</span>
             </div>
-            <div onMouseLeave="{{ swapOut }}" style="position:relative; min-height:clamp(260px,34vw,480px);">
-              <img loading="lazy" onMouseEnter="{{ promoFront }}" src="assets/promo-advisor/cs-mechanic.webp?v=2" alt="" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; z-index:{{ promo.backZ }}; opacity:{{ promo.backOp }}; transform:{{ promo.backT }}; transition:opacity 0.5s ease, transform 0.6s cubic-bezier(.2,.8,.2,1); box-shadow:0 24px 50px -20px rgba(0,0,0,0.28), 0 0 0 1px rgba(0,0,0,0.06);">
-              <img loading="lazy" onMouseEnter="{{ swapOut }}" src="assets/promo-advisor/cs-calendar.webp?v=2" alt="Promo Advisor promo calendar: every SKU's promotions across the year, coloured by whether each one pays back." style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; z-index:1; opacity:{{ promo.frontOp }}; transform:{{ promo.frontT }}; transition:opacity 0.5s ease, transform 0.6s cubic-bezier(.2,.8,.2,1); box-shadow:0 34px 70px -24px rgba(0,0,0,0.34), 0 0 0 1px rgba(0,0,0,0.06);">
-            </div>
+            <img loading="lazy" src="assets/promo-advisor/cs-calendar.webp?v=2" alt="Promo Advisor promo calendar: every SKU's promotions across the year, coloured by whether each one pays back." style="display:block; width:100%; height:auto; border-radius:12px; min-width:0; filter:grayscale(1);">
           </a>
 
-          <a id="case-flight" href="smart-flighting.html" style="position:sticky; top:136px; display:grid; grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr); gap:clamp(28px,4vw,64px); min-height:min(700px, calc(100svh - 168px)); padding:clamp(28px,4vw,56px); border-radius:32px; background:#EDF7F4; color:#161617; text-decoration:none; overflow:hidden; scroll-margin-top:136px; box-shadow:0 0 0 1px rgba(0,0,0,0.04), 0 0 48px -20px rgba(0,0,0,0.16);" style-hover="opacity:1;">
+          <a href="smart-flighting.html" data-reveal="" data-om-label="Smart Flighting" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); gap:clamp(28px,4vw,56px); align-items:center; padding:clamp(24px,3.5vw,48px); border-radius:20px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #E5E5E2; color:#161617; text-decoration:none; transition:box-shadow 0.25s ease;" style-hover="box-shadow:inset 0 0 0 1px #161617; color:#161617;">
             <div style="display:flex; flex-direction:column; min-width:0;">
-              <div style="display:flex; align-items:center; gap:clamp(16px,1.8vw,24px); margin-top:0;">
-                <span style="display:block; flex:none; width:clamp(72px,6.4vw,96px); aspect-ratio:1; border-radius:23%; overflow:hidden; background:#1F9A86; box-shadow:0 16px 30px -16px rgba(0,0,0,0.5);"><img loading="lazy" src="assets/agents/flight-metronome-v2.webp" alt="" style="width:100%; height:100%; display:block; object-fit:cover;"></span>
-                <div style="min-width:0;">
-                  <h3 style="font-weight:600; font-size:clamp(32px,3.6vw,56px); line-height:1; letter-spacing:-0.04em; margin:0; color:#137565;">Smart Flighting</h3>
-                  <div style="font-size:clamp(18px,1.5vw,22px); font-weight:500; color:#161617; margin-top:8px; letter-spacing:-0.015em;">When? To run campaigns, week by week.</div>
-                </div>
-              </div>
-              <p style="font-size:17px; line-height:1.6; color:#5E5E63; margin:24px 0 0 0; max-width:44ch; text-wrap:pretty;">Tests campaign timing against AI response curves, week by week. Replaced an Excel process with a simulator media teams plan in. The lynx waits, then pounces.</p>
+              <span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#E7573E;">When</span>
+              <h3 style="margin:14px 0 0 0; font-weight:500; font-size:clamp(28px,2.8vw,40px); line-height:1.05; letter-spacing:-0.035em;">Smart Flighting</h3>
+              <p style="margin:10px 0 0 0; font-size:18px; line-height:1.45; color:#161617;">When campaigns run, week by week.</p>
+              <ul style="list-style:none; margin:24px 0 0 0; padding:0; display:flex; flex-direction:column; gap:12px;">
+                <li style="font-size:15.5px; line-height:1.55; color:#6E6E73;"><strong style="color:#161617; font-weight:600;">Timing on response curves</strong> tested week by week before media is booked.</li>
+                <li style="font-size:15.5px; line-height:1.55; color:#6E6E73;"><strong style="color:#161617; font-weight:600;">The Excel process, retired</strong> and replaced with a simulator media teams plan in.</li>
+              </ul>
               <sc-if value="{{ showMetrics }}" hint-placeholder-val="{{ true }}">
-                <div style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin-top:32px; border-top:1px solid #E3E3E0; padding-top:20px;">
-                  <div style="padding-right:16px;"><div style="font-weight:600; font-size:clamp(24px,2.2vw,34px); letter-spacing:-0.035em;">+1–1.5%</div><div style="font-size:13px; line-height:1.4; color:#6E6E73; margin-top:6px;">Net revenue uplift, target</div></div>
-                  <div style="padding:0 16px; border-left:1px solid #E3E3E0;"><div style="font-weight:600; font-size:clamp(24px,2.2vw,34px); letter-spacing:-0.035em;">Weekly</div><div style="font-size:13px; line-height:1.4; color:#6E6E73; margin-top:6px;">Timing tested on response curves</div></div>
-                  <div style="padding-left:16px; border-left:1px solid #E3E3E0;"><div style="font-weight:600; font-size:clamp(24px,2.2vw,34px); letter-spacing:-0.035em;">Retired</div><div style="font-size:13px; line-height:1.4; color:#6E6E73; margin-top:6px;">The Excel process</div></div>
+                <div style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:28px;">
+                  <div style="padding:14px 16px; border-radius:12px; background:#F5F5F3;"><div style="font-weight:500; font-size:22px; letter-spacing:-0.03em;">+1–1.5%</div><div style="font-size:12.5px; line-height:1.4; color:#6E6E73; margin-top:4px;">Net revenue uplift, target</div></div>
+                  <div style="padding:14px 16px; border-radius:12px; background:#F5F5F3;"><div style="font-weight:500; font-size:22px; letter-spacing:-0.03em;">Weekly</div><div style="font-size:12.5px; line-height:1.4; color:#6E6E73; margin-top:4px;">Timing tested on curves</div></div>
+                  <div style="padding:14px 16px; border-radius:12px; background:#F5F5F3;"><div style="font-weight:500; font-size:22px; letter-spacing:-0.03em;">Retired</div><div style="font-size:12.5px; line-height:1.4; color:#6E6E73; margin-top:4px;">The Excel process</div></div>
                 </div>
               </sc-if>
-              <div style="margin-top:auto; padding-top:36px;"><span style="display:inline-flex; align-items:center; padding:12px 22px; border-radius:999px; background:#161617; color:#FFFFFF; font-size:14.5px; font-weight:500; white-space:nowrap;">Read the case study ›</span></div>
+              <span style="margin-top:28px; font-size:15px; font-weight:500; color:#161617;">Read the case study →</span>
             </div>
-            <div onMouseLeave="{{ swapOut }}" style="position:relative; min-height:clamp(260px,34vw,480px);">
-              <img loading="lazy" onMouseEnter="{{ flightFront }}" src="assets/smart-flighting/cs-timeline.webp?v=2" alt="" style="position:absolute; right:0; top:0; width:74%; height:auto; border-radius:12px; z-index:{{ flight.backZ }}; opacity:{{ flight.backOp }}; transform:{{ flight.backT }}; transition:opacity 0.5s ease, transform 0.6s cubic-bezier(.2,.8,.2,1); box-shadow:0 24px 50px -20px rgba(0,0,0,0.28), 0 0 0 1px rgba(0,0,0,0.06);">
-              <img loading="lazy" onMouseEnter="{{ swapOut }}" src="assets/smart-flighting/cs-curve.webp?v=2" alt="Smart Flighting response curve: where the next euro of media pressure stops paying." style="position:absolute; left:0; bottom:0; width:86%; height:auto; border-radius:14px; z-index:1; opacity:{{ flight.frontOp }}; transform:{{ flight.frontT }}; transition:opacity 0.5s ease, transform 0.6s cubic-bezier(.2,.8,.2,1); box-shadow:0 34px 70px -24px rgba(0,0,0,0.34), 0 0 0 1px rgba(0,0,0,0.06);">
-            </div>
+            <img loading="lazy" src="assets/smart-flighting/cs-curve.webp?v=2" alt="Smart Flighting response curve: where the next euro of media pressure stops paying." style="display:block; width:100%; height:auto; border-radius:12px; min-width:0; filter:grayscale(1);">
           </a>
-
         </div>
+
+        <p data-reveal="" style="margin:clamp(56px,7vw,88px) auto 0; max-width:30ch; text-align:center; font-weight:500; font-size:clamp(24px,2.4vw,34px); line-height:1.25; letter-spacing:-0.025em; text-wrap:balance;">Then the <span style="color:#E7573E;">measured lift</span> decides next year’s budget.</p>
       </div>
     </section>
 
-
-    <section id="yaga" ref="{{ yagaSec }}" style="position:relative; padding:clamp(40px,4.5vw,64px) 0; margin:clamp(24px,2.5vw,32px) 0; scroll-margin-top:96px; overflow:clip; background:#161617;" data-om-label="Yaga Labs" data-screen-label="Yaga Labs">
-      <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
-        <div style="position:relative; z-index:2; display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#8E8E93; margin-bottom:clamp(24px,3vw,40px);"><span style="width:10px; height:10px; border-radius:3px; background:#E7573E; flex:none;"></span><span style="color:#FFFFFF;">05</span><span>Yaga Labs</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#3A3A3D,rgba(58,58,61,0));"></span></div>
-        <div id="v2-yaga-grid" style="position:relative; display:grid; grid-template-columns:minmax(0,0.82fr) minmax(0,1.18fr); gap:clamp(32px,5vw,80px); align-items:center;">
-          <div id="v2-yaga-fig" style="position:relative; z-index:2; align-self:end; display:flex; justify-content:center; align-items:flex-end; padding-top:clamp(20px,2.5vw,36px);">
-            <div ref="{{ yagaRise }}" id="v2-yaga-box" style="position:relative; height:clamp(520px,52vw,760px); aspect-ratio:815 / 1831;">
-              <div style="position:absolute; left:57%; bottom:-7px; width:52%; height:20px; transform:translateX(-50%); border-radius:50%; background:radial-gradient(closest-side, rgba(0,0,0,0.2), rgba(0,0,0,0) 100%); pointer-events:none;"></div>
-              <div ref="{{ yagaSway }}" style="position:absolute; inset:0; transform-origin:50% 100%; will-change:transform;">
-                <img loading="lazy" ref="{{ yagaFig }}" src="assets/pani-yaga-broom.webp" alt="Pani Yaga: an old witch with red curly hair, round black glasses, a YAGA LABS hoodie, an embroidered folk skirt and a birch broom" style="position:absolute; inset:0; width:100%; height:100%; display:block; object-fit:contain;">
-              </div>
-              <div ref="{{ yagaBub }}" id="v2-yaga-bubble" aria-hidden="true" style="position:absolute; left:78%; bottom:80%; width:max-content; max-width:min(200px, 38vw); padding-bottom:34px; pointer-events:none; z-index:2; opacity:0;">
-                <div data-c="" id="v2-yaga-cloud" style="position:relative; transform-origin:18px 100%; padding:12px 22px 13px; background:#FFFFFF; border:1.2px solid #1A1814; border-radius:30px 34px 32px 28px / 28px 32px 30px 34px; box-shadow:1.5px 1.5px 0 #1A1814; font-family:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace; font-weight:500; font-size:12.5px; line-height:1.2; letter-spacing:0.03em; color:#1A1814; text-wrap:balance; opacity:0;">
-                  <span data-g="" style="visibility:hidden; display:block;">Three hundred years I read tea leaves. Now they call it a confidence interval.</span>
-                  <span data-t="" id="v2-yaga-text" style="position:absolute; top:12px; left:22px; right:22px; display:block; text-wrap:balance;"></span>
-                </div>
-                <div data-d="" style="position:absolute; width:7px; height:7px; border-radius:50%; background:#FFFFFF; border:1.2px solid #1A1814; box-shadow:1px 1px 0 #1A1814; left:4px; bottom:0; box-sizing:border-box; opacity:0;"></div>
-                <div data-d="" style="position:absolute; width:12px; height:12px; border-radius:50%; background:#FFFFFF; border:1.2px solid #1A1814; box-shadow:1px 1px 0 #1A1814; left:12px; bottom:12px; box-sizing:border-box; opacity:0;"></div>
-              </div>
+    <section id="who" data-om-label="Who I am" data-screen-label="Who I am" style="position:relative; overflow:hidden; padding:clamp(96px,12vw,160px) clamp(20px,4vw,40px); background:#FFFFFF; scroll-margin-top:88px;">
+      <div style="max-width:1200px; margin:0 auto; display:flex; flex-direction:column; align-items:center; text-align:center;">
+        <div style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:#6E6E73;"><span style="width:6px; height:6px; border-radius:1px; background:#E7573E;"></span>Skills</div>
+        <h2 data-reveal="" style="position:relative; z-index:1; margin:20px 0 0 0; font-weight:500; font-size:clamp(40px,6vw,88px); line-height:1.02; letter-spacing:-0.045em; color:#161617; text-wrap:balance;">Three edges, one center.</h2>
+        <div data-reveal="" data-om-label="Triangle graph" style="position:relative; width:100%; max-width:960px; aspect-ratio:10 / 7; margin-top:clamp(48px,6vw,80px);">
+          <sc-if value="{{ skillsStrands }}" hint-placeholder-val="{{ true }}">
+            <x-import component-from-global-scope="tri-strands" from="./tri-strands.js?v=4" ink="#E7573E" strands="9" alpha="0.7" width="1.3" nodes="0.5,0.1429;0.17,0.857;0.83,0.857" center="0.5,0.6" hint-size="100%,100%" style="position:absolute; inset:0; pointer-events:none;"></x-import>
+          </sc-if>
+          <sc-if value="{{ skillsField }}" hint-placeholder-val="{{ false }}">
+            <x-import component-from-global-scope="skill-field" from="./skill-field.js" mode="{{ skillsMode }}" ink="#E7573E" rings="6" alpha="0.6" nodes="0.5,0.1429;0.17,0.857;0.83,0.857" center="0.5,0.6" hint-size="100%,100%" style="position:absolute; inset:0; pointer-events:none;"></x-import>
+          </sc-if>
+          <div data-om-label="Shape node" style="position:absolute; left:50%; top:14.285714285714286%; width:0; height:0;">
+            <span style="position:absolute; left:0; top:0; width:clamp(12px,1.3vw,16px); height:clamp(12px,1.3vw,16px); transform:translate(-50%,-50%); border-radius:50%; background:#161617; box-shadow:0 0 0 6px #FFFFFF;"></span>
+            <div style="position:absolute; left:0; bottom:clamp(18px,2vw,26px); transform:translateX(-50%); width:max-content; max-width:min(240px, 30vw); text-align:center;">
+              <div style="font-weight:500; font-size:clamp(15px,1.7vw,22px); line-height:1.2; letter-spacing:-0.02em; color:#161617;">Shape</div>
+              <div style="margin-top:4px; font-size:clamp(12px,1.2vw,15px); line-height:1.4; color:#6E6E73; text-wrap:balance;">Architecture, 3D, parametric</div>
             </div>
           </div>
-          <div id="v2-yaga-copy" style="min-width:0; align-self:center;">
-            <h2 style="font-weight:600; font-size:clamp(40px,4.6vw,72px); line-height:1.02; letter-spacing:-0.038em; margin:18px 0 0 0; color:#FFFFFF; text-wrap:pretty;">She complains about AI. Then she ships it.</h2>
-            <p style="font-size:clamp(17px,1.3vw,19px); line-height:1.6; color:#A1A1A6; max-width:48ch; margin:22px 0 0 0; text-wrap:pretty;">Yaga Labs is my experimentation platform: agents, small AI tools and black boxes you can argue with. Pani Yaga is its conscience. She has opinions about your model, and she's usually right.</p>
+          <div data-om-label="Build node" style="position:absolute; left:17%; top:85.71428571428571%; width:0; height:0;">
+            <span style="position:absolute; left:0; top:0; width:clamp(12px,1.3vw,16px); height:clamp(12px,1.3vw,16px); transform:translate(-50%,-50%); border-radius:50%; background:#161617; box-shadow:0 0 0 6px #FFFFFF;"></span>
+            <div style="position:absolute; left:0; top:clamp(18px,2vw,26px); transform:translateX(-50%); width:max-content; max-width:min(240px, 30vw); text-align:center;">
+              <div style="font-weight:500; font-size:clamp(15px,1.7vw,22px); line-height:1.2; letter-spacing:-0.02em; color:#161617;">Build</div>
+              <div style="margin-top:4px; font-size:clamp(12px,1.2vw,15px); line-height:1.4; color:#6E6E73; text-wrap:balance;">AI, agents, open source</div>
+            </div>
+          </div>
+          <div data-om-label="Bridge node" style="position:absolute; left:83%; top:85.71428571428571%; width:0; height:0;">
+            <span style="position:absolute; left:0; top:0; width:clamp(12px,1.3vw,16px); height:clamp(12px,1.3vw,16px); transform:translate(-50%,-50%); border-radius:50%; background:#161617; box-shadow:0 0 0 6px #FFFFFF;"></span>
+            <div style="position:absolute; left:0; top:clamp(18px,2vw,26px); transform:translateX(-50%); width:max-content; max-width:min(240px, 30vw); text-align:center;">
+              <div style="font-weight:500; font-size:clamp(15px,1.7vw,22px); line-height:1.2; letter-spacing:-0.02em; color:#161617;">Bridge</div>
+              <div style="margin-top:4px; font-size:clamp(12px,1.2vw,15px); line-height:1.4; color:#6E6E73; text-wrap:balance;">Mandarin, China ↔ Europe</div>
+            </div>
+          </div>
+          <div data-om-label="Product node" style="position:absolute; left:50%; top:60%; transform:translate(-50%,-50%); width:max-content; max-width:min(30%, 200px); text-wrap:balance; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+            <div style="font-weight:500; font-size:clamp(16px,1.9vw,24px); line-height:1.15; letter-spacing:-0.02em; color:#161617;">Product</div>
+            <div style="margin-top:4px; font-size:clamp(12px,1.2vw,15px); line-height:1.35; color:#6E6E73;">3 AI systems shipped at Heineken</div>
+          </div>
+        </div>
+        <p data-reveal="" style="position:relative; z-index:1; margin:clamp(40px,5vw,64px) 0 0 0; font-size:clamp(16px,1.25vw,18px); line-height:1.65; color:#6E6E73; max-width:40ch; text-wrap:pretty;">Product is where the three meet.</p>
+      </div>
+    </section>
+
+    <section id="yaga" data-om-label="Building with AI" data-screen-label="Building with AI" style="padding:clamp(80px,10vw,150px) clamp(20px,4vw,40px); scroll-margin-top:88px; background:#FAFAF8; border-top:1px solid #EDEDEA; border-bottom:1px solid #EDEDEA;">
+      <div style="max-width:1200px; margin:0 auto; display:flex; flex-direction:column; align-items:center; text-align:center;">
+        <div style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:#6E6E73;"><span style="width:6px; height:6px; border-radius:1px; background:#E7573E;"></span>Building with AI</div>
+        <h2 data-reveal="" style="margin:20px 0 0 0; font-weight:500; font-size:clamp(34px,4.2vw,58px); line-height:1.08; letter-spacing:-0.035em; text-wrap:balance; max-width:20ch;">One person, a few agents.</h2>
+        <p data-reveal="" style="margin:24px 0 0 0; font-size:clamp(16px,1.25vw,18px); line-height:1.65; color:#6E6E73; max-width:54ch; text-wrap:pretty;"I build with Claude Code and AI agents. I decide what gets built and why, the agents write most of the code, and I review every change..</p>
+      </div>
+      <div style="max-width:1200px; margin:clamp(56px,7vw,96px) auto 0;">
+        <div data-reveal="" data-om-label="Yaga Labs tile" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); gap:clamp(28px,4vw,56px); align-items:center; margin-top:0; padding:clamp(24px,3.5vw,48px); border-radius:20px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #E5E5E2; color:#161617;">
+          <div style="display:flex; flex-direction:column; align-items:flex-start; min-width:0;">
+            <span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#E7573E;">Platform</span>
+            <h3 style="margin:14px 0 0 0; font-weight:500; font-size:clamp(28px,2.8vw,40px); line-height:1.05; letter-spacing:-0.035em;">Yaga Labs</h3>
+            <p style="margin:10px 0 0 0; font-size:18px; line-height:1.45; color:#161617;">My experimentation platform.</p>
+            <ul style="list-style:none; margin:24px 0 0 0; padding:0; display:flex; flex-direction:column; gap:12px;">
+              <li style="font-size:15.5px; line-height:1.55; color:#6E6E73;"><strong style="color:#161617; font-weight:600;">Agents, small AI tools</strong> and black boxes you can argue with.</li>
+              <li style="font-size:15.5px; line-height:1.55; color:#6E6E73;"><strong style="color:#161617; font-weight:600;">Pani Yaga</strong> is its conscience. She has opinions about your model.</li>
+            </ul>
             <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:28px;">
-              <a href="https://yagalabs.io" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; padding:13px 24px; border-radius:999px; background:#E7573E; color:#FFFFFF; font-size:14.5px; font-weight:500; text-decoration:none;" style-hover="background:#C9452E; opacity:1;">Meet Yaga ↗</a>
+              <a href="https://yagalabs.io" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; padding:11px 20px; border-radius:999px; background:#161617; color:#FFFFFF; font-size:15px; font-weight:500; text-decoration:none;" style-hover="background:#3A3A3D; color:#FFFFFF;">Visit Yaga Labs ↗</a>
+            </div>
+          </div>
+          <a href="https://yagalabs.io" target="_blank" rel="noopener" aria-label="Visit Yaga Labs" data-om-label="Yaga Labs shot" style="display:block; position:relative; width:100%; aspect-ratio:16 / 10; border-radius:12px; overflow:hidden; background:#1E1D1B; min-width:0;">
+            <img loading="lazy" src="assets/yagalabs-site.webp" alt="Yaga Labs homepage: ‘She complains about AI. Then she ships it.’ beside Pani Yaga with her birch broom" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 40%; display:block;">
+          </a>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; margin-top:clamp(48px,6vw,80px); font-size:14px; font-weight:500; color:#6E6E73;"><span style="flex:1; height:1px; background:#E5E5E2;"></span><span>Selected projects</span><span style="flex:1; height:1px; background:#E5E5E2;"></span></div>
+        <div id="v21-projects" data-reveal="" data-om-label="Selected projects" style="display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-top:20px;">
+          <div data-om-label="Yaga game" style="display:flex; flex-direction:column; padding:16px 16px 24px; border-radius:16px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #E5E5E2; min-width:0;">
+            <a href="https://game.yaga.sh" target="_blank" rel="noopener" aria-label="Play the Yaga game" style="display:block; position:relative; width:100%; aspect-ratio:3 / 2; border-radius:10px; overflow:hidden; background:#F5F5F3;"><img loading="lazy" src="assets/yaga-game.webp" alt="Yaga game: the witch's hut on chicken legs in her 3D farm" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;"></a>
+            <div style="display:flex; justify-content:space-between; gap:12px; margin:20px 8px 0; font-size:13px; color:#8E8E93;"><span>Game · Browser</span><span>Yaga Labs</span></div>
+            <h3 style="margin:10px 8px 0; font-weight:500; font-size:22px; line-height:1.2; letter-spacing:-0.02em;"><a href="https://game.yaga.sh" target="_blank" rel="noopener" style="color:#161617; text-decoration:none;" style-hover="color:#E7573E;">Yaga game ↗</a></h3>
+            <p style="margin:8px 8px 0; font-size:15px; line-height:1.6; color:#6E6E73; text-wrap:pretty;">A small 3D farm game. A witch whose hut stands on chicken legs hunts bugs, grows pumpkins and protects her hens. No build step; Vercel deploys straight from main.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:8px 20px; margin:auto 8px 0; padding-top:18px;">
+              <a href="https://game.yaga.sh" target="_blank" rel="noopener" style="font-size:14px; font-weight:500; color:#161617; text-decoration:none;" style-hover="color:#E7573E;">Play the game ↗</a>
+              <a href="https://github.com/tomasz-czarnecki/game-yaga-sh" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:500; color:#161617; text-decoration:none;" style-hover="color:#E7573E;"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" style="display:block; flex:none;"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.540 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.130-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>GitHub</a>
+            </div>
+          </div>
+          <div data-om-label="Kostrzyn" style="display:flex; flex-direction:column; padding:16px 16px 24px; border-radius:16px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #E5E5E2; min-width:0;">
+            <a href="https://kostrzyn.yaga.sh" target="_blank" rel="noopener" aria-label="Open the Stary Kostrzyn reconstruction" style="display:block; position:relative; width:100%; aspect-ratio:3 / 2; border-radius:10px; overflow:hidden; background:#F5F5F3;"><img loading="lazy" src="assets/kostrzyn-map.webp" alt="Map of Stary Kostrzyn: 1913 lots, houses and buildings traced over today’s OpenStreetMap, with the Oder and Warta rivers around the old town" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:40% 50%; display:block;"></a>
+            <div style="display:flex; justify-content:space-between; gap:12px; margin:20px 8px 0; font-size:13px; color:#8E8E93;"><span>3D reconstruction · Kostrzyn</span><span>1913 → today</span></div>
+            <h3 style="margin:10px 8px 0; font-weight:500; font-size:22px; line-height:1.2; letter-spacing:-0.02em;"><a href="https://kostrzyn.yaga.sh" target="_blank" rel="noopener" style="color:#161617; text-decoration:none;" style-hover="color:#E7573E;">Stary Kostrzyn ↗</a></h3>
+            <p style="margin:8px 8px 0; font-size:15px; line-height:1.6; color:#6E6E73; text-wrap:pretty;">The old town and fortress of Küstrin, destroyed in 1945, rebuilt to walk through. Built from the 1913 plan and address book, 1860 fortifications and today’s LiDAR.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:8px 20px; margin:auto 8px 0; padding-top:18px;">
+              <a href="https://kostrzyn.yaga.sh" target="_blank" rel="noopener" style="font-size:14px; font-weight:500; color:#161617; text-decoration:none;" style-hover="color:#E7573E;">Open the model ↗</a>
+              <a href="https://github.com/tomasz-czarnecki/kostrzyn-yaga-sh" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:500; color:#161617; text-decoration:none;" style-hover="color:#E7573E;"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" style="display:block; flex:none;"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.540 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.130-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>GitHub</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="buildings-deep-dive" style="position:relative; padding:clamp(40px,4.5vw,64px) 0; scroll-margin-top:96px;" data-om-label="Buildings that were programs" data-screen-label="Deep dive">
-      <div style="max-width:1440px; margin:0 auto; padding:0 clamp(20px,4vw,56px);">
-        <div style="display:flex; align-items:center; gap:14px; font-family:'Geist Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#6E6E73;"><span style="width:10px; height:10px; border-radius:3px; background:#E7573E; flex:none;"></span><span style="color:#161617;">06</span><span>Deep dive</span><span style="flex:1; height:1px; background:linear-gradient(90deg,#DADAD6,rgba(218,218,214,0));"></span></div>
-        <h2 data-reveal="" style="font-weight:600; font-size:clamp(40px,5.2vw,80px); line-height:1.02; letter-spacing:-0.038em; margin:18px 0 0 0; color:#161617; text-wrap:pretty;">Back in China,<br>the fitness function was the eval.</h2>
-        <p data-reveal="" style="font-size:clamp(17px,1.4vw,21px); line-height:1.55; letter-spacing:-0.01em; color:#5E5E63; max-width:58ch; margin:clamp(18px,2vw,26px) 0 0 0; text-wrap:pretty;"><span style="color:#161617; font-weight:500;">Five years working in China, back and forth ever since.</span> I wrote the scripts behind a facade and an opera house interior at MAD, and competition wins at AREP. A decade before "AI agent" was a phrase, I was building evolutionary solvers that bred building geometry from a fitness function.</p>
-        <div data-reveal="" data-om-label="China polaroids" style="display:flex; flex-direction:column; gap:clamp(8px,1.2vw,14px); margin-top:clamp(28px,3.4vw,44px);">
-          <div style="display:flex; justify-content:safe center; gap:clamp(14px,2.2vw,32px); overflow-x:auto; padding:22px 8px 30px; scrollbar-width:none;">
-            <button type="button" onClick="{{ pol0 }}" aria-label="Open photo: MAD family" style="appearance:none; border:0; cursor:zoom-in; font-family:inherit; flex:1 1 0; min-width:136px; padding:clamp(8px,0.8vw,12px) clamp(8px,0.8vw,12px) 0; background:#FFFFFF; box-shadow:0 1px 2px rgba(0,0,0,0.08), 0 14px 30px -14px rgba(0,0,0,0.32); display:flex; flex-direction:column; transition:transform 0.45s cubic-bezier(.2,.8,.2,1), box-shadow 0.45s ease; transform:rotate(-3deg);" style-hover="transform:rotate(0deg) translateY(-8px); box-shadow:0 1px 2px rgba(0,0,0,0.08), 0 26px 44px -18px rgba(0,0,0,0.36);">
-              <img loading="lazy" src="assets/china/mad-family.webp" alt="MAD Architects team photo in front of the Beijing office" style="width:100%; aspect-ratio:1; object-fit:cover; display:block; background:#EDEDEA;">
-              <span style="display:block; padding:9px 4px 13px; font-family:'Caveat',cursive; font-weight:600; font-size:21px; line-height:1.05; text-align:center; color:#1E1E20;">MAD family</span>
-            </button>
-            <button type="button" onClick="{{ pol1 }}" aria-label="Open photo: BaiZiWan team" style="appearance:none; border:0; cursor:zoom-in; font-family:inherit; flex:1 1 0; min-width:136px; padding:clamp(8px,0.8vw,12px) clamp(8px,0.8vw,12px) 0; background:#FFFFFF; box-shadow:0 1px 2px rgba(0,0,0,0.08), 0 14px 30px -14px rgba(0,0,0,0.32); display:flex; flex-direction:column; transition:transform 0.45s cubic-bezier(.2,.8,.2,1), box-shadow 0.45s ease; transform:rotate(2.2deg);" style-hover="transform:rotate(0deg) translateY(-8px); box-shadow:0 1px 2px rgba(0,0,0,0.08), 0 26px 44px -18px rgba(0,0,0,0.36);">
-              <img loading="lazy" src="assets/china/baiziwan-team.webp" alt="Tomasz laughing with teammates around a monitor at MAD" style="width:100%; aspect-ratio:1; object-fit:cover; display:block; background:#EDEDEA;">
-              <span style="display:block; padding:9px 4px 13px; font-family:'Caveat',cursive; font-weight:600; font-size:21px; line-height:1.05; text-align:center; color:#1E1E20;">BaiZiWan team</span>
-            </button>
-            <button type="button" onClick="{{ pol2 }}" aria-label="Open photo: After work" style="appearance:none; border:0; cursor:zoom-in; font-family:inherit; flex:1 1 0; min-width:136px; padding:clamp(8px,0.8vw,12px) clamp(8px,0.8vw,12px) 0; background:#FFFFFF; box-shadow:0 1px 2px rgba(0,0,0,0.08), 0 14px 30px -14px rgba(0,0,0,0.32); display:flex; flex-direction:column; transition:transform 0.45s cubic-bezier(.2,.8,.2,1), box-shadow 0.45s ease; transform:rotate(-1.4deg);" style-hover="transform:rotate(0deg) translateY(-8px); box-shadow:0 1px 2px rgba(0,0,0,0.08), 0 26px 44px -18px rgba(0,0,0,0.36);">
-              <img loading="lazy" src="assets/china/mad-after-work.webp" alt="Tomasz with five MAD colleagues around a table of bottles after work" style="width:100%; aspect-ratio:1; object-fit:cover; object-position:50% 40%; display:block; background:#EDEDEA;">
-              <span style="display:block; padding:9px 4px 13px; font-family:'Caveat',cursive; font-weight:600; font-size:21px; line-height:1.05; text-align:center; color:#1E1E20;">After work</span>
-            </button>
-            <button type="button" onClick="{{ pol3 }}" aria-label="Open photo: Gangxia team" style="appearance:none; border:0; cursor:zoom-in; font-family:inherit; flex:1 1 0; min-width:136px; padding:clamp(8px,0.8vw,12px) clamp(8px,0.8vw,12px) 0; background:#FFFFFF; box-shadow:0 1px 2px rgba(0,0,0,0.08), 0 14px 30px -14px rgba(0,0,0,0.32); display:flex; flex-direction:column; transition:transform 0.45s cubic-bezier(.2,.8,.2,1), box-shadow 0.45s ease; transform:rotate(3deg);" style-hover="transform:rotate(0deg) translateY(-8px); box-shadow:0 1px 2px rgba(0,0,0,0.08), 0 26px 44px -18px rgba(0,0,0,0.36);">
-              <img loading="lazy" src="assets/china/gangxia-team.webp" alt="Tomasz with his Gangxia North hub team in the office" style="width:100%; aspect-ratio:1; object-fit:cover; object-position:50% 35%; display:block; background:#EDEDEA;">
-              <span style="display:block; padding:9px 4px 13px; font-family:'Caveat',cursive; font-weight:600; font-size:21px; line-height:1.05; text-align:center; color:#1E1E20;">Gangxia team</span>
-            </button>
-            <button type="button" onClick="{{ pol4 }}" aria-label="Open photo: On the model" style="appearance:none; border:0; cursor:zoom-in; font-family:inherit; flex:1 1 0; min-width:136px; padding:clamp(8px,0.8vw,12px) clamp(8px,0.8vw,12px) 0; background:#FFFFFF; box-shadow:0 1px 2px rgba(0,0,0,0.08), 0 14px 30px -14px rgba(0,0,0,0.32); display:flex; flex-direction:column; transition:transform 0.45s cubic-bezier(.2,.8,.2,1), box-shadow 0.45s ease; transform:rotate(-2.2deg);" style-hover="transform:rotate(0deg) translateY(-8px); box-shadow:0 1px 2px rgba(0,0,0,0.08), 0 26px 44px -18px rgba(0,0,0,0.36);">
-              <img loading="lazy" src="assets/china/on-the-model.webp" alt="Tomasz lying on the model table, adjusting a massing model" style="width:100%; aspect-ratio:1; object-fit:cover; object-position:48% 30%; display:block; background:#EDEDEA;">
-              <span style="display:block; padding:9px 4px 13px; font-family:'Caveat',cursive; font-weight:600; font-size:21px; line-height:1.05; text-align:center; color:#1E1E20;">On the model</span>
-            </button>
+    <section id="architecture" data-om-label="Architecture" data-screen-label="Architecture" style="padding:clamp(80px,10vw,150px) clamp(20px,4vw,40px); scroll-margin-top:88px;">
+      <div style="max-width:1200px; margin:0 auto;">
+        <div style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+          <div style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:#6E6E73;"><span style="width:6px; height:6px; border-radius:1px; background:#E7573E;"></span>Architecture · China</div>
+          <h2 data-reveal="" style="margin:20px 0 0 0; font-weight:500; font-size:clamp(34px,4.2vw,58px); line-height:1.08; letter-spacing:-0.035em; text-wrap:balance; max-width:20ch;">Back in China, the fitness function was the eval.</h2>
+          <p data-reveal="" style="margin:24px 0 0 0; font-size:clamp(16px,1.25vw,18px); line-height:1.65; color:#6E6E73; max-width:60ch; text-wrap:pretty;">Five years working in China, back and forth ever since. I wrote the scripts behind a facade and an opera house interior at <strong style="color:#161617; font-weight:600;">MAD</strong>, and competition wins at <strong style="color:#161617; font-weight:600;">AREP</strong>. A decade before “AI agent” was a phrase, I was building evolutionary solvers that bred building geometry from a fitness function.</p>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:14px; margin-top:clamp(48px,6vw,80px); font-size:14px; font-weight:500; color:#6E6E73;"><span style="flex:1; height:1px; background:#EDEDEA;"></span><span>Selected buildings</span><span style="flex:1; height:1px; background:#EDEDEA;"></span></div>
+        <div id="v20-builds" data-reveal="" style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:20px;">
+          <a href="https://www.behance.net/gallery/173267555/Architectural-images-of-Xiamen-Xinhee-Design-Center" target="_blank" rel="noopener" data-om-label="Xinhee card" style="display:flex; flex-direction:column; padding:16px 16px 24px; border-radius:16px; box-shadow:inset 0 0 0 1px #E5E5E2; color:#161617; text-decoration:none; min-width:0; transition:box-shadow 0.25s ease;" style-hover="box-shadow:inset 0 0 0 1px #161617; color:#161617;">
+            <img loading="lazy" src="assets/xinhee-built.webp" alt="The built Xinhee Design Center at dusk: translucent PTFE membrane shells over the office arms, Xiamen." style="display:block; width:100%; aspect-ratio:3 / 2; object-fit:cover; border-radius:10px;">
+            <div style="display:flex; justify-content:space-between; gap:12px; margin:20px 8px 0; font-size:13px; color:#8E8E93;"><span>MAD Architects · Xiamen</span><span>2015–2016</span></div>
+            <h3 style="margin:10px 8px 0; font-weight:500; font-size:22px; line-height:1.2; letter-spacing:-0.02em;">Xinhee Design Center ↗</h3>
+            <p style="margin:8px 8px 0; font-size:15px; line-height:1.6; color:#6E6E73; text-wrap:pretty;">The parametric model behind the double-curved PTFE membrane facade, optimising membrane cost and buildability at once.</p>
+          </a>
+          <div data-om-label="Harbin card" style="display:flex; flex-direction:column; padding:16px 16px 24px; border-radius:16px; box-shadow:inset 0 0 0 1px #E5E5E2; min-width:0;">
+            <img loading="lazy" src="assets/harbin/harbin-aerial.webp" alt="Harbin Opera House from above, curving along the Songhua River wetlands" style="display:block; width:100%; aspect-ratio:3 / 2; object-fit:cover; border-radius:10px;">
+            <div style="display:flex; justify-content:space-between; gap:12px; margin:20px 8px 0; font-size:13px; color:#8E8E93;"><span>MAD Architects · Harbin</span><span>2015</span></div>
+            <h3 style="margin:10px 8px 0; font-weight:500; font-size:22px; line-height:1.2; letter-spacing:-0.02em;">Harbin Opera House</h3>
+            <p style="margin:8px 8px 0; font-size:15px; line-height:1.6; color:#6E6E73; text-wrap:pretty;">Parametric timber interior, detailed down to fabrication.</p>
+          </div>
+          <div data-om-label="Gangxia card" style="display:flex; flex-direction:column; padding:16px 16px 24px; border-radius:16px; box-shadow:inset 0 0 0 1px #E5E5E2; min-width:0;">
+            <img loading="lazy" src="assets/shenzhen/gangxia-eye.webp" alt="Gangxia North hub: the 'Eye of Shenzhen' lattice skylight above the main concourse" style="display:block; width:100%; aspect-ratio:3 / 2; object-fit:cover; border-radius:10px;">
+            <div style="display:flex; justify-content:space-between; gap:12px; margin:20px 8px 0; font-size:13px; color:#8E8E93;"><span>AREP · Shenzhen</span><span>2016–2017</span></div>
+            <h3 style="margin:10px 8px 0; font-weight:500; font-size:22px; line-height:1.2; letter-spacing:-0.02em;">Gangxia North hub</h3>
+            <p style="margin:8px 8px 0; font-size:15px; line-height:1.6; color:#6E6E73; text-wrap:pretty;">Parametric skylights and entrances for the competition win.</p>
           </div>
         </div>
-        <div data-om-label="Xinhee card" style="position:relative; display:flex; flex-direction:column; gap:clamp(20px,2.4vw,32px); margin-top:clamp(16px,2vw,28px); padding:clamp(28px,4vw,56px); border-radius:32px; background:#F5F5F3; color:#161617; overflow:hidden; box-shadow:0 0 0 1px rgba(0,0,0,0.04), 0 0 48px -20px rgba(0,0,0,0.16);">
-          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); align-items:start; gap:28px clamp(32px,4vw,64px);">
-            <div style="min-width:0; max-width:56ch;">
-              <div style="font-size:14px; font-weight:500; color:#6E6E73;">MAD Architects · Xiamen, 2015–2016</div>
-              <h3 style="font-weight:600; font-size:clamp(34px,4.2vw,64px); line-height:1; letter-spacing:-0.04em; margin:16px 0 0 0; text-wrap:balance;">Xinhee Design Center</h3>
-              <p style="font-size:17px; line-height:1.6; color:#5E5E63; margin:16px 0 0 0; text-wrap:pretty;">Six office arms around a central atrium, wrapped in a floating PTFE skin. <span style="color:#161617;">My part: the parametric model that generated the double-curved membrane facade and made it buildable, optimising membrane cost and buildability at once.</span></p>
-              <a href="https://www.behance.net/gallery/173267555/Architectural-images-of-Xiamen-Xinhee-Design-Center" target="_blank" rel="noopener" style="display:inline-flex; margin-top:28px; align-items:center; padding:12px 22px; border-radius:999px; background:#161617; font-size:14.5px; font-weight:500; color:#FFFFFF; text-decoration:none; white-space:nowrap;" style-hover="background:#3A3A3D; opacity:1;">See the built building ↗</a>
-            </div>
-            <figure data-om-label="Xinhee photo" style="margin:0; min-width:0;">
-              <img loading="lazy" src="assets/xinhee-built.webp" alt="The built Xinhee Design Center at dusk: translucent PTFE membrane shells over the office arms, Xiamen." style="display:block; width:100%; aspect-ratio:16 / 10; object-fit:cover; border-radius:20px; box-shadow:0 24px 48px -30px rgba(0,0,0,0.35);">
-              <figcaption style="margin-top:10px; font-size:12px; line-height:1.4; color:#6E6E73; text-align:right;">Image courtesy of MAD Architects</figcaption>
-            </figure>
-          </div>
-          <figure data-om-label="Galapagos facade" style="margin:0; min-width:0;">
-            <div style="position:relative; width:100%; aspect-ratio:16/9; min-height:min(560px, 130vw); margin-top:clamp(8px,1.6vw,24px);">
-              
-              <x-import component-from-global-scope="xinhee-evolve" from="./xinhee-evolve.js" src="assets/xinhee.xbin" theme="light" hud-gap="48" palette="{{ galPalette }}" zoom="1.22" style="position:absolute; inset:0;" hint-size="100%,100%"></x-import>
+        <div style="margin-top:12px; font-size:12px; color:#8E8E93; text-align:right;">Images courtesy of MAD Architects and AREP</div>
+
+        <sc-if value="{{ showSolver }}" hint-placeholder-val="{{ true }}">
+          <figure data-om-label="Facade solver" style="margin:clamp(40px,5vw,64px) 0 0 0;">
+            <div style="position:relative; width:100%; aspect-ratio:16 / 13; min-height:min(840px, 160vw); border-radius:16px; overflow:hidden; box-shadow:inset 0 0 0 1px #E5E5E2;">
+              <x-import component-from-global-scope="xinhee-evolve" from="./xinhee-evolve.js?v=5" src="assets/xinhee.xbin" theme="light" land="#F3F5F7" hud-gap="40" hud-inset="32" palette="ghost" zoom="1.05" style="position:absolute; inset:0;" hint-size="100%,100%"></x-import>
+              <figcaption data-om-label="Solver title" style="position:absolute; top:clamp(20px,3vw,36px); left:clamp(20px,3vw,36px); z-index:1; max-width:min(34ch, 60%); display:flex; flex-direction:column; gap:10px; text-align:left; pointer-events:none;">
+                <span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#E7573E;">Live model</span>
+                <h3 style="margin:0; font-weight:500; font-size:clamp(20px,2vw,26px); line-height:1.15; letter-spacing:-0.025em; color:#161617;">The Xinhee facade, evolving</h3>
+                <p style="margin:0; font-size:14px; line-height:1.55; color:#6E6E73; text-wrap:pretty;">An evolutionary solver breeds the membrane geometry, scoring every generation on cost and buildability.</p>
+              </figcaption>
             </div>
           </figure>
+        </sc-if>
+
+        <div data-reveal="" data-om-label="China photos" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr)); gap:12px; margin-top:clamp(40px,5vw,64px);">
+          <figure style="margin:0; display:flex; flex-direction:column; gap:8px; min-width:0;"><img loading="lazy" src="assets/china/mad-family.webp" alt="MAD Architects team photo in front of the Beijing office" style="width:100%; aspect-ratio:1; object-fit:cover; display:block; border-radius:10px; filter:grayscale(1); transition:filter 0.4s ease;" style-hover="filter:grayscale(0);"><figcaption style="font-size:13px; color:#6E6E73;">MAD family</figcaption></figure>
+          <figure style="margin:0; display:flex; flex-direction:column; gap:8px; min-width:0;"><img loading="lazy" src="assets/china/baiziwan-team.webp" alt="Tomasz laughing with teammates around a monitor at MAD" style="width:100%; aspect-ratio:1; object-fit:cover; display:block; border-radius:10px; filter:grayscale(1); transition:filter 0.4s ease;" style-hover="filter:grayscale(0);"><figcaption style="font-size:13px; color:#6E6E73;">BaiZiWan team</figcaption></figure>
+          <figure style="margin:0; display:flex; flex-direction:column; gap:8px; min-width:0;"><img loading="lazy" src="assets/china/mad-after-work.webp" alt="Tomasz with five MAD colleagues after work" style="width:100%; aspect-ratio:1; object-fit:cover; object-position:50% 40%; display:block; border-radius:10px; filter:grayscale(1); transition:filter 0.4s ease;" style-hover="filter:grayscale(0);"><figcaption style="font-size:13px; color:#6E6E73;">After work</figcaption></figure>
+          <figure style="margin:0; display:flex; flex-direction:column; gap:8px; min-width:0;"><img loading="lazy" src="assets/china/gangxia-team.webp" alt="Tomasz with his Gangxia North hub team in the office" style="width:100%; aspect-ratio:1; object-fit:cover; object-position:50% 35%; display:block; border-radius:10px; filter:grayscale(1); transition:filter 0.4s ease;" style-hover="filter:grayscale(0);"><figcaption style="font-size:13px; color:#6E6E73;">Gangxia team</figcaption></figure>
+          <figure style="margin:0; display:flex; flex-direction:column; gap:8px; min-width:0;"><img loading="lazy" src="assets/china/on-the-model.webp" alt="Tomasz lying on the model table, adjusting a massing model" style="width:100%; aspect-ratio:1; object-fit:cover; object-position:48% 30%; display:block; border-radius:10px; filter:grayscale(1); transition:filter 0.4s ease;" style-hover="filter:grayscale(0);"><figcaption style="font-size:13px; color:#6E6E73;">On the model</figcaption></figure>
         </div>
-        <p data-reveal="" style="font-weight:600; font-size:clamp(30px,3.4vw,52px); line-height:1.05; letter-spacing:-0.035em; margin:clamp(56px,7vw,96px) 0 0 0; color:#161617; text-align:center; text-wrap:balance;">Optimal was easy. <span style="font-family:'Newsreader',Georgia,serif; font-style:italic; font-weight:500; letter-spacing:-0.015em;">Buildable</span> was the job.</p>
-        <div data-reveal="" data-om-label="Other buildings" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); gap:20px; margin-top:clamp(40px,5vw,64px);">
-          <div data-om-label="Harbin Opera House card" style="display:flex; flex-direction:column; gap:12px; padding:clamp(24px,2.6vw,36px); border-radius:28px; background:#F5F5F3; box-shadow:0 0 0 1px rgba(0,0,0,0.04), 0 0 48px -20px rgba(0,0,0,0.16); min-width:0;">
-            <div style="display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; font-size:14px; font-weight:500; color:#6E6E73;"><span>MAD Architects · Harbin</span><span>2015</span></div>
-            <h3 style="font-weight:600; font-size:clamp(26px,2.6vw,38px); line-height:1.05; letter-spacing:-0.035em; margin:4px 0 0 0; color:#161617; text-wrap:balance;">Harbin Opera House</h3>
-            <p style="font-size:16px; line-height:1.55; color:#5E5E63; margin:0; text-wrap:pretty;"><span style="color:#161617; font-weight:500;">My part:</span> parametric timber interior, detailed down to fabrication.</p>
-            <figure style="margin:auto 0 0 0; min-width:0;"><img loading="lazy" src="assets/harbin/harbin-aerial.webp" alt="Harbin Opera House from above, curving along the Songhua River wetlands" style="width:100%; aspect-ratio:3/2; object-fit:cover; border-radius:16px; display:block;"><figcaption style="margin-top:10px; font-size:12px; line-height:1.4; color:#6E6E73; text-align:right;">Image courtesy of MAD Architects</figcaption></figure>
-          </div>
-          <div data-om-label="Gangxia North hub card" style="display:flex; flex-direction:column; gap:12px; padding:clamp(24px,2.6vw,36px); border-radius:28px; background:#F5F5F3; box-shadow:0 0 0 1px rgba(0,0,0,0.04), 0 0 48px -20px rgba(0,0,0,0.16); min-width:0;">
-            <div style="display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; font-size:14px; font-weight:500; color:#6E6E73;"><span>AREP · Shenzhen</span><span>2016–2017</span></div>
-            <h3 style="font-weight:600; font-size:clamp(26px,2.6vw,38px); line-height:1.05; letter-spacing:-0.035em; margin:4px 0 0 0; color:#161617; text-wrap:balance;">Gangxia North hub</h3>
-            <p style="font-size:16px; line-height:1.55; color:#5E5E63; margin:0; text-wrap:pretty;"><span style="color:#161617; font-weight:500;">My part:</span> parametric skylights and entrances for the competition win.</p>
-            <figure style="margin:auto 0 0 0; min-width:0;"><img loading="lazy" src="assets/shenzhen/gangxia-eye.webp" alt="Gangxia North hub: the 'Eye of Shenzhen' lattice skylight above the main concourse" style="width:100%; aspect-ratio:3/2; object-fit:cover; border-radius:16px; display:block;"><figcaption style="margin-top:10px; font-size:12px; line-height:1.4; color:#6E6E73; text-align:right;">Image courtesy of AREP</figcaption></figure>
-          </div>
-        </div>
+
+        <p data-reveal="" style="margin:clamp(56px,7vw,88px) 0 0 0; text-align:center; font-weight:500; font-size:clamp(24px,2.4vw,34px); line-height:1.25; letter-spacing:-0.025em;">Optimal was easy. <span style="color:#E7573E;">Buildable</span> was the job.</p>
       </div>
     </section>
 
-   </div>
+    <section id="contact" data-om-label="Contact" data-screen-label="Contact" style="padding:clamp(96px,12vw,180px) clamp(20px,4vw,40px); scroll-margin-top:88px; border-top:1px solid #EDEDEA;">
+      <div style="max-width:1200px; margin:0 auto; display:flex; flex-direction:column; align-items:center; text-align:center;">
+        <h2 style="margin:0; font-weight:500; font-size:clamp(40px,5.6vw,80px); line-height:1.02; letter-spacing:-0.045em; text-wrap:balance; max-width:16ch;">Got a black box nobody uses?</h2>
+        <p style="margin:24px 0 0 0; font-size:clamp(16px,1.25vw,18px); line-height:1.65; color:#6E6E73; max-width:46ch; text-wrap:pretty;">Tell me what it predicts and who ignores it. I’ll tell you what I’d build first.</p>
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:36px;">
+          <a href="mailto:tomasz@czarnecki.ai" style="display:inline-flex; align-items:center; padding:13px 24px; border-radius:999px; background:#161617; color:#FFFFFF; font-size:15px; font-weight:500; text-decoration:none;" style-hover="background:#3A3A3D; color:#FFFFFF;">tomasz@czarnecki.ai</a>
+          <a href="https://www.linkedin.com/in/czarnecki-ai" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; white-space:nowrap; padding:13px 24px; border-radius:999px; box-shadow:inset 0 0 0 1px #D6D6D3; color:#161617; font-size:15px; font-weight:500; text-decoration:none;" style-hover="box-shadow:inset 0 0 0 1px #161617; color:#161617;">LinkedIn ↗</a>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <section id="contact" style="position:relative; overflow:hidden; margin-top:clamp(24px,2.5vw,32px); scroll-margin-top:96px; background-color:#1C1C1E;" data-om-label="Footer" data-screen-label="Contact">
-    <div style="position:relative; z-index:2; max-width:1440px; margin:0 auto; padding:clamp(40px,4.5vw,64px) clamp(20px,4vw,56px) clamp(28px,3vw,40px);">
-      <div style="display:flex; align-items:center; gap:10px; font-size:14px; font-weight:500; color:#8E8E93;"><span style="width:8px; height:8px; border-radius:2px; background:#E7573E; flex:none;"></span><span>If this resonates, let's talk</span></div>
-      <h2 style="font-weight:600; font-size:clamp(52px,8.4vw,140px); line-height:0.95; letter-spacing:-0.048em; margin:clamp(20px,2.4vw,32px) 0 0 0; color:#FFFFFF; text-wrap:pretty;">Got a black box nobody uses?</h2>
-      <p style="font-size:clamp(17px,1.4vw,21px); line-height:1.55; color:#A1A1A6; max-width:46ch; margin:28px 0 0 0; text-wrap:pretty;">Tell me what it predicts and who ignores it. I'll tell you what I'd build first.</p>
-      <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:36px;">
-        <a href="https://www.linkedin.com/in/czarnecki-ai" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; padding:15px 28px; border-radius:999px; background:#FFFFFF; color:#161617; font-size:15px; font-weight:500; text-decoration:none;" style-hover="background:#E6E6E3; opacity:1;">LinkedIn ↗</a>
-        <a href="mailto:tomasz@czarnecki.ai" style="display:inline-flex; align-items:center; padding:15px 28px; border-radius:999px; background:transparent; box-shadow:inset 0 0 0 1px #48484C; color:#FFFFFF; font-size:15px; font-weight:500; text-decoration:none;" style-hover="background:#2A2A2D; opacity:1;">tomasz@czarnecki.ai</a>
+  <footer data-om-label="Footer" style="border-top:1px solid #EDEDEA; padding:28px clamp(20px,4vw,40px);">
+    <div style="max-width:1200px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 24px; font-size:13px; color:#8E8E93;">
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px;">
+        <span style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; letter-spacing:-0.015em; color:#161617;"><span style="width:8px; height:8px; border-radius:2px; background:#E7573E;"></span>Tomasz Czarnecki</span>
+        <span>© {{ year }} · Designed and built with Claude Code</span>
       </div>
-      <div style="height:1px; background:#3A3A3D; margin-top:clamp(72px,9vw,120px);"></div>
-      <div style="display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:16px 24px; padding-top:24px;">
-        <span style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; color:#FFFFFF;"><span style="width:12px; height:12px; border-radius:4px; background:#E7573E;"></span>Tomasz Czarnecki</span>
-        <a href="#top" onClick="{{ toTop }}" aria-label="Back to top" title="Back to top" style="display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:999px; box-shadow:inset 0 0 0 1px #48484C; color:#FFFFFF; font-size:18px; font-weight:500; text-decoration:none; transition:background-color 0.25s ease, transform 0.3s cubic-bezier(.2,.8,.2,1);" style-hover="background:#2A2A2D; transform:translateY(-3px); opacity:1;">↑</a>
-        <span style="font-size:13px; color:#8E8E93; justify-self:end; text-align:right;">© {{ year }} · Designed and built by me with Claude Code · czarnecki.ai</span>
-      </div>
+      <a href="#top" onClick="{{ toTop }}" style="color:#8E8E93; text-decoration:none;">Back to top ↑</a>
     </div>
-  </section>
+  </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;boxSkin&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;fur&quot;,&quot;carton&quot;,&quot;ink&quot;],&quot;default&quot;:&quot;fur&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;orbitDwell&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.8,&quot;min&quot;:0.6,&quot;max&quot;:4,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Work&quot;},&quot;portraitMono&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;heroNoise&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;faceCycle&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;faceCycleSec&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:2.4,&quot;min&quot;:1,&quot;max&quot;:6,&quot;step&quot;:0.2,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;faceExpression&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;grin&quot;,&quot;smile&quot;,&quot;oh&quot;],&quot;default&quot;:&quot;grin&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;hopping&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;dockMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;margin&quot;,&quot;right&quot;,&quot;left&quot;,&quot;roam&quot;],&quot;default&quot;:&quot;margin&quot;,&quot;tsType&quot;:&quot;'margin'|'right'|'left'|'roam'&quot;,&quot;section&quot;:&quot;Black box&quot;},&quot;showMetrics&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Work&quot;},&quot;youtubeId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;y4ujczQ-hPs&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;pond&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;pondFish&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:5,&quot;min&quot;:1,&quot;max&quot;:10,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;pondAlpha&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.18,&quot;min&quot;:0.05,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;skillsGraph&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Strands&quot;,&quot;Ripples&quot;,&quot;Venn&quot;],&quot;default&quot;:&quot;Strands&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Skills&quot;},&quot;showMetrics&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Work&quot;},&quot;showSolver&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Architecture&quot;},&quot;youtubeId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;y4ujczQ-hPs&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
-  state = { introPlaying: false, chatOpen: false, chatMsgs: [], chatDraft: '', chatBusy: false, chatChips: [] };
-  chatInput = React.createRef(); chatLog = React.createRef();
-
+  state = { introPlaying: false, yi: 0 };
   todayTicker = React.createRef();
-
-  componentDidMount() {
-    { const pb = document.getElementById('playbook'); if (pb) { this._pbIO = new IntersectionObserver((es) => { if (!es.some((e) => e.isIntersecting)) return; this._pbIO.disconnect(); this.setState({ reelNear: true }); }, { rootMargin: '900px 0px' }); this._pbIO.observe(pb); } }
-    if (location.hash.length > 1 && location.hash !== '#top') { const id = decodeURIComponent(location.hash.slice(1)); let n = 0; const go = () => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().height > 0) el.scrollIntoView({ block: 'start' }); if (++n < 3) this._hashT = setTimeout(go, 400); }; this._hashT = setTimeout(go, 60); }
-    this.initAvatarFit();
-    this.syncNoise();
-    this.initArrow();
-    this.initPinSnap();
-    { let lastD = -1, lastT = 0, tkVis = true; const tkEl = this.todayTicker.current; if (tkEl) { this._tkIO = new IntersectionObserver((e) => { tkVis = e[0].isIntersecting; }, { rootMargin: '120px 0px' }); this._tkIO.observe(tkEl); }
-      const loop = (t) => { this._spRaf = requestAnimationFrame(loop); if (!tkVis || document.hidden || t - lastT < 110) return; lastT = t; { const n = new Date(), m = new Date(n); m.setHours(0, 0, 0, 0); const s = (n - m) / 1000, dv = Math.floor(s * 2.9e9 / 31557600); if (dv !== lastD && this.todayTicker.current) { this.todayTicker.current.textContent = '€' + dv.toLocaleString('en-US'); lastD = dv; } } };
-      this._spRaf = requestAnimationFrame(loop); }
-    this.initHandoff();
-    this.faceLoop();
-    this.initYaga();
-    this.initScroll();
-    this._onBBChat = (e) => this.chatUI(!!(e.detail && e.detail.open));
-    this._onChatKey = (e) => { if (e.key === 'Escape' && this.state.chatOpen) this.closeChat(); };
-    window.addEventListener('blackbox:chat', this._onBBChat);
-    window.addEventListener('keydown', this._onChatKey);
-    this._onLbKey = (e) => { const i = this.state.lb ?? -1; if (i < 0) return; if (e.key === 'Escape') this.lbClose(); else if (e.key === 'ArrowRight') this.lbGo(i + 1); else if (e.key === 'ArrowLeft') this.lbGo(i - 1); };
-    window.addEventListener('keydown', this._onLbKey);
-  }
-  REEL = [
-    { n: '01', t: 'Sit with the people before the model.', b: 'Three months of workshops across markets before anyone drew a screen.', short: 'Sit with the people', img: 'assets/playbook/step-1-trumpet.webp', tint: '#F0A438', pos: '80% 50%' },
-    { n: '02', t: 'Prototype on real data, not slides.', b: 'Clickable screens wired to a command-line model on real Heineken data. People trust what they can poke.', short: 'Prototype on real data', img: 'assets/playbook/step-2-prototype.webp', tint: '#E44584', pos: '28% 40%' },
-    { n: '03', t: 'Show the range, not the number.', b: 'Revenue managers with 20 years of Excel habits ran the scenario, saw the confidence, then decided.', short: 'Show the range', img: 'assets/playbook/step-3-scroll.webp', tint: '#7EAE46', pos: '72% 55%' },
-    { n: '04', t: 'Kill the old spreadsheet.', b: 'Adoption isn\u2019t logins; it\u2019s the day the Excel process dies. Smart Flighting replaced one, and the consultancy\u2019s product was switched off. With agents, same test: four weeks later, is the old way gone?', short: 'Kill the old spreadsheet', img: 'assets/playbook/step-4-tombstone.webp', tint: '#E05038', pos: '40% 45%' },
-  ];
-  reelVals() {
-    const S = this.REEL, a = this.state.reelA || 0, cyc = this.state.reelCycle || 0, hov = !!this.state.reelHover;
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const reel = S.map((s, i) => {
-      const on = i === a;
-      return {
-        n: s.n, t: s.t, b: s.b, short: s.short, bg: this.state.reelNear ? 'url("' + s.img + '")' : 'none', tint: s.tint,
-        exp: on ? 'true' : 'false', aria: 'Step ' + s.n + ': ' + s.short,
-        grow: on ? '3.4' : '1', pos: on ? '50% 50%' : s.pos, zoom: on ? 'scale(1.02)' : 'scale(1.14)',
-        labO: on ? '0' : '1', cardO: on ? '1' : '0', cardT: on ? 'none' : 'translateY(16px)',
-        cardTr: on ? 'opacity 0.4s ease 0.35s, transform 0.55s cubic-bezier(0.22,1,0.36,1) 0.35s' : 'opacity 0.15s ease, transform 0.15s ease',
-        enter: () => this.setState((x) => ((x.reelA || 0) === i ? { reelHover: true } : { reelA: i, reelCycle: (x.reelCycle || 0) + 1, reelHover: true })),
-      };
-    });
-    const reelRail = React.createElement('div', { style: { display: 'flex', gap: 8 } }, S.map((s, i) => React.createElement('span', { key: i, style: { flex: 1, height: 3, borderRadius: 3, background: '#E3E3E0', overflow: 'hidden' } },
-      i < a ? React.createElement('span', { style: { display: 'block', height: '100%', background: '#161617' } })
-        : i === a ? React.createElement('span', { key: 'f' + cyc, onAnimationEnd: () => this.setState((x) => ({ reelA: ((x.reelA || 0) + 1) % 4, reelCycle: (x.reelCycle || 0) + 1 })), style: { display: 'block', height: '100%', background: '#161617', width: reduce ? '100%' : 0, animation: reduce ? 'none' : 'pbFill 4.8s linear forwards', animationPlayState: hov ? 'paused' : 'running' } })
-        : null)));
-    return { reel: reel, reelRail: reelRail, reelLeave: () => this.setState({ reelHover: false }), reelHint: reduce ? 'Tap a strip to open it' : (hov ? 'Paused · move away to resume' : 'Auto-plays · hover to take over') };
-  }
-  arrowPath = React.createRef(); arrowHead = React.createRef(); arrowLabel = React.createRef();
-  initArrow() {
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let last = '';
-    const tick = () => {
-      this._arRaf = requestAnimationFrame(tick);
-      const path = this.arrowPath.current, head = this.arrowHead.current, lab = this.arrowLabel.current;
-      const wrap = document.getElementById('hx-arrow'), frame = document.getElementById('v2-hero-frame');
-      const h1 = document.getElementById('v2-hero-title'), copy = document.getElementById('v2-hero-copy');
-      const bb = document.querySelector('black-box-faces'), hit = bb && bb.hit;
-      if (!path || !head || !lab || !wrap || !frame || !h1 || !copy || !hit) return;
-      const fr = frame.getBoundingClientRect();
-      if (fr.bottom < 0 || fr.top > window.innerHeight) return;
-      const br = hit.getBoundingClientRect();
-      const fade = Math.max(0, 1 - window.scrollY / (window.innerHeight * 0.28));
-      if (br.width < 90 || br.left > window.innerWidth || br.right < 0) { wrap.style.opacity = '0'; return; }
-      wrap.style.opacity = fade.toFixed(3);
-      if (fade <= 0) return;
-      if (!this._arRange) this._arRange = document.createRange();
-      this._arRange.selectNodeContents(h1);
-      const lines = Array.from(this._arRange.getClientRects()).filter((r) => r.width > 4);
-      let ln = h1.getBoundingClientRect();
-      if (lines.length) {
-        const maxB = Math.max.apply(null, lines.map((r) => r.bottom));
-        const last = lines.filter((r) => (r.top + r.bottom) / 2 > maxB - r.height * 0.75);
-        const lt = Math.min.apply(null, last.map((r) => r.top)), lr = Math.max.apply(null, last.map((r) => r.right));
-        ln = { top: lt, height: maxB - lt, right: lr, bottom: maxB };
-      }
-      const right = lines.length ? Math.max.apply(null, lines.map((r) => r.right)) : ln.right;
-      const tr = { right: Math.max(ln.right, right - 0), top: ln.top, height: ln.height, lastRight: ln.right }, cr = copy.getBoundingClientRect();
-      const X = (v) => v - fr.left, Y = (v) => v - fr.top;
-      let sx, sy, ex, ey, c1x, c1y, c2x, c2y, lx, ly;
-      const side = br.left > tr.right + 60;
-      if (side) {
-        const boxL = br.left - Math.max(14, br.width * 0.1);
-        ex = X(boxL) - 20; ey = Y(br.top + br.height * 0.44);
-        const gap = boxL - tr.lastRight;
-        if (gap > 240) {
-          sx = X(tr.lastRight) + 18; sy = Y(tr.top + tr.height * 0.48);
-          const dx = ex - sx, lift = Math.max(40, Math.min(90, dx * 0.22));
-          c1x = sx + dx * 0.35; c1y = sy - lift; c2x = ex - dx * 0.3; c2y = ey - lift * 0.35;
-          lx = sx + 18; ly = sy + 14;
-        } else {
-          sx = X(tr.lastRight) - 70; sy = Y(tr.top + tr.height) + 14;
-          const dx = ex - sx;
-          c1x = sx + 10; c1y = sy + 70; c2x = ex - Math.max(60, dx * 0.45); c2y = ey + 30;
-          lx = sx - 4; ly = sy + 96;
-        }
-        this._arLabMax = X(boxL) - 12;
-      } else {
-        sx = X(cr.left) + 10; sy = Y(cr.bottom) + 36;
-        ex = X(br.left + br.width * 0.16); ey = Y(br.top) - 4;
-        if (ex < sx + 90) ex = sx + 90;
-        const dx = ex - sx, dy = ey - sy;
-        c1x = sx + dx * 0.6; c1y = sy - 22; c2x = ex + dx * 0.04; c2y = ey - Math.max(30, dy * 0.7);
-        lx = sx; ly = sy;
-        if (dy < 40) { wrap.style.opacity = '0'; return; }
-      }
-      if (ey - sy < 0 && !side) { wrap.style.opacity = '0'; return; }
-      const key = [sx, sy, ex, ey].map((v) => v.toFixed(0)).join(',');
-      if (key === last) return;
-      last = key;
-      path.setAttribute('d', 'M' + sx.toFixed(1) + ' ' + sy.toFixed(1) + ' C' + c1x.toFixed(1) + ' ' + c1y.toFixed(1) + ' ' + c2x.toFixed(1) + ' ' + c2y.toFixed(1) + ' ' + ex.toFixed(1) + ' ' + ey.toFixed(1));
-      const ang = Math.atan2(ey - c2y, ex - c2x), L = 24, A = 0.48;
-      const p1x = ex - L * Math.cos(ang - A), p1y = ey - L * Math.sin(ang - A), p2x = ex - L * Math.cos(ang + A), p2y = ey - L * Math.sin(ang + A);
-      head.setAttribute('d', 'M' + p1x.toFixed(1) + ' ' + p1y.toFixed(1) + ' L' + ex.toFixed(1) + ' ' + ey.toFixed(1) + ' L' + p2x.toFixed(1) + ' ' + p2y.toFixed(1));
-
-      if (!this._arDrawn) {
-        this._arDrawn = true; lab.style.opacity = '1';
-        if (!reduce) {
-          const len = path.getTotalLength();
-          path.style.strokeDasharray = len; path.style.strokeDashoffset = len; head.style.opacity = '0';
-          path.getBoundingClientRect();
-          path.style.transition = 'stroke-dashoffset 0.9s cubic-bezier(0.65,0,0.35,1) 0.6s'; path.style.strokeDashoffset = '0';
-          head.style.transition = 'opacity 0.2s ease 1.4s'; head.style.opacity = '1';
-          setTimeout(() => { path.style.transition = ''; path.style.strokeDasharray = ''; path.style.strokeDashoffset = ''; }, 1700);
-        }
-      }
-    };
-    tick();
-  }
-  initPinSnap() {
-    let lastY = window.scrollY, dir = 1, t = null, snapping = false, snapT = null;
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const range = () => {
-      const pin = document.getElementById('intro-pin'); if (!pin) return null;
-      const top = pin.getBoundingClientRect().top + window.scrollY;
-      return { top: top, end: top + pin.offsetHeight - window.innerHeight };
-    };
-    const settle = () => {
-      if (snapping) return;
-      const r = range(); if (!r || r.end - r.top < 40) return;
-      const y = window.scrollY;
-      if (y <= r.top + 4 || y >= r.end - 4) return;
-      const target = dir > 0 ? r.end : r.top;
-      snapping = true; clearTimeout(snapT);
-      window.scrollTo({ top: target, behavior: reduce ? 'auto' : 'smooth' });
-      snapT = setTimeout(() => { snapping = false; }, 1400);
-    };
-    this._onPinScroll = () => {
-      const y = window.scrollY;
-      if (Math.abs(y - lastY) > 0.5) dir = y > lastY ? 1 : -1;
-      lastY = y;
-      if (snapping) { const r = range(); if (r && (y <= r.top + 2 || y >= r.end - 2)) { snapping = false; clearTimeout(snapT); } return; }
-      clearTimeout(t); t = setTimeout(settle, 180);
-    };
-    this._onPinTouch = () => { clearTimeout(t); };
-    window.addEventListener('scroll', this._onPinScroll, { passive: true });
-    window.addEventListener('touchmove', this._onPinTouch, { passive: true });
-    this._pinCleanup = () => { clearTimeout(t); clearTimeout(snapT); window.removeEventListener('scroll', this._onPinScroll); window.removeEventListener('touchmove', this._onPinTouch); };
-  }
-  initAvatarFit() {
-    const fit = () => {
-      const tx = document.getElementById('hx-id-text'); if (!tx) return;
-      if (tx !== this._avTx && window.ResizeObserver) { this._avRO && this._avRO.disconnect(); this._avRO = new ResizeObserver(fit); this._avRO.observe(tx); this._avTx = tx; }
-      const hh = Math.round(tx.getBoundingClientRect().height);
-      if (hh > 0 && hh !== (this.state && this.state.avH)) this.setState({ avH: hh });
-    };
-    this._avFit = fit; window.addEventListener('resize', fit);
-    let n = 0; this._avT = setInterval(() => { fit(); if (++n > 20) clearInterval(this._avT); }, 250);
-    fit();
-  }
-  syncNoise() {
-    const on = this.props.heroNoise ?? true;
-    document.querySelectorAll('black-box-faces').forEach(el => { if (el.grain) el.grain.style.display = on ? '' : 'none'; });
-    if (!this._noiseT) this._noiseT = [400, 1200, 2500].map(ms => setTimeout(() => this.syncNoise(), ms));
-  }
-  componentDidUpdate() {
-    this.syncNoise();
-    { const im = this.lbImg.current, s = this.chinaPhotos[Math.max(0, this.state.lb ?? 0)].src; if (im && im.getAttribute('src') !== s) im.setAttribute('src', s); }
-    if (this._lastMsgs !== this.state.chatMsgs) { this._lastMsgs = this.state.chatMsgs; const el = this.chatLog && this.chatLog.current; if (el) el.scrollTop = el.scrollHeight; }
-  }
-
-  // Mr Whybox chat: double-click the black box → it flies to #bb-chat-seat and answers from whybox-brain.js
-  bb() { return document.querySelector('black-box-faces'); }
-  chatUI(open) {
-    if (open === !!this.state.chatOpen) return;
-    const de = document.documentElement, W = window.WHYBOX;
-    clearTimeout(this._chatT0); clearTimeout(this._chatT1);
-    if (open) {
-      this._chatOv = de.style.overflow; de.style.overflow = 'hidden';
-      const n = this._chatN = (this._chatN || 0) + 1;
-      this.setState({ chatOpen: true });
-      if (W && !this.state.chatBusy) this._chatT0 = setTimeout(() => this.botSay({ text: W.greet(n), next: n === 1 || !this.state.chatChips.length ? W.start() : null }), 600);
-      if (matchMedia('(pointer: fine)').matches) this._chatT1 = setTimeout(() => { const i = this.chatInput.current; if (i) i.focus({ preventScroll: true }); }, 750);
-    } else {
-      de.style.overflow = this._chatOv || '';
-      const i = this.chatInput.current; if (i) i.blur();
-      this.setState({ chatOpen: false });
-    }
-  }
-  openChat() { const m = this.bb(); if (m && m.setChat) { m.setChat(true); setTimeout(() => { if (!this.state.chatOpen) this.chatUI(true); }, 60); } else this.chatUI(true); }
-  goCase(e, id) {
-    const el = document.getElementById(id); if (!el) return;
-    if (e && e.preventDefault) e.preventDefault();
-    const cs = getComputedStyle(el), sticky = cs.position === 'sticky', off = sticky ? parseFloat(cs.top) || 100 : 96;
-    const pp = el.style.position; el.style.position = 'static';
-    const y = el.getBoundingClientRect().top + window.scrollY - off;
-    el.style.position = pp;
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    window.scrollTo({ top: Math.max(0, y), behavior: reduce ? 'auto' : 'smooth' });
-  }
-  closeChat() { const m = this.bb(); if (m && m.setChat && m._chat) m.setChat(false); this.chatUI(false); }
-  chatLookInput() {
-    const m = this.bb(), i = this.chatInput.current; if (!m) return;
-    m.chatLookAt = i && document.activeElement === i ? () => { const r = i.getBoundingClientRect(); return { x: r.left + Math.min(r.width * 0.35, 220), y: r.top + r.height / 2 }; } : null;
-  }
-  botSay(r) {
-    const id = 'b' + Date.now() + '' + Math.random(), text = r.text || '', m = this.bb();
-    const step = matchMedia('(prefers-reduced-motion: reduce)').matches ? 1e6 : 3;
-    if (m) m.chatLookAt = null;
-    this.setState((s) => ({ chatBusy: true, chatMsgs: s.chatMsgs.concat([{ id, from: 'bot', text, shown: '', links: r.links || [], done: false }]) }));
-    let k = 0; clearInterval(this._typeT);
-    this._typeT = setInterval(() => {
-      k = Math.min(text.length, k + step); const done = k >= text.length;
-      if (m && m.talk) m.talk(done ? 0 : 0.2);
-      this.setState((s) => Object.assign({ chatMsgs: s.chatMsgs.map((x) => x.id === id ? Object.assign({}, x, { shown: text.slice(0, k), done }) : x) }, done ? { chatBusy: false, chatChips: r.next || s.chatChips } : {}));
-      if (done) { clearInterval(this._typeT); this.chatLookInput(); }
-    }, 38);
-  }
-  chatSend(q, topic) {
-    q = String(q || '').trim(); const W = window.WHYBOX;
-    if (!q || this.state.chatBusy || !W) return;
-    const asked = this._asked = this._asked || [];
-    if (topic && !asked.includes(topic)) asked.push(topic);
-    const tid = 't' + Date.now(), m = this.bb();
-    this.setState((s) => ({ chatDraft: '', chatBusy: true, chatChips: [], chatMsgs: s.chatMsgs.concat([{ id: 'u' + tid, from: 'me', text: q }, { id: tid, from: 'bot', text: '', shown: '·', links: [], done: false }]) }));
-    if (m) m.chatLookAt = () => { const s = document.getElementById('bb-chat-seat'); if (!s) return null; const r = s.getBoundingClientRect(); return { x: r.left + r.width / 2 + r.height * 0.7, y: r.top - r.height * 0.5, hard: true }; }; // thinking: glances up
-    let d = 0; clearInterval(this._dotT);
-    this._dotT = setInterval(() => { d = (d + 1) % 3; this.setState((s) => ({ chatMsgs: s.chatMsgs.map((x) => x.id === tid ? Object.assign({}, x, { shown: ['·', '· ·', '· · ·'][d] }) : x) })); }, 260);
-    const t0 = performance.now();
-    Promise.resolve().then(() => W.answer(q, { topic, asked: asked.slice(), history: this.state.chatMsgs })).catch(() => null).then((r) => {
-      setTimeout(() => {
-        clearInterval(this._dotT);
-        r = r || { text: '#@%&! Something in me broke. Ask again?' };
-        if (r.topic && !asked.includes(r.topic)) asked.push(r.topic);
-        this.setState((s) => ({ chatMsgs: s.chatMsgs.filter((x) => x.id !== tid) }), () => this.botSay(r));
-      }, Math.max(0, 650 + Math.random() * 450 - (performance.now() - t0)));
-    });
-  }
-  chatVals() {
-    const st = this.state, open = !!st.chatOpen, cant = st.chatBusy || !st.chatDraft.trim();
-    return {
-      chatOp: open ? 1 : 0, chatVis: open ? 'visible' : 'hidden', chatPE: open ? 'auto' : 'none', chatShift: open ? 'none' : 'translateY(24px)', chatHidden: open ? 'false' : 'true',
-      chatMsgs: st.chatMsgs.map((x) => Object.assign({}, x, { bot: x.from === 'bot', me: x.from === 'me', hasLinks: !!(x.done && x.links && x.links.length),
-        links: (x.links || []).map((l) => ({ label: l.label, href: l.href, target: l.ext ? '_blank' : '_self', go: () => { if (l.close) this.closeChat(); } })) })),
-      chatChips: st.chatChips.map((c) => ({ label: c.q, go: () => this.chatSend(c.q, c.id) })),
-      chatHasChips: st.chatChips.length > 0 && !st.chatBusy,
-      chatDraft: st.chatDraft, chatCantSend: cant, chatSendBg: cant ? '#C7C7CC' : '#E7573E',
-      chatType: (e) => this.setState({ chatDraft: e.target.value }),
-      chatSubmit: (e) => { e.preventDefault(); this.chatSend(this.state.chatDraft); },
-      chatFocus: () => { if (!this.state.chatBusy) this.chatLookInput(); },
-      chatBlur: () => { const m = this.bb(); if (m && !this.state.chatBusy) m.chatLookAt = null; },
-      chatBgClick: (e) => { if (e.target.hasAttribute && e.target.hasAttribute('data-chat-bg')) this.closeChat(); },
-      closeChat: () => this.closeChat(),
-      chatInput: this.chatInput, chatLog: this.chatLog,
-    };
-  }
-  faceOrder = ['grin', 'smile', 'oh', 'smile'];
-  faceLoop() {
-    this._faceT = setTimeout(() => {
-      if ((this.props.faceCycle ?? true) && !document.hidden) this.setState(s => ({ faceI: ((s.faceI ?? 0) + 1) % this.faceOrder.length }));
-      this.faceLoop();
-    }, (this.props.faceCycleSec ?? 2.4) * 1000);
-  }
-  componentWillUnmount() { this._avRO && this._avRO.disconnect(); clearInterval(this._avT); this._avFit && window.removeEventListener('resize', this._avFit); this._pinCleanup && this._pinCleanup(); cancelAnimationFrame(this._arRaf); this._hoIO && this._hoIO.disconnect(); cancelAnimationFrame(this._hoRaf); clearTimeout(this._hoPoll); this._hoDot && this._hoDot.remove(); cancelAnimationFrame(this._spRaf); this._tkIO && this._tkIO.disconnect(); clearInterval(this._bbT); clearTimeout(this._faceT); clearTimeout(this._yRetry); this.stopYaga && this.stopYaga(); this.stopScroll && this.stopScroll(); window.removeEventListener('blackbox:chat', this._onBBChat); window.removeEventListener('keydown', this._onChatKey); window.removeEventListener('keydown', this._onLbKey); if ((this.state.lb ?? -1) >= 0) document.documentElement.style.overflow = this._lbOv || ''; clearInterval(this._typeT); clearInterval(this._dotT); clearTimeout(this._chatT0); clearTimeout(this._chatT1); if (this.state.chatOpen) document.documentElement.style.overflow = this._chatOv || ''; }
-
-  initScroll() {
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const io = new IntersectionObserver((es) => es.forEach((e) => {
-      if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'none'; io.unobserve(e.target); }
-    }), { threshold: 0.12 });
-    if (!reduce) {
-      document.querySelectorAll('[data-reveal]').forEach((el) => {
-        if (el.getBoundingClientRect().top < window.innerHeight * 0.92) return;
-        el.style.opacity = '0'; el.style.transform = 'translateY(32px)';
-        el.style.transition = 'opacity 0.9s ease, transform 1.2s cubic-bezier(.16,.8,.24,1)';
-        io.observe(el);
-      });
-    }
-    let raf = 0;
-    const dots = () => { if (reduce) return; const py = (window.scrollY * 0.35).toFixed(1); document.querySelectorAll('[data-dots]').forEach((el) => { el.style.backgroundPosition = '12px calc(12px + ' + py + 'px)'; }); };
-    const on = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; this.introFx(); dots(); }); };
-    window.addEventListener('scroll', on, { passive: true });
-    window.addEventListener('resize', on);
-    this.introFx();
-    this.stopScroll = () => { io.disconnect(); window.removeEventListener('scroll', on); window.removeEventListener('resize', on); cancelAnimationFrame(raf); };
-  }
-  // pinned intro: the portrait + quote hand off to "It's all probabilities"
-  introFx() {
-    const pin = document.getElementById('intro-pin'), st = document.getElementById('intro-stick');
-    const hc = document.getElementById('v2-hero-copy'), prob = document.getElementById('probabilities'), copy = document.getElementById('prob-copy');
-    if (!pin || !st || !hc || !prob) return;
-    const run = pin.offsetHeight - st.offsetHeight;
-    const p = Math.max(0, Math.min(1, (st.offsetTop - pin.getBoundingClientRect().top) / Math.max(1, run)));
-    const cl = (v) => Math.max(0, Math.min(1, v));
-    const ease = (t) => 1 - Math.pow(1 - t, 3);
-    const a = ease(cl(p / 0.42));
-    const b = ease(cl((p - 0.32) / 0.43));
-    document.querySelectorAll('[data-hero-fade]').forEach((el) => {
-      el.style.opacity = (1 - a).toFixed(3);
-      el.style.transform = 'translateY(' + (-a * 6).toFixed(2) + 'vh) scale(' + (1 - a * 0.06).toFixed(4) + ')';
-      el.style.filter = a > 0.001 && a < 0.995 ? 'blur(' + (a * 6).toFixed(1) + 'px)' : '';
-      el.style.visibility = a >= 0.995 ? 'hidden' : '';
-    });
-    const pr = prob.querySelector('prob-rings'); if (pr) pr._off = b < 0.005;
-    hc.style.pointerEvents = a > 0.5 ? 'none' : 'auto';
-    prob.style.opacity = b.toFixed(3);
-    prob.style.pointerEvents = b > 0.5 ? 'auto' : 'none';
-    if (copy) copy.style.transform = 'translateY(' + ((1 - b) * 48).toFixed(1) + 'px) scale(' + (0.96 + b * 0.04).toFixed(4) + ')';
-  }
-
-  // Pani Yaga: rise-in, idle sway, typed thought bubble; the docked black box trots over and sits by her
-  yagaSec = React.createRef(); yagaRise = React.createRef(); yagaSway = React.createRef(); yagaBub = React.createRef(); yagaFig = React.createRef();
+  yagaSway = React.createRef();
   YAGA_LINES = [
     'Three hundred years I read tea leaves. Now they call it a confidence interval.',
-    'Everyone talks to AI now. Nobody talks to their friends.',
     'Your model is 73% sure. I am 100% sure it’s wrong.',
     'I had a crystal ball. You have a dashboard. Same fog, worse lighting.',
     'In my day, a forecast came with a curse. Now it comes with a disclaimer.',
     'You call it a hallucination. I call it Tuesday.',
-    'They trained it on the whole internet. I trained on one forest. Guess who’s wiser.',
     'Prompt engineering? Darling, I’ve been whispering to cauldrons since 1612.',
-    'My hut walks on chicken legs. Your startup can’t even stand up.',
-    'I don’t do small talk. I do prophecy, and only before noon.',
-    'Yes, I live in a forest. No, I won’t accept your cookies.',
-    'Three hundred years, and still nobody calls. Only push notifications.',
-    'That box follows me everywhere. Like a cat, but it explains nothing.',
-    'Ask the box why. Go on. I’ll wait. I have centuries.',
-    'It smiles like it knows something. It does not know something.',
-    'Little box, if you’re so smart, tell me where I left my broom.',
     'Every meeting ends with “let’s get more data.” Every forest ends with me.',
     'You don’t need another model. You need someone brave enough to decide.',
   ];
-  initYaga() {
-    const sec = this.yagaSec.current, rise = this.yagaRise.current, sway = this.yagaSway.current, bub = this.yagaBub.current;
-    if (!sec || !rise || !sway || !bub) { this._yRetry = setTimeout(() => this.initYaga(), 200); return; }
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const cloud = bub.querySelector('[data-c]'), ghost = bub.querySelector('[data-g]'), txt = bub.querySelector('[data-t]'), dots = bub.querySelectorAll('[data-d]');
-    const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
-    const back = (x) => { x = clamp(x); const c = 2.2; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
-    const GLY = '#$%&@*!?≈∑∆∫λθ∂±∞§', pick = (s) => s[Math.random() * s.length | 0];
-    const Y = { vis: false, heel: false, phase: 'gap', next: null, line: -1, t0: 0, k: -1, raf: 0 };
-    if (!reduce && sec.getBoundingClientRect().top > window.innerHeight * 0.85) { rise.style.transform = 'translateY(64px)'; rise.style.opacity = '0'; }
-    requestAnimationFrame(() => { rise.style.transition = 'transform 1.3s cubic-bezier(.16,.8,.24,1), opacity 1s ease'; });
-    const reveal = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { rise.style.transform = 'translateY(0)'; rise.style.opacity = '1'; reveal.disconnect(); } }), { threshold: 0.12 });
-    reveal.observe(sec);
-    const bb = () => document.querySelector('black-box-faces');
-    let fsC = 0;
-    const heelPt = () => { const img = this.yagaFig.current; if (!img) return null; const r = img.getBoundingClientRect(); return { x: r.left + r.width * 0.8, y: r.top + r.height * 0.985, hx: r.left + r.width * 0.54, hy: r.top + r.height * 0.2, side: 1, fs: fsC || (fsC = parseFloat(getComputedStyle(cloud).fontSize) || 16) }; };
-    const applyHeel = () => { const m = bb(); const want = Y.heel && window.innerWidth >= 760; if (m && (!!m.heelTarget) !== want) m.heelTarget = want ? heelPt : null; };
-    const heelIO = new IntersectionObserver((es) => es.forEach((e) => { Y.heel = e.isIntersecting; fsC = 0; applyHeel(); }), { rootMargin: '-25% 0px -25% 0px' });
-    heelIO.observe(sec);
-    const loop = (now) => {
-      Y.raf = Y.vis ? requestAnimationFrame(loop) : 0;
-      if (now - (Y.lf || 0) < 30) return; Y.lf = now;
-      const t = now / 1000;
-      applyHeel();
-      if (!reduce) sway.style.transform = `rotate(${(Math.sin(t * Math.PI * 2 / 7) * 1).toFixed(3)}deg)`;
-      if (Y.next == null) Y.next = t + 0.9;
-      if (Y.phase === 'gap' && t >= Y.next) {
-        if (!Y.order || Y.line >= Y.order.length - 1) { const a = this.YAGA_LINES.map((_, i) => i); for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } if (Y.order && a[0] === Y.order[Y.order.length - 1]) a.push(a.shift()); Y.order = a; Y.line = -1; }
-        Y.line++; Y.cur = this.YAGA_LINES[Y.order[Y.line]]; ghost.textContent = Y.cur;
-        if (txt._a) { txt._a.textContent = ''; txt._b.textContent = ''; } Y.k = -1; Y.t0 = t; Y.phase = 'on'; if (Y.heel) { const m = bb(); m && m.cheer && m.cheer(); }
-      }
-      if (Y.phase !== 'on') return;
-      const s = Y.cur, u = t - Y.t0, typeEnd = 0.45 + s.length / 30, hold = typeEnd + 4;
-      const k = clamp(Math.floor((u - 0.45) * 30), 0, s.length);
-      if (k !== Y.k || k < s.length) {
-        const g = k < s.length && u > 0.45 ? pick(GLY) : '', cut = k + (g ? 1 : 0);
-        if (!txt._a) { txt.textContent = ''; txt._a = document.createElement('span'); txt._b = document.createElement('span'); txt._b.style.visibility = 'hidden'; txt.append(txt._a, txt._b); }
-        txt._a.textContent = s.slice(0, k) + g; txt._b.textContent = s.slice(cut); Y.k = k;
-      }
-      bub.style.opacity = String(1 - clamp((u - hold) / 0.3));
-      dots[0].style.opacity = String(clamp(u / 0.08));
-      dots[1].style.opacity = String(clamp((u - 0.1) / 0.08));
-      cloud.style.opacity = String(clamp((u - 0.2) / 0.06));
-      cloud.style.transform = `scale(${(0.2 + 0.8 * back((u - 0.2) / 0.32)).toFixed(3)}) rotate(${(-1.5 + (reduce ? 0 : Math.sin(t * 2.1) * 1.2)).toFixed(2)}deg)`;
-      if (u > hold + 0.3) { Y.phase = 'gap'; Y.next = t + 0.7; bub.style.opacity = '0'; cloud.style.opacity = '0'; dots.forEach((d) => { d.style.opacity = '0'; }); }
+  componentDidMount() {
+    let lastD = -1, lastT = 0, vis = true;
+    const el = this.todayTicker.current;
+    if (el) { this._io = new IntersectionObserver((e) => { vis = e[0].isIntersecting; }, { rootMargin: '120px 0px' }); this._io.observe(el); }
+    const loop = (t) => {
+      this._raf = requestAnimationFrame(loop);
+      if (!vis || document.hidden || t - lastT < 110) return; lastT = t;
+      const n = new Date(), m = new Date(n); m.setHours(0, 0, 0, 0);
+      const dv = Math.floor((n - m) / 1000 * 2.9e9 / 31557600);
+      if (dv !== lastD && this.todayTicker.current) { this.todayTicker.current.textContent = '€' + dv.toLocaleString('en-US'); lastD = dv; }
     };
-    const visIO = new IntersectionObserver((es) => es.forEach((e) => { Y.vis = e.isIntersecting; if (Y.vis && !Y.raf) Y.raf = requestAnimationFrame(loop); }), { rootMargin: '80px 0px' });
-    visIO.observe(sec);
-    this.stopYaga = () => {
-      reveal.disconnect(); heelIO.disconnect(); visIO.disconnect(); cancelAnimationFrame(Y.raf); Y.vis = false;
-      const m = bb(); if (m) m.heelTarget = null;
-    };
-  }
-
-  // euro handoff: one dot leaves the counter's last digit and becomes the loop's comet at Where?
-  initHandoff() {
-    const sec = document.getElementById('the-loop'); if (!sec) return;
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const go = (tries = 0) => {
-      const track = sec.querySelector('loop-track'), node = sec.querySelector('[data-node="0"]'), tk = this.todayTicker.current;
-      if (!track || typeof track.start !== 'function') { if (tries < 40) this._hoPoll = setTimeout(() => go(tries + 1), 100); return; }
-      const begin = () => track.start();
-      if (reduce || !node || !tk || !tk.firstChild) { begin(); return; }
-      const tn = tk.firstChild, rg = document.createRange(); rg.setStart(tn, Math.max(0, tn.length - 1)); rg.setEnd(tn, tn.length);
-      const b = rg.getBoundingClientRect(), p0 = [b.left + b.width / 2 + scrollX, b.top + b.height * 0.55 + scrollY];
-      const dot = this._hoDot = document.createElement('div');
-      dot.style.cssText = 'position:fixed;left:0;top:0;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#E7573E;box-shadow:0 0 0 4px rgba(231,87,62,0.22),0 0 22px rgba(231,87,62,0.6);pointer-events:none;z-index:60;will-change:transform,opacity;';
-      document.body.appendChild(dot);
-      const io = (u) => u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2, t0 = performance.now(), D = 1200;
-      const step = (now) => {
-        const u = Math.min(1, (now - t0) / D), e = io(u), r = node.getBoundingClientRect();
-        const sx = p0[0] - scrollX, sy = p0[1] - scrollY, ex = r.left + r.width / 2, ey = r.top + r.height / 2, k = 1 - e;
-        const c1x = sx, c1y = sy + (ey - sy) * 0.55, c2x = ex, c2y = ey - (ey - sy) * 0.45;
-        const x = k * k * k * sx + 3 * k * k * e * c1x + 3 * k * e * e * c2x + e * e * e * ex, y = k * k * k * sy + 3 * k * k * e * c1y + 3 * k * e * e * c2y + e * e * e * ey;
-        dot.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) scale(' + (Math.min(1, u / 0.12) * (1 - 0.5 * e)).toFixed(3) + ')';
-        if (u < 1) { this._hoRaf = requestAnimationFrame(step); return; }
-        begin(); dot.style.transition = 'opacity 0.25s ease'; dot.style.opacity = '0';
-        setTimeout(() => { dot.remove(); this._hoDot = null; }, 300);
+    this._raf = requestAnimationFrame(loop);
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const figs = [{ r: this.yagaSway, amp: 1.1, ph: 0, v: false }];
+      let ylf = 0;
+      const yl = (now) => {
+        this._yraf = figs.some((g) => g.v) ? requestAnimationFrame(yl) : 0;
+        if (now - ylf < 30) return; ylf = now;
+        const t = now / 1000;
+        figs.forEach((g) => { const el = g.r.current; if (!g.v || !el) return; el.style.transform = 'rotate(' + (Math.sin(t * Math.PI * 2 / 7 + g.ph) * g.amp).toFixed(3) + 'deg) scaleY(' + (1 + Math.sin(t * Math.PI * 2 / 3.6 + g.ph) * (g.br ?? 0.006)).toFixed(4) + ')'; });
       };
-      this._hoRaf = requestAnimationFrame(step);
-    };
-    this._hoIO = new IntersectionObserver((es) => {
-      if (this._hoDone || !es.some((x) => x.isIntersecting)) return;
-      this._hoDone = true; this._hoIO.disconnect();
-      customElements.whenDefined('loop-track').then(() => requestAnimationFrame(() => go()));
-    }, { rootMargin: '0px 0px -35% 0px' });
-    this._hoIO.observe(sec);
+      this._yios = [];
+      const tryY = (g, n = 0) => { const el = g.r.current; if (!el) { if (n < 50) this._yt = setTimeout(() => tryY(g, n + 1), 200); return; } const io = new IntersectionObserver((e) => { g.v = e[0].isIntersecting; if (g.v && !this._yraf) this._yraf = requestAnimationFrame(yl); }, { rootMargin: '80px 0px' }); io.observe(el); this._yios.push(io); };
+      figs.forEach((g) => tryY(g));
+    }
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      this._rio = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'none'; this._rio.unobserve(e.target); } }), { threshold: 0.12 });
+      document.querySelectorAll('[data-reveal]').forEach((r) => {
+        if (r.getBoundingClientRect().top < innerHeight * 0.92) return;
+        r.style.opacity = '0'; r.style.transform = 'translateY(24px)';
+        r.style.transition = 'opacity 0.9s ease, transform 1.1s cubic-bezier(.16,.8,.24,1), box-shadow 0.25s ease';
+        this._rio.observe(r);
+      });
+    }
+    if (location.hash.length > 1 && location.hash !== '#top') { const id = decodeURIComponent(location.hash.slice(1)); let n = 0; const go = () => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().height > 0) el.scrollIntoView({ block: 'start' }); if (++n < 3) this._hashT = setTimeout(go, 400); }; this._hashT = setTimeout(go, 60); }
   }
-
-  lbImg = React.createRef();
-  chinaPhotos = [
-    { src: 'assets/china/mad-family.webp', title: 'MAD family picture', text: 'The most incredible people I have ever met. It was the best time of my life to work with you!', alt: 'MAD Architects team photo: the whole studio in MAD hoodies in front of the Beijing office' },
-    { src: 'assets/china/baiziwan-team.webp', title: 'BaiZiWan team', text: 'With my team, working on the BaiZiWan Social Housing project.', alt: 'Tomasz laughing with five teammates around a monitor in the MAD office' },
-    { src: 'assets/china/mad-after-work.webp', title: 'After work', text: 'MAD colleagues, after work.', alt: 'Tomasz with five MAD colleagues around a table of bottles after work' },
-    { src: 'assets/china/gangxia-team.webp', title: 'Gangxia team', text: 'My team for Gangxia North hub.', alt: 'Tomasz with his Gangxia North hub team in the office' },
-    { src: 'assets/china/on-the-model.webp', title: 'On the model', text: 'On the model for the Kraków competition, around 2 a.m. Everyone was tired, but the atmosphere was great.', alt: 'Tomasz lying on the model table, adjusting a massing model' },
-  ];
-  lbGo(i) {
-    const n = this.chinaPhotos.length;
-    if ((this.state.lb ?? -1) < 0) { this._lbOv = document.documentElement.style.overflow; document.documentElement.style.overflow = 'hidden'; }
-    this.setState({ lb: ((i % n) + n) % n });
-  }
-  lbClose() { if ((this.state.lb ?? -1) < 0) return; document.documentElement.style.overflow = this._lbOv || ''; this.setState({ lb: -1 }); }
-  lbVals() {
-    const i = this.state.lb ?? -1, on = i >= 0, P = this.chinaPhotos, ph = P[Math.max(0, i)], pad = (x) => String(x).padStart(2, '0');
-    return {
-      pol0: () => this.lbGo(0), pol1: () => this.lbGo(1), pol2: () => this.lbGo(2), pol3: () => this.lbGo(3), pol4: () => this.lbGo(4),
-      lbOp: on ? 1 : 0, lbVis: on ? 'visible' : 'hidden', lbPE: on ? 'auto' : 'none', lbHidden: on ? 'false' : 'true',
-      lbImg: this.lbImg, lbAlt: ph.alt, lbTitle: ph.title, lbText: ph.text, lbCount: pad(Math.max(0, i) + 1) + ' / ' + pad(P.length),
-      lbTilt: on ? (i % 2 ? 'rotate(1deg)' : 'rotate(-1.2deg)') : 'translateY(24px) rotate(-1.2deg)',
-      lbPrev: () => this.lbGo(i - 1), lbNext: () => this.lbGo(i + 1), lbClose: () => this.lbClose(),
-      lbBgClick: (e) => { if (e.target && e.target.dataset && e.target.dataset.lbBg != null) this.lbClose(); },
-    };
-  }
-
+  componentWillUnmount() { clearTimeout(this._hashT); cancelAnimationFrame(this._raf); cancelAnimationFrame(this._yraf); clearTimeout(this._yt); (this._yios || []).forEach((o) => o.disconnect()); this._io && this._io.disconnect(); this._rio && this._rio.disconnect(); }
   renderVals() {
-    const avH = this.state && this.state.avH;
-    const avSize = avH ? Math.min(avH, 96) + 'px' : 'clamp(60px,5vw,76px)';
-    const youtubeId = this.props.youtubeId ?? 'y4ujczQ-hPs';
-    const swk = this.state.cardSwap || null;
-    const sv = (k) => swk === k ? { backZ: 2, backOp: 1, backT: 'translate(-4%, 6%) scale(1.04)', frontOp: 0.5, frontT: 'scale(0.97)' } : { backZ: 0, backOp: 0.6, backT: 'none', frontOp: 1, frontT: 'none' };
-    const swIn = (k) => () => { if (this.state.cardSwap !== k) this.setState({ cardSwap: k }); };
-    const galP = this.state.galPalette || 'ghost', galOn = (k) => galP === k;
-    const mono = this.props.portraitMono ?? true;
-    return { avSize, goAlloc: (e) => this.goCase(e, 'case-alloc'), goPromo: (e) => this.goCase(e, 'case-promo'), goFlight: (e) => this.goCase(e, 'case-flight'), openChat: () => this.openChat(),
-      ...this.chatVals(),
-      ...this.reelVals(),
-      arrowPath: this.arrowPath, arrowHead: this.arrowHead, arrowLabel: this.arrowLabel,
-      ...this.lbVals(),
-      bbFur: (this.props.boxSkin ?? 'fur') === 'fur', bbCarton: this.props.boxSkin === 'carton', bbInk: this.props.boxSkin === 'ink',
-      bbFace: (this.props.faceCycle ?? true) ? this.faceOrder[this.state.faceI ?? 0] : (this.props.faceExpression ?? 'grin'),
-      galPalette: galP,
-      galGhostClick: () => this.setState({ galPalette: 'ghost' }), galColorClick: () => this.setState({ galPalette: 'color' }),
-      galGhostBg: galOn('ghost') ? '#161617' : 'transparent', galGhostFg: galOn('ghost') ? '#FFFFFF' : '#6E6E73',
-      galColorBg: galOn('color') ? '#161617' : 'transparent', galColorFg: galOn('color') ? '#FFFFFF' : '#6E6E73',
-      alloc: sv('alloc'), promo: sv('promo'), flight: sv('flight'),
-      allocFront: swIn('alloc'), promoFront: swIn('promo'), flightFront: swIn('flight'),
-      swapOut: () => { if (this.state.cardSwap) this.setState({ cardSwap: null }); },
-      toTop: (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); if (history.replaceState) history.replaceState(null, '', location.pathname + location.search); },
-      yagaSec: this.yagaSec, yagaRise: this.yagaRise, yagaSway: this.yagaSway, yagaBub: this.yagaBub, yagaFig: this.yagaFig,
-      hopAttr: (this.props.hopping ?? true) ? 'on' : 'off',
+    const yt = this.props.youtubeId ?? 'y4ujczQ-hPs';
+    return {
       todayTicker: this.todayTicker,
-      dockMode: this.props.dockMode ?? 'margin',
+      yagaSway: this.yagaSway,
       showMetrics: this.props.showMetrics ?? true,
-      orbitDwell: String(this.props.orbitDwell ?? 1.8),
-      portraitMono: mono, portraitColor: !mono,
-      year: '2026',
+      pond: this.props.pond ?? true,
+      pondFish: String(this.props.pondFish ?? 5),
+      pondAlpha: String(this.props.pondAlpha ?? 0.18),
+      showSolver: this.props.showSolver ?? true,
+      skillsMode: String(this.props.skillsGraph ?? 'Strands').toLowerCase(),
+      skillsStrands: (this.props.skillsGraph ?? 'Strands') === 'Strands',
+      skillsField: (this.props.skillsGraph ?? 'Strands') !== 'Strands',
+      yagaLine: this.YAGA_LINES[this.state.yi % this.YAGA_LINES.length],
+      nextYaga: () => this.setState((s) => ({ yi: s.yi + 1 })),
       introPlaying: this.state.introPlaying,
       introIdle: !this.state.introPlaying,
-      embedUrl: youtubeId ? ('https://www.youtube.com/embed/' + youtubeId + '?autoplay=1&rel=0&modestbranding=1') : '',
-      playIntro: () => { if (youtubeId) this.setState({ introPlaying: true }); },
+      embedUrl: yt ? 'https://www.youtube.com/embed/' + yt + '?autoplay=1&rel=0&modestbranding=1' : '',
+      playIntro: () => { if (yt) this.setState({ introPlaying: true }); },
+      toTop: (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); if (history.replaceState) history.replaceState(null, '', location.pathname + location.search); },
+      year: '2026',
     };
   }
 }
