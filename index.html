@@ -39,6 +39,7 @@
   a:hover{ color:#E7573E; }
   @media (max-width:1020px){ [data-nav-opt]{ display:none !important; } }
   @media (max-width:760px){ [data-nav-full]{ display:none !important; } [data-nav-short]{ display:inline !important; } header nav{ display:flex !important; width:100% !important; justify-content:space-between !important; gap:0 !important; overflow-x:auto; scrollbar-width:none; } header nav a{ margin-left:0 !important; padding-left:6px !important; padding-right:6px !important; font-size:13px !important; } }
+  @media (max-width:560px){ #xinhee-card{ min-height:760px !important; } #xinhee-card > :first-child{ top:170px !important; } }
   @media (max-width:1040px){ #v20-steps{ grid-template-columns:repeat(2,minmax(0,1fr)) !important; } }
   @media (max-width:860px){ #v20-builds{ grid-template-columns:minmax(0,1fr) !important; } }
   @media (max-width:720px){ #v21-projects{ grid-template-columns:minmax(0,1fr) !important; } }
@@ -333,7 +334,7 @@
 
         <sc-if value="{{ showSolver }}" hint-placeholder-val="{{ true }}">
           <figure data-om-label="Facade solver" style="margin:clamp(40px,5vw,64px) 0 0 0;">
-            <div style="position:relative; width:100%; aspect-ratio:16 / 13; min-height:min(840px, 160vw); border-radius:16px; overflow:hidden; box-shadow:inset 0 0 0 1px #E5E5E2;">
+            <div id="xinhee-card" style="position:relative; width:100%; aspect-ratio:16 / 13; min-height:min(840px, 160vw); border-radius:16px; overflow:hidden; box-shadow:inset 0 0 0 1px #E5E5E2;">
               <x-import component-from-global-scope="xinhee-evolve" from="./xinhee-evolve.js?v=5" src="assets/xinhee.xbin" theme="light" land="#F3F5F7" hud-gap="40" hud-inset="32" palette="ghost" zoom="1.05" style="position:absolute; inset:0;" hint-size="100%,100%"></x-import>
               <figcaption data-om-label="Solver title" style="position:absolute; top:clamp(20px,3vw,36px); left:clamp(20px,3vw,36px); z-index:1; max-width:min(34ch, 60%); display:flex; flex-direction:column; gap:10px; text-align:left; pointer-events:none;">
                 <span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#E7573E;">Live model</span>
