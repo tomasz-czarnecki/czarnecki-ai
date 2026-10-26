@@ -304,7 +304,9 @@
       const ctx = this._ctx; if (!ctx || !this._W) return;
       const W = this._W, H = this._H, t = this._t, d = this._dpr;
       const ink = this.getAttribute('ink') || '#E7573E', bg = this.getAttribute('bg') || '#161617';
+      const plant = this.getAttribute('plant') || ink;
       const a = clamp(parseFloat(this.getAttribute('alpha')) || 0.5, 0.05, 1);
+      const pa = clamp(parseFloat(this.getAttribute('plantalpha')) || a, 0.05, 1);
       ctx.setTransform(d, 0, 0, d, 0, 0); ctx.clearRect(0, 0, W, H);
       ctx.lineCap = 'round'; ctx.lineJoin = 'round';
       ctx.lineWidth = 0.7; ctx.setLineDash([1, 8]);
@@ -320,7 +322,7 @@
         ctx.stroke();
       }
       ctx.setLineDash([]);
-      for (const wd of this._weeds) this._weed(ctx, wd, t, rgba(ink, a * 0.6), rgba(ink, a * 0.35), bg);
+      for (const wd of this._weeds) this._weed(ctx, wd, t, rgba(plant, pa * 0.6), rgba(plant, pa * 0.35), bg);
       const acc = this.getAttribute('accent');
       for (const f of this._fish) {
         const isA = f.accent && acc, fi = isA ? acc : ink, aa = parseFloat(this.getAttribute('accentalpha') || this.getAttribute('accent-alpha'));
@@ -344,9 +346,9 @@
         ctx.strokeStyle = rgba(ink, a * 0.7 * fa);
         ctx.beginPath(); ctx.arc(b.x, b.y, b.r * (1 + e * 0.4), 0, TAU); ctx.stroke();
       }
-      const padLine = rgba(ink, a * 0.78), padSoft = rgba(ink, a * 0.4);
+      const padLine = rgba(plant, pa * 0.78), padSoft = rgba(plant, pa * 0.4);
       for (const p of this._pads) this._pad(ctx, p, t, padLine, padSoft, bg);
-      for (const p of this._pads) if (p.lotus) this._lotus(ctx, p, t, rgba(ink, a * 0.85), rgba(ink, a * 0.42), bg);
+      for (const p of this._pads) if (p.lotus) this._lotus(ctx, p, t, rgba(plant, pa * 0.85), rgba(plant, pa * 0.42), bg);
     }
     _padPos(p, t) { return [p.x + 2 * Math.sin(t * 0.09 + p.seed), p.y + 2 * Math.cos(t * 0.07 + p.seed * 1.3), p.rot + 0.05 * Math.sin(t * 0.05 + p.seed)]; }
     _pad(ctx, p, t, line, soft, bg) {
