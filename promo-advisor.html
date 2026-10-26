@@ -37,7 +37,7 @@
   ::selection{ background:#E7573E; color:#FFFFFF; }
   a{ color:#161617; }
   a:hover{ color:#E7573E; }
-  @media (max-width:720px){ [data-nav-case]{ display:none !important; } }
+  @media (max-width:720px){ span[data-nav-case]{ display:none !important; } [data-nav-full]{ display:none !important; } [data-nav-short]{ display:inline !important; } header nav a{ margin-left:0 !important; padding-left:8px !important; padding-right:8px !important; font-size:13px !important; } }
   @media (max-width:860px){ #cs-context{ grid-template-columns:minmax(0,1fr) !important; } }
   @media (max-width:780px){ #v2-kpi-baseline{ flex-direction:column !important; } #v2-kpi-baseline > div{ border-right:none !important; border-bottom:1px solid #E5E5E2 !important; } #v2-kpi-baseline > div:last-child{ border-bottom:none !important; } }
 </style>
@@ -47,11 +47,11 @@
   <header style="position:fixed; top:14px; left:0; right:0; z-index:50; pointer-events:none;">
     <div style="max-width:1200px; margin:0 auto; padding:0 clamp(12px,4vw,40px); display:flex; justify-content:center;">
       <nav style="pointer-events:auto; display:inline-flex; align-items:center; gap:2px; max-width:100%; padding:4px 4px 4px 6px; border-radius:999px; background:rgba(255,255,255,0.86); -webkit-backdrop-filter:saturate(160%) blur(14px); backdrop-filter:saturate(160%) blur(14px); box-shadow:inset 0 0 0 1px #E5E5E2;">
-        <a href="index.html#top" style="display:flex; align-items:center; gap:9px; padding:8px 12px; font-size:14px; font-weight:600; letter-spacing:-0.015em; color:#161617; text-decoration:none; white-space:nowrap;" style-hover="color:#161617;"><span style="width:8px; height:8px; border-radius:2px; background:#E7573E; flex:none;"></span>Tomasz Czarnecki</a>
+        <a href="index.html#top" style="display:flex; align-items:center; gap:9px; padding:8px 12px; font-size:14px; font-weight:600; letter-spacing:-0.015em; color:#161617; text-decoration:none; white-space:nowrap;" style-hover="color:#161617;"><span style="width:8px; height:8px; border-radius:2px; background:#E7573E; flex:none;"></span><span data-nav-full="">Tomasz Czarnecki</span><span data-nav-short="" style="display:none;">TC</span></a>
         <span data-nav-case="" style="width:1px; height:16px; background:#E5E5E2; margin:0 6px; flex:none;"></span>
-        <a href="allocation-ai.html" data-nav-case="" style="display:block; padding:8px 12px; border-radius:999px; font-size:14px; color:#6E6E73; text-decoration:none; white-space:nowrap; transition:color 0.2s ease;" style-hover="color:#161617;">Allocation AI</a>
-        <a href="promo-advisor.html" data-nav-case="" aria-current="page" style="display:block; padding:8px 12px; border-radius:999px; background:#F2F2F0; font-size:14px; font-weight:500; color:#161617; text-decoration:none; white-space:nowrap;" style-hover="color:#161617;">Promo Advisor</a>
-        <a href="smart-flighting.html" data-nav-case="" style="display:block; padding:8px 12px; border-radius:999px; font-size:14px; color:#6E6E73; text-decoration:none; white-space:nowrap; transition:color 0.2s ease;" style-hover="color:#161617;">Smart Flighting</a>
+        <a href="allocation-ai.html" style="display:block; padding:8px 12px; border-radius:999px; font-size:14px; color:#6E6E73; text-decoration:none; white-space:nowrap; transition:color 0.2s ease;" style-hover="color:#161617;"><span data-nav-full="">Allocation AI</span><span data-nav-short="" style="display:none;">Allocation</span></a>
+        <a href="promo-advisor.html" aria-current="page" style="display:block; padding:8px 12px; border-radius:999px; background:#F2F2F0; font-size:14px; font-weight:500; color:#161617; text-decoration:none; white-space:nowrap;" style-hover="color:#161617;"><span data-nav-full="">Promo Advisor</span><span data-nav-short="" style="display:none;">Promo</span></a>
+        <a href="smart-flighting.html" style="display:block; padding:8px 12px; border-radius:999px; font-size:14px; color:#6E6E73; text-decoration:none; white-space:nowrap; transition:color 0.2s ease;" style-hover="color:#161617;"><span data-nav-full="">Smart Flighting</span><span data-nav-short="" style="display:none;">Flighting</span></a>
         <a href="CV_TomaszCzarnecki_Latest.pdf" target="_blank" rel="noopener" style="display:block; margin-left:6px; padding:7px 14px; border-radius:999px; box-shadow:inset 0 0 0 1px #D6D6D3; font-size:14px; color:#161617; text-decoration:none; white-space:nowrap; transition:box-shadow 0.2s ease;" style-hover="box-shadow:inset 0 0 0 1px #161617; color:#161617;">CV ↓</a>
       </nav>
     </div>
