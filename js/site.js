@@ -20,9 +20,17 @@
   function initMenu() {
     const sheet = $('#menu');
     const opener = $('[data-menu-open]');
+    /** Play the closing animation, then close the dialog. */
+    const shut = () => {
+      if (!sheet.open || sheet.classList.contains('is-closing')) return;
+      const done = (e) => { if (e.target !== sheet) return; sheet.removeEventListener('animationend', done); sheet.classList.remove('is-closing'); sheet.close(); };
+      sheet.addEventListener('animationend', done);
+      sheet.classList.add('is-closing');
+    };
     opener.addEventListener('click', () => { sheet.showModal(); opener.setAttribute('aria-expanded', 'true'); });
-    $('[data-menu-close]').addEventListener('click', () => sheet.close());
-    sheet.addEventListener('click', (e) => { if (e.target === sheet || e.target.closest('a')) sheet.close(); });
+    $('[data-menu-close]').addEventListener('click', shut);
+    sheet.addEventListener('cancel', (e) => { e.preventDefault(); shut(); });
+    sheet.addEventListener('click', (e) => { if (e.target === sheet || e.target.closest('a')) shut(); });
     sheet.addEventListener('close', () => { opener.setAttribute('aria-expanded', 'false'); opener.focus({ preventScroll: true }); });
   }
 
