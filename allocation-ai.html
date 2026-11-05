@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-case="allocation-ai">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
 <title>Allocation AI · Case Study | Tomasz Czarnecki</title>
 <meta name="description" content="Shaping the reboot of Heineken’s Bayesian budget allocator. 36% ROI improvement across brands and touchpoints, publicly reported by Heineken.">
 <meta name="author" content="Tomasz Czarnecki">
-<link rel="canonical" href="https://czarnecki.ai/allocation-ai.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Tomasz Czarnecki">
 <meta property="og:title" content="Allocation AI · Case Study | Tomasz Czarnecki">
@@ -17,75 +17,147 @@
 <meta name="twitter:title" content="Allocation AI · Case Study | Tomasz Czarnecki">
 <meta name="twitter:description" content="Shaping the reboot of Heineken’s Bayesian budget allocator. 36% ROI improvement across brands and touchpoints, publicly reported by Heineken.">
 <meta name="twitter:image" content="https://czarnecki.ai/assets/og-card.jpg?v=7">
-<meta name="theme-color" content="#ffffff">
+<link rel="canonical" href="https://czarnecki.ai/allocation-ai.html">
+<meta name="theme-color" content="#161617">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=6">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=6">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=6">
 <link rel="manifest" href="assets/site.webmanifest">
-<script src="./support.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* OD-LAYOUT-PRIMITIVES v1 — structure only: display, flex/grid, overflow, wrapping, ratio.
+   Put this @layer first; product CSS outside the layer always wins. */
+@layer od-layout {
+  :where(.od-stack,.od-row,.od-row-top,.od-cluster,.od-grid,.od-field,.od-stat,.od-cell,.od-tile) > :where(*) { min-width: 0; }
+
+  /* containers */
+  .od-stack   { display: flex; flex-direction: column; gap: var(--od-gap, 8px); }
+  .od-row     { display: flex; align-items: center; gap: var(--od-gap, 8px); }
+  .od-row-top { display: flex; align-items: flex-start; gap: var(--od-gap, 8px); }
+  .od-cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--od-gap, 8px); }
+  .od-fill    { flex: 1 1 0; min-width: 0; }
+  .od-fixed   { flex: none; }
+  .od-grid    { display: grid; gap: var(--od-gap, 12px); grid-template-columns: repeat(var(--od-cols, 3), minmax(0, 1fr)); }
+
+  /* stacked information: each piece is its own line — never sibling inline spans */
+  .od-stat, .od-field, .od-cell { display: grid; gap: var(--od-gap, 2px); }
+  :where(.od-stat,.od-field,.od-cell) > :where(*) { display: block; }
+  .od-tile { display: grid; grid-template-rows: auto 1fr; }
+  :where(.od-tile) > :where(*) { display: block; }
+
+  /* media keeps its intrinsic ratio by default; never a distorted or cropped
+     cover by accident. height:auto lets the ratio win over an <img height="…">
+     attribute. Cropping to a uniform box is an explicit opt-in: set --od-ratio
+     AND add .od-media-cover together (per the core rule, only where a crop is
+     deliberate — tile thumbs, decorative fills — never on full-frame content). */
+  .od-media { display: block; width: 100%; height: auto; aspect-ratio: var(--od-ratio, auto); }
+  .od-media-cover { object-fit: cover; }
+
+  /* data text only — authored copy is rewritten to its budget instead */
+  .od-truncate { display: block; max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .od-clamp-2, .od-clamp-3 { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+  .od-clamp-2 { -webkit-line-clamp: 2; }
+  .od-clamp-3 { -webkit-line-clamp: 3; }
+  .od-lines-2 { min-height: calc(2 * 1.4em); }   /* block-level reservation for a shared baseline */
+  .od-nowrap  { white-space: nowrap; }           /* 数字+单位 · 价格+起 · 日期+星期 */
+  .od-keep    { word-break: keep-all; overflow-wrap: anywhere; } /* CJK labels break at spaces / <wbr> first */
+
+  /* screen skeleton (optional): bars take their own space, the middle scrolls — no padding guessed for chrome */
+  .od-screen { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; height: 100%; }
+  .od-scroll { overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
+
+  /* horizontal rail: the next item peeks at the edge; trailing room survives overflow */
+  .od-rail { display: flex; gap: var(--od-gap, 8px); overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none;
+             padding-inline: var(--od-rail-pad, 16px); scroll-padding-inline: var(--od-rail-pad, 16px); }
+  .od-rail::-webkit-scrollbar { display: none; }
+  :where(.od-rail) > :where(*) { flex: none; scroll-snap-align: start; }
+  :where(.od-rail) > :where(:last-child) { margin-inline-end: var(--od-rail-pad, 16px); }
+
+  .od-spacer { flex: none; visibility: hidden; pointer-events: none; }
+  .od-touch  { min-width: 44px; min-height: 44px; }
+}
+/* /OD-LAYOUT-PRIMITIVES v1 */
+</style>
+<link rel="stylesheet" href="css/site.css">
 </head>
 <body>
-<x-dc>
-<helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
-<style>
-  *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-  body{ margin:0; background:#FFFFFF; }
-  ::selection{ background:#E7573E; color:#FFFFFF; }
-  a{ color:#161617; }
-  a:hover{ color:#E7573E; }
-  @media (max-width:720px){ span[data-nav-case]{ display:none !important; } [data-nav-full]{ display:none !important; } [data-nav-short]{ display:inline !important; } header nav a{ margin-left:0 !important; padding-left:8px !important; padding-right:8px !important; font-size:13px !important; } }
-  @media (max-width:860px){ #cs-context{ grid-template-columns:minmax(0,1fr) !important; } }
-  @media (max-width:780px){ #v2-kpi-scenario{ grid-template-columns:1fr 1fr !important; } }
-  header details > summary{ list-style:none; cursor:pointer; } header details > summary:focus{ outline:none; } header details > summary:focus-visible{ outline:2px solid #E7573E; outline-offset:-2px; border-radius:8px; } header details > summary::-webkit-details-marker{ display:none; } header details[open] > summary svg{ transform:rotate(180deg); }
-  @media (max-width:360px){ header nav a{ padding-left:3px !important; padding-right:3px !important; font-size:12px !important; } }
-  @media (max-width:720px){ header nav details a{ padding-left:4px !important; padding-right:16px !important; } header nav details img{ width:16px; height:16px; } }
-  @media (max-width:360px){ header nav details a{ padding-left:0 !important; gap:6px; } }
-</style>
-</helmet>
-<div style="background:#FFFFFF; color:#161617; font-family:'Geist',system-ui,sans-serif; -webkit-font-smoothing:antialiased; overflow-x:clip;" data-om-label="Body">
+<a class="skip" href="#main">Skip to content</a>
 
-  <header style="position:fixed; top:14px; left:0; right:0; z-index:50; pointer-events:none;">
-    <div style="max-width:1200px; margin:0 auto; padding:0 clamp(12px,4vw,40px); display:flex; justify-content:center;">
-      <nav style="position:relative; pointer-events:auto; display:inline-flex; align-items:center; gap:2px; max-width:100%; padding:4px 4px 4px 6px; border-radius:999px; background:rgba(255,255,255,0.86); -webkit-backdrop-filter:saturate(160%) blur(14px); backdrop-filter:saturate(160%) blur(14px); box-shadow:inset 0 0 0 1px #E5E5E2;">
-        <a href="index.html#top" style="display:flex; align-items:center; gap:9px; padding:8px 12px; font-size:14px; font-weight:600; letter-spacing:-0.015em; color:#161617; text-decoration:none; white-space:nowrap;" style-hover="color:#161617;"><span style="width:8px; height:8px; border-radius:2px; background:#E7573E; flex:none;"></span><span data-nav-full="">Tomasz Czarnecki</span><span data-nav-short="" style="display:none;">TC</span></a>
-        <details data-site-menu="" style="flex:none; margin-left:-8px;">
-          <summary aria-label="Switch site" style="display:flex; align-items:center; padding:8px 6px; color:#8E8E93;" style-hover="color:#161617;"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block; transition:transform 0.2s ease;"><path d="M4 6l4 4 4-4"></path></svg></summary>
-          <div style="position:absolute; top:calc(100% + 4px); left:0; display:flex; flex-direction:column; gap:2px; padding:4px; border-radius:21px; background:rgba(255,255,255,0.86); -webkit-backdrop-filter:saturate(160%) blur(14px); backdrop-filter:saturate(160%) blur(14px); box-shadow:inset 0 0 0 1px #E5E5E2;">
-            <a href="https://www.yaga.sh" style="display:flex; align-items:center; gap:7px; padding:8px 16px 8px 6px; border-radius:17px; color:#161617; text-decoration:none; white-space:nowrap;" style-hover="background:rgba(22,22,23,0.06); color:#161617;"><img loading="lazy" src="assets/yaga-logo.svg" alt="" width="18" height="18" style="display:block; flex:none;"><span style="display:grid; gap:1px; line-height:1.3;"><span style="font-size:14px; font-weight:600; letter-spacing:-0.015em;">Yaga.sh</span><span style="font-size:12px; font-weight:400; color:#6E6E73;">Experimentation platform</span></span></a>
-            <a href="https://yagalabs.io" style="display:flex; align-items:center; gap:7px; padding:8px 16px 8px 6px; border-radius:17px; color:#161617; text-decoration:none; white-space:nowrap;" style-hover="background:rgba(22,22,23,0.06); color:#161617;"><img loading="lazy" src="assets/yagalabs-logo.svg" alt="" width="18" height="18" style="display:block; flex:none;"><span style="display:grid; gap:1px; line-height:1.3;"><span style="font-size:14px; font-weight:600; letter-spacing:-0.015em;">Yaga Labs</span><span style="font-size:12px; font-weight:400; color:#6E6E73;">Corporate page</span></span></a>
-          </div>
-        </details>
-        <span data-nav-case="" style="width:1px; height:16px; background:#E5E5E2; margin:0 6px; flex:none;"></span>
-        <a href="allocation-ai.html" aria-current="page" style="display:block; padding:8px 12px; border-radius:999px; background:#F2F2F0; font-size:14px; font-weight:500; color:#161617; text-decoration:none; white-space:nowrap;" style-hover="color:#161617;"><span data-nav-full="">Allocation AI</span><span data-nav-short="" style="display:none;">Allocation</span></a>
-        <a href="promo-advisor.html" style="display:block; padding:8px 12px; border-radius:999px; font-size:14px; color:#6E6E73; text-decoration:none; white-space:nowrap; transition:color 0.2s ease;" style-hover="color:#161617;"><span data-nav-full="">Promo Advisor</span><span data-nav-short="" style="display:none;">Promo</span></a>
-        <a href="smart-flighting.html" style="display:block; padding:8px 12px; border-radius:999px; font-size:14px; color:#6E6E73; text-decoration:none; white-space:nowrap; transition:color 0.2s ease;" style-hover="color:#161617;"><span data-nav-full="">Smart Flighting</span><span data-nav-short="" style="display:none;">Flighting</span></a>
-        <a href="CV_TomaszCzarnecki_Latest.pdf" target="_blank" rel="noopener" style="display:block; margin-left:6px; padding:7px 14px; border-radius:999px; box-shadow:inset 0 0 0 1px #D6D6D3; font-size:14px; color:#161617; text-decoration:none; white-space:nowrap; transition:box-shadow 0.2s ease;" style-hover="box-shadow:inset 0 0 0 1px #161617; color:#161617;">CV ↓</a>
-      </nav>
+<header class="site-head">
+  <div class="wrap">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html"><span class="brand-avatar" aria-hidden="true"><img class="od-media" src="assets/tomasz_hoodie.webp" alt="" width="400" height="400"></span><span>Tomasz Czarnecki</span></a>
+      <details class="switcher" data-switcher>
+        <summary aria-label="Switch site"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="switcher-panel">
+          <a class="switcher-item od-row" href="https://www.yaga.sh"><img class="od-fixed" src="assets/yaga-logo.svg" alt="" width="28" height="28"><span class="od-field"><span class="switcher-name">Yaga.sh</span><span class="switcher-desc">Experimentation platform</span></span></a>
+          <a class="switcher-item od-row" href="https://yagalabs.io"><img class="od-fixed" src="assets/yagalabs-logo.svg" alt="" width="28" height="28"><span class="od-field"><span class="switcher-name">Yaga Labs</span><span class="switcher-desc">Corporate page</span></span></a>
+        </div>
+      </details>
+      <ul class="nav-links">
+        <li><a href="index.html#work" aria-current="page">Heineken</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#building">Building</a></li>
+        <li><a href="index.html#china">China</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a class="nav-cv" href="https://czarnecki.ai/CV_TomaszCzarnecki_Latest.pdf" target="_blank" rel="noopener">CV ↓</a>
+      <button class="nav-menu" type="button" data-menu-open aria-controls="menu" aria-expanded="false" aria-label="Open menu"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M3 5.5h10M3 10.5h10"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<dialog class="sheet" id="menu" aria-label="Menu">
+  <div class="sheet-inner">
+    <div class="sheet-top od-row">
+      <a class="brand" href="index.html"><span class="brand-avatar" aria-hidden="true"><img class="od-media" src="assets/tomasz_hoodie.webp" alt="" width="400" height="400"></span><span>Tomasz Czarnecki</span></a>
+      <span class="od-fill"></span>
+      <button class="sheet-close" type="button" data-menu-close aria-label="Close menu"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
     </div>
-  </header>
+    <nav aria-label="Sections">
+      <ul class="sheet-links">
+        <li><a href="index.html#work" aria-current="page"><span class="sheet-name">Heineken</span><span class="sheet-num">01</span></a></li>
+        <li><a href="index.html#about"><span class="sheet-name">About</span><span class="sheet-num">02</span></a></li>
+        <li><a href="index.html#skills"><span class="sheet-name">Skills</span><span class="sheet-num">03</span></a></li>
+        <li><a href="index.html#building"><span class="sheet-name">Building</span><span class="sheet-num">04</span></a></li>
+        <li><a href="index.html#china"><span class="sheet-name">China</span><span class="sheet-num">05</span></a></li>
+        <li><a href="#contact"><span class="sheet-name">Contact</span><span class="sheet-num">06</span></a></li>
+      </ul>
+    </nav>
+    <div class="sheet-foot od-cluster">
+      <a class="btn btn-solid" href="mailto:tomasz@czarnecki.ai">Let’s talk</a>
+      <a class="btn btn-line" href="https://czarnecki.ai/CV_TomaszCzarnecki_Latest.pdf" target="_blank" rel="noopener">CV ↓</a>
+    </div>
+  </div>
+</dialog>
 
-  <main id="top">
+<main id="main">
 
-    <section data-om-label="Case Study Hero" data-screen-label="Hero" style="padding:clamp(120px,15vh,168px) clamp(20px,4vw,40px) clamp(72px,8vw,120px); background:#FFFFFF;">
-      <div style="max-width:1200px; margin:0 auto; display:flex; flex-direction:column; align-items:center; text-align:center;">
-        <a href="index.html#heineken" style="display:inline-flex; align-items:center; gap:8px; font-size:14px; color:#6E6E73; text-decoration:none;" style-hover="color:#161617;">← All case studies</a>
-        <span style="margin-top:clamp(28px,3.4vw,40px); font-family:'Geist Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#E7573E;">Case study 01 / 03 · Where</span>
-        <h1 style="margin:20px 0 0 0; font-weight:500; font-size:clamp(40px,5.6vw,80px); line-height:1.02; letter-spacing:-0.045em; color:#161617; text-wrap:balance;">Allocation AI.<br><span style="color:#E7573E;">Where to spend.</span></h1>
-        <p style="margin:clamp(20px,2.2vw,28px) 0 0 0; font-size:clamp(16px,1.3vw,19px); line-height:1.55; color:#6E6E73; max-width:56ch; text-wrap:pretty;">Getting commercial leaders to move marketing money where a model, not instinct, said it should go. A Bayesian budget-allocation system with a <strong style="color:#161617; font-weight:600;">36% ROI improvement across brands and touchpoints</strong>, publicly reported by Heineken.</p>
-        <dl data-om-label="Project facts" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr)); gap:20px 24px; width:100%; max-width:900px; margin:clamp(40px,5vw,56px) 0 0 0; padding-top:24px; border-top:1px solid #EDEDEA;">
-          <div style="min-width:0;"><dt style="font-size:13px; color:#8E8E93;">Role</dt><dd style="margin:6px 0 0 0; font-size:15.5px; font-weight:500; letter-spacing:-0.01em; color:#161617;">Product designer and adoption lead on the reboot</dd></div>
-          <div style="min-width:0;"><dt style="font-size:13px; color:#8E8E93;">Context</dt><dd style="margin:6px 0 0 0; font-size:15.5px; font-weight:500; letter-spacing:-0.01em; color:#161617;">Heineken · 2021–2026</dd></div>
-          <div style="min-width:0;"><dt style="font-size:13px; color:#8E8E93;">Domain</dt><dd style="margin:6px 0 0 0; font-size:15.5px; font-weight:500; letter-spacing:-0.01em; color:#161617;">Marketing effectiveness</dd></div>
-          <div style="min-width:0;"><dt style="font-size:13px; color:#8E8E93;">Approach</dt><dd style="margin:6px 0 0 0; font-size:15.5px; font-weight:500; letter-spacing:-0.01em; color:#161617;">Bayesian ML · Azure</dd></div>
-        </dl>
-      </div>
-      <div style="max-width:1200px; margin:0 auto;">
-        <figure data-reveal="" data-om-label="Product visual" style="margin:clamp(40px,5vw,64px) 0 0 0; padding:clamp(10px,1.6vw,20px); border-radius:20px; background:#FAFAF8; box-shadow:inset 0 0 0 1px #E5E5E2; min-width:0;">
-          <div style="color:#161617; font-family:'Geist',system-ui,sans-serif;"><div style="background:#FFFFFF; border:1px solid #E5E5E2; border-radius:12px; overflow:hidden;">
+  <section class="case-hero is-dark" id="top" aria-labelledby="case-title">
+    <div class="wrap">
+      <nav class="case-switch" aria-label="Case studies">
+        <a class="case-back" href="index.html">← Home</a>
+        <ol class="case-tabs">
+          <li><span class="case-tab od-stat" data-case="allocation-ai" aria-current="page"><span class="mono-label">01 · Where</span><span class="case-tab-name">Allocation AI</span></span></li>
+          <li><a class="case-tab od-stat" data-case="promo-advisor" href="promo-advisor.html"><span class="mono-label">02 · What</span><span class="case-tab-name">Promo Advisor</span></a></li>
+          <li><a class="case-tab od-stat" data-case="smart-flighting" href="smart-flighting.html"><span class="mono-label">03 · When</span><span class="case-tab-name">Smart Flighting</span></a></li>
+        </ol>
+      </nav>
+      <span class="mono-label case-eyebrow">Case study 01 / 03 · Where</span>
+      <h1 class="case-title" id="case-title"><span>Allocation AI.</span> <span class="accent">Where to spend.</span></h1>
+      <p class="case-lead">Getting commercial leaders to move marketing money where a model, not instinct, said it should go. A Bayesian budget-allocation system with a <strong>36% ROI improvement across brands and touchpoints</strong>, publicly reported by Heineken.</p>
+      <dl class="facts">
+        <div class="od-stat"><dt>Role</dt><dd>Product designer and adoption lead on the reboot</dd></div>
+        <div class="od-stat"><dt>Context</dt><dd>Heineken · 2021–2026</dd></div>
+        <div class="od-stat"><dt>Domain</dt><dd>Marketing effectiveness</dd></div>
+        <div class="od-stat"><dt>Approach</dt><dd>Bayesian ML · Azure</dd></div>
+      </dl>
+      <figure class="viz" data-reveal>
+  <div class="viz-frame"><div class="viz-scroll" tabindex="0" role="region" aria-label="Where the model wants to move next year’s money, and where it won’t commit">
+<div style="color:#161617; font-family:'Geist',system-ui,sans-serif;"><div style="background:#FFFFFF; border:1px solid #E5E5E2; border-radius:12px; overflow:hidden;">
       <div style="padding:22px 26px 18px; border-bottom:1px solid #E5E5E2;">
         <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#6E6E73;">Annual plan · % change vs current</span>
         <h3 style="margin:6px 0 4px; font-size:21px; font-weight:600; letter-spacing:-.01em;">Where the model wants to move next year's budget</h3>
@@ -102,15 +174,15 @@
 
           <div style="grid-column:1 / -1; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.11em; text-transform:uppercase; color:#3A3A3D; padding:12px 0 4px;">Brand building</div>
           <div style="display:flex; align-items:center; font-size:13px; padding-right:8px;">Paid social</div>
-          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(231,87,62,.52);">+25%</div>
-          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(231,87,62,.20);">+10%</div>
-          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(231,87,62,.52);">+25%</div>
-          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(231,87,62,.20);">+10%</div>
+          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(139,108,240,.52);">+25%</div>
+          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(139,108,240,.20);">+10%</div>
+          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(139,108,240,.52);">+25%</div>
+          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(139,108,240,.20);">+10%</div>
 
           <div style="display:flex; align-items:center; font-size:13px; padding-right:8px;">Online video</div>
-          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(231,87,62,.20);">+10%</div>
-          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(231,87,62,.52);">+25%</div>
-          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(231,87,62,.20);">+10%</div>
+          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(139,108,240,.20);">+10%</div>
+          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(139,108,240,.52);">+25%</div>
+          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(139,108,240,.20);">+10%</div>
           <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(22,22,23,.15);">−10%<span style="position:absolute; top:5px; right:6px; width:7px; height:7px; border:1.5px solid rgba(22,22,23,.55); border-radius:50%;"></span></div>
 
           <div style="display:flex; align-items:center; font-size:13px; padding-right:8px;">TV</div>
@@ -121,22 +193,22 @@
 
           <div style="display:flex; align-items:center; font-size:13px; padding-right:8px;">Sponsorship</div>
           <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:#F5F5F3; color:#6E6E73;">0%</div>
-          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(231,87,62,.20);">+10%</div>
+          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(139,108,240,.20);">+10%</div>
           <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(22,22,23,.15);">−10%<span style="position:absolute; top:5px; right:6px; width:7px; height:7px; border:1.5px solid rgba(22,22,23,.55); border-radius:50%;"></span></div>
-          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(231,87,62,.20);">+10%</div>
+          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(139,108,240,.20);">+10%</div>
 
           <div style="grid-column:1 / -1; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.11em; text-transform:uppercase; color:#3A3A3D; padding:12px 0 4px;">Activation</div>
           <div style="display:flex; align-items:center; font-size:13px; padding-right:8px;">Out-of-home</div>
           <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(22,22,23,.15);">−10%</div>
           <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(22,22,23,.40);">−25%</div>
-          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(231,87,62,.20);">+10%<span style="position:absolute; top:5px; right:6px; width:7px; height:7px; border:1.5px solid rgba(22,22,23,.55); border-radius:50%;"></span></div>
-          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(231,87,62,.52);">+25%</div>
+          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(139,108,240,.20);">+10%<span style="position:absolute; top:5px; right:6px; width:7px; height:7px; border:1.5px solid rgba(22,22,23,.55); border-radius:50%;"></span></div>
+          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(139,108,240,.52);">+25%</div>
 
           <div style="display:flex; align-items:center; font-size:13px; padding-right:8px;">Trade / retail</div>
-          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(231,87,62,.20);">+10%</div>
-          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(231,87,62,.52);">+25%</div>
-          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(231,87,62,.52);">+25%</div>
-          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(231,87,62,.20);">+10%</div>
+          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(139,108,240,.20);">+10%</div>
+          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(139,108,240,.52);">+25%</div>
+          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(139,108,240,.52);">+25%</div>
+          <div style="position:relative; height:38px; display:flex; align-items:center; justify-content:center; border-radius:6px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; background:rgba(139,108,240,.20);">+10%</div>
 
           <div style="grid-column:1 / -1; height:10px;"></div>
           <div style="display:flex; align-items:center; font-size:13px; padding-right:8px; font-weight:600;">Net move</div>
@@ -151,7 +223,7 @@
         <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:center; margin:20px 2px 0; font-size:12px;">
           <span style="display:inline-flex; align-items:center; gap:0;">
             <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; color:#6E6E73; margin:0 7px;">cut</span>
-            <i style="width:22px; height:12px; display:inline-block; background:rgba(22,22,23,.40);"></i><i style="width:22px; height:12px; display:inline-block; background:rgba(22,22,23,.15);"></i><i style="width:22px; height:12px; display:inline-block; background:#F5F5F3;"></i><i style="width:22px; height:12px; display:inline-block; background:rgba(231,87,62,.20);"></i><i style="width:22px; height:12px; display:inline-block; background:rgba(231,87,62,.52);"></i>
+            <i style="width:22px; height:12px; display:inline-block; background:rgba(22,22,23,.40);"></i><i style="width:22px; height:12px; display:inline-block; background:rgba(22,22,23,.15);"></i><i style="width:22px; height:12px; display:inline-block; background:#F5F5F3;"></i><i style="width:22px; height:12px; display:inline-block; background:rgba(139,108,240,.20);"></i><i style="width:22px; height:12px; display:inline-block; background:rgba(139,108,240,.52);"></i>
             <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; color:#6E6E73; margin:0 7px;">grow</span>
           </span>
           <span style="display:inline-flex; align-items:center; gap:7px;"><span style="width:9px; height:9px; border:1.5px solid rgba(22,22,23,.55); border-radius:50%; display:inline-block;"></span>low confidence · needs a human call</span>
@@ -163,36 +235,48 @@
         <span>Illustrative concept, not the actual product.</span><span>Fictional brands and data.</span>
       </div>
     </div></div>
-          <sc-if value="{{ showCaptions }}" hint-placeholder-val="{{ true }}"><figcaption style="padding:clamp(14px,1.6vw,20px) clamp(6px,1vw,12px) clamp(4px,0.6vw,8px); font-size:14.5px; line-height:1.6; color:#6E6E73; max-width:80ch; text-wrap:pretty;"><span style="color:#161617; font-weight:500;">Where the model wants to move next year’s money, and where it won’t commit.</span> The cells it’s unsure about are flagged for a person to decide. We designed it to propose <em>and</em> to admit doubt, because a system that silently reallocates millions gets ignored, while one that shows its confidence gets executed.</figcaption></sc-if>
-        </figure>
-      </div>
-    </section>
+  </div></div>
+  <figcaption><span>Where the model wants to move next year’s money, and where it won’t commit.</span> The cells it’s unsure about are flagged for a person to decide. We designed it to propose <em>and</em> to admit doubt, because a system that silently reallocates millions gets ignored, while one that shows its confidence gets executed.</figcaption>
+</figure>
+    </div>
+  </section>
 
-    <section id="impact" data-om-label="Impact" data-screen-label="Impact" style="padding:clamp(80px,9vw,140px) clamp(20px,4vw,40px); scroll-margin-top:88px; background:#FAFAF8; border-top:1px solid #EDEDEA;">
-      <div style="max-width:1200px; margin:0 auto;">
-        <div style="display:flex; flex-direction:column; align-items:center; text-align:center;">
-          <div style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:#6E6E73;"><span style="width:6px; height:6px; border-radius:1px; background:#E7573E;"></span>Impact</div>
-          <div data-reveal="" style="margin-top:24px; font-weight:500; font-size:clamp(64px,10vw,144px); line-height:0.95; letter-spacing:-0.05em; color:#E7573E; font-variant-numeric:tabular-nums; white-space:nowrap;">36%</div>
-          <p data-reveal="" style="margin:20px 0 0 0; font-size:clamp(17px,1.4vw,20px); line-height:1.5; color:#161617; max-width:34ch; text-wrap:balance;">ROI improvement across brands and touchpoints, publicly reported by Heineken.</p>
-          <span style="margin-top:12px; font-size:13px; color:#8E8E93;">Public · Heineken newsroom</span>
-        </div>
-        <div data-reveal="" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); gap:16px; margin-top:clamp(40px,5vw,64px);">
-          <div style="padding:clamp(22px,2.4vw,28px); border-radius:16px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #E5E5E2; min-width:0;"><div style="font-size:13px; color:#8E8E93;">Behaviour change</div><div style="margin-top:8px; font-weight:500; font-size:clamp(19px,1.6vw,22px); line-height:1.2; letter-spacing:-0.02em;">Intuition → model-driven</div><div style="margin-top:8px; font-size:15px; line-height:1.55; color:#6E6E73; text-wrap:pretty;">Annual planning shifted from “last year plus a bit” to a modelled, defensible split.</div></div>
-          <div style="padding:clamp(22px,2.4vw,28px); border-radius:16px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #E5E5E2; min-width:0;"><div style="font-size:13px; color:#8E8E93;">Adoption</div><div style="margin-top:8px; font-weight:500; font-size:clamp(19px,1.6vw,22px); line-height:1.2; letter-spacing:-0.02em;">Piloted → scaled</div><div style="margin-top:8px; font-size:15px; line-height:1.55; color:#6E6E73; text-wrap:pretty;">Commercial leaders reallocated budget on the model’s guidance, in the planning cycle, at scale.</div></div>
-          <div style="padding:clamp(22px,2.4vw,28px); border-radius:16px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #E5E5E2; min-width:0;"><div style="font-size:13px; color:#8E8E93;">Scope</div><div style="margin-top:8px; font-weight:500; font-size:clamp(19px,1.6vw,22px); line-height:1.2; letter-spacing:-0.02em;">~€2.9B</div><div style="margin-top:8px; font-size:15px; line-height:1.55; color:#6E6E73; text-wrap:pretty;">Built for Heineken’s ~€2.9B annual marketing budget.</div></div>
+  <section class="sec" id="impact" aria-labelledby="impact-label">
+    <div class="wrap">
+      <div class="sec-head grid12" data-reveal>
+        <div class="sec-index col-index"><span class="sec-label" id="impact-label">Impact</span></div>
+        <div class="col-body">
+          <p class="impact-num">36%</p>
+          <p class="impact-text">ROI improvement across brands and touchpoints, publicly reported by Heineken.</p>
+          <span class="mono-label impact-src">Public · Heineken newsroom</span>
+          <ul class="impact-cards">
+            <li class="od-stat"><span class="mono-label">Behaviour change</span><span class="impact-v">Intuition → model-driven</span><span class="impact-d">Annual planning shifted from “last year plus a bit” to a modelled, defensible split.</span></li>
+            <li class="od-stat"><span class="mono-label">Adoption</span><span class="impact-v">Piloted → scaled</span><span class="impact-d">Commercial leaders reallocated budget on the model’s guidance, in the planning cycle, at scale.</span></li>
+            <li class="od-stat"><span class="mono-label">Scope</span><span class="impact-v">~€2.9B</span><span class="impact-d">Built for Heineken’s ~€2.9B annual marketing budget.</span></li>
+          </ul>
         </div>
       </div>
-    </section>
-    <section id="overview" data-om-label="Overview" data-screen-label="Overview" style="padding:clamp(80px,9vw,140px) clamp(20px,4vw,40px); scroll-margin-top:88px; border-top:1px solid #EDEDEA;">
-      <div style="max-width:1200px; margin:0 auto;">
-        <div style="display:flex; flex-direction:column; align-items:center; text-align:center;">
-          <div style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:#6E6E73;"><span style="width:6px; height:6px; border-radius:1px; background:#E7573E;"></span>01 · Overview</div>
-          <h2 data-reveal="" style="margin:20px 0 0 0; font-weight:500; font-size:clamp(34px,4.2vw,58px); line-height:1.08; letter-spacing:-0.035em; text-wrap:balance; max-width:20ch;">What Allocation AI does.</h2>
-          <p data-reveal="" style="margin:24px 0 0 0; font-size:clamp(16px,1.25vw,18px); line-height:1.65; color:#6E6E73; max-width:58ch; text-wrap:pretty;">Every year Heineken’s operating companies face the same question: where should the next marketing euro go?</p>
+    </div>
+  </section>
+
+  <section class="sec sec--alt" id="overview" aria-labelledby="overview-title">
+    <div class="wrap">
+      <header class="sec-head grid12" data-reveal>
+        <div class="sec-index col-index"><span class="sec-num">01</span><span class="sec-label">Overview</span></div>
+        <div class="col-body">
+          <h2 class="sec-title" id="overview-title">What Allocation AI does.</h2>
+          <p class="lead">Every year Heineken’s operating companies face the same question: where should the next marketing euro go?</p>
         </div>
-        <div data-reveal="" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr)); gap:20px clamp(28px,4vw,56px); max-width:960px; margin:clamp(36px,4vw,56px) auto 0;"><p style="margin:0; font-size:16px; line-height:1.7; color:#6E6E73; text-wrap:pretty;">Five million on TV, or on trade promotions? More weight behind a global brand, or a local power brand? Historically these calls leaned on experience and last year’s plan. Allocation AI answers with evidence. It builds a Bayesian response model per operating company, brand and channel, learning how sales actually react to investment.</p><p style="margin:0; font-size:16px; line-height:1.7; color:#6E6E73; text-wrap:pretty;">The core output is a set of <strong style="color:#161617; font-weight:600;">response curves</strong> (spend on one axis, expected volume or ROI on the other) that let teams test budget scenarios before committing a cent. A constraint-aware optimiser then reads those curves and proposes the allocation that maximises return within real strategic limits: brand-role rules, long-term brand-building floors, and short-term caps.</p></div>
-        <figure data-reveal="" data-om-label="Product visual" style="margin:clamp(40px,5vw,64px) 0 0 0; padding:clamp(10px,1.6vw,20px); border-radius:20px; background:#FAFAF8; box-shadow:inset 0 0 0 1px #E5E5E2; min-width:0;">
-          <div style="color:#161617; font-family:'Geist',system-ui,sans-serif;"><div style="background:#FFFFFF; border:1px solid #E5E5E2; border-radius:12px; overflow:hidden;">
+      </header>
+      <div class="grid12">
+        <div class="prose col-body" data-reveal>
+          <p>Five million on TV, or on trade promotions? More weight behind a global brand, or a local power brand? Historically these calls leaned on experience and last year’s plan. Allocation AI answers with evidence. It builds a Bayesian response model per operating company, brand and channel, learning how sales actually react to investment.</p>
+          <p>The core output is a set of <strong>response curves</strong> (spend on one axis, expected volume or ROI on the other) that let teams test budget scenarios before committing a cent. A constraint-aware optimiser then reads those curves and proposes the allocation that maximises return within real strategic limits: brand-role rules, long-term brand-building floors, and short-term caps.</p>
+        </div>
+      </div>
+      <figure class="viz" data-reveal>
+  <div class="viz-frame"><div class="viz-scroll" tabindex="0" role="region" aria-label="What a plan delivers before a euro moves">
+<div style="color:#161617; font-family:'Geist',system-ui,sans-serif;"><div style="background:#FFFFFF; border:1px solid #E5E5E2; border-radius:12px; overflow:hidden;">
       <div style="padding:22px 26px 18px; border-bottom:1px solid #E5E5E2;">
         <div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#3A3A3D; margin-bottom:2px;">Scenario · "Shift to digital, protect brand"</div>
         <h3 style="margin:6px 0 4px; font-size:21px; font-weight:600; letter-spacing:-.01em;">What this budget scenario delivers</h3>
@@ -200,10 +284,10 @@
       </div>
       <div style="padding:20px 26px 0;">
         <div id="v2-kpi-scenario" style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:26px;">
-          <div style="border:1px solid #E5E5E2; border-radius:11px; padding:14px 14px 13px;"><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:#6E6E73;">Volume</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:25px; font-weight:600; letter-spacing:-.02em; margin:8px 0 6px;">3.8M</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:12px; color:#E7573E; display:inline-flex; align-items:center; gap:4px;">↑ 5.0%</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73; margin-top:4px;">LY 3.6M</div></div>
-          <div style="border:1px solid #E5E5E2; border-radius:11px; padding:14px 14px 13px;"><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:#6E6E73;">Net revenue</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:25px; font-weight:600; letter-spacing:-.02em; margin:8px 0 6px;">€540M</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:12px; color:#E7573E; display:inline-flex; align-items:center; gap:4px;">↑ 9.0%</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73; margin-top:4px;">LY €495M</div></div>
-          <div style="border:1px solid #E5E5E2; border-radius:11px; padding:14px 14px 13px;"><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:#6E6E73;">Gross profit</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:25px; font-weight:600; letter-spacing:-.02em; margin:8px 0 6px;">€270M</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:12px; color:#E7573E; display:inline-flex; align-items:center; gap:4px;">↑ 6.0%</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73; margin-top:4px;">LY €255M</div></div>
-          <div style="border:1px solid #E5E5E2; border-radius:11px; padding:14px 14px 13px;"><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:#6E6E73;">ROI</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:25px; font-weight:600; letter-spacing:-.02em; margin:8px 0 6px;">3.1×</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:12px; color:#E7573E; display:inline-flex; align-items:center; gap:4px;">↑ 14%</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73; margin-top:4px;">LY 2.7×</div></div>
+          <div style="border:1px solid #E5E5E2; border-radius:11px; padding:14px 14px 13px;"><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:#6E6E73;">Volume</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:25px; font-weight:600; letter-spacing:-.02em; margin:8px 0 6px;">3.8M</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:12px; color:#8B6CF0; display:inline-flex; align-items:center; gap:4px;">↑ 5.0%</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73; margin-top:4px;">LY 3.6M</div></div>
+          <div style="border:1px solid #E5E5E2; border-radius:11px; padding:14px 14px 13px;"><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:#6E6E73;">Net revenue</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:25px; font-weight:600; letter-spacing:-.02em; margin:8px 0 6px;">€540M</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:12px; color:#8B6CF0; display:inline-flex; align-items:center; gap:4px;">↑ 9.0%</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73; margin-top:4px;">LY €495M</div></div>
+          <div style="border:1px solid #E5E5E2; border-radius:11px; padding:14px 14px 13px;"><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:#6E6E73;">Gross profit</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:25px; font-weight:600; letter-spacing:-.02em; margin:8px 0 6px;">€270M</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:12px; color:#8B6CF0; display:inline-flex; align-items:center; gap:4px;">↑ 6.0%</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73; margin-top:4px;">LY €255M</div></div>
+          <div style="border:1px solid #E5E5E2; border-radius:11px; padding:14px 14px 13px;"><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:#6E6E73;">ROI</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:25px; font-weight:600; letter-spacing:-.02em; margin:8px 0 6px;">3.1×</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:12px; color:#8B6CF0; display:inline-flex; align-items:center; gap:4px;">↑ 14%</div><div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73; margin-top:4px;">LY 2.7×</div></div>
         </div>
 
         <div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#6E6E73; margin-bottom:14px;">Projected net revenue vs last year, by brand</div>
@@ -214,40 +298,40 @@
           <span style="font-size:13px;">Nordlys</span>
           <div style="display:flex; flex-direction:column; gap:5px;">
             <div style="height:15px; border-radius:4px; display:flex; align-items:center; position:relative; background:#C7C7CC; width:71%;"><span style="position:absolute; right:-34px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73;">100</span></div>
-            <div style="height:15px; border-radius:4px; display:flex; align-items:center; position:relative; background:rgba(231,87,62,.72); width:84%;"><span style="position:absolute; right:-34px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73;">118</span></div>
+            <div style="height:15px; border-radius:4px; display:flex; align-items:center; position:relative; background:rgba(139,108,240,.72); width:84%;"><span style="position:absolute; right:-34px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73;">118</span></div>
           </div>
-          <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; color:#E7573E; text-align:right; font-weight:600;">+18%</span>
+          <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; color:#8B6CF0; text-align:right; font-weight:600;">+18%</span>
         </div>
         <div style="display:grid; grid-template-columns:78px 1fr 52px; align-items:center; gap:14px; margin-bottom:14px;">
           <span style="font-size:13px;">Verano</span>
           <div style="display:flex; flex-direction:column; gap:5px;">
             <div style="height:15px; border-radius:4px; display:flex; align-items:center; position:relative; background:#C7C7CC; width:64%;"><span style="position:absolute; right:-34px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73;">90</span></div>
-            <div style="height:15px; border-radius:4px; display:flex; align-items:center; position:relative; background:rgba(231,87,62,.72); width:74%;"><span style="position:absolute; right:-34px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73;">104</span></div>
+            <div style="height:15px; border-radius:4px; display:flex; align-items:center; position:relative; background:rgba(139,108,240,.72); width:74%;"><span style="position:absolute; right:-34px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73;">104</span></div>
           </div>
-          <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; color:#E7573E; text-align:right; font-weight:600;">+16%</span>
+          <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; color:#8B6CF0; text-align:right; font-weight:600;">+16%</span>
         </div>
         <div style="display:grid; grid-template-columns:78px 1fr 52px; align-items:center; gap:14px; margin-bottom:14px;">
           <span style="font-size:13px;">Kestrel</span>
           <div style="display:flex; flex-direction:column; gap:5px;">
             <div style="height:15px; border-radius:4px; display:flex; align-items:center; position:relative; background:#C7C7CC; width:86%;"><span style="position:absolute; right:-34px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73;">120</span></div>
-            <div style="height:15px; border-radius:4px; display:flex; align-items:center; position:relative; background:rgba(231,87,62,.72); width:94%;"><span style="position:absolute; right:-34px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73;">131</span></div>
+            <div style="height:15px; border-radius:4px; display:flex; align-items:center; position:relative; background:rgba(139,108,240,.72); width:94%;"><span style="position:absolute; right:-34px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73;">131</span></div>
           </div>
-          <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; color:#E7573E; text-align:right; font-weight:600;">+9%</span>
+          <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; color:#8B6CF0; text-align:right; font-weight:600;">+9%</span>
         </div>
         <div style="display:grid; grid-template-columns:78px 1fr 52px; align-items:center; gap:14px; margin-bottom:14px;">
           <span style="font-size:13px;">Aurora</span>
           <div style="display:flex; flex-direction:column; gap:5px;">
             <div style="height:15px; border-radius:4px; display:flex; align-items:center; position:relative; background:#C7C7CC; width:50%;"><span style="position:absolute; right:-34px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73;">70</span></div>
-            <div style="height:15px; border-radius:4px; display:flex; align-items:center; position:relative; background:rgba(231,87,62,.72); width:59%;"><span style="position:absolute; right:-34px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73;">82</span></div>
+            <div style="height:15px; border-radius:4px; display:flex; align-items:center; position:relative; background:rgba(139,108,240,.72); width:59%;"><span style="position:absolute; right:-34px; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#6E6E73;">82</span></div>
           </div>
-          <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; color:#E7573E; text-align:right; font-weight:600;">+17%</span>
+          <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; color:#8B6CF0; text-align:right; font-weight:600;">+17%</span>
         </div>
       </div>
       </div>
       <div style="padding:0 26px 22px;">
         <div style="display:flex; gap:18px; flex-wrap:wrap; margin:6px 2px 0; font-size:12px;">
           <span style="display:inline-flex; align-items:center; gap:7px;"><i style="width:12px; height:12px; border-radius:3px; display:inline-block; background:#C7C7CC;"></i>Last year</span>
-          <span style="display:inline-flex; align-items:center; gap:7px;"><i style="width:12px; height:12px; border-radius:3px; display:inline-block; background:rgba(231,87,62,.72);"></i>Optimised plan</span>
+          <span style="display:inline-flex; align-items:center; gap:7px;"><i style="width:12px; height:12px; border-radius:3px; display:inline-block; background:rgba(139,108,240,.72);"></i>Optimised plan</span>
         </div>
 
         <div style="margin-top:20px; border-top:1px solid #E5E5E2; padding-top:16px; font-size:13px; line-height:1.5;"><b style="font-weight:600;">A planner spins up a scenario and sees its projected outcome before committing a euro.</b> Every number is labelled as a projection, because it is. This is what moved annual planning from intuition to a model teams could interrogate, compare, and trust enough to act on.</div>
@@ -256,59 +340,79 @@
         <span>Illustrative concept, not the actual product.</span><span>Fictional brands and data.</span>
       </div>
     </div></div>
-          <sc-if value="{{ showCaptions }}" hint-placeholder-val="{{ true }}"><figcaption style="padding:clamp(14px,1.6vw,20px) clamp(6px,1vw,12px) clamp(4px,0.6vw,8px); font-size:14.5px; line-height:1.6; color:#6E6E73; max-width:80ch; text-wrap:pretty;"><span style="color:#161617; font-weight:500;">What a plan delivers before a euro moves.</span> Every figure is labelled a projection and broken out by brand, so a leader can interrogate the split rather than accept a headline. Numbers people can pull apart are the ones they’ll put their name on.</figcaption></sc-if>
-        </figure>
+  </div></div>
+  <figcaption><span>What a plan delivers before a euro moves.</span> Every figure is labelled a projection and broken out by brand, so a leader can interrogate the split rather than accept a headline. Numbers people can pull apart are the ones they’ll put their name on.</figcaption>
+</figure>
+    </div>
+  </section>
+
+  <section class="sec" id="problem" aria-labelledby="problem-title">
+    <div class="wrap">
+      <header class="sec-head grid12" data-reveal>
+        <div class="sec-index col-index"><span class="sec-num">02</span><span class="sec-label">The problem</span></div>
+        <div class="col-body">
+          <h2 class="sec-title" id="problem-title">Moving money is a political act.</h2>
+        </div>
+      </header>
+      <div class="grid12">
+        <div class="prose col-body" data-reveal>
+          <p>Heineken spends billions on marketing every year: ~€2.9B, about 9.8% of net revenue. Historically that budget was split across markets, brands and channels by habit and last year’s plan, not by predicted return. Data science <em>could</em> build response curves and calculate where the next euro pays back best. That was not the hard part.</p>
+          <p>The hard part was authority and trust. To act on the model, a commercial leader has to pull real money out of a channel they believe in, on the say-so of a system, and defend that to their market. <strong>A reallocation nobody executes is a slide, not a system.</strong> The blocker was never the optimiser: it was whether a person with budget authority would move the money.</p>
+        </div>
       </div>
-    </section>
-    <section id="problem" data-om-label="The Problem" data-screen-label="The Problem" style="padding:clamp(80px,9vw,140px) clamp(20px,4vw,40px); scroll-margin-top:88px; background:#FAFAF8; border-top:1px solid #EDEDEA;">
-      <div style="max-width:1200px; margin:0 auto;">
-        <div style="display:flex; flex-direction:column; align-items:center; text-align:center;">
-          <div style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:#6E6E73;"><span style="width:6px; height:6px; border-radius:1px; background:#E7573E;"></span>02 · The problem</div>
-          <h2 data-reveal="" style="margin:20px 0 0 0; font-weight:500; font-size:clamp(34px,4.2vw,58px); line-height:1.08; letter-spacing:-0.035em; text-wrap:balance; max-width:20ch;">Moving money is a political act.</h2>
+    </div>
+  </section>
+
+  <section class="sec sec--alt" id="role" aria-labelledby="role-title">
+    <div class="wrap">
+      <header class="sec-head grid12" data-reveal>
+        <div class="sec-index col-index"><span class="sec-num">03</span><span class="sec-label">My role</span></div>
+        <div class="col-body">
+          <h2 class="sec-title" id="role-title">Focused on whether the money actually moved.</h2>
+          <p class="lead">Product designer and adoption lead on the reboot. I shaped the rebuilt allocator’s product language and its adoption path into the annual planning cycle. The original was consultancy-built; the models were built by our data scientists.</p>
         </div>
-        <div data-reveal="" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr)); gap:20px clamp(28px,4vw,56px); max-width:960px; margin:clamp(36px,4vw,56px) auto 0;"><p style="margin:0; font-size:16px; line-height:1.7; color:#6E6E73; text-wrap:pretty;">Heineken spends billions on marketing every year: ~€2.9B, about 9.8% of net revenue. Historically that budget was split across markets, brands and channels by habit and last year’s plan, not by predicted return. Data science <em>could</em> build response curves and calculate where the next euro pays back best. That was not the hard part.</p><p style="margin:0; font-size:16px; line-height:1.7; color:#6E6E73; text-wrap:pretty;">The hard part was authority and trust. To act on the model, a commercial leader has to pull real money out of a channel they believe in, on the say-so of a system, and defend that to their market. <strong style="color:#161617; font-weight:600;">A reallocation nobody executes is a slide, not a system.</strong> The blocker was never the optimiser: it was whether a person with budget authority would move the money.</p></div>
+      </header>
+      <div class="grid12">
+        <div class="prose col-body" data-reveal>
+          <p>My focus was whether operating companies <strong>actually reallocated budget</strong>, not just whether the model produced an answer. I was the bridge between the data scientists who built the models and the OpCo commercial leaders who had to change how they planned.</p>
+        </div>
       </div>
-    </section>
-    <section id="role" data-om-label="My Role" data-screen-label="My Role" style="padding:clamp(80px,9vw,140px) clamp(20px,4vw,40px); scroll-margin-top:88px; border-top:1px solid #EDEDEA;">
-      <div style="max-width:1200px; margin:0 auto;">
-        <div style="display:flex; flex-direction:column; align-items:center; text-align:center;">
-          <div style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:#6E6E73;"><span style="width:6px; height:6px; border-radius:1px; background:#E7573E;"></span>03 · My role</div>
-          <h2 data-reveal="" style="margin:20px 0 0 0; font-weight:500; font-size:clamp(34px,4.2vw,58px); line-height:1.08; letter-spacing:-0.035em; text-wrap:balance; max-width:20ch;">Focused on whether the money actually moved.</h2>
-          <p data-reveal="" style="margin:24px 0 0 0; font-size:clamp(16px,1.25vw,18px); line-height:1.65; color:#6E6E73; max-width:58ch; text-wrap:pretty;">Product designer and adoption lead on the reboot. I shaped the rebuilt allocator’s product language and its adoption path into the annual planning cycle. The original was consultancy-built; the models were built by our data scientists.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="decisions" aria-labelledby="decisions-title">
+    <div class="wrap">
+      <header class="sec-head grid12" data-reveal>
+        <div class="sec-index col-index"><span class="sec-num">04</span><span class="sec-label">Key decisions</span></div>
+        <div class="col-body">
+          <h2 class="sec-title" id="decisions-title">Three product bets that earned adoption.</h2>
+          <p class="lead">Each one traded theoretical elegance for something a commercial leader would actually execute.</p>
         </div>
-        <p data-reveal="" style="max-width:62ch; margin:clamp(28px,3vw,40px) auto 0; font-size:16px; line-height:1.7; color:#6E6E73; text-align:center; text-wrap:pretty;">My focus was whether operating companies <strong style="color:#161617; font-weight:600;">actually reallocated budget</strong>, not just whether the model produced an answer. I was the bridge between the data scientists who built the models and the OpCo commercial leaders who had to change how they planned.</p>
+      </header>
+      <div class="decisions" data-reveal>
+        <article class="decision">
+          <div class="decision-meta od-row"><span class="decision-num">01</span><span class="decision-tag">Answer over charts</span></div>
+          <h3 class="decision-title">A decision tool, not a reporting dashboard.</h3>
+          <p>The cheaper path was a BI dashboard showing historical ROI by channel. I argued against it: teams didn’t need more charts, they needed a defensible answer to “where should the next euro go” that they could take into a planning meeting.</p>
+          <div class="tradeoff od-field"><span class="mono-label">The tradeoff</span><span>Far more product surface, and far more trust to earn, than a dashboard would have needed.</span></div>
+        </article>
+        <article class="decision">
+          <div class="decision-meta od-row"><span class="decision-num">02</span><span class="decision-tag">Curve over number</span></div>
+          <h3 class="decision-title">Exposed the curve and its uncertainty, not a single “optimal” number.</h3>
+          <p>The tempting move was a one-click “here is your optimal budget” black box. I pushed back on it. A black box that silently reallocates millions gets ignored; showing the diminishing-returns curve, the marginal ROI, and the confidence band lets a leader see <em>why</em> the model wants to move money, and where it is unsure.</p>
+          <div class="tradeoff od-field"><span class="mono-label">The tradeoff</span><span>More for a leader to read, in exchange for a recommendation someone will actually execute.</span></div>
+        </article>
+        <article class="decision">
+          <div class="decision-meta od-row"><span class="decision-num">03</span><span class="decision-tag">Strategy over optimum</span></div>
+          <h3 class="decision-title">Made the optimiser respect strategy, not just maximise ROI.</h3>
+          <p>We built in guardrails (brand role, long-term brand building) so the model couldn’t starve a strategic brand to chase short-term return. Pure ROI-maximisation would have produced a higher number on paper and lost the room in one meeting. The human sets the objective and the constraints; the system searches within them.</p>
+          <div class="tradeoff od-field"><span class="mono-label">The tradeoff</span><span>A lower theoretical optimum, for a recommendation that fits how the business actually decides.</span></div>
+        </article>
       </div>
-    </section>
-    <section id="decisions" data-om-label="Key Decisions" data-screen-label="Key Decisions" style="padding:clamp(80px,9vw,140px) clamp(20px,4vw,40px); scroll-margin-top:88px; background:#FAFAF8; border-top:1px solid #EDEDEA;">
-      <div style="max-width:1200px; margin:0 auto;">
-        <div style="display:flex; flex-direction:column; align-items:center; text-align:center;">
-          <div style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:#6E6E73;"><span style="width:6px; height:6px; border-radius:1px; background:#E7573E;"></span>04 · Key decisions</div>
-          <h2 data-reveal="" style="margin:20px 0 0 0; font-weight:500; font-size:clamp(34px,4.2vw,58px); line-height:1.08; letter-spacing:-0.035em; text-wrap:balance; max-width:20ch;">Three product bets that earned adoption.</h2>
-          <p data-reveal="" style="margin:24px 0 0 0; font-size:clamp(16px,1.25vw,18px); line-height:1.65; color:#6E6E73; max-width:58ch; text-wrap:pretty;">Each one traded theoretical elegance for something a commercial leader would actually execute.</p>
-        </div>
-        <div data-reveal="" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr)); gap:16px; margin-top:clamp(40px,5vw,64px);">
-          <div data-om-label="Decision 1" style="display:flex; flex-direction:column; gap:14px; padding:clamp(24px,2.8vw,36px); border-radius:20px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #E5E5E2; min-width:0;">
-            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;"><span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#E7573E;">01</span><span style="font-size:13px; color:#8E8E93;">Answer over charts</span></div>
-            <h3 style="margin:8px 0 0 0; font-weight:500; font-size:clamp(21px,1.8vw,26px); line-height:1.2; letter-spacing:-0.025em; text-wrap:pretty;">A decision tool, not a reporting dashboard.</h3>
-            <p style="margin:0; font-size:15.5px; line-height:1.6; color:#6E6E73; text-wrap:pretty;">The cheaper path was a BI dashboard showing historical ROI by channel. I argued against it: teams didn’t need more charts, they needed a defensible answer to “where should the next euro go” that they could take into a planning meeting.</p>
-            <div style="margin-top:auto; padding-top:16px; border-top:1px solid #EDEDEA; font-size:15px; line-height:1.5; color:#161617; text-wrap:pretty;"><span style="display:block; font-size:13px; color:#8E8E93; margin-bottom:6px;">The tradeoff</span>Far more product surface, and far more trust to earn, than a dashboard would have needed.</div>
-          </div>
-          <div data-om-label="Decision 2" style="display:flex; flex-direction:column; gap:14px; padding:clamp(24px,2.8vw,36px); border-radius:20px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #E5E5E2; min-width:0;">
-            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;"><span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#E7573E;">02</span><span style="font-size:13px; color:#8E8E93;">Curve over number</span></div>
-            <h3 style="margin:8px 0 0 0; font-weight:500; font-size:clamp(21px,1.8vw,26px); line-height:1.2; letter-spacing:-0.025em; text-wrap:pretty;">Exposed the curve and its uncertainty, not a single “optimal” number.</h3>
-            <p style="margin:0; font-size:15.5px; line-height:1.6; color:#6E6E73; text-wrap:pretty;">The tempting move was a one-click “here is your optimal budget” black box. I pushed back on it. A black box that silently reallocates millions gets ignored; showing the diminishing-returns curve, the marginal ROI, and the confidence band lets a leader see <em>why</em> the model wants to move money, and where it is unsure.</p>
-            <div style="margin-top:auto; padding-top:16px; border-top:1px solid #EDEDEA; font-size:15px; line-height:1.5; color:#161617; text-wrap:pretty;"><span style="display:block; font-size:13px; color:#8E8E93; margin-bottom:6px;">The tradeoff</span>More for a leader to read, in exchange for a recommendation someone will actually execute.</div>
-          </div>
-          <div data-om-label="Decision 3" style="display:flex; flex-direction:column; gap:14px; padding:clamp(24px,2.8vw,36px); border-radius:20px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #E5E5E2; min-width:0;">
-            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;"><span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#E7573E;">03</span><span style="font-size:13px; color:#8E8E93;">Strategy over optimum</span></div>
-            <h3 style="margin:8px 0 0 0; font-weight:500; font-size:clamp(21px,1.8vw,26px); line-height:1.2; letter-spacing:-0.025em; text-wrap:pretty;">Made the optimiser respect strategy, not just maximise ROI.</h3>
-            <p style="margin:0; font-size:15.5px; line-height:1.6; color:#6E6E73; text-wrap:pretty;">We built in guardrails (brand role, long-term brand building) so the model couldn’t starve a strategic brand to chase short-term return. Pure ROI-maximisation would have produced a higher number on paper and lost the room in one meeting. The human sets the objective and the constraints; the system searches within them.</p>
-            <div style="margin-top:auto; padding-top:16px; border-top:1px solid #EDEDEA; font-size:15px; line-height:1.5; color:#161617; text-wrap:pretty;"><span style="display:block; font-size:13px; color:#8E8E93; margin-bottom:6px;">The tradeoff</span>A lower theoretical optimum, for a recommendation that fits how the business actually decides.</div>
-          </div>
-        </div>
-        <figure data-reveal="" data-om-label="Decision 02, made visible" style="margin:clamp(40px,5vw,64px) 0 0 0; padding:clamp(10px,1.6vw,20px); border-radius:20px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #E5E5E2; min-width:0;">
-          <div style="padding:clamp(8px,1.2vw,16px) clamp(6px,1vw,12px) clamp(18px,2vw,26px);"><span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#E7573E;">Decision 02, made visible</span><h3 style="margin:12px 0 0 0; font-weight:500; font-size:clamp(22px,2.2vw,30px); line-height:1.15; letter-spacing:-0.03em; text-wrap:balance; max-width:30ch;">Show the whole curve, not just a number.</h3></div>
-          <div style="color:#161617; font-family:'Geist',system-ui,sans-serif;"><div style="background:#FFFFFF; border:1px solid #E5E5E2; border-radius:12px; overflow:hidden;">
+      <figure class="viz" data-reveal>
+  <div class="viz-head od-stack"><span class="mono-label">Decision 02, made visible</span><h3 class="viz-title">Show the whole curve, not just a number.</h3></div>
+  <div class="viz-frame"><div class="viz-scroll" tabindex="0" role="region" aria-label="Show the whole curve, not just a number.">
+<div style="color:#161617; font-family:'Geist',system-ui,sans-serif;"><div style="background:#FFFFFF; border:1px solid #E5E5E2; border-radius:12px; overflow:hidden;">
       <div style="padding:22px 26px 18px; border-bottom:1px solid #E5E5E2;">
         <div style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; color:#3A3A3D; margin-bottom:2px;">Heat-map → Nordlys · TV</div>
         <h3 style="margin:6px 0 4px; font-size:21px; font-weight:600; letter-spacing:-.01em;">Is this spend still paying back?</h3>
@@ -320,10 +424,10 @@
           <line x1="52" y1="24" x2="52" y2="250" stroke="#E5E5E2" stroke-width="1"></line>
           <line x1="52" y1="250" x2="588" y2="250" stroke="#E5E5E2" stroke-width="1"></line>
           <path d="M52,250 C142,206 216,122 258,118 C340,112 462,150 588,176" fill="none" stroke="#6E6E73" stroke-width="1.2" stroke-dasharray="5 4"></path>
-          <path d="M52,250 C150,246 208,150 280,112 C352,76 470,66 588,62" fill="none" stroke="#E7573E" stroke-width="1.6"></path>
+          <path d="M52,250 C150,246 208,150 280,112 C352,76 470,66 588,62" fill="none" stroke="#8B6CF0" stroke-width="1.6"></path>
           <line x1="430" y1="30" x2="430" y2="250" stroke="#6E6E73" stroke-width="1.2" stroke-dasharray="4 4"></line>
           <line x1="258" y1="30" x2="258" y2="250" stroke="#3A3A3D" stroke-width="1.3"></line>
-          <text x="430" y="67" font-size="16" fill="#E7573E" text-anchor="middle" dominant-baseline="central">◆</text>
+          <text x="430" y="67" font-size="16" fill="#8B6CF0" text-anchor="middle" dominant-baseline="central">◆</text>
           <text x="258" y="118" font-size="16" fill="#161617" text-anchor="middle" dominant-baseline="central">★</text>
           <text x="56" y="20" font-family="Geist" font-size="10" fill="#6E6E73">Revenue</text>
           <text x="588" y="20" text-anchor="end" font-family="Geist" font-size="10" fill="#6E6E73">ROI</text>
@@ -332,9 +436,9 @@
           <text x="430" y="266" text-anchor="middle" font-family="Geist" font-size="10.5" fill="#6E6E73">current</text>
         </svg>
         <div style="display:flex; gap:18px; flex-wrap:wrap; margin:8px 2px 0; font-size:12px;">
-          <span style="display:inline-flex; align-items:center; gap:7px;"><i style="width:20px; height:0; border-top:2.5px solid #E7573E; display:inline-block;"></i>Revenue</span>
+          <span style="display:inline-flex; align-items:center; gap:7px;"><i style="width:20px; height:0; border-top:2.5px solid #8B6CF0; display:inline-block;"></i>Revenue</span>
           <span style="display:inline-flex; align-items:center; gap:7px;"><i style="width:20px; height:0; border-top:1.8px dashed #6E6E73; display:inline-block;"></i>ROI</span>
-          <span style="display:inline-flex; align-items:center; gap:7px;"><i style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; line-height:1; color:#E7573E;">◆</i>Current spend</span>
+          <span style="display:inline-flex; align-items:center; gap:7px;"><i style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; line-height:1; color:#8B6CF0;">◆</i>Current spend</span>
           <span style="display:inline-flex; align-items:center; gap:7px;"><i style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:13px; line-height:1; color:#161617;">★</i>Peak ROI</span>
         </div>
         <div style="margin-top:16px; border-top:1px solid #E5E5E2; padding-top:16px; font-size:13px; line-height:1.5;"><b style="font-weight:600;">Current spend sits past the point of peak ROI.</b> Each extra euro still adds a little revenue but returns less, so the model recommends easing back toward the peak (the ~25% cut the heat-map flagged for this cell). It shows the whole curve, not just a number, so the team sees the tradeoff and makes the call.</div>
@@ -343,20 +447,25 @@
         <span>Illustrative concept, not the actual product.</span><span>Fictional brands and data.</span>
       </div>
     </div></div>
-          <sc-if value="{{ showCaptions }}" hint-placeholder-val="{{ true }}"><figcaption style="padding:clamp(14px,1.6vw,20px) clamp(6px,1vw,12px) clamp(4px,0.6vw,8px); font-size:14.5px; line-height:1.6; color:#6E6E73; max-width:80ch; text-wrap:pretty;"><span style="color:#161617; font-weight:500;">What the model sees that instinct doesn’t.</span> Revenue keeps climbing with every extra euro, but ROI peaks and then falls, and this channel is already spending past the peak. We chose to show the whole curve, not a single “optimal” number, so a leader could see the tradeoff and make the cut themselves.</figcaption></sc-if>
-        </figure>
-      </div>
-    </section>
-    <section id="shipped" data-om-label="What Shipped" data-screen-label="What Shipped" style="padding:clamp(80px,9vw,140px) clamp(20px,4vw,40px); scroll-margin-top:88px; border-top:1px solid #EDEDEA;">
-      <div style="max-width:1200px; margin:0 auto;">
-        <div style="display:flex; flex-direction:column; align-items:center; text-align:center;">
-          <div style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:#6E6E73;"><span style="width:6px; height:6px; border-radius:1px; background:#E7573E;"></span>05 · What shipped</div>
-          <h2 data-reveal="" style="margin:20px 0 0 0; font-weight:500; font-size:clamp(34px,4.2vw,58px); line-height:1.08; letter-spacing:-0.035em; text-wrap:balance; max-width:20ch;">A production system in the planning cycle.</h2>
-          <p data-reveal="" style="margin:24px 0 0 0; font-size:clamp(16px,1.25vw,18px); line-height:1.65; color:#6E6E73; max-width:58ch; text-wrap:pretty;">Bayesian response-curve models built per operating company, brand and channel; a scenario simulator for testing budget splits; and a constraint-aware optimiser that weighs hundreds of ROI projections against strategic limits, all on Heineken’s Azure platform. Piloted in a first set of markets, then scaled into the annual planning cycle.</p>
+  </div></div>
+  <figcaption><span>What the model sees that instinct doesn’t.</span> Revenue keeps climbing with every extra euro, but ROI peaks and then falls, and this channel is already spending past the peak. We chose to show the whole curve, not a single “optimal” number, so a leader could see the tradeoff and make the cut themselves.</figcaption>
+</figure>
+    </div>
+  </section>
+
+  <section class="sec sec--alt" id="shipped" aria-labelledby="shipped-title">
+    <div class="wrap">
+      <header class="sec-head grid12" data-reveal>
+        <div class="sec-index col-index"><span class="sec-num">05</span><span class="sec-label">What shipped</span></div>
+        <div class="col-body">
+          <h2 class="sec-title" id="shipped-title">A production system in the planning cycle.</h2>
+          <p class="lead">Bayesian response-curve models built per operating company, brand and channel; a scenario simulator for testing budget splits; and a constraint-aware optimiser that weighs hundreds of ROI projections against strategic limits, all on Heineken’s Azure platform. Piloted in a first set of markets, then scaled into the annual planning cycle.</p>
+          <ul class="chips od-cluster" aria-label="What it is built on"><li class="chip">Bayesian response curves</li><li class="chip">Scenario simulator</li><li class="chip">Constraint-aware optimiser</li><li class="chip">Azure</li></ul>
         </div>
-        <div data-reveal="" style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:28px;"><span style="padding:8px 14px; border-radius:999px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #D6D6D3; font-size:13.5px; font-weight:500; color:#161617; white-space:nowrap;">Bayesian response curves</span><span style="padding:8px 14px; border-radius:999px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #D6D6D3; font-size:13.5px; font-weight:500; color:#161617; white-space:nowrap;">Scenario simulator</span><span style="padding:8px 14px; border-radius:999px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #D6D6D3; font-size:13.5px; font-weight:500; color:#161617; white-space:nowrap;">Constraint-aware optimiser</span><span style="padding:8px 14px; border-radius:999px; background:#FFFFFF; box-shadow:inset 0 0 0 1px #D6D6D3; font-size:13.5px; font-weight:500; color:#161617; white-space:nowrap;">Azure</span></div>
-        <figure data-reveal="" data-om-label="Product visual" style="margin:clamp(40px,5vw,64px) 0 0 0; padding:clamp(10px,1.6vw,20px); border-radius:20px; background:#FAFAF8; box-shadow:inset 0 0 0 1px #E5E5E2; min-width:0;">
-          <div style="color:#161617; font-family:'Geist',system-ui,sans-serif;"><div style="background:#FFFFFF; border:1px solid #E5E5E2; border-radius:12px; overflow:hidden;">
+      </header>
+      <figure class="viz" data-reveal>
+  <div class="viz-frame"><div class="viz-scroll" tabindex="0" role="region" aria-label="Used, not piloted">
+<div style="color:#161617; font-family:'Geist',system-ui,sans-serif;"><div style="background:#FFFFFF; border:1px solid #E5E5E2; border-radius:12px; overflow:hidden;">
       <div style="padding:20px 24px 16px; border-bottom:1px solid #E5E5E2;">
         <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#6E6E73;">Manage scenarios</span>
         <h3 style="margin:6px 0 3px; font-size:19px; font-weight:600; letter-spacing:-.01em;">Every plan, organised and comparable</h3>
@@ -375,150 +484,162 @@
           <div style="display:grid; grid-template-columns:1fr 94px 76px 92px 42px 16px; align-items:center; gap:8px; padding:10px 12px; border-bottom:1px solid #E5E5E2; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:#6E6E73;">
             <span>Scenario</span><span>Type</span><span>Updated</span><span>Owner</span><span style="text-align:right;">ROI</span><span></span>
           </div>
-          <sc-for list="{{ scenarios }}" as="s" hint-placeholder-count="6">
+          
             <div style="display:grid; grid-template-columns:1fr 94px 76px 92px 42px 16px; align-items:center; gap:8px; padding:10px 12px; border-bottom:1px solid #F5F5F3;">
-              <div><div style="font-size:13px; font-weight:500;">{{ s.name }}</div><div style="font-size:11px; color:#6E6E73; margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ s.desc }}</div></div>
-              <span><span style="{{ s.badgeStyle }}">{{ s.type }}</span></span>
-              <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; color:#6E6E73;">{{ s.updated }}</span>
-              <span style="display:flex; align-items:center; gap:7px; font-size:12px;"><span style="width:22px; height:22px; border-radius:50%; background:rgba(22,22,23,.07); color:#161617; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">{{ s.initials }}</span>{{ s.owner }}</span>
-              <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:12.5px; text-align:right;">{{ s.roi }}</span>
+              <div><div style="font-size:13px; font-weight:500;">Shift to digital, protect brand</div><div style="font-size:11px; color:#6E6E73; margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Move spend to social, hold TV for hero brands</div></div>
+              <span><span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.02em; padding:3px 8px; border-radius:6px; display:inline-block; color:#8B6CF0; background:rgba(139,108,240,.13);">Optimisation</span></span>
+              <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; color:#6E6E73;">2 days ago</span>
+              <span style="display:flex; align-items:center; gap:7px; font-size:12px;"><span style="width:22px; height:22px; border-radius:50%; background:rgba(22,22,23,.07); color:#161617; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">AR</span>A. Rivas</span>
+              <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:12.5px; text-align:right;">3.1×</span>
               <span style="color:#6E6E73; text-align:center; font-size:14px; letter-spacing:1px;">⋯</span>
             </div>
-          </sc-for>
+          
+            <div style="display:grid; grid-template-columns:1fr 94px 76px 92px 42px 16px; align-items:center; gap:8px; padding:10px 12px; border-bottom:1px solid #F5F5F3;">
+              <div><div style="font-size:13px; font-weight:500;">Baseline 2026</div><div style="font-size:11px; color:#6E6E73; margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Last year's split, carried forward</div></div>
+              <span><span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.02em; padding:3px 8px; border-radius:6px; display:inline-block; color:#8B6CF0; background:rgba(139,108,240,.13);">Optimisation</span></span>
+              <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; color:#6E6E73;">5 days ago</span>
+              <span style="display:flex; align-items:center; gap:7px; font-size:12px;"><span style="width:22px; height:22px; border-radius:50%; background:rgba(22,22,23,.07); color:#161617; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">MF</span>M. Feld</span>
+              <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:12.5px; text-align:right;">2.9×</span>
+              <span style="color:#6E6E73; text-align:center; font-size:14px; letter-spacing:1px;">⋯</span>
+            </div>
+          
+            <div style="display:grid; grid-template-columns:1fr 94px 76px 92px 42px 16px; align-items:center; gap:8px; padding:10px 12px; border-bottom:1px solid #F5F5F3;">
+              <div><div style="font-size:13px; font-weight:500;">Aggressive trade push</div><div style="font-size:11px; color:#6E6E73; margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">What if we over-index on activation?</div></div>
+              <span><span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.02em; padding:3px 8px; border-radius:6px; display:inline-block; color:#3A3A3D; background:rgba(22,22,23,.13);">Simulation</span></span>
+              <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; color:#6E6E73;">1 week ago</span>
+              <span style="display:flex; align-items:center; gap:7px; font-size:12px;"><span style="width:22px; height:22px; border-radius:50%; background:rgba(22,22,23,.07); color:#161617; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">TN</span>T. Novak</span>
+              <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:12.5px; text-align:right;">3.0×</span>
+              <span style="color:#6E6E73; text-align:center; font-size:14px; letter-spacing:1px;">⋯</span>
+            </div>
+          
+            <div style="display:grid; grid-template-columns:1fr 94px 76px 92px 42px 16px; align-items:center; gap:8px; padding:10px 12px; border-bottom:1px solid #F5F5F3;">
+              <div><div style="font-size:13px; font-weight:500;">Protect Kestrel margin</div><div style="font-size:11px; color:#6E6E73; margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Cap discounting, defend the premium tier</div></div>
+              <span><span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.02em; padding:3px 8px; border-radius:6px; display:inline-block; color:#3A3A3D; background:rgba(22,22,23,.13);">Simulation</span></span>
+              <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; color:#6E6E73;">1 week ago</span>
+              <span style="display:flex; align-items:center; gap:7px; font-size:12px;"><span style="width:22px; height:22px; border-radius:50%; background:rgba(22,22,23,.07); color:#161617; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">AR</span>A. Rivas</span>
+              <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:12.5px; text-align:right;">2.8×</span>
+              <span style="color:#6E6E73; text-align:center; font-size:14px; letter-spacing:1px;">⋯</span>
+            </div>
+          
+            <div style="display:grid; grid-template-columns:1fr 94px 76px 92px 42px 16px; align-items:center; gap:8px; padding:10px 12px; border-bottom:1px solid #F5F5F3;">
+              <div><div style="font-size:13px; font-weight:500;">Cut OOH, test social</div><div style="font-size:11px; color:#6E6E73; margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Reallocate out-of-home into paid social</div></div>
+              <span><span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.02em; padding:3px 8px; border-radius:6px; display:inline-block; color:#8B6CF0; background:rgba(139,108,240,.13);">Optimisation</span></span>
+              <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; color:#6E6E73;">2 weeks ago</span>
+              <span style="display:flex; align-items:center; gap:7px; font-size:12px;"><span style="width:22px; height:22px; border-radius:50%; background:rgba(22,22,23,.07); color:#161617; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">LH</span>L. Haas</span>
+              <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:12.5px; text-align:right;">3.0×</span>
+              <span style="color:#6E6E73; text-align:center; font-size:14px; letter-spacing:1px;">⋯</span>
+            </div>
+          
+            <div style="display:grid; grid-template-columns:1fr 94px 76px 92px 42px 16px; align-items:center; gap:8px; padding:10px 12px; border-bottom:1px solid #F5F5F3;">
+              <div><div style="font-size:13px; font-weight:500;">Q3 reforecast</div><div style="font-size:11px; color:#6E6E73; margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Mid-year update after the price change</div></div>
+              <span><span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.02em; padding:3px 8px; border-radius:6px; display:inline-block; color:#3A3A3D; background:rgba(22,22,23,.13);">Simulation</span></span>
+              <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:11px; color:#6E6E73;">3 weeks ago</span>
+              <span style="display:flex; align-items:center; gap:7px; font-size:12px;"><span style="width:22px; height:22px; border-radius:50%; background:rgba(22,22,23,.07); color:#161617; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">MF</span>M. Feld</span>
+              <span style="font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:12.5px; text-align:right;">2.7×</span>
+              <span style="color:#6E6E73; text-align:center; font-size:14px; letter-spacing:1px;">⋯</span>
+            </div>
+          
         </div>
       </div>
       <div style="padding:13px 24px; border-top:1px solid #E5E5E2; font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10.5px; letter-spacing:.04em; color:#6E6E73; display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;">
         <span>Illustrative concept, not the actual product.</span><span>Fictional folders, scenarios, and names.</span>
       </div>
     </div></div>
-          <sc-if value="{{ showCaptions }}" hint-placeholder-val="{{ true }}"><figcaption style="padding:clamp(14px,1.6vw,20px) clamp(6px,1vw,12px) clamp(4px,0.6vw,8px); font-size:14.5px; line-height:1.6; color:#6E6E73; max-width:80ch; text-wrap:pretty;"><span style="color:#161617; font-weight:500;">Used, not piloted.</span> Dozens of plans (versioned, owned and comparable) built by real teams inside the annual cycle. Being able to spin up a scenario and defend it in a planning meeting is what actually moved budget, not the optimiser alone.</figcaption></sc-if>
-        </figure>
-      </div>
-    </section>
-    <section id="lesson" data-om-label="The Lesson" data-screen-label="The Lesson" style="padding:clamp(80px,9vw,140px) clamp(20px,4vw,40px); scroll-margin-top:88px; background:#FAFAF8; border-top:1px solid #EDEDEA;">
-      <div style="max-width:1200px; margin:0 auto;">
-        <div style="display:flex; flex-direction:column; align-items:center; text-align:center;">
-          <div style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:#6E6E73;"><span style="width:6px; height:6px; border-radius:1px; background:#E7573E;"></span>06 · The lesson</div>
-          <p data-reveal="" style="margin:24px 0 0 0; max-width:24ch; font-weight:500; font-size:clamp(30px,3.6vw,52px); line-height:1.12; letter-spacing:-0.035em; text-wrap:balance;">The value of an optimiser isn’t the <span style="color:#E7573E;">optimum</span>.</p>
-          <p data-reveal="" style="margin:24px 0 0 0; font-size:clamp(16px,1.25vw,18px); line-height:1.65; color:#6E6E73; max-width:52ch; text-wrap:pretty;">It’s whether a human with authority will execute it, so legibility and real-world constraints beat a higher theoretical number no one acts on.</p>
-        </div>
-      </div>
-    </section>
-    <section id="in-context" data-om-label="In Context" data-screen-label="In Context" style="padding:clamp(80px,9vw,140px) clamp(20px,4vw,40px); scroll-margin-top:88px; border-top:1px solid #EDEDEA;">
-      <div style="max-width:1200px; margin:0 auto;">
-        <div style="display:flex; flex-direction:column; align-items:center; text-align:center;">
-          <div style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:500; color:#6E6E73;"><span style="width:6px; height:6px; border-radius:1px; background:#E7573E;"></span>07 · In context</div>
-          <h2 data-reveal="" style="margin:20px 0 0 0; font-weight:500; font-size:clamp(34px,4.2vw,58px); line-height:1.08; letter-spacing:-0.035em; text-wrap:balance; max-width:20ch;">The macro engine of a three-part system.</h2>
-          <p data-reveal="" style="margin:24px 0 0 0; font-size:clamp(16px,1.25vw,18px); line-height:1.65; color:#6E6E73; max-width:58ch; text-wrap:pretty;">Allocation AI sets the sandbox (where each channel and brand gets budget) that Promo Advisor and Smart Flighting then execute against.</p>
-        </div>
-        <div data-reveal="" id="cs-context" style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:clamp(40px,5vw,64px);">
-          <div data-om-label="Allocation AI card" style="display:flex; flex-direction:column; padding:clamp(24px,2.6vw,32px); border-radius:20px; background:#FAFAF8; box-shadow:inset 0 0 0 1px #161617; min-width:0;">
-            <span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#E7573E;">01 · Where</span>
-            <h3 style="margin:14px 0 0 0; font-weight:500; font-size:clamp(24px,2.2vw,30px); line-height:1.05; letter-spacing:-0.035em;">Allocation AI</h3>
-            <p style="margin:8px 0 0 0; font-size:17px; line-height:1.45; color:#161617;">Where to spend.</p>
-            <p style="margin:12px 0 0 0; font-size:15px; line-height:1.55; color:#6E6E73; text-wrap:pretty;">Sets the annual budget across markets, brands and channels.</p>
-            <span style="align-self:flex-start; margin-top:auto; padding:5px 12px; border-radius:999px; background:#161617; color:#FFFFFF; font-size:13px; font-weight:500; transform:translateY(8px);">You are here</span>
-          </div>
-          <a href="promo-advisor.html" data-om-label="Promo Advisor card" style="display:flex; flex-direction:column; padding:clamp(24px,2.6vw,32px); border-radius:20px; background:#FAFAF8; box-shadow:inset 0 0 0 1px #E5E5E2; color:#161617; text-decoration:none; min-width:0; transition:box-shadow 0.25s ease;" style-hover="box-shadow:inset 0 0 0 1px #161617; color:#161617;">
-            <span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#E7573E;">02 · What</span>
-            <h3 style="margin:14px 0 0 0; font-weight:500; font-size:clamp(24px,2.2vw,30px); line-height:1.05; letter-spacing:-0.035em;">Promo Advisor</h3>
-            <p style="margin:8px 0 0 0; font-size:17px; line-height:1.45; color:#161617;">What to promote.</p>
-            <p style="margin:12px 0 0 0; font-size:15px; line-height:1.55; color:#6E6E73; text-wrap:pretty;">Fills the calendar with the promo mechanics that actually pay back.</p>
-            <span style="margin-top:auto; padding-top:24px; font-size:15px; font-weight:500; color:#161617;">Read the case study →</span>
-          </a>
-          <a href="smart-flighting.html" data-om-label="Smart Flighting card" style="display:flex; flex-direction:column; padding:clamp(24px,2.6vw,32px); border-radius:20px; background:#FAFAF8; box-shadow:inset 0 0 0 1px #E5E5E2; color:#161617; text-decoration:none; min-width:0; transition:box-shadow 0.25s ease;" style-hover="box-shadow:inset 0 0 0 1px #161617; color:#161617;">
-            <span style="font-family:'Geist Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#E7573E;">03 · When</span>
-            <h3 style="margin:14px 0 0 0; font-weight:500; font-size:clamp(24px,2.2vw,30px); line-height:1.05; letter-spacing:-0.035em;">Smart Flighting</h3>
-            <p style="margin:8px 0 0 0; font-size:17px; line-height:1.45; color:#161617;">When to spend.</p>
-            <p style="margin:12px 0 0 0; font-size:15px; line-height:1.55; color:#6E6E73; text-wrap:pretty;">Times each budget week by week, so pressure lands where it still converts.</p>
-            <span style="margin-top:auto; padding-top:24px; font-size:15px; font-weight:500; color:#161617;">Read the case study →</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" data-om-label="Contact" data-screen-label="Contact" style="padding:clamp(96px,12vw,180px) clamp(20px,4vw,40px); scroll-margin-top:88px; border-top:1px solid #EDEDEA;">
-      <div style="max-width:1200px; margin:0 auto; display:flex; flex-direction:column; align-items:center; text-align:center;">
-        <h2 style="margin:0; font-weight:500; font-size:clamp(40px,5.6vw,80px); line-height:1.02; letter-spacing:-0.045em; text-wrap:balance; max-width:16ch;">Got a budget model nobody follows?</h2>
-        <p style="margin:24px 0 0 0; font-size:clamp(16px,1.25vw,18px); line-height:1.65; color:#6E6E73; max-width:46ch; text-wrap:pretty;">Tell me where the money goes today and who overrides the model. I’ll tell you what I’d build first.</p>
-        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:36px;">
-          <a href="mailto:tomasz@czarnecki.ai" style="display:inline-flex; align-items:center; padding:13px 24px; border-radius:999px; background:#161617; color:#FFFFFF; font-size:15px; font-weight:500; text-decoration:none;" style-hover="background:#3A3A3D; color:#FFFFFF;">tomasz@czarnecki.ai</a>
-          <a href="https://www.linkedin.com/in/czarnecki-ai" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:9px; white-space:nowrap; padding:13px 24px; border-radius:999px; box-shadow:inset 0 0 0 1px #D6D6D3; color:#161617; font-size:15px; font-weight:500; text-decoration:none;" style-hover="box-shadow:inset 0 0 0 1px #161617; color:#161617;"><svg width="16" height="16" viewBox="0 0 72 72" aria-hidden="true" style="display:block; flex:none;"><path fill="currentColor" fill-rule="evenodd" d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,0 64,0 L8,0 C3.581722,0 0,3.581722 0,8 L0,64 C0,68.418278 3.581722,72 8,72 Z M62,62 L51.315625,62 L51.315625,43.8021149 C51.315625,38.8127542 49.4197917,36.0245323 45.4707031,36.0245323 C41.1746094,36.0245323 38.9300781,38.9261103 38.9300781,43.8021149 L38.9300781,62 L28.6333333,62 L28.6333333,27.3333333 L38.9300781,27.3333333 L38.9300781,32.0029283 C38.9300781,32.0029283 42.0260417,26.2742151 49.3825521,26.2742151 C56.7356771,26.2742151 62,30.7644705 62,40.051212 L62,62 Z M16.349349,22.7940133 C12.8420573,22.7940133 10,19.9296567 10,16.3970067 C10,12.8643566 12.8420573,10 16.349349,10 C19.8566406,10 22.6970052,12.8643566 22.6970052,16.3970067 C22.6970052,19.9296567 19.8566406,22.7940133 16.349349,22.7940133 Z M11.0325521,62 L21.769401,62 L21.769401,27.3333333 L11.0325521,27.3333333 L11.0325521,62 Z"></path></svg>LinkedIn ↗</a>
-          <a href="https://github.com/tomasz-czarnecki" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:9px; white-space:nowrap; padding:13px 24px; border-radius:999px; box-shadow:inset 0 0 0 1px #D6D6D3; color:#161617; font-size:15px; font-weight:500; text-decoration:none;" style-hover="box-shadow:inset 0 0 0 1px #161617; color:#161617;"><svg width="17" height="17" viewBox="0 0 16 16" aria-hidden="true" style="display:block; flex:none;"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.840 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.590 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.950 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z"></path></svg>GitHub ↗</a>
-
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer data-om-label="Footer" style="background:#161617; padding:28px clamp(20px,4vw,40px);">
-    <div style="max-width:1200px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 24px; font-size:13px; color:#A1A1A6;">
-      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px;">
-        <a href="index.html#top" style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; letter-spacing:-0.015em; color:#F5F5F3; text-decoration:none;" style-hover="color:#F5F5F3;"><span style="width:8px; height:8px; border-radius:2px; background:#E7573E;"></span>Tomasz Czarnecki</a>
-        <span>© {{ year }}</span>
-      </div>
-      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px 20px;"><a href="mailto:tomasz@czarnecki.ai" style="color:#A1A1A6; text-decoration:none;" style-hover="color:#F5F5F3;">tomasz@czarnecki.ai</a><a href="https://github.com/tomasz-czarnecki" target="_blank" rel="noopener" style="color:#A1A1A6; text-decoration:none;" style-hover="color:#F5F5F3;">GitHub ↗</a><a href="https://www.linkedin.com/in/czarnecki-ai/" target="_blank" rel="noopener" style="color:#A1A1A6; text-decoration:none;" style-hover="color:#F5F5F3;">LinkedIn ↗</a><a href="#top" style="color:#A1A1A6; text-decoration:none;" style-hover="color:#F5F5F3;">Back to top ↑</a></div>
+  </div></div>
+  <figcaption><span>Used, not piloted.</span> Dozens of plans (versioned, owned and comparable) built by real teams inside the annual cycle. Being able to spin up a scenario and defend it in a planning meeting is what actually moved budget, not the optimiser alone.</figcaption>
+</figure>
     </div>
-  </footer>
-</div>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;reveal&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showCaptions&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
-class Component extends DCLogic {
-  componentDidMount() {
-    this._closeMenu = (e) => { const d = document.querySelector("header details[open]"); if (d && !d.contains(e.target)) d.open = false; }; document.addEventListener("click", this._closeMenu);
-    this._setupReveal();
-    this._marked = [];
-    this._fixScroll = () => {
-      try {
-        this._marked.forEach((el) => { el.style.overflowX = ''; el.style.webkitOverflowScrolling = ''; });
-        this._marked = [];
-        const root = document.querySelector('[data-om-label="Body"]') || document;
-        const vw = document.documentElement.clientWidth;
-        const nodes = [].slice.call(root.querySelectorAll('div, table'));
-        const over = nodes.filter((el) => el.scrollWidth - el.clientWidth > 1 && el.clientWidth >= vw - 140);
-        over.forEach((el) => {
-          const hasInner = over.some((d) => d !== el && el.contains(d));
-          if (!hasInner) { el.style.overflowX = 'auto'; el.style.webkitOverflowScrolling = 'touch'; this._marked.push(el); }
-        });
-      } catch (e) {}
-    };
-    window.addEventListener('resize', this._fixScroll);
-    this._fixScroll();
-    setTimeout(this._fixScroll, 350);
-  }
-  componentWillUnmount() { document.removeEventListener("click", this._closeMenu);
-    this._rio && this._rio.disconnect();
-    if (this._fixScroll) window.removeEventListener('resize', this._fixScroll);
-  }
-  _setupReveal() {
-    if ((this.props.reveal ?? true) === false || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    this._rio = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'none'; this._rio.unobserve(e.target); } }), { threshold: 0.06 });
-    document.querySelectorAll('[data-reveal]').forEach((r) => {
-      if (r.getBoundingClientRect().top < innerHeight * 0.92) return;
-      r.style.opacity = '0'; r.style.transform = 'translateY(24px)';
-      r.style.transition = 'opacity 0.9s ease, transform 1.1s cubic-bezier(.16,.8,.24,1), box-shadow 0.25s ease';
-      this._rio.observe(r);
-    });
-  }
-  renderVals() {
+  </section>
 
-    const opt = "font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.02em; padding:3px 8px; border-radius:6px; display:inline-block; color:#E7573E; background:rgba(231,87,62,.13);";
-    const sim = "font-family:'Geist',system-ui,sans-serif; font-variant-numeric:tabular-nums; font-size:10px; letter-spacing:.02em; padding:3px 8px; border-radius:6px; display:inline-block; color:#3A3A3D; background:rgba(22,22,23,.13);";
-    
-    return {
-      scenarios: [
-        { name: 'Shift to digital, protect brand', desc: 'Move spend to social, hold TV for hero brands', type: 'Optimisation', badgeStyle: opt, updated: '2 days ago', initials: 'AR', owner: 'A. Rivas', roi: '3.1×' },
-        { name: 'Baseline 2026', desc: "Last year's split, carried forward", type: 'Optimisation', badgeStyle: opt, updated: '5 days ago', initials: 'MF', owner: 'M. Feld', roi: '2.9×' },
-        { name: 'Aggressive trade push', desc: 'What if we over-index on activation?', type: 'Simulation', badgeStyle: sim, updated: '1 week ago', initials: 'TN', owner: 'T. Novak', roi: '3.0×' },
-        { name: 'Protect Kestrel margin', desc: 'Cap discounting, defend the premium tier', type: 'Simulation', badgeStyle: sim, updated: '1 week ago', initials: 'AR', owner: 'A. Rivas', roi: '2.8×' },
-        { name: 'Cut OOH, test social', desc: 'Reallocate out-of-home into paid social', type: 'Optimisation', badgeStyle: opt, updated: '2 weeks ago', initials: 'LH', owner: 'L. Haas', roi: '3.0×' },
-        { name: 'Q3 reforecast', desc: 'Mid-year update after the price change', type: 'Simulation', badgeStyle: sim, updated: '3 weeks ago', initials: 'MF', owner: 'M. Feld', roi: '2.7×' },
-      ],
-      year: '2026',
-      showCaptions: this.props.showCaptions ?? true,
-    };
-  }
-}
-</script>
+  <section class="sec" id="lesson" aria-labelledby="lesson-label">
+    <div class="wrap">
+      <div class="sec-head grid12" data-reveal>
+        <div class="sec-index col-index"><span class="sec-num">06</span><span class="sec-label" id="lesson-label">The lesson</span></div>
+        <div class="col-body">
+          <p class="lesson-statement">The value of an optimiser isn’t the <span class="accent">optimum</span>.</p>
+          <p class="lesson-follow">It’s whether a human with authority will execute it, so legibility and real-world constraints beat a higher theoretical number no one acts on.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--alt" id="in-context" aria-labelledby="context-title">
+    <div class="wrap">
+      <header class="sec-head grid12" data-reveal>
+        <div class="sec-index col-index"><span class="sec-num">07</span><span class="sec-label">In context</span></div>
+        <div class="col-body">
+          <h2 class="sec-title" id="context-title">The macro engine of a three-part system.</h2>
+          <p class="lead">Allocation AI sets the sandbox (where each channel and brand gets budget) that Promo Advisor and Smart Flighting then execute against.</p>
+        </div>
+      </header>
+      <div class="context" data-reveal>
+        <div class="ctx-card is-current" data-case="allocation-ai" aria-current="page">
+          <span class="mono-label">01 · Where</span>
+          <h3 class="ctx-name">Allocation AI</h3>
+          <p class="ctx-tag">Where to spend.</p>
+          <p class="ctx-desc">Sets the annual budget across markets, brands and channels.</p>
+          <span class="ctx-foot"><span class="brand-mark" aria-hidden="true"></span>You are here</span>
+        </div>
+        <a class="ctx-card" data-case="promo-advisor" href="promo-advisor.html">
+          <span class="mono-label">02 · What</span>
+          <h3 class="ctx-name">Promo Advisor</h3>
+          <p class="ctx-tag">What to promote.</p>
+          <p class="ctx-desc">Fills the calendar with the promo mechanics that actually pay back.</p>
+          <span class="ctx-foot">Read the case study →</span>
+        </a>
+        <a class="ctx-card" data-case="smart-flighting" href="smart-flighting.html">
+          <span class="mono-label">03 · When</span>
+          <h3 class="ctx-name">Smart Flighting</h3>
+          <p class="ctx-tag">When to spend.</p>
+          <p class="ctx-desc">Times each budget week by week, so pressure lands where it still converts.</p>
+          <span class="ctx-foot">Read the case study →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec is-dark" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <header class="sec-head grid12" data-reveal>
+        <div class="sec-index col-index"><span class="sec-label">Contact</span></div>
+        <div class="col-body">
+          <h2 class="contact-title" id="contact-title">Got a budget model nobody follows?</h2>
+          <p class="lead">Tell me where the money goes today and who overrides the model. I’ll tell you what I’d build first.</p>
+          <div class="contact-actions od-cluster">
+            <a class="btn btn-solid" href="mailto:tomasz@czarnecki.ai">tomasz@czarnecki.ai</a>
+            <button class="btn btn-line copy-btn" type="button" data-copy="tomasz@czarnecki.ai">
+              <svg class="ico ico-copy" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 5.5v-2a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2"/></svg>
+              <svg class="ico ico-done" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>
+              <span data-copy-label>Copy email</span>
+            </button>
+            <span class="sr-only" role="status" data-copy-status></span>
+          </div>
+          <div class="contact-links od-cluster">
+            <a class="link-arrow" href="https://www.linkedin.com/in/czarnecki-ai/" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a class="link-arrow" href="https://github.com/tomasz-czarnecki" target="_blank" rel="noopener">GitHub ↗</a>
+            <a class="link-arrow" href="https://czarnecki.ai/CV_TomaszCzarnecki_Latest.pdf" target="_blank" rel="noopener">CV ↓</a>
+          </div>
+        </div>
+      </header>
+    </div>
+  </section>
+</main>
+
+<footer class="foot is-dark">
+  <div class="wrap foot-row">
+    <div class="foot-id od-cluster">
+      <span class="foot-name"><span class="brand-mark" aria-hidden="true"></span>Tomasz Czarnecki</span>
+      <span>© 2026</span>
+    </div>
+    <div class="foot-links od-cluster">
+      <a href="mailto:tomasz@czarnecki.ai">tomasz@czarnecki.ai</a>
+      <a href="https://github.com/tomasz-czarnecki" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://www.linkedin.com/in/czarnecki-ai/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/site.js"></script>
 </body>
 </html>
