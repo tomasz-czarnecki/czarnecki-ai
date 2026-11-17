@@ -445,17 +445,19 @@ main > section { scroll-margin-top: 0; }
 
 /* ---------- 03 Skills ---------- */
 .tri { margin-top: var(--s-64); }
-.tri-box { position: relative; aspect-ratio: 10 / 7; margin-block: var(--s-32) var(--s-48); }
+.tri-box { position: relative; width: min(100%, 440px); aspect-ratio: 10 / 7; margin: var(--s-32) auto var(--s-48); }
 .tri-layer { position: absolute; inset: 0; pointer-events: none; }
+.tri-layer svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.tri-layer polygon { fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .tri-node { position: absolute; width: 0; height: 0; }
 .n-shape { left: 50%; top: 14.2857%; }
 .n-build { left: 17%; top: 85.7143%; }
 .n-bridge { left: 83%; top: 85.7143%; }
-.tri-dot { position: absolute; left: 0; top: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--fg); box-shadow: 0 0 0 6px var(--sec-bg); transform: translate(-50%, -50%); }
-.tri-name { position: absolute; left: 0; font-size: clamp(16px, 1.8vw, 22px); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; white-space: nowrap; transform: translateX(-50%); }
+.tri-dot { position: absolute; left: 0; top: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--fg); box-shadow: 0 0 0 6px var(--sec-bg); transform: translate(-50%, -50%); }
+.tri-name { position: absolute; left: 0; font-size: var(--fs-16); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; white-space: nowrap; transform: translateX(-50%); }
 .n-shape .tri-name { bottom: 20px; }
 .n-build .tri-name, .n-bridge .tri-name { top: 20px; }
-.tri-centre { position: absolute; left: 50%; top: 60%; padding: var(--s-4) var(--s-12); border-radius: var(--r-pill); background: var(--sec-bg); font-size: clamp(16px, 2vw, 24px); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; white-space: nowrap; transform: translate(-50%, -50%); }
+.tri-centre { position: absolute; left: 50%; top: 60%; padding: var(--s-4) var(--s-12); border-radius: var(--r-pill); background: var(--sec-bg); font-size: var(--fs-18); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; white-space: nowrap; transform: translate(-50%, -50%); }
 .tri-legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-24) var(--gutter); }
 .tri-legend li { --od-gap: var(--s-4); align-content: start; padding-top: var(--s-12); border-top: 1px solid var(--rule); }
 .tri-legend-name { font-weight: 500; }
@@ -848,7 +850,7 @@ main > section { scroll-margin-top: 0; }
             <div class="tri">
               <div class="tri-box" role="img" aria-label="A triangle linking Shape, Build and Bridge, with Product at the centre">
                 <div class="tri-layer" aria-hidden="true">
-                  <tri-strands ink="#E7573E" strands="9" alpha="0.7" width="1.3" nodes="0.5,0.1429;0.17,0.857;0.83,0.857" center="0.5,0.6"></tri-strands>
+                  <svg viewBox="0 0 100 70" preserveAspectRatio="none"><polygon points="50,10 17,60 83,60" /></svg>
                 </div>
                 <div class="tri-node n-shape" aria-hidden="true"><span class="tri-dot"></span><span class="tri-name">Shape</span></div>
                 <div class="tri-node n-build" aria-hidden="true"><span class="tri-dot"></span><span class="tri-name">Build</span></div>
@@ -1147,7 +1149,6 @@ main > section { scroll-margin-top: 0; }
 </footer>
 
 <script src="js/koi-pond.js" defer></script>
-<script src="js/tri-strands.js" defer></script>
 <script src="js/xinhee-evolve.js" defer></script>
 <script>
 const EMAIL = 'tomasz@czarnecki.ai';
