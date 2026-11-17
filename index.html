@@ -479,6 +479,39 @@ main > section { scroll-margin-top: 0; }
 .tile-model model-viewer::part(default-progress-bar) { display: none; }
 .tile-model img[slot="poster"] { display: block; width: 100%; height: 100%; }
 
+/* ---------- 04 Building: one person, Hermes, three agents ---------- */
+.crew { display: grid; margin-top: var(--s-64); }
+.crew-me { --od-gap: var(--s-12); justify-self: center; padding: var(--s-8) var(--s-24) var(--s-8) var(--s-8); border-radius: var(--r-pill); box-shadow: inset 0 0 0 1px var(--rule-strong); }
+.crew-me .brand-avatar { width: 40px; }
+.crew-me .od-field { --od-gap: 0; }
+.crew-name { font-weight: 500; }
+.crew-link { justify-self: center; width: 1px; height: var(--s-32); background: var(--rule-strong); }
+.crew-hub { --od-gap: var(--s-24); padding: var(--s-24); border-radius: var(--r-16); background: var(--ground); box-shadow: inset 0 0 0 1px var(--line); }
+.crew-hub > img { width: 56px; }
+.crew-kicker { color: var(--accent-text); }
+.crew-title { margin-top: var(--s-4); font-size: var(--fs-28); font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; }
+.crew-desc { margin-top: var(--s-4); color: var(--fg-muted); }
+.crew-chips { --od-gap: var(--s-8); margin-top: var(--s-16); }
+.crew-chips li { display: inline-flex; align-items: center; min-height: 32px; padding: 0 var(--s-12); border-radius: var(--r-pill); box-shadow: inset 0 0 0 1px var(--rule-strong); font-family: var(--mono); font-size: var(--fs-12); letter-spacing: 0.04em; color: var(--ink-2); }
+.crew-agents { --crew-gap: var(--s-16); position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--crew-gap); }
+.crew-agents::before { content: ""; position: absolute; top: 0; left: calc((100% - 2 * var(--crew-gap)) / 6); right: calc((100% - 2 * var(--crew-gap)) / 6); height: 1px; background: var(--rule-strong); }
+.crew-agents > li { position: relative; padding-top: var(--s-32); }
+.crew-agents > li::before { content: ""; position: absolute; top: 0; left: 50%; width: 1px; height: var(--s-32); background: var(--rule-strong); }
+.crew-agent { display: grid; gap: var(--s-4); padding: var(--s-8) var(--s-8) var(--s-16); border-radius: var(--r-16); background: var(--ground); box-shadow: inset 0 0 0 1px var(--line); }
+.crew-agent img { border-radius: var(--r-8); }
+.crew-agent .crew-name { margin: var(--s-8) var(--s-8) 0; font-size: clamp(16px, 2.4vw, 22px); letter-spacing: -0.02em; }
+.crew-agent .mono-label { margin-inline: var(--s-8); letter-spacing: 0.04em; white-space: nowrap; }
+.crew-label { margin-top: var(--s-48); }
+.crew-traits { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-24) var(--gutter); margin-top: var(--s-16); }
+.crew-traits li { --od-gap: var(--s-4); padding-top: var(--s-12); border-top: 1px solid var(--rule); }
+.crew-trait { font-size: var(--fs-14); line-height: 1.45; color: var(--fg-muted); }
+@media (min-width: 768px) {
+  .crew-agents { --crew-gap: var(--s-24); }
+  .crew-agent { padding: var(--s-12) var(--s-12) var(--s-24); }
+  .crew-agent .mono-label { letter-spacing: var(--track-label); }
+  .crew-traits { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
 /* ---------- 04 Building: big project panels ---------- */
 .features { display: grid; gap: var(--s-24); margin-top: var(--s-24); }
 .feature { position: relative; overflow: hidden; border-radius: var(--r-16); background: var(--dark); color: var(--fg); }
@@ -830,9 +863,38 @@ main > section { scroll-margin-top: 0; }
         <div class="sec-index col-index"><span class="sec-num">04</span><span class="sec-label">Building</span><span class="sec-sub">Building with AI</span></div>
         <div class="col-body">
           <h2 class="sec-title" id="building-title">One person, a few agents.</h2>
-          <p class="lead">I build with Claude Code and AI agents. Spec first: I write the spec, coding agents build, and I review every change. <strong>One rule across everything:</strong> the model reads and summarises, deterministic code decides.</p>
+          <p class="lead"><strong>Hermes is my orchestrator.</strong> It lives on a Mac Mini, works there and is always on, 24 hours a day. Everything I run goes through three agents. Each one has its own skills, its own purpose, its own SOUL.md and its own memory. All of them are model-agnostic.</p>
         </div>
       </header>
+
+      <div class="grid12">
+        <div class="crew col-body" data-reveal>
+          <div class="crew-me od-row"><span class="brand-avatar" aria-hidden="true"><img class="od-media" src="assets/tomasz_hoodie.webp" alt="" width="400" height="400" loading="lazy"></span><span class="od-field"><span class="crew-name">Tomasz</span><span class="mono-label">One person</span></span></div>
+          <span class="crew-link" aria-hidden="true"></span>
+          <div class="crew-hub od-row-top">
+            <img class="od-fixed" src="assets/agents/hermes-agent.svg" alt="Hermes Agent logo" width="56" height="56" loading="lazy">
+            <div class="od-fill">
+              <span class="mono-label crew-kicker">Orchestrator</span>
+              <h3 class="crew-title">Hermes</h3>
+              <p class="crew-desc">Lives and works on a Mac Mini. It never switches off.</p>
+              <ul class="crew-chips od-cluster"><li>Mac Mini</li><li>Always on, 24 h</li><li>Model-agnostic</li></ul>
+            </div>
+          </div>
+          <span class="crew-link" aria-hidden="true"></span>
+          <ul class="crew-agents">
+            <li><div class="crew-agent"><img class="od-media" src="assets/agents/lily.webp" alt="Lily’s avatar: a blonde woman in a black turtleneck on a pink background" width="480" height="480" loading="lazy"><span class="crew-name">Lily</span><span class="mono-label">Agent 01</span></div></li>
+            <li><div class="crew-agent"><img class="od-media" src="assets/agents/anna.webp" alt="Anna’s avatar: a cartoon woman with a dark bob in a green jumper on a blue background" width="480" height="480" loading="lazy"><span class="crew-name">Anna</span><span class="mono-label">Agent 02</span></div></li>
+            <li><div class="crew-agent"><img class="od-media" src="assets/agents/yaga.webp" alt="Yaga’s avatar: a cartoon old woman with red curls and round glasses in a black hoodie on a green background" width="480" height="480" loading="lazy"><span class="crew-name">Yaga</span><span class="mono-label">Agent 03</span></div></li>
+          </ul>
+          <p class="mono-label crew-label">Each agent has its own</p>
+          <ul class="crew-traits">
+            <li class="od-field"><span class="crew-name">Skills</span><span class="crew-trait">What it can do.</span></li>
+            <li class="od-field"><span class="crew-name">Purpose</span><span class="crew-trait">What it is for.</span></li>
+            <li class="od-field"><span class="crew-name">SOUL.md</span><span class="crew-trait">Who it is and how it talks.</span></li>
+            <li class="od-field"><span class="crew-name">Memory</span><span class="crew-trait">What it remembers.</span></li>
+          </ul>
+        </div>
+      </div>
 
       <p class="rule-label mono-label builds-label">Selected projects</p>
       <div class="features">
