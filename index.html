@@ -481,9 +481,10 @@ main > section { scroll-margin-top: 0; }
 
 /* ---------- 04 Building: one person, Hermes, three agents ---------- */
 .crew { display: grid; margin-top: var(--s-64); }
-.crew-me { --od-gap: var(--s-12); justify-self: center; padding: var(--s-8) var(--s-24) var(--s-8) var(--s-8); border-radius: var(--r-pill); box-shadow: inset 0 0 0 1px var(--rule-strong); }
-.crew-me .brand-avatar { width: 40px; }
-.crew-me .od-field { --od-gap: 0; }
+.crew-me { --od-gap: var(--s-16); justify-self: center; padding: var(--s-8) var(--s-32) var(--s-8) var(--s-8); border-radius: var(--r-pill); box-shadow: inset 0 0 0 1px var(--rule-strong); }
+.crew-me img { width: 88px; border-radius: 50%; }
+.crew-me .od-field { --od-gap: var(--s-4); }
+.crew-me .crew-name { font-size: var(--fs-22); letter-spacing: -0.02em; line-height: 1.2; }
 .crew-name { font-weight: 500; }
 .crew-link { justify-self: center; width: 1px; height: var(--s-32); background: var(--rule-strong); }
 .crew-hub { --od-gap: var(--s-24); padding: var(--s-24); border-radius: var(--r-16); background: var(--ground); box-shadow: inset 0 0 0 1px var(--line); }
@@ -871,7 +872,7 @@ main > section { scroll-margin-top: 0; }
 
       <div class="grid12">
         <div class="crew col-body" data-reveal>
-          <div class="crew-me od-row"><span class="brand-avatar" aria-hidden="true"><img class="od-media" src="assets/tomasz_hoodie.webp" alt="" width="400" height="400" loading="lazy"></span><span class="od-field"><span class="crew-name">Tomasz</span><span class="mono-label">One person</span></span></div>
+          <div class="crew-me od-row"><img class="od-fixed" src="assets/agents/tomasz.webp" alt="Tomasz’s avatar: a cartoon man with short grey-brown hair in a black hoodie on an orange background" width="480" height="480" loading="lazy"><span class="od-field"><span class="crew-name">Tomasz</span><span class="mono-label">One person</span></span></div>
           <span class="crew-link" aria-hidden="true"></span>
           <div class="crew-hub od-row-top">
             <img class="od-fixed" src="assets/agents/hermes-agent.svg" alt="Hermes Agent logo" width="56" height="56" loading="lazy">
