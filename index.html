@@ -493,7 +493,18 @@ main > section { scroll-margin-top: 0; }
   border-radius: var(--r-16); background: var(--ground); box-shadow: inset 0 0 0 1px var(--line);
   color: var(--fg); transition: box-shadow var(--t-fast) var(--ease-out);
 }
-@media (hover: hover) { a.build:hover { box-shadow: inset 0 0 0 1px var(--ink); } }
+@media (hover: hover) { a.build:hover, .build:has(.build-link:hover) { box-shadow: inset 0 0 0 1px var(--ink); } }
+/* Cards with a second link: the title link covers the card, GitHub sits above it. */
+.build { position: relative; }
+.build-link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.build-desc:has(+ .build-gh) { margin-bottom: var(--s-16); }
+.build-gh {
+  position: relative; z-index: 1; align-self: flex-start;
+  display: inline-flex; align-items: center; min-height: 32px; margin: auto var(--s-8) 0; padding: 0 var(--s-12);
+  border-radius: var(--r-pill); box-shadow: inset 0 0 0 1px var(--rule-strong);
+  font-size: var(--fs-14); color: var(--fg-muted); transition: box-shadow var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out);
+}
+@media (hover: hover) { .build-gh:hover { color: var(--fg); box-shadow: inset 0 0 0 1px var(--ink); } }
 .build img { border-radius: var(--r-8); }
 .build-meta { --od-gap: var(--s-12); margin: var(--s-16) var(--s-8) 0; font-size: var(--fs-14); color: var(--fg-muted); }
 .build-title { margin: var(--s-8) var(--s-8) 0; font-size: var(--fs-22); font-weight: 500; line-height: 1.25; letter-spacing: -0.02em; }
@@ -827,12 +838,13 @@ main > section { scroll-margin-top: 0; }
           </a>
         </li>
         <li data-reveal style="--i:1">
-          <a class="build" href="https://palace.beijing.yaga.sh/" target="_blank" rel="noopener">
+          <div class="build">
             <img class="od-media" src="assets/yaga/palace.webp" alt="Old Summer Palace reconstruction: the European-style palace, fountains and formal gardens from above" width="1100" height="550" loading="lazy">
             <span class="build-meta od-row-top"><span class="od-fill">Historical reconstruction</span><span class="od-fixed od-nowrap">In progress</span></span>
-            <span class="build-title">Old Summer Palace <span lang="zh">圆明园</span> ↗</span>
+            <h3 class="build-title"><a class="build-link" href="https://palace.beijing.yaga.sh/" target="_blank" rel="noopener">Old Summer Palace <span lang="zh">圆明园</span> ↗</a></h3>
             <span class="build-desc">A 3D reconstruction of the emperors’ garden palace in Beijing, burned in 1860.</span>
-          </a>
+            <a class="build-gh" href="https://github.com/tomasz-czarnecki/palace-beijing-yaga-sh" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
         </li>
         <li data-reveal style="--i:2">
           <a class="build" href="https://xhslink.com/m/4br7Tk3UdV" target="_blank" rel="noopener">
@@ -851,20 +863,22 @@ main > section { scroll-margin-top: 0; }
           </a>
         </li>
         <li data-reveal style="--i:1">
-          <a class="build" href="https://game.yaga.sh/" target="_blank" rel="noopener">
+          <div class="build">
             <img class="od-media" src="assets/yaga/farming.webp" alt="Yaga Farming: Miss Yaga with her broom beside her hut in a low-poly 3D farm" width="1100" height="550" loading="lazy">
             <span class="build-meta od-row-top"><span class="od-fill">Game</span><span class="od-fixed od-nowrap">Live</span></span>
-            <span class="build-title">Yaga Farming ↗</span>
+            <h3 class="build-title"><a class="build-link" href="https://game.yaga.sh/" target="_blank" rel="noopener">Yaga Farming ↗</a></h3>
             <span class="build-desc">A small 3D farming game in the browser. Miss Yaga protects her crops and argues with a black box.</span>
-          </a>
+            <a class="build-gh" href="https://github.com/tomasz-czarnecki/game-yaga-sh" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
         </li>
         <li data-reveal style="--i:2">
-          <a class="build" href="https://elliott.yaga.sh/" target="_blank" rel="noopener">
+          <div class="build">
             <img class="od-media" src="assets/yaga/elliott.webp" alt="Elliott Waves AI: a price chart with a labelled wave count and the list of candidate counts" width="1100" height="550" loading="lazy">
             <span class="build-meta od-row-top"><span class="od-fill">Finance</span><span class="od-fixed od-nowrap">Research</span></span>
-            <span class="build-title">Elliott Waves AI ↗</span>
+            <h3 class="build-title"><a class="build-link" href="https://elliott.yaga.sh/" target="_blank" rel="noopener">Elliott Waves AI ↗</a></h3>
             <span class="build-desc">Finds the possible Elliott wave counts in market data and gives each count a probability.</span>
-          </a>
+            <a class="build-gh" href="https://github.com/tomasz-czarnecki/elliott-yaga-sh" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
         </li>
         <li data-reveal style="--i:0">
           <div class="build">
