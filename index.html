@@ -493,7 +493,8 @@ main > section { scroll-margin-top: 0; }
 .crew-name { font-weight: 500; }
 .crew-link { justify-self: center; width: 1px; height: var(--s-32); background: var(--rule-strong); }
 .crew-hub { --od-gap: var(--s-24); padding: var(--s-24); border-radius: var(--r-16); background: var(--ground); box-shadow: inset 0 0 0 1px var(--line); }
-.crew-hub > img { width: 56px; }
+.crew-hub > img { width: 72px; }
+@media (min-width: 768px) { .crew-hub { align-items: center; } .crew-hub > img { width: 140px; } }
 .crew-kicker { color: var(--accent-text); }
 .crew-title { margin-top: var(--s-4); font-size: var(--fs-28); font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; }
 .crew-desc { margin-top: var(--s-4); color: var(--fg-muted); }
