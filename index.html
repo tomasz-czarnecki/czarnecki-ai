@@ -468,7 +468,7 @@ main > section { scroll-margin-top: 0; }
 /* ---------- 04 Building ---------- */
 .tile {
   display: grid; gap: var(--s-32) var(--s-48);
-  margin-top: var(--s-24); padding: clamp(24px, 3.5vw, 48px);
+  margin-top: var(--s-64); padding: clamp(24px, 3.5vw, 48px);
   border-radius: var(--r-16); background: var(--ground); box-shadow: inset 0 0 0 1px var(--line);
 }
 @media (min-width: 1024px) { .tile { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; } }
@@ -546,7 +546,7 @@ main > section { scroll-margin-top: 0; }
   .feature-copy { position: absolute; z-index: 2; left: 0; bottom: 0; max-width: 560px; padding: clamp(24px, 4vw, 56px); }
 }
 
-/* ---------- 05 China ---------- */
+/* ---------- 06 China ---------- */
 .builds-label { margin-top: var(--s-64); }
 .builds { display: grid; gap: var(--s-16); margin-top: var(--s-24); }
 @media (min-width: 768px) { .builds { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
@@ -641,6 +641,7 @@ main > section { scroll-margin-top: 0; }
         <li><a href="#about" data-nav-link>About</a></li>
         <li><a href="#skills" data-nav-link>AI skills</a></li>
         <li><a href="#projects" data-nav-link>Projects</a></li>
+        <li><a href="#yagalabs" data-nav-link>Yaga Labs</a></li>
         <li><a href="#china" data-nav-link>China</a></li>
         <li><a href="#contact" data-nav-link>Contact</a></li>
       </ul>
@@ -663,8 +664,9 @@ main > section { scroll-margin-top: 0; }
         <li><a href="#about" data-nav-link><span class="sheet-name">About</span><span class="sheet-num">02</span></a></li>
         <li><a href="#skills" data-nav-link><span class="sheet-name">AI skills</span><span class="sheet-num">03</span></a></li>
         <li><a href="#projects" data-nav-link><span class="sheet-name">Projects</span><span class="sheet-num">04</span></a></li>
-        <li><a href="#china" data-nav-link><span class="sheet-name">China</span><span class="sheet-num">05</span></a></li>
-        <li><a href="#contact" data-nav-link><span class="sheet-name">Contact</span><span class="sheet-num">06</span></a></li>
+        <li><a href="#yagalabs" data-nav-link><span class="sheet-name">Yaga Labs</span><span class="sheet-num">05</span></a></li>
+        <li><a href="#china" data-nav-link><span class="sheet-name">China</span><span class="sheet-num">06</span></a></li>
+        <li><a href="#contact" data-nav-link><span class="sheet-name">Contact</span><span class="sheet-num">07</span></a></li>
       </ul>
     </nav>
     <div class="sheet-foot od-cluster">
@@ -1013,13 +1015,24 @@ main > section { scroll-margin-top: 0; }
           </div>
         </li>
       </ul>
+    </div>
+  </section>
 
-      <p class="rule-label mono-label builds-label">Business case</p>
+  <!-- 05 Yaga Labs -->
+  <section class="sec sec--alt" id="yagalabs" aria-labelledby="yagalabs-title">
+    <div class="wrap">
+      <header class="sec-head grid12" data-reveal>
+        <div class="sec-index col-index"><span class="sec-num">05</span><span class="sec-label">Yaga Labs</span><span class="sec-sub">Business case</span></div>
+        <div class="col-body">
+          <h2 class="sec-title" id="yagalabs-title">Where I build now.</h2>
+        </div>
+      </header>
+
       <article class="tile" data-reveal aria-labelledby="yaga-title">
         <div class="tile-copy">
           <span class="mono-label tile-kicker">AI-first software house</span>
           <h3 class="tile-title" id="yaga-title">Yaga Labs</h3>
-          <p class="tile-desc">Where I build now. An AI-native team for larger and regulated companies.</p>
+          <p class="tile-desc">An AI-native team for larger and regulated companies.</p>
           <ul class="bullets">
             <li><strong>Agentic workflows and AI software</strong>, designed, built and run.</li>
             <li><strong>Models read and summarise</strong>, your rules decide, and a person signs off where it matters.</li>
@@ -1039,11 +1052,11 @@ main > section { scroll-margin-top: 0; }
     </div>
   </section>
 
-  <!-- 05 China -->
-  <section class="sec sec--alt" id="china" aria-labelledby="china-title">
+  <!-- 06 China -->
+  <section class="sec" id="china" aria-labelledby="china-title">
     <div class="wrap">
       <header class="sec-head grid12" data-reveal>
-        <div class="sec-index col-index"><span class="sec-num">05</span><span class="sec-label">China</span><span class="sec-sub">Algorithmic Design</span></div>
+        <div class="sec-index col-index"><span class="sec-num">06</span><span class="sec-label">China</span><span class="sec-sub">Algorithmic Design</span></div>
         <div class="col-body">
           <h2 class="sec-title" id="china-title">Back in China, the fitness function was the eval.</h2>
           <p class="lead">Eight years working in China, back and forth ever since. I wrote the scripts behind a facade and an opera house interior at <strong>MAD</strong>, and competition wins at <strong>AREP</strong>. A decade before “AI agent” was a phrase, I was building evolutionary solvers that bred building geometry from a fitness function.</p>
@@ -1110,7 +1123,7 @@ main > section { scroll-margin-top: 0; }
   <section class="sec is-dark" id="contact" aria-labelledby="contact-title">
     <div class="wrap">
       <header class="sec-head grid12" data-reveal>
-        <div class="sec-index col-index"><span class="sec-num">06</span><span class="sec-label">Contact</span></div>
+        <div class="sec-index col-index"><span class="sec-num">07</span><span class="sec-label">Contact</span></div>
         <div class="col-body">
           <h2 class="contact-title" id="contact-title">Got a black box nobody uses?</h2>
           <p class="lead">Tell me what it predicts and who ignores it. I’ll tell you what I’d build first.</p>
