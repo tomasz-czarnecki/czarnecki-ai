@@ -218,6 +218,7 @@ strong { font-weight: 600; color: var(--fg); }
   .nav-cv { margin-left: var(--s-8); }
   .nav-menu { display: none; }
 }
+@media (min-width: 1024px) and (max-width: 1279.98px) { .nav-links a { padding: 0 var(--s-8); } }
 @media (max-width: 1023.98px) {
   .nav-cv { display: none; }
   .nav-menu { margin-left: auto; }
