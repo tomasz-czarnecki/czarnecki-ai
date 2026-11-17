@@ -326,7 +326,6 @@ main > section { scroll-margin-top: 0; }
 .sec { padding-block: var(--pad-y); background: var(--sec-bg); color: var(--fg); }
 .sec--alt { --sec-bg: var(--ground-alt); border-block: 1px solid var(--line-soft); }
 .sec-head { row-gap: var(--s-24); padding-top: var(--s-24); border-top: 1px solid var(--rule); }
-.sec-head--sub { margin-top: var(--s-96); scroll-margin-top: calc(var(--nav-h) + var(--s-32)); }
 .sec-index { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-4) var(--s-12); }
 .sec-num { font-family: var(--mono); font-size: var(--fs-12); letter-spacing: var(--track-label); color: var(--mark); }
 .sec-label { font-size: var(--fs-16); font-weight: 500; }
@@ -458,7 +457,7 @@ main > section { scroll-margin-top: 0; }
 .n-build .tri-name, .n-bridge .tri-name { top: 20px; }
 .tri-centre { position: absolute; left: 50%; top: 60%; padding: var(--s-4) var(--s-12); border-radius: var(--r-pill); background: var(--sec-bg); font-size: clamp(16px, 2vw, 24px); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; white-space: nowrap; transform: translate(-50%, -50%); }
 .tri-legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-24) var(--gutter); }
-.tri-legend li { --od-gap: var(--s-4); padding-top: var(--s-12); border-top: 1px solid var(--rule); }
+.tri-legend li { --od-gap: var(--s-4); align-content: start; padding-top: var(--s-12); border-top: 1px solid var(--rule); }
 .tri-legend-name { font-weight: 500; }
 .tri-legend-desc { font-size: var(--fs-14); line-height: 1.45; color: var(--fg-muted); }
 .tri-legend .is-centre { border-top-color: var(--accent); }
@@ -483,8 +482,10 @@ main > section { scroll-margin-top: 0; }
 
 /* ---------- 03 AI skills: one person, Hermes, three agents ---------- */
 .crew { display: grid; margin-top: var(--s-64); }
-.crew-me { --od-gap: var(--s-16); justify-self: center; padding: var(--s-12) var(--s-24) var(--s-12) var(--s-12); border-radius: var(--r-16); background: var(--ground); box-shadow: inset 0 0 0 1px var(--line); }
-.crew-me img { width: 88px; border-radius: var(--r-8); }
+.crew-me { --sec-bg: var(--ground); padding: var(--s-12) var(--s-12) var(--s-24); border-radius: var(--r-16); background: var(--ground); box-shadow: inset 0 0 0 1px var(--line); scroll-margin-top: calc(var(--nav-h) + var(--s-32)); }
+.crew-me-head { --od-gap: var(--s-16); }
+.crew-me-head img { width: 88px; border-radius: var(--r-8); }
+.crew-me .tri { margin-top: 0; padding-inline: var(--s-12); }
 .crew-me .od-field { --od-gap: var(--s-4); }
 .crew-me .crew-name { font-size: var(--fs-22); letter-spacing: -0.02em; line-height: 1.2; }
 .crew-name { font-weight: 500; }
@@ -832,44 +833,36 @@ main > section { scroll-margin-top: 0; }
   <section class="sec sec--alt" id="skills" aria-labelledby="skills-title">
     <div class="wrap">
       <header class="sec-head grid12" data-reveal>
-        <div class="sec-index col-index"><span class="sec-num">03</span><span class="sec-label">AI skills</span><span class="sec-sub">Shape · Build · Bridge</span></div>
+        <div class="sec-index col-index"><span class="sec-num">03</span><span class="sec-label">AI skills</span><span class="sec-sub">AI orchestration, the ultimate skill</span></div>
         <div class="col-body">
-          <h2 class="sec-title" id="skills-title">Three edges, one centre.</h2>
+          <h2 class="sec-title" id="skills-title">One person, a few agents.</h2>
           <p class="lead">I trained as an architect and wrote the parametric tools behind double-curved facades in Beijing. I spent eight years in China. Based in Guizhou as the client-facing lead, I brought in a ~70M RMB residential project in Mandarin, with a design team in Poland behind me. Now I build with AI agents, hands-on, every day. <strong>Product is where the three meet:</strong> I can shape what people see, earn the trust of the people who will use it, and build the first version myself.</p>
-        </div>
-      </header>
-
-      <div class="grid12">
-        <div class="tri col-body" data-reveal>
-          <div class="tri-box" role="img" aria-label="A triangle linking Shape, Build and Bridge, with Product at the centre">
-            <div class="tri-layer" aria-hidden="true">
-              <tri-strands ink="#E7573E" strands="9" alpha="0.7" width="1.3" nodes="0.5,0.1429;0.17,0.857;0.83,0.857" center="0.5,0.6"></tri-strands>
-            </div>
-            <div class="tri-node n-shape" aria-hidden="true"><span class="tri-dot"></span><span class="tri-name">Shape</span></div>
-            <div class="tri-node n-build" aria-hidden="true"><span class="tri-dot"></span><span class="tri-name">Build</span></div>
-            <div class="tri-node n-bridge" aria-hidden="true"><span class="tri-dot"></span><span class="tri-name">Bridge</span></div>
-            <span class="tri-centre" aria-hidden="true">Product</span>
-          </div>
-          <ul class="tri-legend">
-            <li class="od-field"><span class="tri-legend-name">Shape</span><span class="tri-legend-desc">Architecture, 3D, parametric</span></li>
-            <li class="od-field"><span class="tri-legend-name">Build</span><span class="tri-legend-desc">AI, agents, open source</span></li>
-            <li class="od-field"><span class="tri-legend-name">Bridge</span><span class="tri-legend-desc">Mandarin, China ↔ Europe</span></li>
-            <li class="od-field is-centre"><span class="tri-legend-name">Product</span><span class="tri-legend-desc">3 AI systems shipped at Heineken</span></li>
-          </ul>
-        </div>
-      </div>
-
-      <header class="sec-head sec-head--sub grid12" id="orchestration" data-reveal>
-        <div class="sec-index col-index"><span class="sec-label">AI orchestration</span><span class="sec-sub">The ultimate skill</span></div>
-        <div class="col-body">
-          <h3 class="sec-title">One person, a few agents.</h3>
           <p class="lead"><strong>AI orchestration is the ultimate skill.</strong> Hermes is my orchestrator. It lives on a Mac Mini, works there and is always on, 24 hours a day. Everything I run goes through three agents. Each one has its own skills, its own purpose, its own SOUL.md and its own memory. All of them are model-agnostic.</p>
         </div>
       </header>
 
       <div class="grid12">
         <div class="crew col-body" data-reveal>
-          <div class="crew-me od-row"><img class="od-fixed" src="assets/agents/tomasz.webp" alt="Tomasz’s avatar: a cartoon man with short grey-brown hair in a black hoodie on an orange background" width="480" height="480" loading="lazy"><span class="od-field"><span class="crew-name">Tomasz</span><span class="mono-label">One person, AI orchestrator</span></span></div>
+          <div class="crew-me" id="orchestration">
+            <div class="crew-me-head od-row"><img class="od-fixed" src="assets/agents/tomasz.webp" alt="Tomasz’s avatar: a cartoon man with short grey-brown hair in a black hoodie on an orange background" width="480" height="480" loading="lazy"><span class="od-field"><span class="crew-name">Tomasz</span><span class="mono-label">One person, AI orchestrator</span></span></div>
+            <div class="tri">
+              <div class="tri-box" role="img" aria-label="A triangle linking Shape, Build and Bridge, with Product at the centre">
+                <div class="tri-layer" aria-hidden="true">
+                  <tri-strands ink="#E7573E" strands="9" alpha="0.7" width="1.3" nodes="0.5,0.1429;0.17,0.857;0.83,0.857" center="0.5,0.6"></tri-strands>
+                </div>
+                <div class="tri-node n-shape" aria-hidden="true"><span class="tri-dot"></span><span class="tri-name">Shape</span></div>
+                <div class="tri-node n-build" aria-hidden="true"><span class="tri-dot"></span><span class="tri-name">Build</span></div>
+                <div class="tri-node n-bridge" aria-hidden="true"><span class="tri-dot"></span><span class="tri-name">Bridge</span></div>
+                <span class="tri-centre" aria-hidden="true">Product</span>
+              </div>
+              <ul class="tri-legend">
+                <li class="od-field"><span class="tri-legend-name">Shape</span><span class="tri-legend-desc">Architecture, 3D, parametric</span></li>
+                <li class="od-field"><span class="tri-legend-name">Build</span><span class="tri-legend-desc">AI, agents, open source</span></li>
+                <li class="od-field"><span class="tri-legend-name">Bridge</span><span class="tri-legend-desc">Mandarin, China ↔ Europe</span></li>
+                <li class="od-field is-centre"><span class="tri-legend-name">Product</span><span class="tri-legend-desc">3 AI systems shipped at Heineken</span></li>
+              </ul>
+            </div>
+          </div>
           <span class="crew-link" aria-hidden="true"></span>
           <div class="crew-hub od-row-top">
             <img class="od-fixed" src="assets/agents/hermes-agent.svg" alt="Hermes Agent logo" width="56" height="56" loading="lazy">
