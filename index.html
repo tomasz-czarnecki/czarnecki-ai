@@ -479,8 +479,8 @@ main > section { scroll-margin-top: 0; }
 .tile-model model-viewer::part(default-progress-bar) { display: none; }
 .tile-model img[slot="poster"] { display: block; width: 100%; height: 100%; }
 
-/* ---------- 05 Projects ---------- */
-.features { display: grid; gap: var(--s-24); margin-top: var(--s-64); }
+/* ---------- 04 Building: big project panels ---------- */
+.features { display: grid; gap: var(--s-24); margin-top: var(--s-24); }
 .feature { position: relative; overflow: hidden; border-radius: var(--r-16); background: var(--dark); color: var(--fg); }
 .feature-shots { position: relative; aspect-ratio: 3 / 2; }
 .feature-shots img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--focus, 50% 50%); opacity: 0; transition: opacity 1.2s ease; }
@@ -504,7 +504,7 @@ main > section { scroll-margin-top: 0; }
   .feature-copy { position: absolute; z-index: 2; left: 0; bottom: 0; max-width: 560px; padding: clamp(24px, 4vw, 56px); }
 }
 
-/* ---------- 06 China ---------- */
+/* ---------- 05 China ---------- */
 .builds-label { margin-top: var(--s-64); }
 .builds { display: grid; gap: var(--s-16); margin-top: var(--s-24); }
 @media (min-width: 768px) { .builds { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
@@ -599,7 +599,6 @@ main > section { scroll-margin-top: 0; }
         <li><a href="#about" data-nav-link>About</a></li>
         <li><a href="#skills" data-nav-link>Skills</a></li>
         <li><a href="#building" data-nav-link>Building</a></li>
-        <li><a href="#projects" data-nav-link>Projects</a></li>
         <li><a href="#china" data-nav-link>China</a></li>
         <li><a href="#contact" data-nav-link>Contact</a></li>
       </ul>
@@ -622,9 +621,8 @@ main > section { scroll-margin-top: 0; }
         <li><a href="#about" data-nav-link><span class="sheet-name">About</span><span class="sheet-num">02</span></a></li>
         <li><a href="#skills" data-nav-link><span class="sheet-name">Skills</span><span class="sheet-num">03</span></a></li>
         <li><a href="#building" data-nav-link><span class="sheet-name">Building</span><span class="sheet-num">04</span></a></li>
-        <li><a href="#projects" data-nav-link><span class="sheet-name">Projects</span><span class="sheet-num">05</span></a></li>
-        <li><a href="#china" data-nav-link><span class="sheet-name">China</span><span class="sheet-num">06</span></a></li>
-        <li><a href="#contact" data-nav-link><span class="sheet-name">Contact</span><span class="sheet-num">07</span></a></li>
+        <li><a href="#china" data-nav-link><span class="sheet-name">China</span><span class="sheet-num">05</span></a></li>
+        <li><a href="#contact" data-nav-link><span class="sheet-name">Contact</span><span class="sheet-num">06</span></a></li>
       </ul>
     </nav>
     <div class="sheet-foot od-cluster">
@@ -836,113 +834,7 @@ main > section { scroll-margin-top: 0; }
         </div>
       </header>
 
-      <p class="rule-label mono-label builds-label">Projects</p>
-      <ul class="builds">
-        <li data-reveal style="--i:0">
-          <a class="build" href="https://kostrzyn.yaga.sh/" target="_blank" rel="noopener">
-            <img class="od-media" src="assets/yaga/kostrzyn.webp" alt="Küstrin 1913 reconstruction: a wedding party with lanterns on the cobbled market square at night" width="1100" height="550" loading="lazy">
-            <span class="build-meta od-row-top"><span class="od-fill">Historical reconstruction</span><span class="od-fixed od-nowrap">Live</span></span>
-            <span class="build-title">Küstrin 1913 ↗</span>
-            <span class="build-desc">A 3D reconstruction of the fortress town, destroyed in 1945 and never rebuilt. Agents rebuilt it from old photographs, maps and records.</span>
-          </a>
-        </li>
-        <li data-reveal style="--i:1">
-          <div class="build">
-            <img class="od-media" src="assets/yaga/palace.webp" alt="Old Summer Palace reconstruction: the European-style palace, fountains and formal gardens from above" width="1100" height="550" loading="lazy">
-            <span class="build-meta od-row-top"><span class="od-fill">Historical reconstruction</span><span class="od-fixed od-nowrap">In progress</span></span>
-            <h3 class="build-title"><a class="build-link" href="https://palace.beijing.yaga.sh/" target="_blank" rel="noopener">Old Summer Palace <span lang="zh">圆明园</span> ↗</a></h3>
-            <span class="build-desc">A 3D reconstruction of the emperors’ garden palace in Beijing, burned in 1860.</span>
-            <a class="build-gh" href="https://github.com/tomasz-czarnecki/palace-beijing-yaga-sh" target="_blank" rel="noopener">GitHub ↗</a>
-          </div>
-        </li>
-        <li data-reveal style="--i:2">
-          <a class="build" href="https://www.youtube.com/@ZojaAI" target="_blank" rel="noopener">
-            <img class="od-media" src="assets/yaga/zoja.webp" alt="Zoja, an AI singer in black leather and a spiked crown, holding a microphone on a spiked black throne" width="1100" height="550" loading="lazy">
-            <span class="build-meta od-row-top"><span class="od-fill">AI music</span><span class="od-fixed od-nowrap">Live</span></span>
-            <span class="build-title">Zoja Music ↗</span>
-            <span class="build-desc">Slavic folk metal sung in Interslavic, a language most Slavs can follow without learning it. The singer, music and videos are made with AI.</span>
-          </a>
-        </li>
-        <li data-reveal style="--i:0">
-          <a class="build" href="https://xhslink.com/m/4br7Tk3UdV" target="_blank" rel="noopener">
-            <img class="od-media" src="assets/yaga/lily.webp" alt="卓娅, an AI persona: a close-up portrait holding a pale dahlia" width="1100" height="550" loading="lazy">
-            <span class="build-meta od-row-top"><span class="od-fill">AI persona</span><span class="od-fixed od-nowrap">Live</span></span>
-            <span class="build-title"><span lang="zh">卓娅</span> ↗</span>
-            <span class="build-desc">My AI influencer on Xiaohongshu: a face, a style and thousands of real followers. Rednote ID 42044731384.</span>
-          </a>
-        </li>
-        <li data-reveal style="--i:1">
-          <a class="build" href="https://play.yaga.sh/" target="_blank" rel="noopener">
-            <img class="od-media" src="assets/yaga/pixel-world.webp" alt="Pixel World: an isometric pixel plaza with a fountain and a lit cottage at night" width="1100" height="550" loading="lazy">
-            <span class="build-meta od-row-top"><span class="od-fill">Game</span><span class="od-fixed od-nowrap">Live</span></span>
-            <span class="build-title">Pixel World ↗</span>
-            <span class="build-desc">Describe a game in a prompt, then play it with your friends. Ready-made games are live now. Prompting comes soon.</span>
-          </a>
-        </li>
-        <li data-reveal style="--i:2">
-          <div class="build">
-            <img class="od-media" src="assets/yaga/farming.webp" alt="Yaga Farming: Miss Yaga with her broom beside her hut in a low-poly 3D farm" width="1100" height="550" loading="lazy">
-            <span class="build-meta od-row-top"><span class="od-fill">Game</span><span class="od-fixed od-nowrap">Live</span></span>
-            <h3 class="build-title"><a class="build-link" href="https://game.yaga.sh/" target="_blank" rel="noopener">Yaga Farming ↗</a></h3>
-            <span class="build-desc">A small 3D farming game in the browser. Miss Yaga protects her crops and argues with a black box.</span>
-            <a class="build-gh" href="https://github.com/tomasz-czarnecki/game-yaga-sh" target="_blank" rel="noopener">GitHub ↗</a>
-          </div>
-        </li>
-        <li data-reveal style="--i:0">
-          <div class="build">
-            <img class="od-media" src="assets/yaga/elliott.webp" alt="Elliott Waves AI: a price chart with a labelled wave count and the list of candidate counts" width="1100" height="550" loading="lazy">
-            <span class="build-meta od-row-top"><span class="od-fill">Finance</span><span class="od-fixed od-nowrap">Research</span></span>
-            <h3 class="build-title"><a class="build-link" href="https://elliott.yaga.sh/" target="_blank" rel="noopener">Elliott Waves AI ↗</a></h3>
-            <span class="build-desc">Finds the possible Elliott wave counts in market data and gives each count a probability.</span>
-            <a class="build-gh" href="https://github.com/tomasz-czarnecki/elliott-yaga-sh" target="_blank" rel="noopener">GitHub ↗</a>
-          </div>
-        </li>
-        <li data-reveal style="--i:1">
-          <div class="build">
-            <img class="od-media" src="assets/yaga/whybox.webp" alt="Whybox: Miss Yaga scolding a furry black cube outside her hut" width="1100" height="550" loading="lazy">
-            <span class="build-meta od-row-top"><span class="od-fill">Experiment</span><span class="od-fixed od-nowrap">Opening soon</span></span>
-            <h3 class="build-title">Whybox.ai</h3>
-            <p class="build-desc">A black box you can question: what the model saw, how sure it is, and what would change its mind.</p>
-          </div>
-        </li>
-      </ul>
-
-      <p class="rule-label mono-label builds-label">Business case</p>
-      <article class="tile" data-reveal aria-labelledby="yaga-title">
-        <div class="tile-copy">
-          <span class="mono-label tile-kicker">AI-first software house</span>
-          <h3 class="tile-title" id="yaga-title">Yaga Labs</h3>
-          <p class="tile-desc">Where I build now. An AI-native team for larger and regulated companies.</p>
-          <ul class="bullets">
-            <li><strong>Agentic workflows and AI software</strong>, designed, built and run.</li>
-            <li><strong>Models read and summarise</strong>, your rules decide, and a person signs off where it matters.</li>
-          </ul>
-          <a class="btn btn-solid" href="https://yagalabs.io" target="_blank" rel="noopener">Visit Yaga Labs ↗</a>
-        </div>
-        <div class="tile-model">
-          <model-viewer src="assets/yaga/yagalabs-logo.glb"
-                        alt="3D Yaga Labs logo: a birch broom with a red binding forms the slash in a &lt;/&gt; code tag. Drag to turn it."
-                        camera-controls disable-zoom disable-pan touch-action="pan-y" interaction-prompt="none"
-                        camera-orbit="0deg 82deg auto" min-camera-orbit="-60deg 60deg auto" max-camera-orbit="60deg 100deg auto"
-                        shadow-intensity="0.6" shadow-softness="1" loading="eager">
-            <img slot="poster" src="assets/yaga/yagalabs-logo-3d.webp" width="1080" height="1080" loading="lazy" alt="Yaga Labs logo: a birch broom with a red binding forms the slash in a &lt;/&gt; code tag">
-          </model-viewer>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- 05 Projects -->
-  <section class="sec" id="projects" aria-labelledby="projects-title">
-    <div class="wrap">
-      <header class="sec-head grid12" data-reveal>
-        <div class="sec-index col-index"><span class="sec-num">05</span><span class="sec-label">Projects</span><span class="sec-sub">Built with agents</span></div>
-        <div class="col-body">
-          <h2 class="sec-title" id="projects-title">Lost towns, virtual humans, small games.</h2>
-          <p class="lead">Side projects, all built the same way: I write the spec, agents build, and I review every change. Some are live and some are still in progress.</p>
-        </div>
-      </header>
-
+      <p class="rule-label mono-label builds-label">Selected projects</p>
       <div class="features">
         <article class="feature is-dark" data-reveal>
           <div class="feature-shots" data-carousel>
@@ -1068,14 +960,108 @@ main > section { scroll-margin-top: 0; }
           </div>
         </article>
       </div>
+
+      <p class="rule-label mono-label builds-label">All projects</p>
+      <ul class="builds">
+        <li data-reveal style="--i:0">
+          <a class="build" href="https://kostrzyn.yaga.sh/" target="_blank" rel="noopener">
+            <img class="od-media" src="assets/yaga/kostrzyn.webp" alt="Küstrin 1913 reconstruction: a wedding party with lanterns on the cobbled market square at night" width="1100" height="550" loading="lazy">
+            <span class="build-meta od-row-top"><span class="od-fill">Historical reconstruction</span><span class="od-fixed od-nowrap">Live</span></span>
+            <span class="build-title">Küstrin 1913 ↗</span>
+            <span class="build-desc">A 3D reconstruction of the fortress town, destroyed in 1945 and never rebuilt. Agents rebuilt it from old photographs, maps and records.</span>
+          </a>
+        </li>
+        <li data-reveal style="--i:1">
+          <div class="build">
+            <img class="od-media" src="assets/yaga/palace.webp" alt="Old Summer Palace reconstruction: the European-style palace, fountains and formal gardens from above" width="1100" height="550" loading="lazy">
+            <span class="build-meta od-row-top"><span class="od-fill">Historical reconstruction</span><span class="od-fixed od-nowrap">In progress</span></span>
+            <h3 class="build-title"><a class="build-link" href="https://palace.beijing.yaga.sh/" target="_blank" rel="noopener">Old Summer Palace <span lang="zh">圆明园</span> ↗</a></h3>
+            <span class="build-desc">A 3D reconstruction of the emperors’ garden palace in Beijing, burned in 1860.</span>
+            <a class="build-gh" href="https://github.com/tomasz-czarnecki/palace-beijing-yaga-sh" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </li>
+        <li data-reveal style="--i:2">
+          <a class="build" href="https://www.youtube.com/@ZojaAI" target="_blank" rel="noopener">
+            <img class="od-media" src="assets/yaga/zoja.webp" alt="Zoja, an AI singer in black leather and a spiked crown, holding a microphone on a spiked black throne" width="1100" height="550" loading="lazy">
+            <span class="build-meta od-row-top"><span class="od-fill">AI music</span><span class="od-fixed od-nowrap">Live</span></span>
+            <span class="build-title">Zoja Music ↗</span>
+            <span class="build-desc">Slavic folk metal sung in Interslavic, a language most Slavs can follow without learning it. The singer, music and videos are made with AI.</span>
+          </a>
+        </li>
+        <li data-reveal style="--i:0">
+          <a class="build" href="https://xhslink.com/m/4br7Tk3UdV" target="_blank" rel="noopener">
+            <img class="od-media" src="assets/yaga/lily.webp" alt="卓娅, an AI persona: a close-up portrait holding a pale dahlia" width="1100" height="550" loading="lazy">
+            <span class="build-meta od-row-top"><span class="od-fill">AI persona</span><span class="od-fixed od-nowrap">Live</span></span>
+            <span class="build-title"><span lang="zh">卓娅</span> ↗</span>
+            <span class="build-desc">My AI influencer on Xiaohongshu: a face, a style and thousands of real followers. Rednote ID 42044731384.</span>
+          </a>
+        </li>
+        <li data-reveal style="--i:1">
+          <a class="build" href="https://play.yaga.sh/" target="_blank" rel="noopener">
+            <img class="od-media" src="assets/yaga/pixel-world.webp" alt="Pixel World: an isometric pixel plaza with a fountain and a lit cottage at night" width="1100" height="550" loading="lazy">
+            <span class="build-meta od-row-top"><span class="od-fill">Game</span><span class="od-fixed od-nowrap">Live</span></span>
+            <span class="build-title">Pixel World ↗</span>
+            <span class="build-desc">Describe a game in a prompt, then play it with your friends. Ready-made games are live now. Prompting comes soon.</span>
+          </a>
+        </li>
+        <li data-reveal style="--i:2">
+          <div class="build">
+            <img class="od-media" src="assets/yaga/farming.webp" alt="Yaga Farming: Miss Yaga with her broom beside her hut in a low-poly 3D farm" width="1100" height="550" loading="lazy">
+            <span class="build-meta od-row-top"><span class="od-fill">Game</span><span class="od-fixed od-nowrap">Live</span></span>
+            <h3 class="build-title"><a class="build-link" href="https://game.yaga.sh/" target="_blank" rel="noopener">Yaga Farming ↗</a></h3>
+            <span class="build-desc">A small 3D farming game in the browser. Miss Yaga protects her crops and argues with a black box.</span>
+            <a class="build-gh" href="https://github.com/tomasz-czarnecki/game-yaga-sh" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </li>
+        <li data-reveal style="--i:0">
+          <div class="build">
+            <img class="od-media" src="assets/yaga/elliott.webp" alt="Elliott Waves AI: a price chart with a labelled wave count and the list of candidate counts" width="1100" height="550" loading="lazy">
+            <span class="build-meta od-row-top"><span class="od-fill">Finance</span><span class="od-fixed od-nowrap">Research</span></span>
+            <h3 class="build-title"><a class="build-link" href="https://elliott.yaga.sh/" target="_blank" rel="noopener">Elliott Waves AI ↗</a></h3>
+            <span class="build-desc">Finds the possible Elliott wave counts in market data and gives each count a probability.</span>
+            <a class="build-gh" href="https://github.com/tomasz-czarnecki/elliott-yaga-sh" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </li>
+        <li data-reveal style="--i:1">
+          <div class="build">
+            <img class="od-media" src="assets/yaga/whybox.webp" alt="Whybox: Miss Yaga scolding a furry black cube outside her hut" width="1100" height="550" loading="lazy">
+            <span class="build-meta od-row-top"><span class="od-fill">Experiment</span><span class="od-fixed od-nowrap">Opening soon</span></span>
+            <h3 class="build-title">Whybox.ai</h3>
+            <p class="build-desc">A black box you can question: what the model saw, how sure it is, and what would change its mind.</p>
+          </div>
+        </li>
+      </ul>
+
+      <p class="rule-label mono-label builds-label">Business case</p>
+      <article class="tile" data-reveal aria-labelledby="yaga-title">
+        <div class="tile-copy">
+          <span class="mono-label tile-kicker">AI-first software house</span>
+          <h3 class="tile-title" id="yaga-title">Yaga Labs</h3>
+          <p class="tile-desc">Where I build now. An AI-native team for larger and regulated companies.</p>
+          <ul class="bullets">
+            <li><strong>Agentic workflows and AI software</strong>, designed, built and run.</li>
+            <li><strong>Models read and summarise</strong>, your rules decide, and a person signs off where it matters.</li>
+          </ul>
+          <a class="btn btn-solid" href="https://yagalabs.io" target="_blank" rel="noopener">Visit Yaga Labs ↗</a>
+        </div>
+        <div class="tile-model">
+          <model-viewer src="assets/yaga/yagalabs-logo.glb"
+                        alt="3D Yaga Labs logo: a birch broom with a red binding forms the slash in a &lt;/&gt; code tag. Drag to turn it."
+                        camera-controls disable-zoom disable-pan touch-action="pan-y" interaction-prompt="none"
+                        camera-orbit="0deg 82deg auto" min-camera-orbit="-60deg 60deg auto" max-camera-orbit="60deg 100deg auto"
+                        shadow-intensity="0.6" shadow-softness="1" loading="eager">
+            <img slot="poster" src="assets/yaga/yagalabs-logo-3d.webp" width="1080" height="1080" loading="lazy" alt="Yaga Labs logo: a birch broom with a red binding forms the slash in a &lt;/&gt; code tag">
+          </model-viewer>
+        </div>
+      </article>
     </div>
   </section>
 
-  <!-- 06 China -->
+  <!-- 05 China -->
   <section class="sec sec--alt" id="china" aria-labelledby="china-title">
     <div class="wrap">
       <header class="sec-head grid12" data-reveal>
-        <div class="sec-index col-index"><span class="sec-num">06</span><span class="sec-label">China</span><span class="sec-sub">Algorithmic Design</span></div>
+        <div class="sec-index col-index"><span class="sec-num">05</span><span class="sec-label">China</span><span class="sec-sub">Algorithmic Design</span></div>
         <div class="col-body">
           <h2 class="sec-title" id="china-title">Back in China, the fitness function was the eval.</h2>
           <p class="lead">Eight years working in China, back and forth ever since. I wrote the scripts behind a facade and an opera house interior at <strong>MAD</strong>, and competition wins at <strong>AREP</strong>. A decade before “AI agent” was a phrase, I was building evolutionary solvers that bred building geometry from a fitness function.</p>
@@ -1142,7 +1128,7 @@ main > section { scroll-margin-top: 0; }
   <section class="sec is-dark" id="contact" aria-labelledby="contact-title">
     <div class="wrap">
       <header class="sec-head grid12" data-reveal>
-        <div class="sec-index col-index"><span class="sec-num">07</span><span class="sec-label">Contact</span></div>
+        <div class="sec-index col-index"><span class="sec-num">06</span><span class="sec-label">Contact</span></div>
         <div class="col-body">
           <h2 class="contact-title" id="contact-title">Got a black box nobody uses?</h2>
           <p class="lead">Tell me what it predicts and who ignores it. I’ll tell you what I’d build first.</p>
