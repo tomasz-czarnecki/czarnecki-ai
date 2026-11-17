@@ -479,7 +479,32 @@ main > section { scroll-margin-top: 0; }
 .tile-model model-viewer::part(default-progress-bar) { display: none; }
 .tile-model img[slot="poster"] { display: block; width: 100%; height: 100%; }
 
-/* ---------- 05 China ---------- */
+/* ---------- 05 Projects ---------- */
+.features { display: grid; gap: var(--s-24); margin-top: var(--s-64); }
+.feature { position: relative; overflow: hidden; border-radius: var(--r-16); background: var(--dark); color: var(--fg); }
+.feature-shots { position: relative; aspect-ratio: 3 / 2; }
+.feature-shots img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--focus, 50% 50%); opacity: 0; transition: opacity 1.2s ease; }
+.feature-shots img.is-active { opacity: 1; }
+.feature-dots { position: absolute; z-index: 3; right: var(--s-12); bottom: var(--s-12); display: flex; }
+.feature-dots button { width: 24px; height: 24px; padding: 8px; border: 0; background: none; cursor: pointer; }
+.feature-dots button::before { content: ""; display: block; width: 8px; height: 8px; border-radius: 50%; background: rgba(22, 22, 23, 0.45); box-shadow: inset 0 0 0 1px rgba(245, 245, 243, 0.8); transition: background-color var(--t-fast) var(--ease-out); }
+.feature-dots button[aria-current]::before { background: var(--dark-text); }
+.feature-copy { padding: var(--s-24); }
+.feature-meta { display: flex; gap: var(--s-12); }
+.feature-num { color: var(--mark); }
+.feature-title { margin-top: var(--s-12); font-size: var(--fs-56); font-weight: 500; line-height: 1.05; letter-spacing: -0.035em; }
+.feature-alt { display: block; margin-top: var(--s-8); font-size: max(18px, 0.42em); font-weight: 400; letter-spacing: 0.12em; color: var(--fg-muted); }
+.feature-desc { margin-top: var(--s-12); max-width: 44ch; font-size: var(--fs-18); line-height: 1.5; color: rgba(245, 245, 243, 0.85); text-wrap: pretty; }
+.feature-qr { --od-gap: var(--s-16); margin-top: var(--s-24); font-size: var(--fs-14); line-height: 1.5; }
+.feature-qr img { width: 104px; padding: 6px; border-radius: var(--r-8); background: #FFFFFF; }
+.feature-links { --od-gap: var(--s-8); margin-top: var(--s-24); }
+@media (min-width: 1024px) {
+  .feature-shots { aspect-ratio: 2 / 1; }
+  .feature::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(22, 22, 23, 0.9) 0%, rgba(22, 22, 23, 0.65) 32%, rgba(22, 22, 23, 0) 62%); }
+  .feature-copy { position: absolute; z-index: 2; left: 0; bottom: 0; max-width: 560px; padding: clamp(24px, 4vw, 56px); }
+}
+
+/* ---------- 06 China ---------- */
 .builds-label { margin-top: var(--s-64); }
 .builds { display: grid; gap: var(--s-16); margin-top: var(--s-24); }
 @media (min-width: 768px) { .builds { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
@@ -574,6 +599,7 @@ main > section { scroll-margin-top: 0; }
         <li><a href="#about" data-nav-link>About</a></li>
         <li><a href="#skills" data-nav-link>Skills</a></li>
         <li><a href="#building" data-nav-link>Building</a></li>
+        <li><a href="#projects" data-nav-link>Projects</a></li>
         <li><a href="#china" data-nav-link>China</a></li>
         <li><a href="#contact" data-nav-link>Contact</a></li>
       </ul>
@@ -596,8 +622,9 @@ main > section { scroll-margin-top: 0; }
         <li><a href="#about" data-nav-link><span class="sheet-name">About</span><span class="sheet-num">02</span></a></li>
         <li><a href="#skills" data-nav-link><span class="sheet-name">Skills</span><span class="sheet-num">03</span></a></li>
         <li><a href="#building" data-nav-link><span class="sheet-name">Building</span><span class="sheet-num">04</span></a></li>
-        <li><a href="#china" data-nav-link><span class="sheet-name">China</span><span class="sheet-num">05</span></a></li>
-        <li><a href="#contact" data-nav-link><span class="sheet-name">Contact</span><span class="sheet-num">06</span></a></li>
+        <li><a href="#projects" data-nav-link><span class="sheet-name">Projects</span><span class="sheet-num">05</span></a></li>
+        <li><a href="#china" data-nav-link><span class="sheet-name">China</span><span class="sheet-num">06</span></a></li>
+        <li><a href="#contact" data-nav-link><span class="sheet-name">Contact</span><span class="sheet-num">07</span></a></li>
       </ul>
     </nav>
     <div class="sheet-foot od-cluster">
@@ -905,11 +932,150 @@ main > section { scroll-margin-top: 0; }
     </div>
   </section>
 
-  <!-- 05 China -->
+  <!-- 05 Projects -->
+  <section class="sec" id="projects" aria-labelledby="projects-title">
+    <div class="wrap">
+      <header class="sec-head grid12" data-reveal>
+        <div class="sec-index col-index"><span class="sec-num">05</span><span class="sec-label">Projects</span><span class="sec-sub">Built with agents</span></div>
+        <div class="col-body">
+          <h2 class="sec-title" id="projects-title">Lost towns, virtual humans, small games.</h2>
+          <p class="lead">Side projects, all built the same way: I write the spec, agents build, and I review every change. Some are live and some are still in progress.</p>
+        </div>
+      </header>
+
+      <div class="features">
+        <article class="feature is-dark" data-reveal>
+          <div class="feature-shots" data-carousel>
+            <img class="is-active" src="assets/yaga/showcase/kostrzyn.webp" alt="A wedding party with lanterns on the cobbled market square at night" width="1600" height="800" loading="lazy">
+            <img src="assets/yaga/showcase/kostrzyn-aerial.webp" alt="The fortress town from above at night, ringed by water" width="1600" height="800" loading="lazy">
+            <img src="assets/yaga/showcase/kostrzyn-castle-snow.webp" alt="The castle and square under snow at dusk" width="1600" height="800" loading="lazy">
+            <img src="assets/yaga/showcase/kostrzyn-church-snow.webp" alt="The church on a snowy square, with horse-drawn carriages" width="1600" height="800" loading="lazy">
+            <img src="assets/yaga/showcase/kostrzyn-square-rain.webp" alt="The market square in the rain, seen from an upper window" width="1600" height="800" loading="lazy">
+          </div>
+          <div class="feature-copy">
+            <p class="mono-label feature-meta"><span class="feature-num">01</span><span>Historical reconstruction · Live</span></p>
+            <h3 class="feature-title">Küstrin 1913</h3>
+            <p class="feature-desc">A 3D reconstruction of the fortress town, destroyed in 1945 and never rebuilt. Agents rebuilt it from old photographs, maps and records.</p>
+            <div class="feature-links od-cluster">
+              <a class="btn btn-solid" href="https://kostrzyn.yaga.sh/" target="_blank" rel="noopener">Explore ↗</a>
+            </div>
+          </div>
+        </article>
+        <article class="feature is-dark" data-reveal>
+          <div class="feature-shots" data-carousel>
+            <img class="is-active" src="assets/yaga/showcase/palace-overview.webp" alt="The palace gardens from high above: lakes, islands and courtyards" width="1600" height="800" loading="lazy">
+            <img src="assets/yaga/showcase/palace-xiyanglou.webp" alt="The European-style palace with fountains and formal gardens" width="1600" height="800" loading="lazy">
+            <img src="assets/yaga/showcase/palace-fuhai.webp" alt="A pavilion island on the lake, with boats and willows" width="1600" height="800" loading="lazy">
+          </div>
+          <div class="feature-copy">
+            <p class="mono-label feature-meta"><span class="feature-num">02</span><span>Historical reconstruction · In progress</span></p>
+            <h3 class="feature-title">Old Summer Palace <span class="feature-alt" lang="zh">圆明园</span></h3>
+            <p class="feature-desc">A 3D reconstruction of the emperors’ garden palace in Beijing, burned in 1860.</p>
+            <div class="feature-links od-cluster">
+              <a class="btn btn-solid" href="https://palace.beijing.yaga.sh/" target="_blank" rel="noopener">Explore ↗</a>
+              <a class="btn btn-line" href="https://github.com/tomasz-czarnecki/palace-beijing-yaga-sh" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </div>
+        </article>
+        <article class="feature is-dark" data-reveal>
+          <div class="feature-shots" data-carousel>
+            <img class="is-active" src="assets/yaga/showcase/zoja-throne.webp" alt="Zoja in black leather and a spiked crown, holding a microphone on a spiked black throne" width="1600" height="800" loading="lazy">
+            <img src="assets/yaga/showcase/zoja-gate.webp" alt="Zoja in a black robe, singing before an open gothic gate in a misty forest" width="1600" height="800" loading="lazy">
+            <img src="assets/yaga/showcase/zoja-forest.webp" alt="Zoja in white face paint and a spiked crown, reaching out in a foggy forest" width="1600" height="800" loading="lazy">
+          </div>
+          <div class="feature-copy">
+            <p class="mono-label feature-meta"><span class="feature-num">03</span><span>AI music · Live</span></p>
+            <h3 class="feature-title">Zoja Music</h3>
+            <p class="feature-desc">Slavic folk metal sung in Interslavic, a language most Slavs can follow without learning it. The singer, music and videos are made with AI.</p>
+            <div class="feature-links od-cluster">
+              <a class="btn btn-solid" href="https://www.youtube.com/@ZojaAI" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+            </div>
+          </div>
+        </article>
+        <article class="feature is-dark" data-reveal style="--focus: 85% 50%">
+          <div class="feature-shots" data-carousel>
+            <img class="is-active" src="assets/yaga/showcase/lily.webp" alt="卓娅 reclining on a plum velvet chaise with a bouquet" width="1600" height="800" loading="lazy">
+            <img src="assets/yaga/showcase/lily-closeup.webp" alt="Close-up portrait of 卓娅 holding a pale dahlia" width="1600" height="800" loading="lazy">
+            <img src="assets/yaga/showcase/lily-sofa.webp" alt="卓娅 in a pale blue dress on a blue tufted sofa" width="1600" height="800" loading="lazy">
+          </div>
+          <div class="feature-copy">
+            <p class="mono-label feature-meta"><span class="feature-num">04</span><span>AI persona · Live</span></p>
+            <h3 class="feature-title"><span lang="zh">卓娅</span></h3>
+            <p class="feature-desc">My AI influencer on Xiaohongshu: a face, a style and thousands of real followers.</p>
+            <div class="feature-qr od-row">
+              <img class="od-fixed" src="assets/yaga/showcase/zhuoya-qr.webp" alt="QR code for 卓娅 on Xiaohongshu" width="360" height="360" loading="lazy">
+              <p>Scan with Xiaohongshu to find her.<br><span class="mono-label">Rednote ID 42044731384</span></p>
+            </div>
+            <div class="feature-links od-cluster">
+              <a class="btn btn-solid" href="https://xhslink.com/m/4br7Tk3UdV" target="_blank" rel="noopener">Open in Xiaohongshu ↗</a>
+            </div>
+          </div>
+        </article>
+        <article class="feature is-dark" data-reveal style="--focus: 85% 50%">
+          <div class="feature-shots" data-carousel>
+            <img class="is-active" src="assets/yaga/showcase/pixel-plaza.webp" alt="An isometric pixel plaza with a fountain and a lit cottage at night" width="1600" height="800" loading="lazy">
+            <img src="assets/yaga/showcase/pixel-maze.webp" alt="Pixel characters and ghosts in a pumpkin maze" width="1600" height="800" loading="lazy">
+          </div>
+          <div class="feature-copy">
+            <p class="mono-label feature-meta"><span class="feature-num">05</span><span>Game · Live</span></p>
+            <h3 class="feature-title">Pixel World</h3>
+            <p class="feature-desc">Describe a game in a prompt, then play it with your friends. Ready-made games are live now. Prompting comes soon.</p>
+            <div class="feature-links od-cluster">
+              <a class="btn btn-solid" href="https://play.yaga.sh/" target="_blank" rel="noopener">Play ↗</a>
+            </div>
+          </div>
+        </article>
+        <article class="feature is-dark" data-reveal style="--focus: 85% 50%">
+          <div class="feature-shots" data-carousel>
+            <img class="is-active" src="assets/yaga/showcase/game-hut.webp" alt="A low-poly farm from above: a hut on legs, a well and a market stall" width="1600" height="800" loading="lazy">
+            <img src="assets/yaga/showcase/game-yaga.webp" alt="Miss Yaga with her broom beside her hut" width="1600" height="800" loading="lazy">
+            <img src="assets/yaga/showcase/game.webp" alt="The farm at night, lit by a glowing tree" width="1600" height="800" loading="lazy">
+          </div>
+          <div class="feature-copy">
+            <p class="mono-label feature-meta"><span class="feature-num">06</span><span>Game · Live</span></p>
+            <h3 class="feature-title">Yaga Farming</h3>
+            <p class="feature-desc">A small 3D farming game in the browser. Miss Yaga protects her crops and argues with a black box.</p>
+            <div class="feature-links od-cluster">
+              <a class="btn btn-solid" href="https://game.yaga.sh/" target="_blank" rel="noopener">Play ↗</a>
+              <a class="btn btn-line" href="https://github.com/tomasz-czarnecki/game-yaga-sh" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </div>
+        </article>
+        <article class="feature is-dark" data-reveal style="--focus: 85% 50%">
+          <div class="feature-shots" data-carousel>
+            <img class="is-active" src="assets/yaga/showcase/elliott-count.webp" alt="A price chart with one wave count drawn on it" width="1600" height="800" loading="lazy">
+            <img src="assets/yaga/showcase/elliott-app.webp" alt="The app: a price chart beside the list of candidate wave counts" width="1600" height="800" loading="lazy">
+          </div>
+          <div class="feature-copy">
+            <p class="mono-label feature-meta"><span class="feature-num">07</span><span>Finance · Research</span></p>
+            <h3 class="feature-title">Elliott Waves AI</h3>
+            <p class="feature-desc">Finds the possible Elliott wave counts in market data and gives each count a probability.</p>
+            <div class="feature-links od-cluster">
+              <a class="btn btn-solid" href="https://elliott.yaga.sh/" target="_blank" rel="noopener">Explore ↗</a>
+              <a class="btn btn-line" href="https://github.com/tomasz-czarnecki/elliott-yaga-sh" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </div>
+        </article>
+        <article class="feature is-dark" data-reveal style="--focus: 85% 50%">
+          <div class="feature-shots" data-carousel>
+            <img class="is-active" src="assets/yaga/showcase/whybox-scolding.webp" alt="Miss Yaga scolding a furry black cube outside her hut" width="1600" height="800" loading="lazy">
+            <img src="assets/yaga/showcase/whybox-pierogi.webp" alt="Miss Yaga making pierogi in her kitchen while the furry black cube watches" width="1600" height="800" loading="lazy">
+          </div>
+          <div class="feature-copy">
+            <p class="mono-label feature-meta"><span class="feature-num">08</span><span>Experiment · Opening soon</span></p>
+            <h3 class="feature-title">Whybox.ai</h3>
+            <p class="feature-desc">A black box you can question: what the model saw, how sure it is, and what would change its mind.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 China -->
   <section class="sec sec--alt" id="china" aria-labelledby="china-title">
     <div class="wrap">
       <header class="sec-head grid12" data-reveal>
-        <div class="sec-index col-index"><span class="sec-num">05</span><span class="sec-label">China</span><span class="sec-sub">Algorithmic Design</span></div>
+        <div class="sec-index col-index"><span class="sec-num">06</span><span class="sec-label">China</span><span class="sec-sub">Algorithmic Design</span></div>
         <div class="col-body">
           <h2 class="sec-title" id="china-title">Back in China, the fitness function was the eval.</h2>
           <p class="lead">Eight years working in China, back and forth ever since. I wrote the scripts behind a facade and an opera house interior at <strong>MAD</strong>, and competition wins at <strong>AREP</strong>. A decade before “AI agent” was a phrase, I was building evolutionary solvers that bred building geometry from a fitness function.</p>
@@ -976,7 +1142,7 @@ main > section { scroll-margin-top: 0; }
   <section class="sec is-dark" id="contact" aria-labelledby="contact-title">
     <div class="wrap">
       <header class="sec-head grid12" data-reveal>
-        <div class="sec-index col-index"><span class="sec-num">06</span><span class="sec-label">Contact</span></div>
+        <div class="sec-index col-index"><span class="sec-num">07</span><span class="sec-label">Contact</span></div>
         <div class="col-body">
           <h2 class="contact-title" id="contact-title">Got a black box nobody uses?</h2>
           <p class="lead">Tell me what it predicts and who ignores it. I’ll tell you what I’d build first.</p>
@@ -1148,6 +1314,36 @@ function initModel() {
   near.observe(viewer);
 }
 
+/** Crossfade a project's pictures every 5 s; the dots show and pick the current one. */
+function initCarousel(shots) {
+  const slides = $$('img', shots);
+  const nav = document.createElement('div');
+  nav.className = 'feature-dots';
+  let current = 0, timer = 0;
+  const show = (i) => {
+    slides[current].classList.remove('is-active');
+    dots[current].removeAttribute('aria-current');
+    current = i;
+    slides[current].classList.add('is-active');
+    dots[current].setAttribute('aria-current', 'true');
+  };
+  const restart = () => {
+    clearInterval(timer);
+    if (!reduceMotion) timer = setInterval(() => show((current + 1) % slides.length), 5000);
+  };
+  const dots = slides.map((_, i) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.setAttribute('aria-label', 'Show picture ' + (i + 1) + ' of ' + slides.length);
+    dot.addEventListener('click', () => { show(i); restart(); });
+    nav.append(dot);
+    return dot;
+  });
+  shots.append(nav);
+  show(0);
+  restart();
+}
+
 /** Copy the email address and show the result on the button and to screen readers. */
 function initCopy() {
   const btn = $('[data-copy]');
@@ -1186,6 +1382,7 @@ initCounter();
 initTabs();
 initVideo();
 initModel();
+$$('[data-carousel]').forEach(initCarousel);
 initCopy();
 initReveal();
 </script>
