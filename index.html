@@ -420,9 +420,10 @@ main > section { scroll-margin-top: 0; }
 
 /* ---------- 02 About ---------- */
 .video { --od-gap: var(--s-12); margin-top: var(--s-64); }
-.video-frame { position: relative; aspect-ratio: 16 / 9; border-radius: var(--r-16); overflow: hidden; background: var(--dark-raise); }
+.video-frame { position: relative; aspect-ratio: 16 / 10; border-radius: var(--r-16); overflow: hidden; background: var(--dark-raise); }
 .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-.video-play { position: relative; display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; }
+.video-play { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: pointer; }
+.video-play img { height: 100%; object-fit: cover; }
 .video-badge {
   position: absolute; left: 50%; top: 50%;
   display: grid; place-items: center; width: 72px; height: 72px;
