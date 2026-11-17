@@ -488,7 +488,7 @@ main > section { scroll-margin-top: 0; }
 .builds { display: grid; gap: var(--s-16); margin-top: var(--s-24); }
 @media (min-width: 768px) { .builds { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .build {
-  display: flex; flex-direction: column;
+  display: flex; flex-direction: column; height: 100%;
   padding: var(--s-12) var(--s-12) var(--s-24);
   border-radius: var(--r-16); background: var(--ground); box-shadow: inset 0 0 0 1px var(--line);
   color: var(--fg); transition: box-shadow var(--t-fast) var(--ease-out);
@@ -815,6 +815,66 @@ main > section { scroll-margin-top: 0; }
         </div>
         <a class="tile-shot" href="https://www.yaga.sh" target="_blank" rel="noopener" aria-label="Visit Yaga.sh" tabindex="-1"><img class="od-media" src="assets/yaga-sh-site.webp" alt="Yaga.sh homepage: ‘She complains about AI. Then she ships it.’ beside Miss Yaga with her birch broom" width="1200" height="750" loading="lazy"></a>
       </article>
+
+      <p class="rule-label mono-label builds-label">Projects</p>
+      <ul class="builds">
+        <li data-reveal style="--i:0">
+          <a class="build" href="https://kostrzyn.yaga.sh/" target="_blank" rel="noopener">
+            <img class="od-media" src="assets/yaga/kostrzyn.webp" alt="Küstrin 1913 reconstruction: a wedding party with lanterns on the cobbled market square at night" width="1100" height="550" loading="lazy">
+            <span class="build-meta od-row-top"><span class="od-fill">Historical reconstruction</span><span class="od-fixed od-nowrap">Live</span></span>
+            <span class="build-title">Küstrin 1913 ↗</span>
+            <span class="build-desc">A 3D reconstruction of the fortress town, destroyed in 1945 and never rebuilt. Agents rebuilt it from old photographs, maps and records.</span>
+          </a>
+        </li>
+        <li data-reveal style="--i:1">
+          <a class="build" href="https://palace.beijing.yaga.sh/" target="_blank" rel="noopener">
+            <img class="od-media" src="assets/yaga/palace.webp" alt="Old Summer Palace reconstruction: the European-style palace, fountains and formal gardens from above" width="1100" height="550" loading="lazy">
+            <span class="build-meta od-row-top"><span class="od-fill">Historical reconstruction</span><span class="od-fixed od-nowrap">In progress</span></span>
+            <span class="build-title">Old Summer Palace <span lang="zh">圆明园</span> ↗</span>
+            <span class="build-desc">A 3D reconstruction of the emperors’ garden palace in Beijing, burned in 1860.</span>
+          </a>
+        </li>
+        <li data-reveal style="--i:2">
+          <a class="build" href="https://xhslink.com/m/4br7Tk3UdV" target="_blank" rel="noopener">
+            <img class="od-media" src="assets/yaga/lily.webp" alt="Lily Wang, an AI persona: a close-up portrait holding a pale dahlia" width="1100" height="550" loading="lazy">
+            <span class="build-meta od-row-top"><span class="od-fill">AI persona</span><span class="od-fixed od-nowrap">Live</span></span>
+            <span class="build-title">Lily Wang ↗</span>
+            <span class="build-desc">My AI influencer on Xiaohongshu: a face, a style and thousands of real followers. Rednote ID 42044731384.</span>
+          </a>
+        </li>
+        <li data-reveal style="--i:0">
+          <a class="build" href="https://play.yaga.sh/" target="_blank" rel="noopener">
+            <img class="od-media" src="assets/yaga/pixel-world.webp" alt="Pixel World: an isometric pixel plaza with a fountain and a lit cottage at night" width="1100" height="550" loading="lazy">
+            <span class="build-meta od-row-top"><span class="od-fill">Game</span><span class="od-fixed od-nowrap">Live</span></span>
+            <span class="build-title">Pixel World ↗</span>
+            <span class="build-desc">Describe a game in a prompt, then play it with your friends. Ready-made games are live now. Prompting comes soon.</span>
+          </a>
+        </li>
+        <li data-reveal style="--i:1">
+          <a class="build" href="https://game.yaga.sh/" target="_blank" rel="noopener">
+            <img class="od-media" src="assets/yaga/farming.webp" alt="Yaga Farming: Miss Yaga with her broom beside her hut in a low-poly 3D farm" width="1100" height="550" loading="lazy">
+            <span class="build-meta od-row-top"><span class="od-fill">Game</span><span class="od-fixed od-nowrap">Live</span></span>
+            <span class="build-title">Yaga Farming ↗</span>
+            <span class="build-desc">A small 3D farming game in the browser. Miss Yaga protects her crops and argues with a black box.</span>
+          </a>
+        </li>
+        <li data-reveal style="--i:2">
+          <a class="build" href="https://elliott.yaga.sh/" target="_blank" rel="noopener">
+            <img class="od-media" src="assets/yaga/elliott.webp" alt="Elliott Waves AI: a price chart with a labelled wave count and the list of candidate counts" width="1100" height="550" loading="lazy">
+            <span class="build-meta od-row-top"><span class="od-fill">Finance</span><span class="od-fixed od-nowrap">Research</span></span>
+            <span class="build-title">Elliott Waves AI ↗</span>
+            <span class="build-desc">Finds the possible Elliott wave counts in market data and gives each count a probability.</span>
+          </a>
+        </li>
+        <li data-reveal style="--i:0">
+          <div class="build">
+            <img class="od-media" src="assets/yaga/whybox.webp" alt="Whybox: Miss Yaga scolding a furry black cube outside her hut" width="1100" height="550" loading="lazy">
+            <span class="build-meta od-row-top"><span class="od-fill">Experiment</span><span class="od-fixed od-nowrap">Opening soon</span></span>
+            <h3 class="build-title">Whybox.ai</h3>
+            <p class="build-desc">A black box you can question: what the model saw, how sure it is, and what would change its mind.</p>
+          </div>
+        </li>
+      </ul>
 
       <div class="says grid12" data-reveal>
         <p class="mono-label col-index">Miss Yaga says</p>
