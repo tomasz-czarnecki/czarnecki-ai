@@ -496,7 +496,7 @@ main > section { scroll-margin-top: 0; }
 .crew-chips li { display: inline-flex; align-items: center; min-height: 32px; padding: 0 var(--s-12); border-radius: var(--r-pill); box-shadow: inset 0 0 0 1px var(--rule-strong); font-family: var(--mono); font-size: var(--fs-12); letter-spacing: 0.04em; color: var(--ink-2); }
 .crew-agents { display: grid; gap: var(--s-24); }
 .crew-agent { display: grid; grid-template-columns: 72px minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: var(--s-16); row-gap: var(--s-4); padding: var(--s-12); border-radius: var(--r-16); background: var(--ground); box-shadow: inset 0 0 0 1px var(--line); }
-.crew-agent img { grid-row: 1 / span 3; border-radius: var(--r-8); }
+.crew-agent .od-media { grid-row: 1 / span 3; border-radius: var(--r-8); }
 .crew-agent .crew-name { font-size: var(--fs-18); letter-spacing: -0.02em; }
 .crew-label { margin-top: var(--s-48); }
 .crew-agents > li { display: flex; flex-direction: column; }
@@ -524,7 +524,7 @@ main > section { scroll-margin-top: 0; }
   .crew-agents > li::before { content: ""; position: absolute; top: 0; left: 50%; width: 1px; height: var(--s-32); background: var(--rule-strong); }
   .crew-agent { flex: 1; grid-template-columns: minmax(0, 1fr); grid-template-rows: none; align-content: start; padding: var(--s-12) var(--s-12) var(--s-24); }
   .crew-down { height: var(--s-24); margin-left: 50%; }
-  .crew-agent img { grid-row: auto; }
+  .crew-agent .od-media { grid-row: auto; }
   .crew-agent > span { margin-inline: var(--s-8); }
   .crew-agent .crew-name { margin-top: var(--s-12); font-size: var(--fs-22); }
   .crew-agent .crew-trait { margin-top: var(--s-4); }
@@ -808,7 +808,7 @@ main > section { scroll-margin-top: 0; }
           </div>
           <span class="crew-link" aria-hidden="true"></span>
           <ul class="crew-agents">
-            <li><div class="crew-agent"><img class="od-media" src="assets/agents/lily-curls.webp" alt="Lily’s avatar: a cartoon woman with long curly blonde hair and freckles in a black hoodie on a pink background" width="480" height="480" loading="lazy"><span class="crew-name">Lily</span><span class="mono-label">Personal assistant</span><span class="crew-trait">Creates music and video, and orchestrates my AI brain.</span></div><span class="crew-down" aria-hidden="true"></span><div class="crew-spawn"><p class="mono-label crew-spawn-head">Spawns agents and subagents</p><div class="crew-walk" aria-hidden="true"><span class="crew-walker" style="--dur: 18s; --delay: -11s; --rest: 0.32; --c: #D97757; --s: 18px"><i class="crew-bot"></i></span><span class="crew-walker" style="--dur: 9s; --delay: -1s; --rest: 0.15; --c: #C13C69"><i class="crew-bot"></i></span><span class="crew-walker" style="--dur: 12s; --delay: -7s; --rest: 0.5; --c: #C13C69"><i class="crew-bot"></i></span><span class="crew-walker" style="--dur: 15s; --delay: -4s; --rest: 0.85; --c: #C13C69"><i class="crew-bot"></i></span></div></div></li>
+            <li><div class="crew-agent"><video class="od-media" data-loop src="assets/agents/lily-loop.mp4" poster="assets/agents/lily-loop.webp" width="560" height="560" muted loop playsinline preload="none" aria-label="Lily’s avatar, gently moving: a cartoon woman with long curly blonde hair and freckles in a black hoodie on a pink background"></video><span class="crew-name">Lily</span><span class="mono-label">Personal assistant</span><span class="crew-trait">Creates music and video, and orchestrates my AI brain.</span></div><span class="crew-down" aria-hidden="true"></span><div class="crew-spawn"><p class="mono-label crew-spawn-head">Spawns agents and subagents</p><div class="crew-walk" aria-hidden="true"><span class="crew-walker" style="--dur: 18s; --delay: -11s; --rest: 0.32; --c: #D97757; --s: 18px"><i class="crew-bot"></i></span><span class="crew-walker" style="--dur: 9s; --delay: -1s; --rest: 0.15; --c: #C13C69"><i class="crew-bot"></i></span><span class="crew-walker" style="--dur: 12s; --delay: -7s; --rest: 0.5; --c: #C13C69"><i class="crew-bot"></i></span><span class="crew-walker" style="--dur: 15s; --delay: -4s; --rest: 0.85; --c: #C13C69"><i class="crew-bot"></i></span></div></div></li>
             <li><div class="crew-agent"><img class="od-media" src="assets/agents/yaga.webp" alt="Yaga’s avatar: a cartoon old woman with red curls and round glasses in a black hoodie on a green background" width="480" height="480" loading="lazy"><span class="crew-name">Yaga</span><span class="mono-label">Builder</span><span class="crew-trait">Specialises in building things and writing code.</span></div><span class="crew-down" aria-hidden="true"></span><div class="crew-spawn"><p class="mono-label crew-spawn-head">Spawns agents and subagents</p><div class="crew-walk" aria-hidden="true"><span class="crew-walker" style="--dur: 18s; --delay: -11s; --rest: 0.32; --c: #D97757; --s: 18px"><i class="crew-bot"></i></span><span class="crew-walker" style="--dur: 9s; --delay: -1s; --rest: 0.15; --c: #3B8150"><i class="crew-bot"></i></span><span class="crew-walker" style="--dur: 12s; --delay: -7s; --rest: 0.5; --c: #3B8150"><i class="crew-bot"></i></span><span class="crew-walker" style="--dur: 15s; --delay: -4s; --rest: 0.85; --c: #3B8150"><i class="crew-bot"></i></span></div></div></li>
             <li><div class="crew-agent"><img class="od-media" src="assets/agents/whybox-full.webp" alt="WhyBox’s avatar: a grinning furry purple cube with googly eyes in a black turtleneck on a blue background" width="480" height="480" loading="lazy"><span class="crew-name">WhyBox</span><span class="mono-label">Devil’s advocate</span><span class="crew-trait">Tries to break everything Yaga builds before anyone sees it.</span></div><span class="crew-down" aria-hidden="true"></span><div class="crew-spawn"><p class="mono-label crew-spawn-head">Spawns agents and subagents</p><div class="crew-walk" aria-hidden="true"><span class="crew-walker" style="--dur: 18s; --delay: -11s; --rest: 0.32; --c: #D97757; --s: 18px"><i class="crew-bot"></i></span><span class="crew-walker" style="--dur: 9s; --delay: -1s; --rest: 0.15; --c: #0272B5"><i class="crew-bot"></i></span><span class="crew-walker" style="--dur: 12s; --delay: -7s; --rest: 0.5; --c: #0272B5"><i class="crew-bot"></i></span><span class="crew-walker" style="--dur: 15s; --delay: -4s; --rest: 0.85; --c: #0272B5"><i class="crew-bot"></i></span></div></div></li>
           </ul>
@@ -1352,6 +1352,15 @@ function initCopy() {
   });
 }
 
+/** Play agent loop videos only while on screen; reduced motion keeps the poster. */
+function initLoops() {
+  if (reduceMotion) return;
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (e.isIntersecting) e.target.play(); else e.target.pause();
+  }), { rootMargin: '200px 0px' });
+  $$('video[data-loop]').forEach((v) => io.observe(v));
+}
+
 /** Fade blocks in as they enter the viewport; skipped under reduced motion. */
 function initReveal() {
   if (reduceMotion) return;
@@ -1375,6 +1384,7 @@ initCounter();
 initTabs();
 initVideo();
 initModel();
+initLoops();
 $$('[data-carousel]').forEach(initCarousel);
 initCopy();
 initReveal();
