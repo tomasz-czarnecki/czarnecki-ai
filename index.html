@@ -445,12 +445,6 @@ main > section { scroll-margin-top: 0; }
 .logo-19 { height: 19px; }
 
 /* ---------- 02 Orchestration: triangle ---------- */
-.tri { margin-top: var(--s-64); }
-.tri-legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-24) var(--gutter); }
-.tri-legend li { --od-gap: var(--s-4); align-content: start; padding-top: var(--s-12); border-top: 1px solid var(--rule); }
-.tri-legend-name { font-weight: 500; }
-.tri-legend-desc { font-size: var(--fs-14); line-height: 1.45; color: var(--fg-muted); }
-@media (min-width: 1024px) { .tri-legend { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
 /* ---------- 06 Yaga Labs ---------- */
 .tile {
@@ -471,12 +465,10 @@ main > section { scroll-margin-top: 0; }
 
 /* ---------- 02 Orchestration: one person, Hermes, three agents ---------- */
 .crew { display: grid; margin-top: var(--s-64); }
-.crew-me { --sec-bg: var(--ground); padding: var(--s-12) var(--s-12) var(--s-24); border-radius: var(--r-16); background: var(--ground); box-shadow: inset 0 0 0 1px var(--line); scroll-margin-top: calc(var(--nav-h) + var(--s-32)); }
-.crew-me-head { --od-gap: var(--s-16); }
-.crew-me-head video { display: block; width: 88px; height: 88px; border-radius: var(--r-8); }
-.crew-me .tri { margin-top: var(--s-32); padding-inline: var(--s-12); }
-.crew-me .od-field { --od-gap: var(--s-4); }
-.crew-me .crew-name { font-size: var(--fs-22); letter-spacing: -0.02em; line-height: 1.2; }
+.crew-me { scroll-margin-top: calc(var(--nav-h) + var(--s-32)); }
+.crew-me > video { display: block; width: 72px; height: 72px; border-radius: var(--r-8); }
+@media (min-width: 768px) { .crew-me > video { width: 140px; height: 140px; } }
+@media (max-width: 767.98px) { .crew-hub .crew-chips { margin-left: calc(-72px - var(--s-24)); } }
 .crew-name { font-weight: 500; }
 .crew-link { justify-self: center; width: 1px; height: var(--s-32); background: var(--rule-strong); }
 .crew-hub { --od-gap: var(--s-24); padding: var(--s-24); border-radius: var(--r-16); background: var(--ground); box-shadow: inset 0 0 0 1px var(--line); }
@@ -774,15 +766,13 @@ main > section { scroll-margin-top: 0; }
 
       <div class="grid12">
         <div class="crew col-body" data-reveal>
-          <div class="crew-me" id="orchestration">
-            <div class="crew-me-head od-row"><video class="od-fixed" data-loop src="assets/agents/tomasz-loop.mp4" poster="assets/agents/tomasz-loop.webp" width="264" height="264" muted loop playsinline preload="none" aria-label="Tomasz Czarnecki in a black hoodie on a light grey background, gently moving"></video><span class="od-field"><span class="crew-name">Tomasz</span><span class="mono-label">Human, AI orchestrator</span><span class="crew-trait">Sets the direction and checks the work. Hermes and the agents do the rest.</span></span></div>
-            <div class="tri">
-              <ul class="tri-legend">
-                <li class="od-field"><span class="tri-legend-name">Shape</span><span class="tri-legend-desc">Architecture, 3D, parametric</span></li>
-                <li class="od-field"><span class="tri-legend-name">Build</span><span class="tri-legend-desc">AI, agents, open source</span></li>
-                <li class="od-field"><span class="tri-legend-name">Bridge</span><span class="tri-legend-desc">Mandarin, China ↔ Europe</span></li>
-                <li class="od-field"><span class="tri-legend-name">Product</span><span class="tri-legend-desc">3 AI systems shipped at Heineken</span></li>
-              </ul>
+          <div class="crew-me crew-hub od-row-top" id="orchestration">
+            <video class="od-fixed" data-loop src="assets/agents/tomasz-loop-420.mp4" poster="assets/agents/tomasz-loop-420.webp" width="420" height="420" muted loop playsinline preload="none" aria-label="Tomasz Czarnecki in a black hoodie on a light grey background, gently moving"></video>
+            <div class="od-fill">
+              <h3 class="crew-title">Tomasz</h3>
+              <p class="mono-label crew-sub">Human, AI orchestrator</p>
+              <p class="crew-desc">Sets the direction and checks the work. Hermes and the agents do the rest.</p>
+              <ul class="crew-chips od-cluster"><li>Architecture, 3D</li><li>AI agents</li><li>Open source</li><li>Mandarin</li><li>China ↔ Europe</li><li>3 AI systems at Heineken</li></ul>
             </div>
           </div>
           <span class="crew-link" aria-hidden="true"></span>
