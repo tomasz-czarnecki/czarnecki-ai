@@ -469,8 +469,7 @@ main > section { scroll-margin-top: 0; }
 .crew-me > video { display: block; width: 72px; height: 72px; border-radius: var(--r-8); }
 @media (min-width: 768px) { .crew-me > video { width: 140px; height: 140px; } }
 @media (max-width: 767.98px) { .crew-me .crew-chips { margin-left: calc(-72px - var(--s-24)); } }
-.crew-agent .crew-chips { --od-gap: var(--s-4); grid-column: 1 / -1; margin-top: var(--s-12); }
-.crew-agent .crew-chips li { min-height: 24px; padding: 0 var(--s-8); font-size: 11px; }
+.crew-agent .crew-chips { grid-column: 1 / -1; margin-top: var(--s-12); }
 @media (min-width: 768px) { .crew-agent .crew-chips { margin: var(--s-16) var(--s-8) 0; } }
 .crew-name { font-weight: 500; }
 .crew-link { justify-self: center; width: 1px; height: var(--s-32); background: var(--rule-strong); }
@@ -487,8 +486,8 @@ main > section { scroll-margin-top: 0; }
 @media (min-width: 1280px) { .crew-hub { flex-wrap: nowrap; } .crew-brain { flex: 0 0 380px; align-self: stretch; padding: 0 0 0 var(--s-24); border-top: 0; border-left: 1px solid var(--line); } }
 .crew-title { font-size: var(--fs-28); font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; }
 .crew-desc { margin-top: var(--s-4); font-size: var(--fs-14); line-height: 1.45; color: var(--fg-muted); }
-.crew-chips { --od-gap: var(--s-8); margin-top: var(--s-16); }
-.crew-chips li { display: inline-flex; align-items: center; min-height: 32px; padding: 0 var(--s-12); border-radius: var(--r-pill); box-shadow: inset 0 0 0 1px var(--rule-strong); font-family: var(--mono); font-size: var(--fs-12); letter-spacing: 0.04em; color: var(--ink-2); }
+.crew-chips { --od-gap: var(--s-4); margin-top: var(--s-16); }
+.crew-chips li { display: inline-flex; align-items: center; min-height: 24px; padding: 0 var(--s-8); border-radius: var(--r-pill); box-shadow: inset 0 0 0 1px var(--rule-strong); font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; color: var(--ink-2); }
 .crew-agents { display: grid; gap: var(--s-24); }
 .crew-agent { display: grid; grid-template-columns: 72px minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: var(--s-16); row-gap: var(--s-4); padding: var(--s-12); border-radius: var(--r-16); background: var(--ground); box-shadow: inset 0 0 0 1px var(--line); }
 .crew-agent .od-media { grid-row: 1 / span 3; border-radius: var(--r-8); }
