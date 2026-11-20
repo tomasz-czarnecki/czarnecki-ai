@@ -496,8 +496,8 @@ main > section { scroll-margin-top: 0; }
 .crew-hub { --od-gap: var(--s-24); padding: var(--s-24); border-radius: var(--r-16); background: var(--ground); box-shadow: inset 0 0 0 1px var(--line); }
 .crew-hub > img { width: 72px; }
 @media (min-width: 768px) { .crew-hub { align-items: center; } .crew-hub > img { width: 140px; } }
-.crew-kicker { color: var(--accent-text); }
-.crew-title { margin-top: var(--s-4); font-size: var(--fs-28); font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; }
+.crew-sub { margin-top: var(--s-8); }
+.crew-title { font-size: var(--fs-28); font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; }
 .crew-desc { margin-top: var(--s-4); color: var(--fg-muted); }
 .crew-chips { --od-gap: var(--s-8); margin-top: var(--s-16); }
 .crew-chips li { display: inline-flex; align-items: center; min-height: 32px; padding: 0 var(--s-12); border-radius: var(--r-pill); box-shadow: inset 0 0 0 1px var(--rule-strong); font-family: var(--mono); font-size: var(--fs-12); letter-spacing: 0.04em; color: var(--ink-2); }
@@ -806,8 +806,8 @@ main > section { scroll-margin-top: 0; }
           <div class="crew-hub od-row-top">
             <img class="od-fixed" src="assets/agents/hermes-agent.svg" alt="Hermes Agent logo" width="56" height="56" loading="lazy">
             <div class="od-fill">
-              <span class="mono-label crew-kicker">Orchestrator</span>
               <h3 class="crew-title">Hermes</h3>
+              <p class="mono-label crew-sub">Open source agent</p>
               <p class="crew-desc">Lives and works on a VPS, 24 hours a day.</p>
               <ul class="crew-chips od-cluster"><li>VPS</li><li>Always on, 24 h</li><li>Model-agnostic</li></ul>
             </div>
