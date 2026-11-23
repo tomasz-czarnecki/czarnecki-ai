@@ -538,7 +538,7 @@ main > section { scroll-margin-top: 0; }
 .gov-view[aria-pressed="true"] { background: var(--ink); color: #FFFFFF; font-weight: 500; }
 @media (hover: hover) { .gov-view[aria-pressed="false"]:hover { background: var(--hover-tint); color: var(--ink); } }
 @media (pointer: coarse) { .gov-view { min-height: 44px; } }
-.gov-body { display: grid; gap: var(--s-16); padding: var(--s-16); font-size: var(--fs-14); line-height: 1.45; }
+.gov-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-16); padding: var(--s-16); font-size: var(--fs-14); line-height: 1.45; }
 .gov-panel { padding: var(--s-16); border-radius: var(--r-12); background: var(--ground); box-shadow: inset 0 0 0 1px var(--line); }
 .gov-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-16); margin-bottom: var(--s-24); color: var(--fg-muted); }
 .gov-stats b { display: block; font-size: var(--fs-40); font-weight: 500; line-height: 1.1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; color: var(--fg); }
@@ -606,6 +606,40 @@ main > section { scroll-margin-top: 0; }
   .gov-meta .gov-place { width: 96px; }
   .gov-check { width: 156px; }
 }
+/* Graph screen: nodes in columns, wires drawn in an SVG behind them */
+.gov-wire::before { width: 18px; height: 2px; border-radius: 0; background: repeating-linear-gradient(90deg, var(--ink) 0 5px, transparent 5px 8px); }
+.gov-wire--idle::before { background: var(--line-strong); }
+.gov-scroll { margin-top: var(--s-12); border: 1px solid var(--line); border-radius: var(--r-8); overflow-x: auto; }
+.gov-graph { position: relative; display: flex; justify-content: space-between; gap: var(--s-32); min-width: 860px; padding: var(--s-24); background: var(--ground-alt) radial-gradient(var(--line-strong) 1px, transparent 1px) 0 0 / 16px 16px; }
+.gov-wires { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.gov-wires path { fill: none; stroke: var(--line-strong); stroke-width: 1.5; transition: opacity var(--t-fast) var(--ease-out); }
+.gov-wires path.is-active { stroke: var(--c, var(--ink)); stroke-width: 2; }
+.gov-wires path.is-picked { stroke-width: 2.5; }
+.gov-wires path.is-picked:not(.is-active) { stroke: var(--muted); }
+.gov-wires text { font-family: var(--mono); font-size: 11px; fill: var(--muted); }
+@media (prefers-reduced-motion: no-preference) { .gov-wires path.is-active { stroke-dasharray: 6 5; animation: gov-flow 0.8s linear infinite; } }
+@keyframes gov-flow { to { stroke-dashoffset: -11; } }
+.gov-col { position: relative; display: flex; flex-direction: column; justify-content: space-around; gap: var(--s-8); }
+.gov-node { position: relative; display: flex; align-items: center; gap: var(--s-8); width: 176px; min-height: 34px; padding: var(--s-8); border: 1px solid var(--line-strong); border-radius: var(--r-8); background: var(--ground); font-size: var(--fs-14); line-height: 1.25; text-align: left; cursor: pointer; transition: opacity var(--t-fast) var(--ease-out); }
+.gov-node img { width: 36px; border-radius: 6px; background: #C9C9C6; }
+.gov-node b { display: block; font-weight: 500; }
+.gov-node small { font-size: var(--fs-12); color: var(--fg-muted); }
+.gov-node--tool { justify-content: space-between; width: 224px; padding: var(--s-4) var(--s-12); }
+.gov-node--tool .gov-place { font-size: var(--fs-12); color: var(--fg-muted); }
+.gov-node::before, .gov-node::after { content: ""; position: absolute; top: 50%; width: 8px; height: 8px; margin-top: -4px; border: 1px solid var(--line-strong); border-radius: 50%; background: var(--ground); }
+.gov-node::before { left: -5px; }
+.gov-node::after { right: -5px; }
+.gov-node--start::before, .gov-node--tool::after { content: none; }
+.gov-node--side { width: 148px; }
+.gov-node[aria-pressed="true"] { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
+.gov-node.is-dim { opacity: 0.35; }
+.gov-graph.has-pick .gov-wires path:not(.is-picked), .gov-graph.has-pick .gov-wires text { opacity: 0.12; }
+.gov-swipe { margin-top: var(--s-8); }
+@media (min-width: 924px) { .gov-swipe { display: none; } }
+.gov-pick { margin-top: var(--s-12); color: var(--fg-muted); }
+.gov-pick b { font-weight: 500; color: var(--fg); }
+.gov-pick .gov-place { margin-inline: var(--s-4); }
+.gov-pick button { padding: 0; border: 0; background: none; cursor: pointer; }
 
 /* ---------- 04 AI Projects: big project panels ---------- */
 .features { display: grid; gap: var(--s-24); margin-top: var(--s-64); }
@@ -918,6 +952,7 @@ main > section { scroll-margin-top: 0; }
           <div class="gov-bar od-row">
             <div class="gov-views od-row" role="group" aria-label="Dashboard view">
               <button class="gov-view" type="button" data-gov-view="overview" aria-pressed="true">Overview</button>
+              <button class="gov-view" type="button" data-gov-view="graph" aria-pressed="false">Graph</button>
               <button class="gov-view" type="button" data-gov-view="lily" aria-pressed="false"><img src="assets/agents/lily-alive.webp" alt="" width="24" height="24" loading="lazy">Lily</button>
               <button class="gov-view" type="button" data-gov-view="yaga" aria-pressed="false"><img src="assets/agents/yaga-alive-14s.webp" alt="" width="24" height="24" loading="lazy">Yaga</button>
               <button class="gov-view" type="button" data-gov-view="whybox" aria-pressed="false"><img src="assets/agents/whybox-smirk-21s.webp" alt="" width="24" height="24" loading="lazy">WhyBox</button>
@@ -1472,14 +1507,14 @@ function initLoops() {
 }
 
 /* Sample data for the governance prototype. Tools are [name, permission, place]; running tasks are
-   [task, skill, place, seconds so far]; log rows are [time, action, tool, place, check], newest first. */
+   [task, skill, place, seconds so far, tools in use]; log rows are [time, action, tool, place, check], newest first. */
 const GOV_PLACES = { host: 'On host', eu: 'In the EU', out: 'Outside EU' };
 const GOV_AGENTS = {
   lily: {
     name: 'Lily', role: 'Personal assistant', img: 'assets/agents/lily-alive.webp',
     skills: ['Daily notes', 'LinkedIn posts', 'Music briefs', 'Video briefs', 'XHS translation'],
     tools: [['AI Brain', 'Read and write', 'host'], ['Language model', 'EU endpoint', 'eu'], ['Calendar', 'Read only', 'eu'], ['Video model API', 'Ask first', 'out'], ['Xiaohongshu', 'Post after approval', 'out']],
-    running: [['Storyboard for the next Zoja video', 'Video briefs', 'eu', 252], ['Summarise yesterday’s notes', 'Daily notes', 'host', 41]],
+    running: [['Storyboard for the next Zoja video', 'Video briefs', 'eu', 252, ['AI Brain', 'Language model']], ['Summarise yesterday’s notes', 'Daily notes', 'host', 41, ['AI Brain']]],
     backlog: ['Translate Friday’s post for Xiaohongshu', 'Draft a LinkedIn post on agent governance'],
     log: [
       ['10:42', 'Read 6 notes for the storyboard', 'AI Brain', 'host', 'ok'],
@@ -1495,8 +1530,8 @@ const GOV_AGENTS = {
   yaga: {
     name: 'Yaga', role: 'Builder', img: 'assets/agents/yaga-alive-14s.webp',
     skills: ['Build features', 'Fix bugs', 'Write tests', 'Refactor', 'Deploy previews'],
-    tools: [['Git repository', 'Read and write', 'host'], ['Shell sandbox', 'Run commands', 'host'], ['Language model', 'EU endpoint', 'eu'], ['Preview hosting', 'Deploy previews', 'eu'], ['Production', 'Ask first', 'eu'], ['Package registry', 'Download only', 'out']],
-    running: [['Rebuild the church roof in Küstrin 1913', 'Build features', 'host', 1127], ['Run the test suite', 'Write tests', 'host', 86]],
+    tools: [['Git repository', 'Read and write', 'host'], ['Shell sandbox', 'Run commands', 'host'], ['AI Brain', 'Read only', 'host'], ['Language model', 'EU endpoint', 'eu'], ['Preview hosting', 'Deploy previews', 'eu'], ['Production', 'Ask first', 'eu'], ['Package registry', 'Download only', 'out']],
+    running: [['Rebuild the church roof in Küstrin 1913', 'Build features', 'host', 1127, ['Git repository', 'Shell sandbox']], ['Run the test suite', 'Write tests', 'host', 86, ['Shell sandbox']]],
     backlog: ['Fix lake reflections in the Old Summer Palace', 'Update dependencies'],
     log: [
       ['10:44', 'Ran 212 tests', 'Shell sandbox', 'host', 'ok'],
@@ -1511,8 +1546,8 @@ const GOV_AGENTS = {
   whybox: {
     name: 'WhyBox', role: 'Devil’s advocate', img: 'assets/agents/whybox-smirk-21s.webp',
     skills: ['Code review', 'Break the build', 'Security check', 'Fact check', 'Ask why'],
-    tools: [['Git repository', 'Read only', 'host'], ['Test runner', 'Run tests', 'host'], ['Review comments', 'Write', 'host'], ['Language model', 'EU endpoint', 'eu'], ['Web browser', 'Public pages only', 'out']],
-    running: [['Review Yaga’s roof commit', 'Code review', 'host', 173]],
+    tools: [['Git repository', 'Read only', 'host'], ['Test runner', 'Run tests', 'host'], ['Review comments', 'Write', 'host'], ['AI Brain', 'Read only', 'host'], ['Language model', 'EU endpoint', 'eu'], ['Web browser', 'Public pages only', 'out']],
+    running: [['Review Yaga’s roof commit', 'Code review', 'host', 173, ['Git repository', 'Review comments']]],
     backlog: ['Security check on the preview build', 'Fact-check Lily’s LinkedIn draft'],
     log: [
       ['10:45', 'Started the review of the roof commit', 'Git repository', 'host', 'ok'],
@@ -1618,22 +1653,124 @@ function govTick(body) {
   $$('[data-gov-clock]', body).forEach((el) => { el.textContent = govClock(+el.dataset.govClock + passed); });
 }
 
-/** Governance dashboard: the bar buttons and the card buttons switch between the overview and one agent. */
+/* Graph screen: tool nodes top to bottom, agents top to bottom (WhyBox sits between the two it checks),
+   and who hands work to whom as [from, to, what, active now]. */
+const GOV_TOOL_ORDER = ['Calendar', 'Video model API', 'Xiaohongshu', 'AI Brain', 'Language model', 'Web browser', 'Review comments', 'Test runner', 'Git repository', 'Shell sandbox', 'Preview hosting', 'Production', 'Package registry'];
+const GOV_GRAPH_AGENTS = ['lily', 'whybox', 'yaga'];
+const GOV_HANDOFFS = [['lily', 'whybox', 'Fact check', false], ['yaga', 'whybox', 'Code review', true]];
+
+/** Every agent's permission for one tool. */
+const govUsers = (tool) => Object.values(GOV_AGENTS).flatMap((a) => a.tools.filter(([name]) => name === tool).map(([, permission, place]) => ({ agent: a.name, permission, place })));
+
+/** Tools an agent's running tasks are using right now. */
+const govInUse = (a) => new Set(a.running.flatMap((task) => task[4]));
+
+/** Wires of the graph: who feeds whom, and whether the wire is in use right now. */
+function govEdges() {
+  const edges = [{ from: 'tomasz', to: 'hermes', active: true }];
+  Object.entries(GOV_AGENTS).forEach(([id, a]) => {
+    edges.push({ from: 'hermes', to: id, active: a.running.length > 0 });
+    a.tools.forEach(([tool, , place]) => edges.push({ from: id, to: tool, active: govInUse(a).has(tool), place }));
+  });
+  GOV_HANDOFFS.forEach(([from, to, label, active]) => edges.push({ from, to, label, active, vertical: true }));
+  return edges;
+}
+
+/** A person or agent node: picture, name and one line under it. */
+const govNode = (id, img, name, note, cls = '') => `<button class="gov-node ${cls}" type="button" data-node="${id}" aria-pressed="false"><img class="od-fixed" src="${img}" alt="" width="36" height="36"><span><b>${name}</b><small>${note}</small></span></button>`;
+
+/** Graph screen: Tomasz, Hermes, the agents and their tools as nodes; the wires are drawn after layout. */
+function govGraph() {
+  const agents = GOV_GRAPH_AGENTS.map((id) => govNode(id, GOV_AGENTS[id].img, GOV_AGENTS[id].name, `${GOV_AGENTS[id].running.length} running`)).join('');
+  const tools = GOV_TOOL_ORDER.map((tool) => `<button class="gov-node gov-node--tool" type="button" data-node="${tool}" aria-pressed="false">${tool}${govPlace(govUsers(tool)[0].place)}</button>`).join('');
+  const places = Object.keys(GOV_PLACES).map((p) => `<li>${govPlace(p)}</li>`).join('');
+  return `<div class="gov-panel">
+    <div class="gov-loghead od-row"><p class="mono-label">Agent graph · live</p>
+      <ul class="gov-legend od-cluster"><li><span class="gov-place gov-wire">In use now</span></li><li><span class="gov-place gov-wire gov-wire--idle">Idle</span></li>${places}</ul></div>
+    <div class="gov-scroll"><div class="gov-graph" data-gov-graph data-pick="">
+      <svg class="gov-wires" aria-hidden="true"></svg>
+      <div class="gov-col">${govNode('tomasz', 'assets/agents/tomasz-loop-5s.webp', 'Tomasz', 'Human', 'gov-node--start gov-node--side')}</div>
+      <div class="gov-col">${govNode('hermes', 'assets/agents/hermes-white.webp', 'Hermes', 'Orchestrator', 'gov-node--side')}</div>
+      <div class="gov-col">${agents}</div>
+      <div class="gov-col">${tools}</div>
+    </div></div>
+    <p class="mono-label gov-swipe">Swipe sideways to see the whole graph →</p>
+    <p class="gov-pick" data-gov-pick aria-live="polite"></p>
+  </div>`;
+}
+
+/** Draw the wires between the nodes, measured from where the nodes actually sit. */
+function govDrawWires(graph) {
+  const box = graph.getBoundingClientRect();
+  const at = (id) => {
+    const r = $(`[data-node="${id}"]`, graph).getBoundingClientRect();
+    return { left: r.left - box.left, right: r.right - box.left, top: r.top - box.top, bottom: r.bottom - box.top, x: r.left - box.left + r.width / 2, y: r.top - box.top + r.height / 2 };
+  };
+  $('svg', graph).innerHTML = govEdges().map((e) => {
+    const a = at(e.from), b = at(e.to), bend = (b.left - a.right) / 2, down = a.y < b.y;
+    const d = e.vertical
+      ? `M${a.x},${down ? a.bottom : a.top} L${b.x},${down ? b.top : b.bottom}`
+      : `M${a.right},${a.y} C${a.right + bend},${a.y} ${b.left - bend},${b.y} ${b.left},${b.y}`;
+    const label = e.label ? `<text x="${a.x + 10}" y="${(a.y + b.y) / 2 + 4}">${e.label}</text>` : '';
+    return `<path d="${d}" class="${e.active ? 'is-active' : ''}" data-from="${e.from}" data-to="${e.to}" data-place="${e.place || ''}"/>${label}`;
+  }).join('');
+  govHighlight(graph);
+}
+
+/** Mark the picked node, its wires and its neighbours; dim the rest. */
+function govHighlight(graph) {
+  const pick = graph.dataset.pick, linked = new Set([pick]);
+  $$('path', graph).forEach((p) => {
+    const hit = p.dataset.from === pick || p.dataset.to === pick;
+    p.classList.toggle('is-picked', hit);
+    if (hit) linked.add(p.dataset.from).add(p.dataset.to);
+  });
+  graph.classList.toggle('has-pick', !!pick);
+  $$('[data-node]', graph).forEach((n) => {
+    n.setAttribute('aria-pressed', String(n.dataset.node === pick));
+    n.classList.toggle('is-dim', !!pick && !linked.has(n.dataset.node));
+  });
+}
+
+/** One line about the picked node: what it uses, or who shares it and with which permission. */
+function govPickText(id) {
+  const a = GOV_AGENTS[id], users = govUsers(id);
+  if (a) return `<b>${a.name}</b> · ${a.role} · ${a.tools.length} tools, ${govInUse(a).size} in use now. <button class="text-link" type="button" data-gov-view="${id}">Open permissions and log →</button>`;
+  if (users.length) return `<b>${id}</b> ${govPlace(users[0].place)} · ${users.length > 1 ? `shared by ${users.length} agents` : 'used by 1 agent'}: ${users.map((u) => `${u.agent} (${u.permission})`).join(', ')}`;
+  const others = { tomasz: '<b>Tomasz</b> sets the direction and approves anything marked “Ask first”.', hermes: '<b>Hermes</b> hands tasks to the three agents and keeps them running, 24 hours a day.' };
+  return others[id] || 'Select a node to see what it uses, who shares it and with which permissions.';
+}
+
+/** Governance dashboard: the bar buttons switch between the overview, the graph and one agent. */
 function initGov() {
   const root = $('[data-gov]'), body = $('[data-gov-body]', root);
+  const screens = { overview: govOverview, graph: govGraph };
+  const redraw = () => {
+    const graph = $('[data-gov-graph]', body);
+    if (!graph) return;
+    govDrawWires(graph);
+    $('[data-gov-pick]', body).innerHTML = govPickText(graph.dataset.pick);
+  };
   const show = (view) => {
     $$('.gov-view', root).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.govView === view)));
-    body.innerHTML = view === 'overview' ? govOverview() : govAgent(view);
+    body.innerHTML = (screens[view] || govAgent)(view);
     govTick(body);
+    redraw();
     if (!root.contains(document.activeElement)) $('.gov-view[aria-pressed="true"]', root).focus({ preventScroll: true });
   };
   root.addEventListener('click', (e) => {
-    const view = e.target.closest('[data-gov-view]'), filter = e.target.closest('[data-gov-filter]');
+    const view = e.target.closest('[data-gov-view]'), filter = e.target.closest('[data-gov-filter]'), node = e.target.closest('[data-node]');
     if (view) show(view.dataset.govView);
     if (filter) govFilter(body, filter.dataset.govFilter);
+    if (node) {
+      const graph = node.closest('[data-gov-graph]');
+      graph.dataset.pick = graph.dataset.pick === node.dataset.node ? '' : node.dataset.node;
+      redraw();
+    }
   });
   body.innerHTML = govOverview();
   setInterval(() => govTick(body), 1000);
+  new ResizeObserver(redraw).observe(body);
 }
 
 /** Fade blocks in as they enter the viewport; skipped under reduced motion. */
