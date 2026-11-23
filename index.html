@@ -286,7 +286,7 @@ strong { font-weight: 600; color: var(--fg); }
   .nav-cv { margin-left: var(--s-8); }
   .nav-menu { display: none; }
 }
-@media (min-width: 1024px) and (max-width: 1279.98px) { .nav-links a { padding: 0 var(--s-8); } }
+@media (min-width: 1024px) and (max-width: 1279.98px) { .nav-links a { padding: 0 5px; } }
 @media (max-width: 1023.98px) {
   .nav-cv { display: none; }
   .nav-menu { margin-left: auto; }
@@ -525,7 +525,85 @@ main > section { scroll-margin-top: 0; }
   .crew-traits { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
 
-/* ---------- 03 AI Projects: big project panels ---------- */
+/* ---------- 03 Governance: dashboard prototype ---------- */
+.gov { --gov-host: #0CA30C; --gov-eu: #2B63D6; --gov-out: #D97706; --gov-stop: #D03B3B; margin-top: var(--s-64); border-radius: var(--r-16); background: var(--ground-alt); box-shadow: inset 0 0 0 1px var(--line); overflow: hidden; }
+.gov-bar { --od-gap: var(--s-12); flex-wrap: wrap; justify-content: space-between; padding: var(--s-8) var(--s-12); border-bottom: 1px solid var(--line); background: var(--ground); }
+.gov-views { --od-gap: var(--s-4); flex-wrap: wrap; }
+.gov-view { display: inline-flex; align-items: center; gap: var(--s-8); min-height: 36px; padding: 0 var(--s-12); border: 0; border-radius: var(--r-pill); background: transparent; font-size: var(--fs-14); color: var(--ink-2); cursor: pointer; }
+.gov-view img { width: 24px; margin-left: -6px; border-radius: 50%; }
+.gov-view[aria-pressed="true"] { background: var(--ink); color: #FFFFFF; font-weight: 500; }
+@media (hover: hover) { .gov-view[aria-pressed="false"]:hover { background: var(--hover-tint); color: var(--ink); } }
+@media (pointer: coarse) { .gov-view { min-height: 44px; } }
+.gov-body { display: grid; gap: var(--s-16); padding: var(--s-16); font-size: var(--fs-14); line-height: 1.45; }
+.gov-panel { padding: var(--s-16); border-radius: var(--r-12); background: var(--ground); box-shadow: inset 0 0 0 1px var(--line); }
+.gov-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-16); margin-bottom: var(--s-24); color: var(--fg-muted); }
+.gov-stats b { display: block; font-size: var(--fs-40); font-weight: 500; line-height: 1.1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; color: var(--fg); }
+.gov-split { display: flex; gap: 2px; height: 12px; margin-top: var(--s-12); }
+.gov-split i { flex: var(--n) 1 0; min-width: 4px; border-radius: 4px; background: var(--c); }
+.gov-legend { --od-gap: var(--s-4) var(--s-16); margin-top: var(--s-8); color: var(--fg-muted); }
+.gov-legend b { font-weight: 500; font-variant-numeric: tabular-nums; color: var(--fg); }
+.gov-place { display: inline-flex; align-items: center; gap: var(--s-8); white-space: nowrap; }
+.gov-place::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 2px; background: var(--c); }
+.gov [data-place="host"] { --c: var(--gov-host); }
+.gov [data-place="eu"] { --c: var(--gov-eu); }
+.gov [data-place="out"] { --c: var(--gov-out); }
+.gov-agents { display: grid; gap: var(--s-16); }
+@media (min-width: 1280px) { .gov-agents { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.gov-card { display: flex; flex-direction: column; gap: var(--s-16); }
+.gov-who { --od-gap: var(--s-12); }
+.gov-who img { width: 40px; border-radius: var(--r-8); }
+.gov-name { font-size: var(--fs-18); font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; }
+.gov-live { display: flex; align-items: center; gap: var(--s-8); color: var(--fg-muted); }
+.gov-live::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--gov-host); }
+@media (prefers-reduced-motion: no-preference) { .gov-live::before { animation: gov-pulse 1.6s ease-in-out infinite; } }
+@keyframes gov-pulse { 50% { opacity: 0.3; } }
+.gov .crew-chips { margin-top: var(--s-8); }
+.gov-list { margin-top: var(--s-4); }
+.gov-list li { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-12); padding: var(--s-8) 0; border-top: 1px solid var(--line-soft); }
+.gov-list li:first-child { border-top: 0; }
+.gov-list .gov-place { color: var(--fg-muted); }
+.gov-open { align-self: flex-start; min-height: 40px; margin-top: auto; padding: 0 var(--s-16); font-size: var(--fs-14); }
+/* One agent: permissions, live tasks, backlog and activity log */
+.gov-head { display: grid; gap: var(--s-16); }
+.gov-head .gov-who img { width: 56px; }
+.gov-cols, .gov-stack { display: grid; gap: var(--s-16); align-items: start; }
+@media (min-width: 1280px) { .gov-cols { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); } }
+.gov-rows, .gov-tasks, .gov-backlog { margin-top: var(--s-4); }
+.gov-rows li, .gov-tasks li, .gov-backlog li, .gov-log li { padding: var(--s-8) 0; border-top: 1px solid var(--line-soft); }
+.gov-rows li:first-child, .gov-tasks li:first-child, .gov-backlog li:first-child { border-top: 0; }
+.gov-rows li { display: grid; grid-template-columns: minmax(0, 1fr) 96px; gap: 0 var(--s-12); align-items: baseline; }
+.gov-rows li > :nth-child(2) { grid-row: 2; }
+@media (min-width: 768px) { .gov-rows li { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 96px; } .gov-rows li > :nth-child(2) { grid-row: auto; } }
+.gov-rows li > :nth-child(n + 2), .gov-meta, .gov-task-meta { color: var(--fg-muted); }
+.gov-rows + .mono-label { margin-top: var(--s-24); }
+.gov-tasks li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s-4) var(--s-12); align-items: baseline; }
+.gov-task { font-weight: 500; }
+.gov-clock { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.gov-task-meta { --od-gap: var(--s-4) var(--s-16); grid-column: 1 / -1; }
+.gov-backlog li { display: flex; align-items: baseline; gap: var(--s-12); }
+.gov-loghead { --od-gap: var(--s-8) var(--s-16); flex-wrap: wrap; justify-content: space-between; }
+.gov-filters { --od-gap: var(--s-4); }
+.gov-filter { display: inline-flex; align-items: center; min-height: 32px; padding: 0 var(--s-12); border: 0; border-radius: var(--r-pill); background: transparent; box-shadow: inset 0 0 0 1px var(--rule-strong); font-size: var(--fs-14); color: var(--ink-2); cursor: pointer; }
+.gov-filter[aria-pressed="true"] { background: var(--ink); box-shadow: none; color: #FFFFFF; }
+@media (pointer: coarse) { .gov-filter { min-height: 44px; } }
+.gov-log { margin-top: var(--s-12); }
+.gov-log li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: var(--s-4) var(--s-12); align-items: baseline; padding-block: var(--s-12); }
+.gov-log li[hidden] { display: none; }
+.gov-log time { font-family: var(--mono); font-size: var(--fs-12); color: var(--fg-muted); }
+.gov-act small { display: block; font-size: var(--fs-12); color: var(--fg-muted); }
+.gov-meta { --od-gap: var(--s-4) var(--s-16); grid-column: 2; }
+.gov-check { display: inline-flex; align-items: center; gap: var(--s-4); white-space: nowrap; }
+.gov-check i { font-style: normal; font-weight: 600; color: var(--gov-host); }
+.gov-log [data-check="blocked"] .gov-check { font-weight: 500; color: var(--fg); }
+.gov-log [data-check="blocked"] .gov-check i { color: var(--gov-stop); }
+@media (min-width: 768px) {
+  .gov-log li { grid-template-columns: 44px minmax(0, 1fr) auto; }
+  .gov-meta { grid-column: auto; flex-wrap: nowrap; }
+  .gov-meta .gov-place { width: 96px; }
+  .gov-check { width: 156px; }
+}
+
+/* ---------- 04 AI Projects: big project panels ---------- */
 .features { display: grid; gap: var(--s-24); margin-top: var(--s-64); }
 .feature { position: relative; overflow: hidden; border-radius: var(--r-16); background: var(--dark); color: var(--fg); }
 .feature-shots { position: relative; aspect-ratio: 3 / 2; }
@@ -645,6 +723,7 @@ main > section { scroll-margin-top: 0; }
       <ul class="nav-links">
         <li><a href="#about" data-nav-link>About</a></li>
         <li><a href="#skills" data-nav-link>Orchestration</a></li>
+        <li><a href="#governance" data-nav-link>Governance</a></li>
         <li><a href="#projects" data-nav-link>AI Projects</a></li>
         <li><a href="#work" data-nav-link>RGM &amp; Analytics</a></li>
         <li><a href="#china" data-nav-link>China</a></li>
@@ -668,10 +747,11 @@ main > section { scroll-margin-top: 0; }
       <ul class="sheet-links">
         <li><a href="#about" data-nav-link><span class="sheet-name">About</span><span class="sheet-num">01</span></a></li>
         <li><a href="#skills" data-nav-link><span class="sheet-name">Orchestration</span><span class="sheet-num">02</span></a></li>
-        <li><a href="#projects" data-nav-link><span class="sheet-name">AI Projects</span><span class="sheet-num">03</span></a></li>
-        <li><a href="#work" data-nav-link><span class="sheet-name">RGM &amp; Analytics</span><span class="sheet-num">04</span></a></li>
-        <li><a href="#china" data-nav-link><span class="sheet-name">China</span><span class="sheet-num">05</span></a></li>
-        <li><a href="#yagalabs" data-nav-link><span class="sheet-name">Yaga Labs</span><span class="sheet-num">06</span></a></li>
+        <li><a href="#governance" data-nav-link><span class="sheet-name">Governance</span><span class="sheet-num">03</span></a></li>
+        <li><a href="#projects" data-nav-link><span class="sheet-name">AI Projects</span><span class="sheet-num">04</span></a></li>
+        <li><a href="#work" data-nav-link><span class="sheet-name">RGM &amp; Analytics</span><span class="sheet-num">05</span></a></li>
+        <li><a href="#china" data-nav-link><span class="sheet-name">China</span><span class="sheet-num">06</span></a></li>
+        <li><a href="#yagalabs" data-nav-link><span class="sheet-name">Yaga Labs</span><span class="sheet-num">07</span></a></li>
         <li><a href="#contact" data-nav-link><span class="sheet-name">Contact</span></a></li>
       </ul>
     </nav>
@@ -817,11 +897,40 @@ main > section { scroll-margin-top: 0; }
     </div>
   </section>
 
-  <!-- 03 AI Projects -->
+  <!-- 03 Governance -->
+  <section class="sec" id="governance" aria-labelledby="governance-title">
+    <div class="wrap">
+      <header class="sec-head grid12" data-reveal>
+        <div class="sec-index col-index"><span class="sec-num">03</span><span class="sec-label">Governance</span><span class="sec-sub">The control layer</span></div>
+        <div class="col-body">
+          <h2 class="sec-title" id="governance-title">Agent governance.</h2>
+          <p class="lead"><strong>Agents need rules you can check.</strong> This is the control layer on top of my team. It shows what each agent is allowed to do, what it is doing right now, and where every piece of data went: on my host, inside the EU, or out to an outside provider.</p>
+        </div>
+      </header>
+
+      <div class="grid12">
+        <div class="gov col-body" data-reveal data-gov>
+          <div class="gov-bar od-row">
+            <div class="gov-views od-row" role="group" aria-label="Dashboard view">
+              <button class="gov-view" type="button" data-gov-view="overview" aria-pressed="true">Overview</button>
+              <button class="gov-view" type="button" data-gov-view="lily" aria-pressed="false"><img src="assets/agents/lily-alive.webp" alt="" width="24" height="24" loading="lazy">Lily</button>
+              <button class="gov-view" type="button" data-gov-view="yaga" aria-pressed="false"><img src="assets/agents/yaga-alive-14s.webp" alt="" width="24" height="24" loading="lazy">Yaga</button>
+              <button class="gov-view" type="button" data-gov-view="whybox" aria-pressed="false"><img src="assets/agents/whybox-smirk-21s.webp" alt="" width="24" height="24" loading="lazy">WhyBox</button>
+            </div>
+            <span class="mono-label gov-note">Prototype · sample data</span>
+          </div>
+          <div class="gov-body" data-gov-body></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 04 AI Projects -->
   <section class="sec sec--alt" id="projects" aria-labelledby="projects-title">
     <div class="wrap">
       <header class="sec-head grid12" data-reveal>
-        <div class="sec-index col-index"><span class="sec-num">03</span><span class="sec-label">AI Projects</span><span class="sec-sub">Built with AI agents</span></div>
+        <div class="sec-index col-index"><span class="sec-num">04</span><span class="sec-label">AI Projects</span><span class="sec-sub">Built with AI agents</span></div>
         <div class="col-body">
           <h2 class="sec-title" id="projects-title">Selected projects.</h2>
           <p class="lead">Side projects, built with AI agents. Some are live and some are still in progress.</p>
@@ -939,11 +1048,11 @@ main > section { scroll-margin-top: 0; }
     </div>
   </section>
 
-  <!-- 04 RGM & Analytics -->
+  <!-- 05 RGM & Analytics -->
   <section class="sec" id="work" aria-labelledby="work-title">
     <div class="wrap">
       <header class="sec-head grid12" data-reveal>
-        <div class="sec-index col-index"><span class="sec-num">04</span><span class="sec-label">RGM &amp; Analytics</span><span class="sec-sub">Heineken · Global Analytics &amp; AI Hub</span></div>
+        <div class="sec-index col-index"><span class="sec-num">05</span><span class="sec-label">RGM &amp; Analytics</span><span class="sec-sub">Heineken · Global Analytics &amp; AI Hub</span></div>
         <div class="col-body">
           <h2 class="sec-title" id="work-title">Decision tools people actually use</h2>
           <p class="lead">Heineken spends about €7.9 million on marketing and sales a day. Someone decides where every one of those euros goes. The models were ready early. The people deciding still trusted their spreadsheets more.</p>
@@ -1024,11 +1133,11 @@ main > section { scroll-margin-top: 0; }
     </div>
   </section>
 
-  <!-- 05 China -->
+  <!-- 06 China -->
   <section class="sec sec--alt" id="china" aria-labelledby="china-title">
     <div class="wrap">
       <header class="sec-head grid12" data-reveal>
-        <div class="sec-index col-index"><span class="sec-num">05</span><span class="sec-label">China</span><span class="sec-sub">Algorithmic Design</span></div>
+        <div class="sec-index col-index"><span class="sec-num">06</span><span class="sec-label">China</span><span class="sec-sub">Algorithmic Design</span></div>
         <div class="col-body">
           <h2 class="sec-title" id="china-title">Back in China, the fitness function was the eval.</h2>
           <p class="lead">Eight years working in China, back and forth ever since. I wrote the scripts behind a facade and an opera house interior at <strong>MAD</strong>, and competition wins at <strong>AREP</strong>. A decade before “AI agent” was a phrase, I was building evolutionary solvers that bred building geometry from a fitness function.</p>
@@ -1091,11 +1200,11 @@ main > section { scroll-margin-top: 0; }
     </div>
   </section>
 
-  <!-- 06 Yaga Labs -->
+  <!-- 07 Yaga Labs -->
   <section class="sec" id="yagalabs" aria-labelledby="yagalabs-title">
     <div class="wrap">
       <header class="sec-head grid12" data-reveal>
-        <div class="sec-index col-index"><span class="sec-num">06</span><span class="sec-label">Yaga Labs</span><span class="sec-sub">Business case</span></div>
+        <div class="sec-index col-index"><span class="sec-num">07</span><span class="sec-label">Yaga Labs</span><span class="sec-sub">Business case</span></div>
         <div class="col-body">
           <h2 class="sec-title" id="yagalabs-title">Where I build now.</h2>
         </div>
@@ -1357,6 +1466,171 @@ function initLoops() {
   });
 }
 
+/* Sample data for the governance prototype. Tools are [name, permission, place]; running tasks are
+   [task, skill, place, seconds so far]; log rows are [time, action, tool, place, check], newest first. */
+const GOV_PLACES = { host: 'On host', eu: 'In the EU', out: 'Outside EU' };
+const GOV_AGENTS = {
+  lily: {
+    name: 'Lily', role: 'Personal assistant', img: 'assets/agents/lily-alive.webp',
+    skills: ['Daily notes', 'LinkedIn posts', 'Music briefs', 'Video briefs', 'XHS translation'],
+    tools: [['AI Brain', 'Read and write', 'host'], ['Language model', 'EU endpoint', 'eu'], ['Calendar', 'Read only', 'eu'], ['Video model API', 'Ask first', 'out'], ['Xiaohongshu', 'Post after approval', 'out']],
+    running: [['Storyboard for the next Zoja video', 'Video briefs', 'eu', 252], ['Summarise yesterday’s notes', 'Daily notes', 'host', 41]],
+    backlog: ['Translate Friday’s post for Xiaohongshu', 'Draft a LinkedIn post on agent governance'],
+    log: [
+      ['10:42', 'Read 6 notes for the storyboard', 'AI Brain', 'host', 'ok'],
+      ['10:38', 'Wrote the storyboard draft', 'Language model', 'eu', 'ok'],
+      ['10:21', 'Sent the video brief, no personal data in it', 'Video model API', 'out', 'ok'],
+      ['10:20', 'Tried to attach a contact list to the brief', 'Video model API', 'out', 'blocked'],
+      ['09:55', 'Checked today’s meetings', 'Calendar', 'eu', 'ok'],
+      ['09:30', 'Posted a photo set', 'Xiaohongshu', 'out', 'approved'],
+      ['09:02', 'Saved the daily note', 'AI Brain', 'host', 'ok'],
+      ['08:45', 'Loaded MEMORY.md and today’s plan', 'AI Brain', 'host', 'ok'],
+    ],
+  },
+  yaga: {
+    name: 'Yaga', role: 'Builder', img: 'assets/agents/yaga-alive-14s.webp',
+    skills: ['Build features', 'Fix bugs', 'Write tests', 'Refactor', 'Deploy previews'],
+    tools: [['Git repository', 'Read and write', 'host'], ['Shell sandbox', 'Run commands', 'host'], ['Language model', 'EU endpoint', 'eu'], ['Preview hosting', 'Deploy previews', 'eu'], ['Production', 'Ask first', 'eu'], ['Package registry', 'Download only', 'out']],
+    running: [['Rebuild the church roof in Küstrin 1913', 'Build features', 'host', 1127], ['Run the test suite', 'Write tests', 'host', 86]],
+    backlog: ['Fix lake reflections in the Old Summer Palace', 'Update dependencies'],
+    log: [
+      ['10:44', 'Ran 212 tests', 'Shell sandbox', 'host', 'ok'],
+      ['10:31', 'Committed the roof geometry', 'Git repository', 'host', 'ok'],
+      ['10:12', 'Asked for a build plan', 'Language model', 'eu', 'ok'],
+      ['09:58', 'Downloaded 3 packages', 'Package registry', 'out', 'ok'],
+      ['09:40', 'Deployed a preview build', 'Preview hosting', 'eu', 'ok'],
+      ['09:36', 'Tried to deploy to production without approval', 'Production', 'eu', 'blocked'],
+      ['09:15', 'Pulled the latest changes', 'Git repository', 'host', 'ok'],
+    ],
+  },
+  whybox: {
+    name: 'WhyBox', role: 'Devil’s advocate', img: 'assets/agents/whybox-smirk-21s.webp',
+    skills: ['Code review', 'Break the build', 'Security check', 'Fact check', 'Ask why'],
+    tools: [['Git repository', 'Read only', 'host'], ['Test runner', 'Run tests', 'host'], ['Review comments', 'Write', 'host'], ['Language model', 'EU endpoint', 'eu'], ['Web browser', 'Public pages only', 'out']],
+    running: [['Review Yaga’s roof commit', 'Code review', 'host', 173]],
+    backlog: ['Security check on the preview build', 'Fact-check Lily’s LinkedIn draft'],
+    log: [
+      ['10:45', 'Started the review of the roof commit', 'Git repository', 'host', 'ok'],
+      ['10:33', 'Found 2 failing edge cases', 'Test runner', 'host', 'ok'],
+      ['10:15', 'Asked why the roof needs 40,000 triangles', 'Review comments', 'host', 'ok'],
+      ['09:50', 'Checked a historical source online', 'Web browser', 'out', 'ok'],
+      ['09:47', 'Tried to open a page behind a login', 'Web browser', 'out', 'blocked'],
+      ['09:20', 'Summarised the review findings', 'Language model', 'eu', 'ok'],
+    ],
+  },
+};
+
+/** Dot and label for where data went. */
+const govPlace = (place) => `<span class="gov-place" data-place="${place}">${GOV_PLACES[place]}</span>`;
+
+/** Count the agents' log rows: passed actions per place, blocked ones apart. */
+function govCount(agents) {
+  const n = { host: 0, eu: 0, out: 0, blocked: 0, total: 0 };
+  agents.forEach((a) => a.log.forEach(([, , , place, check]) => { n.total++; n[check === 'blocked' ? 'blocked' : place]++; }));
+  return n;
+}
+
+/** Segmented bar with a legend: how many actions stayed on host, in the EU, or went outside. */
+function govSplit(n) {
+  const places = Object.keys(GOV_PLACES);
+  const summary = places.map((p) => `${GOV_PLACES[p]} ${n[p]}`).join(', ');
+  const bars = places.filter((p) => n[p]).map((p) => `<i data-place="${p}" style="--n: ${n[p]}" title="${GOV_PLACES[p]}: ${n[p]}"></i>`).join('');
+  const legend = places.map((p) => `<li>${govPlace(p)} <b>${n[p]}</b></li>`).join('');
+  return `<div class="gov-split" role="img" aria-label="Where the data went: ${summary}">${bars}</div><ul class="gov-legend od-cluster">${legend}</ul>`;
+}
+
+/** One agent's card on the overview screen. */
+function govCard([id, a]) {
+  return `<li class="gov-panel gov-card">
+    <div class="gov-who od-row"><img class="od-fixed" src="${a.img}" alt="" width="40" height="40"><div class="od-fill"><p class="gov-name">${a.name}</p><p class="gov-live">${a.running.length} running · ${a.backlog.length} in backlog</p></div></div>
+    <div><p class="mono-label">Skills</p><ul class="crew-chips od-cluster">${a.skills.map((s) => `<li>${s}</li>`).join('')}</ul></div>
+    <div><p class="mono-label">Tools</p><ul class="gov-list">${a.tools.map(([tool, , place]) => `<li><span>${tool}</span>${govPlace(place)}</li>`).join('')}</ul></div>
+    <div><p class="mono-label">Data today</p>${govSplit(govCount([a]))}</div>
+    <button class="btn btn-line gov-open" type="button" data-gov-view="${id}">Permissions and activity log →</button>
+  </li>`;
+}
+
+/** Overview screen: totals for the whole team, then one card per agent. */
+function govOverview() {
+  const agents = Object.values(GOV_AGENTS), n = govCount(agents);
+  const running = agents.reduce((sum, a) => sum + a.running.length, 0);
+  return `<div class="gov-panel">
+    <ul class="gov-stats"><li><b>${n.total}</b>Actions today</li><li><b>${running}</b>Tasks running now</li><li><b>${n.blocked}</b>Actions blocked</li></ul>
+    <p class="mono-label">Where the data went</p>${govSplit(n)}
+  </div>
+  <ul class="gov-agents">${Object.entries(GOV_AGENTS).map(govCard).join('')}</ul>`;
+}
+
+const GOV_CHECKS = { ok: ['✓', 'OK'], approved: ['✓', 'Approved by Tomasz'], blocked: ['✕', 'Blocked'] };
+const GOV_T0 = Date.now();
+
+/** Seconds as m:ss. */
+const govClock = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+
+/** One row of the activity log. */
+function govLogRow([time, action, tool, place, check]) {
+  const [icon, label] = GOV_CHECKS[check];
+  return `<li data-place="${place}" data-check="${check}"><time>${time}</time><span class="gov-act">${action}<small>${tool}</small></span>
+    <span class="gov-meta od-cluster">${govPlace(place)}<span class="gov-check"><i aria-hidden="true">${icon}</i>${label}</span></span></li>`;
+}
+
+/** One agent's screen: permissions and skills, running tasks, backlog, then today's activity log. */
+function govAgent(id) {
+  const a = GOV_AGENTS[id];
+  const filters = [['all', 'All'], ...Object.entries(GOV_PLACES)].map(([key, label], i) => `<button class="gov-filter" type="button" data-gov-filter="${key}" aria-pressed="${!i}">${label}</button>`).join('');
+  return `<div class="gov-panel gov-head">
+    <div class="gov-who od-row"><img class="od-fixed" src="${a.img}" alt="" width="56" height="56"><div class="od-fill"><p class="gov-name">${a.name}</p><p class="gov-live">${a.role} · ${a.running.length} running · ${a.backlog.length} in backlog</p></div></div>
+    <div><p class="mono-label">Data today</p>${govSplit(govCount([a]))}</div>
+  </div>
+  <div class="gov-cols">
+    <div class="gov-panel">
+      <p class="mono-label">Permissions</p>
+      <ul class="gov-rows">${a.tools.map(([tool, permission, place]) => `<li><span>${tool}</span><span>${permission}</span>${govPlace(place)}</li>`).join('')}</ul>
+      <p class="mono-label">Skills</p><ul class="crew-chips od-cluster">${a.skills.map((s) => `<li>${s}</li>`).join('')}</ul>
+    </div>
+    <div class="gov-stack">
+      <div class="gov-panel"><p class="mono-label">Running now</p>
+        <ul class="gov-tasks">${a.running.map(([task, skill, place, secs]) => `<li><span class="gov-task">${task}</span><time class="gov-clock" data-gov-clock="${secs}"></time><span class="gov-task-meta od-cluster"><span>${skill}</span>${govPlace(place)}</span></li>`).join('')}</ul></div>
+      <div class="gov-panel"><p class="mono-label">Backlog</p>
+        <ul class="gov-backlog">${a.backlog.map((task, i) => `<li><span class="mono-label">0${i + 1}</span>${task}</li>`).join('')}</ul></div>
+    </div>
+  </div>
+  <div class="gov-panel">
+    <div class="gov-loghead od-row"><p class="mono-label">Activity log · today</p><div class="gov-filters od-cluster" role="group" aria-label="Filter the log by where the data went">${filters}</div></div>
+    <ul class="gov-log">${a.log.map(govLogRow).join('')}</ul>
+  </div>`;
+}
+
+/** Show the log rows for one place only, or all of them. */
+function govFilter(body, place) {
+  $$('[data-gov-filter]', body).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.govFilter === place)));
+  $$('.gov-log li', body).forEach((li) => { li.hidden = place !== 'all' && li.dataset.place !== place; });
+}
+
+/** Keep the running tasks' clocks counting from page load. */
+function govTick(body) {
+  const passed = (Date.now() - GOV_T0) / 1000;
+  $$('[data-gov-clock]', body).forEach((el) => { el.textContent = govClock(+el.dataset.govClock + passed); });
+}
+
+/** Governance dashboard: the bar buttons and the card buttons switch between the overview and one agent. */
+function initGov() {
+  const root = $('[data-gov]'), body = $('[data-gov-body]', root);
+  const show = (view) => {
+    $$('.gov-view', root).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.govView === view)));
+    body.innerHTML = view === 'overview' ? govOverview() : govAgent(view);
+    govTick(body);
+    if (!root.contains(document.activeElement)) $('.gov-view[aria-pressed="true"]', root).focus({ preventScroll: true });
+  };
+  root.addEventListener('click', (e) => {
+    const view = e.target.closest('[data-gov-view]'), filter = e.target.closest('[data-gov-filter]');
+    if (view) show(view.dataset.govView);
+    if (filter) govFilter(body, filter.dataset.govFilter);
+  });
+  body.innerHTML = govOverview();
+  setInterval(() => govTick(body), 1000);
+}
+
 /** Fade blocks in as they enter the viewport; skipped under reduced motion. */
 function initReveal() {
   if (reduceMotion) return;
@@ -1381,6 +1655,7 @@ initTabs();
 initVideo();
 initModel();
 initLoops();
+initGov();
 $$('[data-carousel]').forEach(initCarousel);
 initCopy();
 initReveal();
