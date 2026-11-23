@@ -590,6 +590,19 @@ main > section { scroll-margin-top: 0; }
 .gov-filter { display: inline-flex; align-items: center; min-height: 32px; padding: 0 var(--s-12); border: 0; border-radius: var(--r-pill); background: transparent; box-shadow: inset 0 0 0 1px var(--rule-strong); font-size: var(--fs-14); color: var(--ink-2); cursor: pointer; }
 .gov-filter[aria-pressed="true"] { background: var(--ink); box-shadow: none; color: #FFFFFF; }
 @media (pointer: coarse) { .gov-filter { min-height: 44px; } }
+/* Finder window with the agent's desktop folder */
+.gov-finder { padding: 0; border: 1px solid var(--line); box-shadow: none; overflow: hidden; }
+.gov-finder-bar { --od-gap: var(--s-12); padding: var(--s-8) var(--s-12); border-bottom: 1px solid var(--line); background: var(--ground-alt); color: var(--fg-muted); }
+.gov-finder-bar b { font-weight: 500; color: var(--fg); }
+.gov-finder-back { width: 28px; height: 28px; padding: 0; border: 0; border-radius: 6px; background: transparent; font-size: 20px; line-height: 1; color: var(--ink-2); cursor: pointer; }
+.gov-finder-back:disabled { opacity: 0.3; cursor: default; }
+.gov-files { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); align-content: start; gap: var(--s-8); min-height: 132px; padding: var(--s-16); }
+.gov-file { display: grid; justify-items: center; gap: var(--s-4); width: 100%; padding: var(--s-8) var(--s-4); border: 0; border-radius: var(--r-8); background: transparent; font-size: var(--fs-12); line-height: 1.3; text-align: center; overflow-wrap: anywhere; }
+.gov-file svg { width: 44px; height: 40px; }
+button.gov-file { cursor: pointer; }
+@media (hover: hover) { button.gov-file:hover, .gov-finder-back:enabled:hover { background: var(--hover-tint); } }
+@media (pointer: coarse) { .gov-finder-back { width: 44px; height: 44px; } }
+.gov-finder-path { --od-gap: var(--s-4) var(--s-16); justify-content: space-between; padding: var(--s-8) var(--s-12); border-top: 1px solid var(--line); background: var(--ground-alt); font-size: var(--fs-12); color: var(--fg-muted); }
 .gov-log { margin-top: var(--s-12); }
 .gov-log li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: var(--s-4) var(--s-12); align-items: baseline; padding-block: var(--s-12); }
 .gov-log li[hidden] { display: none; }
@@ -1528,6 +1541,12 @@ const GOV_AGENTS = {
     tools: [['AI Brain', 'Read and write', 'host'], ['Language model', 'EU endpoint', 'eu'], ['Calendar', 'Read only', 'eu'], ['Video model API', 'Ask first', 'out'], ['Xiaohongshu', 'Post after approval', 'out']],
     running: [['Storyboard for the next Zoja video', 'Video briefs', 'eu', 252, ['AI Brain', 'Language model']], ['Summarise yesterday’s notes', 'Daily notes', 'host', 41, ['AI Brain']]],
     backlog: ['Translate Friday’s post for Xiaohongshu', 'Draft a LinkedIn post on agent governance'],
+    desktop: [
+      ['Zoja Music', ['storyboard-v4.md', 'video-brief.md', 'lyrics-interslavic.txt', 'cover-art.png']],
+      ['卓娅 Xiaohongshu', ['friday-post.md', 'captions-zh.txt', 'photo-set-12.zip']],
+      ['LinkedIn', ['governance-post-draft.md', 'hooks.txt']],
+      'daily-note.md', 'SOUL.md', 'MEMORY.md',
+    ],
     log: [
       ['10:42', 'Read 6 notes for the storyboard', 'AI Brain', 'host', 'ok'],
       ['10:38', 'Wrote the storyboard draft', 'Language model', 'eu', 'ok'],
@@ -1545,6 +1564,12 @@ const GOV_AGENTS = {
     tools: [['Git repository', 'Read and write', 'host'], ['Shell sandbox', 'Run commands', 'host'], ['AI Brain', 'Read only', 'host'], ['Language model', 'EU endpoint', 'eu'], ['Preview hosting', 'Deploy previews', 'eu'], ['Production', 'Ask first', 'eu'], ['Package registry', 'Download only', 'out']],
     running: [['Rebuild the church roof in Küstrin 1913', 'Build features', 'host', 1127, ['Git repository', 'Shell sandbox']], ['Run the test suite', 'Write tests', 'host', 86, ['Shell sandbox']]],
     backlog: ['Fix lake reflections in the Old Summer Palace', 'Update dependencies'],
+    desktop: [
+      ['kustrin-1913', ['church-roof.glb', 'roof-geometry.py', 'test-report.html', 'README.md']],
+      ['palace-beijing', ['lake-shader.glsl', 'fuhai-island.glb', 'todo.md']],
+      ['czarnecki-ai', ['index.html', 'deploy-preview.log']],
+      'build-plan.md', 'SOUL.md', 'MEMORY.md',
+    ],
     log: [
       ['10:44', 'Ran 212 tests', 'Shell sandbox', 'host', 'ok'],
       ['10:31', 'Committed the roof geometry', 'Git repository', 'host', 'ok'],
@@ -1561,6 +1586,12 @@ const GOV_AGENTS = {
     tools: [['Git repository', 'Read only', 'host'], ['Test runner', 'Run tests', 'host'], ['Review comments', 'Write', 'host'], ['AI Brain', 'Read only', 'host'], ['Language model', 'EU endpoint', 'eu'], ['Web browser', 'Public pages only', 'out']],
     running: [['Review Yaga’s roof commit', 'Code review', 'host', 173, ['Git repository', 'Review comments']]],
     backlog: ['Security check on the preview build', 'Fact-check Lily’s LinkedIn draft'],
+    desktop: [
+      ['reviews', ['roof-commit-review.md', 'failing-edge-cases.txt', 'why-40k-triangles.md']],
+      ['security-checks', ['preview-build-scan.md', 'checklist.md']],
+      ['fact-checks', ['lily-linkedin-draft.md']],
+      'questions.md', 'SOUL.md', 'MEMORY.md',
+    ],
     log: [
       ['10:45', 'Started the review of the roof commit', 'Git repository', 'host', 'ok'],
       ['10:33', 'Found 2 failing edge cases', 'Test runner', 'host', 'ok'],
@@ -1595,9 +1626,9 @@ function govSplit(n) {
 function govCard([id, a]) {
   return `<li class="gov-panel gov-card">
     <div class="gov-who od-row"><img class="od-fixed" src="${a.img}" alt="" width="40" height="40"><div class="od-fill"><p class="gov-name">${a.name}</p><p class="gov-live">${a.running.length} running · ${a.backlog.length} in backlog</p></div></div>
+    <div><p class="mono-label">Data today</p>${govSplit(govCount([a]))}</div>
     <div><p class="mono-label">Skills</p><ul class="crew-chips od-cluster">${a.skills.map((s) => `<li>${s}</li>`).join('')}</ul></div>
     <div><p class="mono-label">Tools</p><ul class="gov-list">${a.tools.map(([tool, , place]) => `<li><span>${tool}</span>${govPlace(place)}</li>`).join('')}</ul></div>
-    <div><p class="mono-label">Data today</p>${govSplit(govCount([a]))}</div>
     <button class="btn btn-line gov-open" type="button" data-gov-view="${id}">Permissions and activity log →</button>
   </li>`;
 }
@@ -1626,7 +1657,28 @@ function govLogRow([time, action, tool, place, check]) {
     <span class="gov-meta od-cluster">${govPlace(place)}<span class="gov-check"><i aria-hidden="true">${icon}</i>${label}</span></span></li>`;
 }
 
-/** One agent's screen: permissions and skills, running tasks, backlog, then today's activity log. */
+/* Finder icons: a folder and a document. */
+const GOV_ICONS = {
+  folder: '<svg viewBox="0 0 44 40" aria-hidden="true"><path d="M2 8a4 4 0 0 1 4-4h10l4 4h18a4 4 0 0 1 4 4v20a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z" fill="#5BA8E8"/><path d="M2 14h40v18a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z" fill="#7DBDF3"/></svg>',
+  file: '<svg viewBox="0 0 44 40" aria-hidden="true"><path d="M11 2h15l8 8v26a2 2 0 0 1-2 2H11a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#FFFFFF" stroke="#C9C9C6"/><path d="M26 2v8h8" fill="none" stroke="#C9C9C6"/><path d="M14 18h14M14 23h14M14 28h9" stroke="#D6D6D3"/></svg>',
+};
+
+/** Finder window for an agent's Desktop, or for one folder on it (folder is its index; '' is the Desktop). */
+function govFinder(id, folder = '') {
+  const a = GOV_AGENTS[id], open = folder === '' ? null : a.desktop[folder];
+  const items = open ? open[1] : a.desktop;
+  const icons = items.map((item, i) => (Array.isArray(item)
+    ? `<li><button class="gov-file" type="button" data-gov-folder="${i}">${GOV_ICONS.folder}<span>${item[0]}</span></button></li>`
+    : `<li><span class="gov-file">${GOV_ICONS.file}<span>${item}</span></span></li>`)).join('');
+  const path = ['Hermes VPS', a.name.toLowerCase(), 'Desktop', ...(open ? [open[0]] : [])].join(' › ');
+  return `<div class="gov-finder-bar od-row"><span class="gov-dots od-fixed" aria-hidden="true"><i></i><i></i><i></i></span>
+      <button class="gov-finder-back od-fixed" type="button" data-gov-folder="" aria-label="Back to the Desktop" ${open ? '' : 'disabled'}>‹</button>
+      <b class="od-fill">${open ? open[0] : `${a.name}’s Desktop`}</b><span>${items.length} items</span></div>
+    <ul class="gov-files">${icons}</ul>
+    <p class="gov-finder-path od-cluster"><span>${path}</span>${govPlace('host')}</p>`;
+}
+
+/** One agent's screen: permissions and skills, running tasks, backlog, the desktop folder, then today's activity log. */
 function govAgent(id) {
   const a = GOV_AGENTS[id];
   const filters = [['all', 'All'], ...Object.entries(GOV_PLACES)].map(([key, label], i) => `<button class="gov-filter" type="button" data-gov-filter="${key}" aria-pressed="${!i}">${label}</button>`).join('');
@@ -1647,6 +1699,7 @@ function govAgent(id) {
         <ul class="gov-backlog">${a.backlog.map((task, i) => `<li><span class="mono-label">0${i + 1}</span>${task}</li>`).join('')}</ul></div>
     </div>
   </div>
+  <div class="gov-panel gov-finder" data-gov-finder="${id}">${govFinder(id)}</div>
   <div class="gov-panel">
     <div class="gov-loghead od-row"><p class="mono-label">Activity log · today</p><div class="gov-filters od-cluster" role="group" aria-label="Filter the log by where the data went">${filters}</div></div>
     <ul class="gov-log">${a.log.map(govLogRow).join('')}</ul>
@@ -1771,9 +1824,14 @@ function initGov() {
     if (!root.contains(document.activeElement)) $('.gov-view[aria-pressed="true"]', root).focus({ preventScroll: true });
   };
   root.addEventListener('click', (e) => {
-    const view = e.target.closest('[data-gov-view]'), filter = e.target.closest('[data-gov-filter]'), node = e.target.closest('[data-node]');
+    const view = e.target.closest('[data-gov-view]'), filter = e.target.closest('[data-gov-filter]'), node = e.target.closest('[data-node]'), folder = e.target.closest('[data-gov-folder]');
     if (view) show(view.dataset.govView);
     if (filter) govFilter(body, filter.dataset.govFilter);
+    if (folder) {
+      const finder = folder.closest('[data-gov-finder]');
+      finder.innerHTML = govFinder(finder.dataset.govFinder, folder.dataset.govFolder);
+      $('button:not([disabled])', finder).focus({ preventScroll: true });
+    }
     if (node) {
       const graph = node.closest('[data-gov-graph]');
       graph.dataset.pick = graph.dataset.pick === node.dataset.node ? '' : node.dataset.node;
